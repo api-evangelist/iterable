@@ -1,0 +1,366 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export API
+  description: >-
+    The Iterable Export API enables developers to extract data from Iterable
+    projects for analytics, reporting, and data warehousing purposes. It
+    provides export endpoints that allow retrieval of user data, event data,
+    campaign metrics, and message engagement information in CSV and JSON
+    formats. The export endpoints support filtering by date ranges and event
+    types, making it possible to build custom reporting pipelines and
+    synchronize Iterable data with external business intelligence tools.
+  version: '1.0.0'
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+servers:
+  - url: https://api.iterable.com/api
+    description: US Data Center (USDC)
+  - url: https://api.eu.iterable.com/api
+    description: European Data Center (EDC)
+tags:
+  - name: Export
+    description: >-
+      Endpoints for exporting data from Iterable projects in CSV and JSON
+      formats. Supports exporting user events, message engagement data,
+      and campaign metrics.
+  - name: ExperimentMetrics
+    description: >-
+      Export experiment and A/B test metrics as CSV for analysis.
+security:
+  - apiKeyAuth: []
+paths:
+  /export/data.json:
+    get:
+      operationId: exportDataJson
+      summary: Export data as JSON
+      description: >-
+        Exports event data from the Iterable project in JSON format. Supports
+        filtering by date range and data type. The response is a stream of
+        newline-delimited JSON objects, each representing a single event record.
+      tags:
+        - Export
+      parameters:
+        - $ref: '#/components/parameters/dataTypeName'
+        - $ref: '#/components/parameters/startDateTime'
+        - $ref: '#/components/parameters/endDateTime'
+        - $ref: '#/components/parameters/range'
+        - $ref: '#/components/parameters/omitFields'
+        - $ref: '#/components/parameters/onlyFields'
+      responses:
+        '200':
+          description: >-
+            Newline-delimited JSON export of event data
+          content:
+            application/x-ndjson:
+              schema:
+                type: string
+                description: >-
+                  Stream of newline-delimited JSON objects
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+  /export/data.csv:
+    get:
+      operationId: exportDataCsv
+      summary: Export data as CSV
+      description: >-
+        Exports event data from the Iterable project in CSV format. Supports
+        filtering by date range and data type. The response is a CSV file
+        with headers in the first row.
+      tags:
+        - Export
+      parameters:
+        - $ref: '#/components/parameters/dataTypeName'
+        - $ref: '#/components/parameters/startDateTime'
+        - $ref: '#/components/parameters/endDateTime'
+        - $ref: '#/components/parameters/range'
+        - $ref: '#/components/parameters/omitFields'
+        - $ref: '#/components/parameters/onlyFields'
+      responses:
+        '200':
+          description: CSV export of event data
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: >-
+                  CSV formatted export data with headers
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+  /export/userEvents:
+    get:
+      operationId: exportUserEvents
+      summary: Export events for a specific user
+      description: >-
+        Exports all tracked events for a specific user identified by email
+        address. Returns events in JSON format with support for pagination
+        and filtering by event type.
+      tags:
+        - Export
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: >-
+            Email address of the user whose events to export
+          schema:
+            type: string
+            format: email
+        - name: includeCustomEvents
+          in: query
+          description: >-
+            Whether to include custom events in the export
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: User events data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    description: >-
+                      Array of events tracked for the user
+                    items:
+                      $ref: '#/components/schemas/ExportedEvent'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+  /experiments/metrics:
+    get:
+      operationId: exportExperimentMetrics
+      summary: Export experiment metrics as CSV
+      description: >-
+        Exports experiment metrics for A/B tests as CSV. Supports multiple
+        experiment IDs and campaign IDs as query parameters, up to 200 total
+        per request. This endpoint returns data only for email experiments.
+      tags:
+        - ExperimentMetrics
+      parameters:
+        - name: experimentId
+          in: query
+          description: >-
+            One or more experiment IDs to export metrics for
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: campaignId
+          in: query
+          description: >-
+            One or more campaign IDs to export metrics for
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: Experiment metrics in CSV format
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: >-
+                  CSV formatted experiment metrics data
+        '400':
+          description: Bad request - too many IDs or invalid parameters
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: >-
+        Iterable API key passed in the Api-Key header. API keys can be
+        created and managed in the Iterable project settings.
+  parameters:
+    dataTypeName:
+      name: dataTypeName
+      in: query
+      required: true
+      description: >-
+        The type of data to export. Supported types include emailSend,
+        emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint,
+        pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived,
+        inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent,
+        and hostedUnsubscribeClick.
+      schema:
+        type: string
+        enum:
+          - emailSend
+          - emailOpen
+          - emailClick
+          - emailUnSubscribe
+          - emailBounce
+          - emailComplaint
+          - pushSend
+          - pushBounce
+          - pushOpen
+          - smsSend
+          - smsBounce
+          - smsReceived
+          - inAppSend
+          - inAppOpen
+          - inAppClick
+          - webPushSend
+          - purchase
+          - customEvent
+          - hostedUnsubscribeClick
+          - userNew
+          - userUpdate
+    startDateTime:
+      name: startDateTime
+      in: query
+      description: >-
+        Start of the export date range in ISO 8601 format
+        (e.g., 2024-01-01T00:00:00Z)
+      schema:
+        type: string
+        format: date-time
+    endDateTime:
+      name: endDateTime
+      in: query
+      description: >-
+        End of the export date range in ISO 8601 format
+        (e.g., 2024-01-31T23:59:59Z)
+      schema:
+        type: string
+        format: date-time
+    range:
+      name: range
+      in: query
+      description: >-
+        Predefined date range to export. Use instead of startDateTime and
+        endDateTime for convenience. Options include Today, Yesterday,
+        BeforeToday, and All.
+      schema:
+        type: string
+        enum:
+          - Today
+          - Yesterday
+          - BeforeToday
+          - All
+    omitFields:
+      name: omitFields
+      in: query
+      description: >-
+        Comma-separated list of fields to exclude from the export
+      schema:
+        type: string
+    onlyFields:
+      name: onlyFields
+      in: query
+      description: >-
+        Comma-separated list of fields to include in the export.
+        When specified, only these fields are returned.
+      schema:
+        type: string
+  schemas:
+    ErrorResponse:
+      type: object
+      description: >-
+        Error response returned when a request fails
+      properties:
+        msg:
+          type: string
+          description: >-
+            Error message describing what went wrong
+        code:
+          type: string
+          description: >-
+            Error code
+    ExportedEvent:
+      type: object
+      description: >-
+        An exported event record
+      properties:
+        email:
+          type: string
+          format: email
+          description: >-
+            Email address of the user
+        eventName:
+          type: string
+          description: >-
+            Name of the event
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the event was created
+        campaignId:
+          type: integer
+          description: >-
+            Associated campaign ID if applicable
+        templateId:
+          type: integer
+          description: >-
+            Associated template ID if applicable
+        messageId:
+          type: string
+          description: >-
+            Unique message ID for sent messages
+        dataFields:
+          type: object
+          description: >-
+            Additional event data fields
+          additionalProperties: true
+        contentId:
+          type: integer
+          description: >-
+            Content ID for experiments
+        channelId:
+          type: integer
+          description: >-
+            Channel ID for the message
+        messageTypeId:
+          type: integer
+          description: >-
+            Message type ID
+        workflowId:
+          type: integer
+          description: >-
+            Workflow ID if the event was triggered by a workflow
+        workflowName:
+          type: string
+          description: >-
+            Name of the associated workflow
+        campaignName:
+          type: string
+          description: >-
+            Name of the associated campaign
+        templateName:
+          type: string
+          description: >-
+            Name of the associated template
+        labels:
+          type: array
+          description: >-
+            Labels associated with the campaign
+          items:
+            type: string

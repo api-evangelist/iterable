@@ -1,0 +1,167 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "iterable": "https://api.iterable.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "User": {
+      "@id": "iterable:User",
+      "@context": {
+        "email": "schema:email",
+        "userId": "iterable:userId",
+        "phoneNumber": "schema:telephone",
+        "signupDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "profileUpdatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "dataFields": "iterable:dataFields",
+        "emailListIds": {
+          "@id": "iterable:emailListIds",
+          "@container": "@set"
+        },
+        "devices": {
+          "@id": "iterable:devices",
+          "@container": "@set"
+        },
+        "unsubscribedChannelIds": {
+          "@id": "iterable:unsubscribedChannelIds",
+          "@container": "@set"
+        },
+        "unsubscribedMessageTypeIds": {
+          "@id": "iterable:unsubscribedMessageTypeIds",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Campaign": {
+      "@id": "iterable:Campaign",
+      "@context": {
+        "name": "schema:name",
+        "campaignType": "iterable:campaignType",
+        "messageMedium": "iterable:messageMedium",
+        "campaignState": "iterable:campaignState",
+        "templateId": "iterable:templateId",
+        "workflowId": "iterable:workflowId",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "startAt": {
+          "@id": "iterable:startAt",
+          "@type": "xsd:dateTime"
+        },
+        "endedAt": {
+          "@id": "iterable:endedAt",
+          "@type": "xsd:dateTime"
+        },
+        "listIds": {
+          "@id": "iterable:listIds",
+          "@container": "@set"
+        },
+        "labels": {
+          "@id": "iterable:labels",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Event": {
+      "@id": "iterable:Event",
+      "@context": {
+        "eventName": "schema:name",
+        "email": "schema:email",
+        "userId": "iterable:userId",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "campaignId": "iterable:campaignId",
+        "templateId": "iterable:templateId",
+        "dataFields": "iterable:dataFields"
+      }
+    },
+
+    "CommerceItem": {
+      "@id": "iterable:CommerceItem",
+      "@context": {
+        "name": "schema:name",
+        "sku": "schema:sku",
+        "description": "schema:description",
+        "price": "schema:price",
+        "quantity": "iterable:quantity",
+        "imageUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "categories": {
+          "@id": "schema:category",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "List": {
+      "@id": "iterable:List",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "listType": "iterable:listType",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Channel": {
+      "@id": "iterable:Channel",
+      "@context": {
+        "name": "schema:name",
+        "channelType": "iterable:channelType",
+        "messageMedium": "iterable:messageMedium"
+      }
+    },
+
+    "EmailTemplate": {
+      "@id": "iterable:EmailTemplate",
+      "@context": {
+        "name": "schema:name",
+        "subject": "iterable:subject",
+        "fromName": "iterable:fromName",
+        "fromEmail": "iterable:fromEmail",
+        "html": "iterable:html",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Catalog": {
+      "@id": "iterable:Catalog",
+      "@context": {
+        "catalogName": "schema:name",
+        "fieldMappings": "iterable:fieldMappings"
+      }
+    }
+  }
+}

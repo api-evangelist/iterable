@@ -1,0 +1,2210 @@
+openapi: 3.1.0
+info:
+  title: Iterable REST API
+  description: >-
+    The Iterable REST API provides programmatic access to the Iterable
+    cross-channel marketing automation platform. It exposes endpoints for
+    managing users, campaigns, lists, events, commerce tracking, catalogs,
+    channels, templates, experiments, workflows, and message delivery across
+    email, push, SMS, and in-app channels. The API uses standard HTTP methods,
+    JSON request and response bodies, and supports authentication via API keys
+    or JWT-enabled keys.
+  version: '1.0.0'
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+externalDocs:
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+servers:
+  - url: https://api.iterable.com/api
+    description: US Data Center (USDC)
+  - url: https://api.eu.iterable.com/api
+    description: European Data Center (EDC)
+tags:
+  - name: Users
+    description: >-
+      Manage user profiles, update user fields, bulk update users, get user
+      data by email or userId, and delete users.
+  - name: Events
+    description: >-
+      Track custom events, retrieve event data for users, and manage event
+      metadata used for segmentation and campaign triggering.
+  - name: Campaigns
+    description: >-
+      Create, retrieve, and manage marketing campaigns. Access campaign
+      metrics and trigger campaign sends.
+  - name: Lists
+    description: >-
+      Create and manage subscriber lists. Subscribe and unsubscribe users
+      from lists. Retrieve list metadata and membership.
+  - name: Channels
+    description: >-
+      Retrieve and manage messaging channels and message types used for
+      organizing campaigns and templates.
+  - name: Templates
+    description: >-
+      Manage email, push, SMS, and in-app message templates. Retrieve
+      template content and metadata.
+  - name: Workflows
+    description: >-
+      Trigger workflow enrollments and manage journey-based automation
+      workflows.
+  - name: Commerce
+    description: >-
+      Track purchase events, update cart data, and manage commerce-related
+      user activity for revenue attribution.
+  - name: Catalogs
+    description: >-
+      Manage product catalogs and catalog items used for personalization
+      and recommendation in campaigns.
+  - name: Experiments
+    description: >-
+      Retrieve experiment configurations and metrics for A/B tests
+      running across campaigns.
+  - name: Email
+    description: >-
+      Send transactional emails and manage email-specific delivery
+      settings.
+  - name: Push
+    description: >-
+      Send push notifications and manage push notification delivery
+      settings and tokens.
+  - name: SMS
+    description: >-
+      Send SMS messages and manage SMS-specific delivery settings.
+  - name: InApp
+    description: >-
+      Manage in-app messages and retrieve in-app message content for
+      mobile and web clients.
+  - name: MessageTypes
+    description: >-
+      Manage message types that categorize the kinds of messages sent
+      through channels.
+  - name: Metadata
+    description: >-
+      Store and retrieve key-value metadata tables for use in
+      personalization and campaign logic.
+  - name: WebPush
+    description: >-
+      Send web push notifications and manage web push subscription
+      tokens.
+security:
+  - apiKeyAuth: []
+paths:
+  /users/update:
+    post:
+      operationId: updateUser
+      summary: Update a user profile
+      description: >-
+        Updates an existing user profile or creates a new one if the user does
+        not already exist. Accepts user fields, email, userId, and data fields
+        to set or update on the user profile.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Successfully updated the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+  /users/bulkUpdate:
+    post:
+      operationId: bulkUpdateUsers
+      summary: Bulk update user profiles
+      description: >-
+        Updates multiple user profiles in a single request. Each user object in
+        the array can include email, userId, and data fields to update.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - users
+              properties:
+                users:
+                  type: array
+                  description: >-
+                    Array of user objects to update
+                  items:
+                    $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Successfully queued bulk update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /users/{email}:
+    get:
+      operationId: getUserByEmail
+      summary: Get a user by email
+      description: >-
+        Retrieves the full user profile for a given email address, including
+        all data fields and subscription preferences.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/emailPath'
+      responses:
+        '200':
+          description: User profile data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+    delete:
+      operationId: deleteUserByEmail
+      summary: Delete a user by email
+      description: >-
+        Deletes a user profile identified by email address from the Iterable
+        project.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/emailPath'
+      responses:
+        '200':
+          description: Successfully deleted user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+  /users/byUserId/{userId}:
+    get:
+      operationId: getUserByUserId
+      summary: Get a user by userId
+      description: >-
+        Retrieves the full user profile for a given userId, including all data
+        fields and subscription preferences.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userIdPath'
+      responses:
+        '200':
+          description: User profile data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+    delete:
+      operationId: deleteUserByUserId
+      summary: Delete a user by userId
+      description: >-
+        Deletes a user profile identified by userId from the Iterable project.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/userIdPath'
+      responses:
+        '200':
+          description: Successfully deleted user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+  /users/getFields:
+    get:
+      operationId: getUserFields
+      summary: Get user fields
+      description: >-
+        Retrieves all user field names and their data types defined in the
+        Iterable project.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: List of user fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fields:
+                    type: object
+                    description: >-
+                      Map of field names to their data types
+                    additionalProperties:
+                      type: string
+        '401':
+          description: Unauthorized
+  /users/registerDeviceToken:
+    post:
+      operationId: registerDeviceToken
+      summary: Register a device token
+      description: >-
+        Registers a device token (APNs or FCM) for a user to enable push
+        notification delivery.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - device
+              properties:
+                email:
+                  type: string
+                  description: >-
+                    Email address of the user
+                device:
+                  type: object
+                  description: >-
+                    Device token information
+                  properties:
+                    token:
+                      type: string
+                      description: >-
+                        The device token
+                    platform:
+                      type: string
+                      enum:
+                        - APNS
+                        - APNS_SANDBOX
+                        - GCM
+                      description: >-
+                        The push platform
+                    applicationName:
+                      type: string
+                      description: >-
+                        The application name
+      responses:
+        '200':
+          description: Device token registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /events/track:
+    post:
+      operationId: trackEvent
+      summary: Track a custom event
+      description: >-
+        Tracks a custom event for a user. Events can be used to trigger
+        campaigns, segment users, and track user behavior within the
+        Iterable platform.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEventRequest'
+      responses:
+        '200':
+          description: Event tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /events/trackBulk:
+    post:
+      operationId: trackBulkEvents
+      summary: Track multiple events in bulk
+      description: >-
+        Tracks multiple custom events in a single request. Each event in the
+        array includes the user identifier, event name, and associated data
+        fields.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - events
+              properties:
+                events:
+                  type: array
+                  description: >-
+                    Array of events to track
+                  items:
+                    $ref: '#/components/schemas/TrackEventRequest'
+      responses:
+        '200':
+          description: Events tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /events/{email}:
+    get:
+      operationId: getEventsByEmail
+      summary: Get events for a user by email
+      description: >-
+        Retrieves events tracked for a user identified by email address.
+        Supports pagination and filtering by event type.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/emailPath'
+        - name: limit
+          in: query
+          description: >-
+            Maximum number of events to return
+          schema:
+            type: integer
+            default: 30
+      responses:
+        '200':
+          description: List of user events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      summary: List campaigns
+      description: >-
+        Retrieves metadata for all campaigns in the project associated with
+        the API key. Returns campaign id, name, type, status, template
+        information, and creation dates.
+      tags:
+        - Campaigns
+      responses:
+        '200':
+          description: List of campaigns
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  campaigns:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Campaign'
+        '401':
+          description: Unauthorized
+  /campaigns/create:
+    post:
+      operationId: createCampaign
+      summary: Create a campaign
+      description: >-
+        Creates a new campaign in the Iterable project with the specified
+        name, template, list, and configuration options.
+      tags:
+        - Campaigns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCreateRequest'
+      responses:
+        '200':
+          description: Campaign created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                  code:
+                    type: string
+                  params:
+                    type: object
+                    properties:
+                      campaignId:
+                        type: integer
+                        description: >-
+                          The ID of the created campaign
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /campaigns/metrics:
+    get:
+      operationId: getCampaignMetrics
+      summary: Get campaign metrics
+      description: >-
+        Retrieves engagement metrics for one or more campaigns, including
+        sends, opens, clicks, unsubscribes, bounces, and complaints.
+      tags:
+        - Campaigns
+      parameters:
+        - name: campaignId
+          in: query
+          required: true
+          description: >-
+            One or more campaign IDs to retrieve metrics for
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: startDateTime
+          in: query
+          description: >-
+            Start date for the metrics period in ISO 8601 format
+          schema:
+            type: string
+            format: date-time
+        - name: endDateTime
+          in: query
+          description: >-
+            End date for the metrics period in ISO 8601 format
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Campaign metrics data
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          description: Unauthorized
+  /lists:
+    get:
+      operationId: listLists
+      summary: Get all lists
+      description: >-
+        Retrieves all subscriber lists in the Iterable project, including
+        list ID, name, creation date, and size.
+      tags:
+        - Lists
+      responses:
+        '200':
+          description: List of subscriber lists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lists:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/List'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createList
+      summary: Create a list
+      description: >-
+        Creates a new subscriber list in the Iterable project.
+      tags:
+        - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: >-
+                    The name of the new list
+      responses:
+        '200':
+          description: List created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listId:
+                    type: integer
+                    description: >-
+                      The ID of the created list
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /lists/subscribe:
+    post:
+      operationId: subscribeToList
+      summary: Subscribe users to a list
+      description: >-
+        Adds one or more users to a subscriber list. Users are identified
+        by email address.
+      tags:
+        - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - listId
+                - subscribers
+              properties:
+                listId:
+                  type: integer
+                  description: >-
+                    The ID of the list to subscribe users to
+                subscribers:
+                  type: array
+                  description: >-
+                    Array of subscriber objects
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        description: >-
+                          Email address of the user to subscribe
+                      userId:
+                        type: string
+                        description: >-
+                          UserId of the user to subscribe
+                      dataFields:
+                        type: object
+                        description: >-
+                          Optional data fields to set on the user
+                        additionalProperties: true
+      responses:
+        '200':
+          description: Users subscribed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  successCount:
+                    type: integer
+                  failCount:
+                    type: integer
+                  invalidEmails:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /lists/unsubscribe:
+    post:
+      operationId: unsubscribeFromList
+      summary: Unsubscribe users from a list
+      description: >-
+        Removes one or more users from a subscriber list. Users are identified
+        by email address.
+      tags:
+        - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - listId
+                - subscribers
+              properties:
+                listId:
+                  type: integer
+                  description: >-
+                    The ID of the list to unsubscribe users from
+                subscribers:
+                  type: array
+                  description: >-
+                    Array of subscriber objects
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        description: >-
+                          Email address of the user to unsubscribe
+      responses:
+        '200':
+          description: Users unsubscribed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  successCount:
+                    type: integer
+                  failCount:
+                    type: integer
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /channels:
+    get:
+      operationId: listChannels
+      summary: List channels
+      description: >-
+        Retrieves all messaging channels configured in the Iterable project.
+        Channels organize message types and are used to group campaign
+        templates.
+      tags:
+        - Channels
+      responses:
+        '200':
+          description: List of channels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  channels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Channel'
+        '401':
+          description: Unauthorized
+  /templates/email/get:
+    get:
+      operationId: getEmailTemplate
+      summary: Get an email template
+      description: >-
+        Retrieves the content and metadata of an email template by its
+        template ID.
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          in: query
+          required: true
+          description: >-
+            The ID of the email template to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Email template data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplate'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /templates/email/update:
+    post:
+      operationId: updateEmailTemplate
+      summary: Update an email template
+      description: >-
+        Updates the content and metadata of an existing email template.
+      tags:
+        - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailTemplateUpdate'
+      responses:
+        '200':
+          description: Template updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /templates/push/get:
+    get:
+      operationId: getPushTemplate
+      summary: Get a push notification template
+      description: >-
+        Retrieves the content and metadata of a push notification template
+        by its template ID.
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          in: query
+          required: true
+          description: >-
+            The ID of the push template to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Push template data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templateId:
+                    type: integer
+                  name:
+                    type: string
+                  message:
+                    type: string
+                  sound:
+                    type: string
+                  deeplink:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /templates/sms/get:
+    get:
+      operationId: getSmsTemplate
+      summary: Get an SMS template
+      description: >-
+        Retrieves the content and metadata of an SMS template by its
+        template ID.
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          in: query
+          required: true
+          description: >-
+            The ID of the SMS template to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: SMS template data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templateId:
+                    type: integer
+                  name:
+                    type: string
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /templates/inApp/get:
+    get:
+      operationId: getInAppTemplate
+      summary: Get an in-app message template
+      description: >-
+        Retrieves the content and metadata of an in-app message template
+        by its template ID.
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          in: query
+          required: true
+          description: >-
+            The ID of the in-app template to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: In-app template data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templateId:
+                    type: integer
+                  name:
+                    type: string
+                  html:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /workflows/triggerWorkflow:
+    post:
+      operationId: triggerWorkflow
+      summary: Trigger a workflow
+      description: >-
+        Triggers a workflow enrollment for one or more users. The workflow
+        must already be created and activated in the Iterable project.
+      tags:
+        - Workflows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - workflowId
+              properties:
+                workflowId:
+                  type: integer
+                  description: >-
+                    The ID of the workflow to trigger
+                email:
+                  type: string
+                  description: >-
+                    Email address of the user to enroll
+                dataFields:
+                  type: object
+                  description: >-
+                    Data fields to pass to the workflow
+                  additionalProperties: true
+                listId:
+                  type: integer
+                  description: >-
+                    List ID to enroll all members of a list
+      responses:
+        '200':
+          description: Workflow triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /commerce/trackPurchase:
+    post:
+      operationId: trackPurchase
+      summary: Track a purchase event
+      description: >-
+        Tracks a purchase event for a user, including the items purchased,
+        total value, and associated properties. Purchase data is used for
+        revenue attribution and campaign triggering.
+      tags:
+        - Commerce
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseRequest'
+      responses:
+        '200':
+          description: Purchase tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /commerce/updateCart:
+    post:
+      operationId: updateCart
+      summary: Update a user's shopping cart
+      description: >-
+        Updates the shopping cart contents for a user. Cart data can be
+        used for abandoned cart campaigns and personalization.
+      tags:
+        - Commerce
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      description: >-
+                        Email address of the user
+                    userId:
+                      type: string
+                      description: >-
+                        UserId of the user
+                items:
+                  type: array
+                  description: >-
+                    Array of cart items
+                  items:
+                    $ref: '#/components/schemas/CommerceItem'
+      responses:
+        '200':
+          description: Cart updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /catalogs/{catalogName}:
+    get:
+      operationId: getCatalog
+      summary: Get a catalog
+      description: >-
+        Retrieves a catalog by name, including its field definitions and
+        metadata.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/catalogNamePath'
+      responses:
+        '200':
+          description: Catalog data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  params:
+                    type: object
+                    properties:
+                      catalogName:
+                        type: string
+                      fieldMappings:
+                        type: object
+                        additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog not found
+    delete:
+      operationId: deleteCatalog
+      summary: Delete a catalog
+      description: >-
+        Deletes a catalog and all its items from the Iterable project.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/catalogNamePath'
+      responses:
+        '200':
+          description: Catalog deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog not found
+  /catalogs/{catalogName}/items:
+    get:
+      operationId: listCatalogItems
+      summary: List items in a catalog
+      description: >-
+        Retrieves items from a catalog with support for pagination.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/catalogNamePath'
+        - name: page
+          in: query
+          description: >-
+            Page number for pagination
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in: query
+          description: >-
+            Number of items per page
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: List of catalog items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  params:
+                    type: object
+                    properties:
+                      catalogItemsWithProperties:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog not found
+  /catalogs/{catalogName}/items/{itemId}:
+    put:
+      operationId: createOrReplaceCatalogItem
+      summary: Create or replace a catalog item
+      description: >-
+        Creates a new catalog item or replaces an existing one with the
+        specified item ID and field values.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/catalogNamePath'
+        - name: itemId
+          in: path
+          required: true
+          description: >-
+            The unique identifier for the catalog item
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: object
+                  description: >-
+                    Field values for the catalog item
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Catalog item created or replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteCatalogItem
+      summary: Delete a catalog item
+      description: >-
+        Deletes a catalog item by its item ID.
+      tags:
+        - Catalogs
+      parameters:
+        - $ref: '#/components/parameters/catalogNamePath'
+        - name: itemId
+          in: path
+          required: true
+          description: >-
+            The unique identifier for the catalog item
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Catalog item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog item not found
+  /experiments/metrics:
+    get:
+      operationId: getExperimentMetrics
+      summary: Get experiment metrics
+      description: >-
+        Retrieves experiment metrics for A/B tests. Supports multiple
+        experiment IDs and campaign IDs as query parameters, up to 200 total.
+      tags:
+        - Experiments
+      parameters:
+        - name: experimentId
+          in: query
+          description: >-
+            One or more experiment IDs
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: campaignId
+          in: query
+          description: >-
+            One or more campaign IDs
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: Experiment metrics as CSV
+          content:
+            text/csv:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+  /email/target:
+    post:
+      operationId: sendTransactionalEmail
+      summary: Send a transactional email
+      description: >-
+        Sends a transactional email to a specific user using a template.
+        Supports personalization via data fields and attachments.
+      tags:
+        - Email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - campaignId
+                - recipientEmail
+              properties:
+                campaignId:
+                  type: integer
+                  description: >-
+                    The campaign ID to send
+                recipientEmail:
+                  type: string
+                  description: >-
+                    The recipient email address
+                dataFields:
+                  type: object
+                  description: >-
+                    Personalization data fields
+                  additionalProperties: true
+                attachments:
+                  type: array
+                  description: >-
+                    File attachments
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      mimeType:
+                        type: string
+                      content:
+                        type: string
+      responses:
+        '200':
+          description: Email sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /push/target:
+    post:
+      operationId: sendPushNotification
+      summary: Send a push notification
+      description: >-
+        Sends a push notification to a specific user using a template.
+        Supports personalization via data fields.
+      tags:
+        - Push
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - campaignId
+                - recipientEmail
+              properties:
+                campaignId:
+                  type: integer
+                  description: >-
+                    The campaign ID to send
+                recipientEmail:
+                  type: string
+                  description: >-
+                    The recipient email address
+                dataFields:
+                  type: object
+                  description: >-
+                    Personalization data fields
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Push notification sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /sms/target:
+    post:
+      operationId: sendSms
+      summary: Send an SMS message
+      description: >-
+        Sends an SMS message to a specific user using a template. Supports
+        personalization via data fields.
+      tags:
+        - SMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - campaignId
+                - recipientEmail
+              properties:
+                campaignId:
+                  type: integer
+                  description: >-
+                    The campaign ID to send
+                recipientEmail:
+                  type: string
+                  description: >-
+                    The recipient email address
+                dataFields:
+                  type: object
+                  description: >-
+                    Personalization data fields
+                  additionalProperties: true
+      responses:
+        '200':
+          description: SMS sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /inApp/getMessages:
+    get:
+      operationId: getInAppMessages
+      summary: Get in-app messages for a user
+      description: >-
+        Retrieves pending in-app messages for a user, typically called by
+        mobile or web SDKs to display in-app content.
+      tags:
+        - InApp
+      parameters:
+        - name: email
+          in: query
+          description: >-
+            Email address of the user
+          schema:
+            type: string
+        - name: userId
+          in: query
+          description: >-
+            UserId of the user
+          schema:
+            type: string
+        - name: count
+          in: query
+          description: >-
+            Maximum number of messages to return
+          schema:
+            type: integer
+            default: 1
+        - name: platform
+          in: query
+          description: >-
+            The platform to get messages for
+          schema:
+            type: string
+            enum:
+              - iOS
+              - Android
+              - Web
+      responses:
+        '200':
+          description: In-app messages for the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inAppMessages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        messageId:
+                          type: string
+                        campaignId:
+                          type: integer
+                        content:
+                          type: object
+                          properties:
+                            html:
+                              type: string
+                            payload:
+                              type: object
+                              additionalProperties: true
+        '401':
+          description: Unauthorized
+  /messageTypes:
+    get:
+      operationId: listMessageTypes
+      summary: List message types
+      description: >-
+        Retrieves all message types configured in the Iterable project.
+        Message types categorize the kinds of messages sent through channels.
+      tags:
+        - MessageTypes
+      responses:
+        '200':
+          description: List of message types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messageTypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        channelId:
+                          type: integer
+        '401':
+          description: Unauthorized
+  /metadata/{table}:
+    get:
+      operationId: getMetadataTable
+      summary: Get metadata table keys
+      description: >-
+        Retrieves all keys in a metadata table.
+      tags:
+        - Metadata
+      parameters:
+        - name: table
+          in: path
+          required: true
+          description: >-
+            The name of the metadata table
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata table keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: object
+                          additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Table not found
+    delete:
+      operationId: deleteMetadataTable
+      summary: Delete a metadata table
+      description: >-
+        Deletes a metadata table and all its entries.
+      tags:
+        - Metadata
+      parameters:
+        - name: table
+          in: path
+          required: true
+          description: >-
+            The name of the metadata table
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata table deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+  /metadata/{table}/{key}:
+    get:
+      operationId: getMetadataEntry
+      summary: Get a metadata entry
+      description: >-
+        Retrieves a single metadata entry by table name and key.
+      tags:
+        - Metadata
+      parameters:
+        - name: table
+          in: path
+          required: true
+          description: >-
+            The name of the metadata table
+          schema:
+            type: string
+        - name: key
+          in: path
+          required: true
+          description: >-
+            The key of the metadata entry
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata entry
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: object
+                    additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Entry not found
+    put:
+      operationId: putMetadataEntry
+      summary: Create or update a metadata entry
+      description: >-
+        Creates or updates a metadata entry for the specified table and key.
+      tags:
+        - Metadata
+      parameters:
+        - name: table
+          in: path
+          required: true
+          description: >-
+            The name of the metadata table
+          schema:
+            type: string
+        - name: key
+          in: path
+          required: true
+          description: >-
+            The key of the metadata entry
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - value
+              properties:
+                value:
+                  type: object
+                  description: >-
+                    The value to store
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Metadata entry saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteMetadataEntry
+      summary: Delete a metadata entry
+      description: >-
+        Deletes a metadata entry by table name and key.
+      tags:
+        - Metadata
+      parameters:
+        - name: table
+          in: path
+          required: true
+          description: >-
+            The name of the metadata table
+          schema:
+            type: string
+        - name: key
+          in: path
+          required: true
+          description: >-
+            The key of the metadata entry
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Metadata entry deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+  /webPush/target:
+    post:
+      operationId: sendWebPush
+      summary: Send a web push notification
+      description: >-
+        Sends a web push notification to a specific user using a template.
+      tags:
+        - WebPush
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - campaignId
+                - recipientEmail
+              properties:
+                campaignId:
+                  type: integer
+                  description: >-
+                    The campaign ID to send
+                recipientEmail:
+                  type: string
+                  description: >-
+                    The recipient email address
+                dataFields:
+                  type: object
+                  description: >-
+                    Personalization data fields
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Web push notification sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: >-
+        Iterable API key passed in the Api-Key header. API keys can be
+        created and managed in the Iterable project settings.
+  parameters:
+    emailPath:
+      name: email
+      in: path
+      required: true
+      description: >-
+        Email address of the user
+      schema:
+        type: string
+        format: email
+    userIdPath:
+      name: userId
+      in: path
+      required: true
+      description: >-
+        The userId of the user
+      schema:
+        type: string
+    catalogNamePath:
+      name: catalogName
+      in: path
+      required: true
+      description: >-
+        The name of the catalog
+      schema:
+        type: string
+  schemas:
+    IterableResponse:
+      type: object
+      description: >-
+        Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: >-
+            Human-readable response message
+        code:
+          type: string
+          description: >-
+            Response code indicating success or error type
+        params:
+          type: object
+          description: >-
+            Additional response parameters
+          additionalProperties: true
+    ErrorResponse:
+      type: object
+      description: >-
+        Error response returned when a request fails validation
+      properties:
+        msg:
+          type: string
+          description: >-
+            Error message describing what went wrong
+        code:
+          type: string
+          description: >-
+            Error code
+        params:
+          type: object
+          description: >-
+            Additional error details
+          additionalProperties: true
+    UserUpdateRequest:
+      type: object
+      description: >-
+        Request body for updating a user profile
+      properties:
+        email:
+          type: string
+          format: email
+          description: >-
+            Email address of the user
+        userId:
+          type: string
+          description: >-
+            Unique user identifier
+        dataFields:
+          type: object
+          description: >-
+            Custom data fields to set on the user profile
+          additionalProperties: true
+        preferUserId:
+          type: boolean
+          description: >-
+            Whether to prefer userId over email for identity resolution
+        mergeNestedObjects:
+          type: boolean
+          description: >-
+            Whether to merge nested objects or overwrite them
+    UserResponse:
+      type: object
+      description: >-
+        User profile response containing all user data
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              description: >-
+                Email address
+            userId:
+              type: string
+              description: >-
+                User ID
+            dataFields:
+              type: object
+              description: >-
+                Custom user data fields
+              additionalProperties: true
+            signupDate:
+              type: string
+              format: date-time
+              description: >-
+                User signup date
+            profileUpdatedAt:
+              type: string
+              format: date-time
+              description: >-
+                Last profile update timestamp
+    TrackEventRequest:
+      type: object
+      description: >-
+        Request body for tracking a custom event
+      required:
+        - email
+        - eventName
+      properties:
+        email:
+          type: string
+          format: email
+          description: >-
+            Email address of the user
+        userId:
+          type: string
+          description: >-
+            UserId of the user
+        eventName:
+          type: string
+          description: >-
+            Name of the event to track
+        createdAt:
+          type: integer
+          description: >-
+            Unix timestamp of when the event occurred
+        dataFields:
+          type: object
+          description: >-
+            Additional data associated with the event
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: >-
+            Campaign ID to attribute the event to
+        templateId:
+          type: integer
+          description: >-
+            Template ID to attribute the event to
+    Event:
+      type: object
+      description: >-
+        An event tracked for a user
+      properties:
+        eventName:
+          type: string
+          description: >-
+            Name of the event
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            When the event was created
+        dataFields:
+          type: object
+          description: >-
+            Event data fields
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: >-
+            Associated campaign ID
+        templateId:
+          type: integer
+          description: >-
+            Associated template ID
+    Campaign:
+      type: object
+      description: >-
+        A marketing campaign in Iterable
+      properties:
+        id:
+          type: integer
+          description: >-
+            Campaign ID
+        name:
+          type: string
+          description: >-
+            Campaign name
+        type:
+          type: string
+          description: >-
+            Campaign type (blast, triggered, proof, etc.)
+        templateId:
+          type: integer
+          description: >-
+            Associated template ID
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            Campaign creation date
+        updatedAt:
+          type: string
+          format: date-time
+          description: >-
+            Campaign last update date
+        messageMedium:
+          type: string
+          description: >-
+            Message medium (Email, Push, SMS, InApp)
+          enum:
+            - Email
+            - Push
+            - SMS
+            - InApp
+        campaignState:
+          type: string
+          description: >-
+            Current state of the campaign
+          enum:
+            - Draft
+            - Scheduled
+            - Running
+            - Finished
+            - Cancelled
+        listIds:
+          type: array
+          description: >-
+            List IDs the campaign targets
+          items:
+            type: integer
+        labels:
+          type: array
+          description: >-
+            Labels applied to the campaign
+          items:
+            type: string
+    CampaignCreateRequest:
+      type: object
+      description: >-
+        Request body for creating a new campaign
+      required:
+        - name
+        - listIds
+        - templateId
+      properties:
+        name:
+          type: string
+          description: >-
+            Campaign name
+        listIds:
+          type: array
+          description: >-
+            List IDs to target
+          items:
+            type: integer
+        templateId:
+          type: integer
+          description: >-
+            Template ID to use
+        suppressionListIds:
+          type: array
+          description: >-
+            List IDs for suppression
+          items:
+            type: integer
+        sendAt:
+          type: string
+          format: date-time
+          description: >-
+            Scheduled send time in ISO 8601 format
+        dataFields:
+          type: object
+          description: >-
+            Additional data fields for personalization
+          additionalProperties: true
+    List:
+      type: object
+      description: >-
+        A subscriber list in Iterable
+      properties:
+        id:
+          type: integer
+          description: >-
+            List ID
+        name:
+          type: string
+          description: >-
+            List name
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            List creation date
+        listType:
+          type: string
+          description: >-
+            Type of list
+        description:
+          type: string
+          description: >-
+            List description
+    Channel:
+      type: object
+      description: >-
+        A messaging channel in Iterable
+      properties:
+        id:
+          type: integer
+          description: >-
+            Channel ID
+        name:
+          type: string
+          description: >-
+            Channel name
+        channelType:
+          type: string
+          description: >-
+            Type of channel
+        messageMedium:
+          type: string
+          description: >-
+            Message medium for this channel
+    EmailTemplate:
+      type: object
+      description: >-
+        An email template
+      properties:
+        templateId:
+          type: integer
+          description: >-
+            Template ID
+        name:
+          type: string
+          description: >-
+            Template name
+        subject:
+          type: string
+          description: >-
+            Email subject line
+        preheaderText:
+          type: string
+          description: >-
+            Email preheader text
+        html:
+          type: string
+          description: >-
+            HTML content of the template
+        plainText:
+          type: string
+          description: >-
+            Plain text content of the template
+        fromName:
+          type: string
+          description: >-
+            From name for the email
+        fromEmail:
+          type: string
+          format: email
+          description: >-
+            From email address
+        replyToEmail:
+          type: string
+          format: email
+          description: >-
+            Reply-to email address
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            Template creation date
+        updatedAt:
+          type: string
+          format: date-time
+          description: >-
+            Template last update date
+    EmailTemplateUpdate:
+      type: object
+      description: >-
+        Request body for updating an email template
+      required:
+        - templateId
+      properties:
+        templateId:
+          type: integer
+          description: >-
+            Template ID to update
+        name:
+          type: string
+          description: >-
+            Updated template name
+        subject:
+          type: string
+          description: >-
+            Updated email subject line
+        preheaderText:
+          type: string
+          description: >-
+            Updated preheader text
+        html:
+          type: string
+          description: >-
+            Updated HTML content
+        plainText:
+          type: string
+          description: >-
+            Updated plain text content
+        fromName:
+          type: string
+          description: >-
+            Updated from name
+        fromEmail:
+          type: string
+          format: email
+          description: >-
+            Updated from email address
+    PurchaseRequest:
+      type: object
+      description: >-
+        Request body for tracking a purchase event
+      required:
+        - user
+        - items
+        - total
+      properties:
+        user:
+          type: object
+          description: >-
+            The user who made the purchase
+          properties:
+            email:
+              type: string
+              format: email
+              description: >-
+                Email address of the user
+            userId:
+              type: string
+              description: >-
+                UserId of the user
+            dataFields:
+              type: object
+              description: >-
+                Additional user data fields to update
+              additionalProperties: true
+        items:
+          type: array
+          description: >-
+            Array of items purchased
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+        total:
+          type: number
+          description: >-
+            Total value of the purchase
+        createdAt:
+          type: integer
+          description: >-
+            Unix timestamp of the purchase
+        dataFields:
+          type: object
+          description: >-
+            Additional purchase data fields
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: >-
+            Campaign ID to attribute the purchase to
+        templateId:
+          type: integer
+          description: >-
+            Template ID to attribute the purchase to
+    CommerceItem:
+      type: object
+      description: >-
+        A commerce item in a purchase or cart
+      required:
+        - id
+        - name
+        - price
+        - quantity
+      properties:
+        id:
+          type: string
+          description: >-
+            Item ID or SKU
+        sku:
+          type: string
+          description: >-
+            Item SKU
+        name:
+          type: string
+          description: >-
+            Item name
+        description:
+          type: string
+          description: >-
+            Item description
+        categories:
+          type: array
+          description: >-
+            Item categories
+          items:
+            type: string
+        price:
+          type: number
+          description: >-
+            Item price
+        quantity:
+          type: integer
+          description: >-
+            Quantity purchased
+        imageUrl:
+          type: string
+          format: uri
+          description: >-
+            URL of the item image
+        url:
+          type: string
+          format: uri
+          description: >-
+            URL of the item page
+        dataFields:
+          type: object
+          description: >-
+            Additional item data fields
+          additionalProperties: true

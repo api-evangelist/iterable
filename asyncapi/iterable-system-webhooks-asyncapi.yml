@@ -1,0 +1,910 @@
+asyncapi: 2.6.0
+info:
+  title: Iterable System Webhooks
+  description: >-
+    Iterable system webhooks send real-time event data from an Iterable project
+    to external systems via HTTP POST requests whenever specified events occur.
+    System webhooks can be configured to fire on email sends, opens, clicks,
+    bounces, unsubscribes, complaints, push notifications, SMS messages, in-app
+    messages, and other engagement events. Webhook payloads are sent as JSON
+    to a user-configured HTTPS endpoint and support no authentication, HTTP
+    Basic authentication, or OAuth 2.0.
+  version: '1.0.0'
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  externalDocs:
+    description: Iterable System Webhooks Documentation
+    url: https://support.iterable.com/hc/en-us/articles/208013936-System-Webhooks
+servers:
+  iterableWebhookServer:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The HTTPS endpoint configured in Iterable project settings to receive
+      system webhook payloads. The URL must begin with https://.
+    variables:
+      webhookUrl:
+        description: >-
+          The webhook receiver URL configured in Iterable project settings
+    security:
+      - httpBasic: []
+      - oauth2: []
+      - noAuth: []
+channels:
+  /webhook:
+    description: >-
+      The webhook endpoint that receives all system webhook events from
+      Iterable. Events are sent as HTTP POST requests with JSON payloads.
+    publish:
+      operationId: receiveSystemWebhook
+      summary: Receive system webhook events from Iterable
+      description: >-
+        Receives real-time event notifications from Iterable whenever
+        configured system events occur. Each event includes the user email,
+        event name, and event-specific data fields.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/EmailSend'
+          - $ref: '#/components/messages/EmailOpen'
+          - $ref: '#/components/messages/EmailClick'
+          - $ref: '#/components/messages/EmailBounce'
+          - $ref: '#/components/messages/EmailUnSubscribe'
+          - $ref: '#/components/messages/EmailComplaint'
+          - $ref: '#/components/messages/PushSend'
+          - $ref: '#/components/messages/PushOpen'
+          - $ref: '#/components/messages/PushBounce'
+          - $ref: '#/components/messages/SmsSend'
+          - $ref: '#/components/messages/SmsBounce'
+          - $ref: '#/components/messages/SmsReceived'
+          - $ref: '#/components/messages/InAppSend'
+          - $ref: '#/components/messages/InAppOpen'
+          - $ref: '#/components/messages/InAppClick'
+          - $ref: '#/components/messages/WebPushSend'
+          - $ref: '#/components/messages/ListSubscribe'
+          - $ref: '#/components/messages/ListUnsubscribe'
+          - $ref: '#/components/messages/Purchase'
+          - $ref: '#/components/messages/CustomEvent'
+components:
+  securitySchemes:
+    httpBasic:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP Basic authentication for webhook delivery
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: '{oauthTokenUrl}'
+          scopes: {}
+      description: >-
+        OAuth 2.0 client credentials authentication for webhook delivery
+    noAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        No authentication required for webhook delivery
+  messages:
+    EmailSend:
+      name: emailSend
+      title: Email Send
+      summary: >-
+        Fired when an email is sent to a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EmailSendPayload'
+    EmailOpen:
+      name: emailOpen
+      title: Email Open
+      summary: >-
+        Fired when a user opens an email
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EmailOpenPayload'
+    EmailClick:
+      name: emailClick
+      title: Email Click
+      summary: >-
+        Fired when a user clicks a link in an email
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EmailClickPayload'
+    EmailBounce:
+      name: emailBounce
+      title: Email Bounce
+      summary: >-
+        Fired when an email bounces
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EmailBouncePayload'
+    EmailUnSubscribe:
+      name: emailUnSubscribe
+      title: Email Unsubscribe
+      summary: >-
+        Fired when a user unsubscribes from email
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EmailUnSubscribePayload'
+    EmailComplaint:
+      name: emailComplaint
+      title: Email Complaint
+      summary: >-
+        Fired when a user marks an email as spam
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EmailComplaintPayload'
+    PushSend:
+      name: pushSend
+      title: Push Send
+      summary: >-
+        Fired when a push notification is sent to a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PushSendPayload'
+    PushOpen:
+      name: pushOpen
+      title: Push Open
+      summary: >-
+        Fired when a user opens a push notification
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PushOpenPayload'
+    PushBounce:
+      name: pushBounce
+      title: Push Bounce
+      summary: >-
+        Fired when a push notification bounces due to invalid token
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PushBouncePayload'
+    SmsSend:
+      name: smsSend
+      title: SMS Send
+      summary: >-
+        Fired when an SMS message is sent to a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SmsSendPayload'
+    SmsBounce:
+      name: smsBounce
+      title: SMS Bounce
+      summary: >-
+        Fired when an SMS message bounces
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SmsBouncePayload'
+    SmsReceived:
+      name: smsReceived
+      title: SMS Received
+      summary: >-
+        Fired when an inbound SMS message is received from a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SmsReceivedPayload'
+    InAppSend:
+      name: inAppSend
+      title: In-App Send
+      summary: >-
+        Fired when an in-app message is sent to a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/InAppSendPayload'
+    InAppOpen:
+      name: inAppOpen
+      title: In-App Open
+      summary: >-
+        Fired when a user views an in-app message
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/InAppOpenPayload'
+    InAppClick:
+      name: inAppClick
+      title: In-App Click
+      summary: >-
+        Fired when a user clicks a button or link in an in-app message
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/InAppClickPayload'
+    WebPushSend:
+      name: webPushSend
+      title: Web Push Send
+      summary: >-
+        Fired when a web push notification is sent to a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebPushSendPayload'
+    ListSubscribe:
+      name: listSubscribe
+      title: List Subscribe
+      summary: >-
+        Fired when a user subscribes to a list
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ListSubscribePayload'
+    ListUnsubscribe:
+      name: listUnsubscribe
+      title: List Unsubscribe
+      summary: >-
+        Fired when a user unsubscribes from a list
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ListUnsubscribePayload'
+    Purchase:
+      name: purchase
+      title: Purchase
+      summary: >-
+        Fired when a purchase event is tracked for a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PurchasePayload'
+    CustomEvent:
+      name: customEvent
+      title: Custom Event
+      summary: >-
+        Fired when a custom event is tracked for a user
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomEventPayload'
+  schemas:
+    BaseWebhookFields:
+      type: object
+      description: >-
+        Common fields present in all system webhook payloads
+      properties:
+        email:
+          type: string
+          format: email
+          description: >-
+            Email address of the user associated with the event
+        eventName:
+          type: string
+          description: >-
+            The name of the system event that triggered the webhook
+        dataFields:
+          type: object
+          description: >-
+            Event-specific data fields
+          additionalProperties: true
+    CampaignFields:
+      type: object
+      description: >-
+        Common campaign-related fields in webhook payloads
+      properties:
+        campaignId:
+          type: integer
+          description: >-
+            ID of the associated campaign
+        campaignName:
+          type: string
+          description: >-
+            Name of the associated campaign
+        templateId:
+          type: integer
+          description: >-
+            ID of the associated template
+        templateName:
+          type: string
+          description: >-
+            Name of the associated template
+        workflowId:
+          type: integer
+          description: >-
+            ID of the associated workflow if applicable
+        workflowName:
+          type: string
+          description: >-
+            Name of the associated workflow if applicable
+        channelId:
+          type: integer
+          description: >-
+            ID of the messaging channel
+        messageTypeId:
+          type: integer
+          description: >-
+            ID of the message type
+        experimentId:
+          type: integer
+          description: >-
+            ID of the experiment if part of an A/B test
+        labels:
+          type: array
+          description: >-
+            Labels associated with the campaign
+          items:
+            type: string
+    EmailSendPayload:
+      type: object
+      description: >-
+        Payload sent when an email is delivered to a user
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            contentId:
+              type: integer
+              description: >-
+                Content variant ID for experiments
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the email send
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+            emailSubject:
+              type: string
+              description: >-
+                Subject line of the sent email
+    EmailOpenPayload:
+      type: object
+      description: >-
+        Payload sent when a user opens an email
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            contentId:
+              type: integer
+              description: >-
+                Content variant ID for experiments
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the email open
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+            emailSubject:
+              type: string
+              description: >-
+                Subject line of the opened email
+            userAgent:
+              type: string
+              description: >-
+                User agent string of the email client
+            userAgentDevice:
+              type: string
+              description: >-
+                Device type parsed from the user agent
+            ip:
+              type: string
+              description: >-
+                IP address where the email was opened
+            city:
+              type: string
+              description: >-
+                City based on IP geolocation
+            region:
+              type: string
+              description: >-
+                Region or state based on IP geolocation
+            country:
+              type: string
+              description: >-
+                Country based on IP geolocation
+            timeZone:
+              type: string
+              description: >-
+                Timezone based on IP geolocation
+            proxySource:
+              type: string
+              description: >-
+                Proxy source if the open was via a proxy
+            isBot:
+              type: boolean
+              description: >-
+                Whether the open was detected as a bot
+            locale:
+              type: string
+              description: >-
+                Locale of the user
+    EmailClickPayload:
+      type: object
+      description: >-
+        Payload sent when a user clicks a link in an email
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            contentId:
+              type: integer
+              description: >-
+                Content variant ID for experiments
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the click
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+            emailSubject:
+              type: string
+              description: >-
+                Subject line of the email
+            url:
+              type: string
+              format: uri
+              description: >-
+                The URL that was clicked
+            userAgent:
+              type: string
+              description: >-
+                User agent string
+            ip:
+              type: string
+              description: >-
+                IP address of the user
+            city:
+              type: string
+              description: >-
+                City based on geolocation
+            region:
+              type: string
+              description: >-
+                Region based on geolocation
+            country:
+              type: string
+              description: >-
+                Country based on geolocation
+    EmailBouncePayload:
+      type: object
+      description: >-
+        Payload sent when an email bounces
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the bounce
+            emailSubject:
+              type: string
+              description: >-
+                Subject line of the bounced email
+            recipientState:
+              type: string
+              description: >-
+                State of the recipient after the bounce
+    EmailUnSubscribePayload:
+      type: object
+      description: >-
+        Payload sent when a user unsubscribes from email
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the unsubscribe
+            emailSubject:
+              type: string
+              description: >-
+                Subject line of the email that led to unsubscribe
+    EmailComplaintPayload:
+      type: object
+      description: >-
+        Payload sent when a user marks an email as spam
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the complaint
+            emailSubject:
+              type: string
+              description: >-
+                Subject line of the email
+    PushSendPayload:
+      type: object
+      description: >-
+        Payload sent when a push notification is delivered
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the push send
+            pushMessage:
+              type: string
+              description: >-
+                The push notification message text
+            payload:
+              type: object
+              description: >-
+                Custom payload data sent with the push
+              additionalProperties: true
+            sound:
+              type: string
+              description: >-
+                Sound to play on the device
+            badge:
+              type: integer
+              description: >-
+                Badge count to display
+            contentAvailable:
+              type: boolean
+              description: >-
+                Whether this is a content-available push
+            deeplink:
+              type: string
+              description: >-
+                Deep link URL for the push notification
+            attachmentUrlAndroid:
+              type: string
+              description: >-
+                Attachment URL for Android rich push
+    PushOpenPayload:
+      type: object
+      description: >-
+        Payload sent when a user opens a push notification
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the push open
+            pushMessage:
+              type: string
+              description: >-
+                The push notification message text
+            appAlreadyRunning:
+              type: boolean
+              description: >-
+                Whether the app was already in the foreground
+            payload:
+              type: object
+              description: >-
+                Custom payload data
+              additionalProperties: true
+            sound:
+              type: string
+              description: >-
+                Sound associated with the push
+            badge:
+              type: integer
+              description: >-
+                Badge count
+            contentAvailable:
+              type: boolean
+              description: >-
+                Whether this was a content-available push
+            deeplink:
+              type: string
+              description: >-
+                Deep link URL
+            locale:
+              type: string
+              description: >-
+                User locale
+    PushBouncePayload:
+      type: object
+      description: >-
+        Payload sent when a push notification bounces due to an invalid token
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the bounce
+    SmsSendPayload:
+      type: object
+      description: >-
+        Payload sent when an SMS message is delivered
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the SMS send
+            smsMessage:
+              type: string
+              description: >-
+                The SMS message text
+            renderedSmsMessage:
+              type: string
+              description: >-
+                The rendered SMS message text after personalization
+            fromPhoneNumberId:
+              type: integer
+              description: >-
+                ID of the sending phone number
+            fromSMSSenderId:
+              type: string
+              description: >-
+                Sender ID for the SMS
+            toPhoneNumber:
+              type: string
+              description: >-
+                Recipient phone number
+            imageUrl:
+              type: string
+              format: uri
+              description: >-
+                Image URL for MMS messages
+            smsSendCount:
+              type: integer
+              description: >-
+                Number of SMS segments sent
+            mmsSendCount:
+              type: integer
+              description: >-
+                Number of MMS messages sent
+            isSMSEstimation:
+              type: boolean
+              description: >-
+                Whether the send count is an estimation
+            espName:
+              type: string
+              description: >-
+                Name of the ESP used for delivery
+            billingParty:
+              type: string
+              description: >-
+                Billing party for the SMS
+            espAccountId:
+              type: string
+              description: >-
+                ESP account identifier
+            locale:
+              type: string
+              description: >-
+                User locale
+            timeZone:
+              type: string
+              description: >-
+                User timezone
+            catalogLookupCount:
+              type: integer
+              description: >-
+                Number of catalog lookups performed
+            catalogCollectionCount:
+              type: integer
+              description: >-
+                Number of catalog collections queried
+    SmsBouncePayload:
+      type: object
+      description: >-
+        Payload sent when an SMS message bounces
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the bounce
+            toPhoneNumber:
+              type: string
+              description: >-
+                Phone number that bounced
+    SmsReceivedPayload:
+      type: object
+      description: >-
+        Payload sent when an inbound SMS is received from a user
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp when the SMS was received
+            fromPhoneNumber:
+              type: string
+              description: >-
+                Phone number the SMS was sent from
+            smsMessage:
+              type: string
+              description: >-
+                Content of the received SMS
+    InAppSendPayload:
+      type: object
+      description: >-
+        Payload sent when an in-app message is sent to a user
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the in-app send
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+    InAppOpenPayload:
+      type: object
+      description: >-
+        Payload sent when a user views an in-app message
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the in-app view
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+    InAppClickPayload:
+      type: object
+      description: >-
+        Payload sent when a user clicks a link or button in an in-app message
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the click
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+            clickedUrl:
+              type: string
+              format: uri
+              description: >-
+                URL that was clicked
+    WebPushSendPayload:
+      type: object
+      description: >-
+        Payload sent when a web push notification is delivered
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - $ref: '#/components/schemas/CampaignFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the web push send
+            messageId:
+              type: string
+              description: >-
+                Unique message identifier
+    ListSubscribePayload:
+      type: object
+      description: >-
+        Payload sent when a user subscribes to a list
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the subscription
+            listId:
+              type: integer
+              description: >-
+                ID of the list subscribed to
+            listName:
+              type: string
+              description: >-
+                Name of the list subscribed to
+    ListUnsubscribePayload:
+      type: object
+      description: >-
+        Payload sent when a user unsubscribes from a list
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the unsubscription
+            listId:
+              type: integer
+              description: >-
+                ID of the list unsubscribed from
+            listName:
+              type: string
+              description: >-
+                Name of the list unsubscribed from
+    PurchasePayload:
+      type: object
+      description: >-
+        Payload sent when a purchase event is tracked
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the purchase
+            total:
+              type: number
+              description: >-
+                Total purchase amount
+            items:
+              type: array
+              description: >-
+                Items purchased
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: >-
+                      Item ID
+                  name:
+                    type: string
+                    description: >-
+                      Item name
+                  price:
+                    type: number
+                    description: >-
+                      Item price
+                  quantity:
+                    type: integer
+                    description: >-
+                      Quantity purchased
+    CustomEventPayload:
+      type: object
+      description: >-
+        Payload sent when a custom event is tracked for a user
+      allOf:
+        - $ref: '#/components/schemas/BaseWebhookFields'
+        - type: object
+          properties:
+            createdAt:
+              type: string
+              format: date-time
+              description: >-
+                Timestamp of the custom event

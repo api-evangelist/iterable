@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.api-evangelist.com/schemas/iterable/campaign.json",
+  "title": "Iterable Campaign",
+  "description": "A marketing campaign in Iterable that delivers messages to targeted audiences across email, push, SMS, and in-app channels. Campaigns can be blast sends to lists, triggered by events or API calls, or proof/test sends.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique campaign identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable campaign name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["Blast", "Triggered", "Proof"],
+      "description": "The type of campaign"
+    },
+    "templateId": {
+      "type": "integer",
+      "description": "ID of the message template used by this campaign"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the campaign was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the campaign was last modified"
+    },
+    "startAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the scheduled start time"
+    },
+    "endedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the campaign finished sending"
+    },
+    "messageMedium": {
+      "type": "string",
+      "enum": ["Email", "Push", "SMS", "InApp", "WebPush"],
+      "description": "The messaging channel used by this campaign"
+    },
+    "campaignState": {
+      "type": "string",
+      "enum": ["Draft", "Scheduled", "Running", "Finished", "Cancelled"],
+      "description": "Current state of the campaign lifecycle"
+    },
+    "listIds": {
+      "type": "array",
+      "description": "IDs of lists targeted by this campaign",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "suppressionListIds": {
+      "type": "array",
+      "description": "IDs of suppression lists to exclude from targeting",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels applied to the campaign for organization",
+      "items": {
+        "type": "string"
+      }
+    },
+    "workflowId": {
+      "type": "integer",
+      "description": "ID of the workflow this campaign belongs to, if applicable"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Custom data fields for campaign-level personalization",
+      "additionalProperties": true
+    }
+  }
+}

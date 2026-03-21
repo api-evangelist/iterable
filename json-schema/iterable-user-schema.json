@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.api-evangelist.com/schemas/iterable/user.json",
+  "title": "Iterable User",
+  "description": "A user profile in the Iterable marketing automation platform. Users are the primary audience for campaigns and represent contacts that can receive messages across email, push, SMS, and in-app channels.",
+  "type": "object",
+  "required": ["email"],
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "The primary email address of the user, used as the default unique identifier"
+    },
+    "userId": {
+      "type": "string",
+      "description": "An alternative unique identifier for the user, set by the integrating application"
+    },
+    "signupDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the user was first created in Iterable"
+    },
+    "profileUpdatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the most recent profile update"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Custom data fields stored on the user profile, used for segmentation and personalization",
+      "additionalProperties": true
+    },
+    "phoneNumber": {
+      "type": "string",
+      "pattern": "^\\+?[1-9]\\d{1,14}$",
+      "description": "Phone number in E.164 format for SMS messaging"
+    },
+    "emailListIds": {
+      "type": "array",
+      "description": "IDs of the email lists the user is subscribed to",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "unsubscribedChannelIds": {
+      "type": "array",
+      "description": "IDs of channels the user has unsubscribed from",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "unsubscribedMessageTypeIds": {
+      "type": "array",
+      "description": "IDs of message types the user has unsubscribed from",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "devices": {
+      "type": "array",
+      "description": "Mobile and web devices registered to the user for push notifications",
+      "items": {
+        "$ref": "#/$defs/Device"
+      }
+    }
+  },
+  "$defs": {
+    "Device": {
+      "type": "object",
+      "description": "A device registered for push notifications",
+      "required": ["token", "platform"],
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "The device push token (APNs or FCM)"
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["APNS", "APNS_SANDBOX", "GCM"],
+          "description": "The push notification platform"
+        },
+        "applicationName": {
+          "type": "string",
+          "description": "The registered application name"
+        },
+        "endpointEnabled": {
+          "type": "boolean",
+          "description": "Whether the push endpoint is currently active"
+        },
+        "dataFields": {
+          "type": "object",
+          "description": "Custom data fields associated with the device",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 aid: iterable
-url: https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml
 apis:
   - aid: iterable:rest-api
     name: Iterable REST API
@@ -11,7 +12,8 @@ apis:
       - SMS
       - Campaigns
       - Users
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.iterable.com
     humanURL: https://api.iterable.com/api/docs
     properties:
@@ -20,15 +22,12 @@ apis:
       - type: OpenAPI
         url: openapi/iterable-rest-api-openapi.yml
     description: >-
-      The Iterable REST API provides programmatic access to the Iterable
-      cross-channel marketing automation platform. It exposes endpoints for
-      managing users, campaigns, lists, events, commerce tracking, catalogs,
-      channels, templates, experiments, workflows, and message delivery across
-      email, push, SMS, and in-app channels. The API uses standard HTTP methods,
-      JSON request and response bodies, and supports authentication via API keys
-      or JWT-enabled keys. Developers can use it to automate marketing workflows,
-      track user behavior, trigger campaigns, and integrate Iterable functionality
-      into their applications.
+      The Iterable REST API provides programmatic access to the Iterable cross-channel
+      marketing automation platform. It exposes endpoints for managing users, campaigns,
+      lists, events, commerce tracking, catalogs, channels, templates, experiments,
+      workflows, and message delivery across email, push, SMS, and in-app channels.
+      The API uses standard HTTP methods, JSON request and response bodies, and supports
+      authentication via API keys or JWT-enabled keys.
   - aid: iterable:export-api
     name: Iterable Export API
     tags:
@@ -36,11 +35,14 @@ apis:
       - Analytics
       - Reporting
       - Marketing Data
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.iterable.com
-    humanURL: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+    humanURL: 
+      https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
     properties:
-      - url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+      - url: 
+          https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
         type: Documentation
       - type: OpenAPI
         url: openapi/iterable-export-api-openapi.yml
@@ -60,21 +62,18 @@ apis:
       - SDK
       - In-App Messaging
       - User Tracking
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://github.com/Iterable/iterable-web-sdk
     properties:
       - url: https://github.com/Iterable/iterable-web-sdk
         type: Documentation
     description: >-
-      The Iterable Web SDK enables developers to integrate Iterable's marketing
-      automation capabilities directly into JavaScript and Node.js applications.
-      It provides functions for tracking user events, managing user profiles,
-      displaying in-app messages, and handling web push notifications. The SDK
-      simplifies client-side integration with Iterable by abstracting API calls
-      into a convenient JavaScript interface, allowing web applications to
-      participate in cross-channel marketing campaigns and capture user
-      engagement data in real time.
+      The Iterable Web SDK enables developers to integrate Iterable's marketing automation
+      capabilities directly into JavaScript and Node.js applications. It provides
+      functions for tracking user events, managing user profiles, displaying in-app
+      messages, and handling web push notifications.
   - aid: iterable:ios-sdk
     name: Iterable iOS SDK
     tags:
@@ -84,11 +83,14 @@ apis:
       - Push Notifications
       - In-App Messaging
       - SDK
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
+    humanURL: 
+      https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
     properties:
-      - url: https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
+      - url: 
+          https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
         type: Documentation
     description: >-
       The Iterable iOS SDK allows developers to integrate Iterable's marketing
@@ -106,11 +108,14 @@ apis:
       - Push Notifications
       - In-App Messaging
       - SDK
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
+    humanURL: 
+      https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
     properties:
-      - url: https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
+      - url: 
+          https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
         type: Documentation
     description: >-
       The Iterable Android SDK provides native integration between Android
@@ -128,21 +133,21 @@ apis:
       - Cross-Platform
       - JavaScript
       - SDK
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
+    humanURL: 
+      https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
     properties:
-      - url: https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
+      - url: 
+          https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
         type: Documentation
     description: >-
-      The Iterable React Native SDK enables developers to integrate Iterable's
-      marketing automation capabilities into cross-platform mobile applications
-      built with React Native. It wraps Iterable's native iOS and Android SDKs
-      and supports both JavaScript and TypeScript. The SDK provides access to
-      push notifications, in-app messages, Mobile Inbox, user event tracking,
-      and deep linking. It is fully compatible with React Native's New
-      Architecture and allows developers to build unified cross-platform
-      marketing integrations from a single codebase.
+      The Iterable React Native SDK enables developers to integrate Iterable's marketing
+      automation capabilities into cross-platform mobile applications built with React
+      Native. It wraps Iterable's native iOS and Android SDKs and supports both JavaScript
+      and TypeScript. The SDK provides access to push notifications, in-app messages,
+      Mobile Inbox, user event tracking, and deep linking.
 common:
   - type: AsyncAPI
     url: asyncapi/iterable-system-webhooks-asyncapi.yml
@@ -157,3 +162,7 @@ common:
   - type: JSONSchema
     url: json-schema/iterable-commerce-item-schema.json
 modified: '2026-03-20'
+description: >-
+  Iterable is a cross-channel marketing platform that powers unified customer experiences
+  and empowers marketers to create, optimize, and measure relevant interactions and
+  experiences customers love.

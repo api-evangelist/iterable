@@ -23,14 +23,14 @@ servers:
   - url: https://api.eu.iterable.com/api
     description: European Data Center (EDC)
 tags:
+  - name: ExperimentMetrics
+    description: >-
+      Export experiment and A/B test metrics as CSV for analysis.
   - name: Export
     description: >-
       Endpoints for exporting data from Iterable projects in CSV and JSON
       formats. Supports exporting user events, message engagement data,
       and campaign metrics.
-  - name: ExperimentMetrics
-    description: >-
-      Export experiment and A/B test metrics as CSV for analysis.
 security:
   - apiKeyAuth: []
 paths:

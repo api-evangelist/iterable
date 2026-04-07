@@ -23,61 +23,42 @@ servers:
   - url: https://api.eu.iterable.com/api
     description: European Data Center (EDC)
 tags:
-  - name: Users
-    description: >-
-      Manage user profiles, update user fields, bulk update users, get user
-      data by email or userId, and delete users.
-  - name: Events
-    description: >-
-      Track custom events, retrieve event data for users, and manage event
-      metadata used for segmentation and campaign triggering.
   - name: Campaigns
     description: >-
       Create, retrieve, and manage marketing campaigns. Access campaign
       metrics and trigger campaign sends.
-  - name: Lists
-    description: >-
-      Create and manage subscriber lists. Subscribe and unsubscribe users
-      from lists. Retrieve list metadata and membership.
-  - name: Channels
-    description: >-
-      Retrieve and manage messaging channels and message types used for
-      organizing campaigns and templates.
-  - name: Templates
-    description: >-
-      Manage email, push, SMS, and in-app message templates. Retrieve
-      template content and metadata.
-  - name: Workflows
-    description: >-
-      Trigger workflow enrollments and manage journey-based automation
-      workflows.
-  - name: Commerce
-    description: >-
-      Track purchase events, update cart data, and manage commerce-related
-      user activity for revenue attribution.
   - name: Catalogs
     description: >-
       Manage product catalogs and catalog items used for personalization
       and recommendation in campaigns.
-  - name: Experiments
+  - name: Channels
     description: >-
-      Retrieve experiment configurations and metrics for A/B tests
-      running across campaigns.
+      Retrieve and manage messaging channels and message types used for
+      organizing campaigns and templates.
+  - name: Commerce
+    description: >-
+      Track purchase events, update cart data, and manage commerce-related
+      user activity for revenue attribution.
   - name: Email
     description: >-
       Send transactional emails and manage email-specific delivery
       settings.
-  - name: Push
+  - name: Events
     description: >-
-      Send push notifications and manage push notification delivery
-      settings and tokens.
-  - name: SMS
+      Track custom events, retrieve event data for users, and manage event
+      metadata used for segmentation and campaign triggering.
+  - name: Experiments
     description: >-
-      Send SMS messages and manage SMS-specific delivery settings.
+      Retrieve experiment configurations and metrics for A/B tests
+      running across campaigns.
   - name: InApp
     description: >-
       Manage in-app messages and retrieve in-app message content for
       mobile and web clients.
+  - name: Lists
+    description: >-
+      Create and manage subscriber lists. Subscribe and unsubscribe users
+      from lists. Retrieve list metadata and membership.
   - name: MessageTypes
     description: >-
       Manage message types that categorize the kinds of messages sent
@@ -86,10 +67,29 @@ tags:
     description: >-
       Store and retrieve key-value metadata tables for use in
       personalization and campaign logic.
+  - name: Push
+    description: >-
+      Send push notifications and manage push notification delivery
+      settings and tokens.
+  - name: SMS
+    description: >-
+      Send SMS messages and manage SMS-specific delivery settings.
+  - name: Templates
+    description: >-
+      Manage email, push, SMS, and in-app message templates. Retrieve
+      template content and metadata.
+  - name: Users
+    description: >-
+      Manage user profiles, update user fields, bulk update users, get user
+      data by email or userId, and delete users.
   - name: WebPush
     description: >-
       Send web push notifications and manage web push subscription
       tokens.
+  - name: Workflows
+    description: >-
+      Trigger workflow enrollments and manage journey-based automation
+      workflows.
 security:
   - apiKeyAuth: []
 paths:

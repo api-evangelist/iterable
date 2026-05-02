@@ -1,5 +1,24 @@
 aid: iterable
+name: Iterable
+description: >-
+  Iterable is an AI customer engagement platform that powers unified
+  cross-channel marketing experiences and empowers marketers to create,
+  optimize, and measure relevant interactions across email, push, SMS, in-app,
+  and web channels. Their developer platform provides REST APIs, export APIs,
+  AsyncAPI webhooks, and native SDKs for web, iOS, Android, and React Native.
+type: Contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Cross-Channel Messaging
+  - Customer Engagement
+  - Email
+  - Marketing Automation
+  - Push Notifications
+  - SMS
 url: https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml
+created: '2026-03-20'
+modified: '2026-04-28'
+specificationVersion: '0.19'
 apis:
   - aid: iterable:rest-api
     name: Iterable REST API
@@ -146,8 +165,27 @@ common:
     url: json-schema/iterable-event-schema.json
   - type: JSONSchema
     url: json-schema/iterable-commerce-item-schema.json
-modified: '2026-03-20'
-description: >-
-  Iterable is a cross-channel marketing platform that powers unified customer experiences
-  and empowers marketers to create, optimize, and measure relevant interactions and
-  experiences customers love.
+  - name: Iterable
+    url: https://iterable.com/
+    type: Website
+  - name: Iterable Developer Documentation
+    url: https://api.iterable.com/api/docs
+    type: Documentation
+  - name: Iterable Support Center
+    url: https://support.iterable.com/hc/en-us
+    type: Support
+  - name: Iterable Blog
+    url: https://iterable.com/blog/
+    type: Blog
+  - name: Iterable Login
+    url: https://app.iterable.com/login
+    type: Login
+  - name: Iterable Privacy Policy
+    url: https://iterable.com/trust/privacy-policy/
+    type: PrivacyPolicy
+  - name: Iterable Terms of Service
+    url: https://iterable.com/trust/terms-of-service/
+    type: TermsOfService
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,5 +1,5 @@
 # Iterable (iterable)
-Iterable is a cross-channel marketing automation platform that enables businesses to create, optimize, and measure personalized customer engagement across email, push notifications, SMS, and in-app messaging. Their developer platform provides REST APIs, export APIs, and native SDKs for web, iOS, Android, and React Native to integrate marketing automation capabilities into applications.
+Iterable is an AI customer engagement platform that powers unified cross-channel marketing experiences and empowers marketers to create, optimize, and measure relevant interactions across email, push, SMS, in-app, and web channels. Their developer platform provides REST APIs, export APIs, AsyncAPI webhooks, and native SDKs for web, iOS, Android, and React Native.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml)
 
@@ -11,17 +11,17 @@ Iterable is a cross-channel marketing automation platform that enables businesse
 
 ## Tags:
 
- - Marketing Automation, Cross-Channel Messaging, Email, Push Notifications, SMS
+ - Marketing Automation, Customer Engagement, Cross-Channel Messaging, Email, Push Notifications, SMS
 
 ## Timestamps
 
 - **Created:** 2026-03-20
-- **Modified:** 2026-03-20
+- **Modified:** 2026-04-28
 
 ## APIs
 
 ### Iterable REST API
-The Iterable REST API provides programmatic access to the Iterable cross-channel marketing automation platform. It exposes endpoints for managing users, campaigns, lists, events, commerce tracking, catalogs, channels, templates, experiments, workflows, and message delivery across email, push, SMS, and in-app channels. The API uses standard HTTP methods, JSON request and response bodies, and supports authentication via API keys or JWT-enabled keys. Developers can use it to automate marketing workflows, track user behavior, trigger campaigns, and integrate Iterable functionality into their applications.
+The Iterable REST API provides programmatic access to the Iterable cross-channel marketing automation platform. It exposes endpoints for managing users, campaigns, lists, events, commerce tracking, catalogs, channels, templates, experiments, workflows, and message delivery across email, push, SMS, and in-app channels. The API uses standard HTTP methods, JSON request and response bodies, and supports authentication via API keys or JWT-enabled keys.
 
 **Human URL:** [https://api.iterable.com/api/docs](https://api.iterable.com/api/docs)
 
@@ -51,7 +51,7 @@ The Iterable Export API enables developers to extract data from Iterable project
 - [OpenAPI](openapi/iterable-export-api-openapi.yml)
 
 ### Iterable Web SDK
-The Iterable Web SDK enables developers to integrate Iterable's marketing automation capabilities directly into JavaScript and Node.js applications. It provides functions for tracking user events, managing user profiles, displaying in-app messages, and handling web push notifications. The SDK simplifies client-side integration with Iterable by abstracting API calls into a convenient JavaScript interface, allowing web applications to participate in cross-channel marketing campaigns and capture user engagement data in real time.
+The Iterable Web SDK enables developers to integrate Iterable's marketing automation capabilities directly into JavaScript and Node.js applications. It provides functions for tracking user events, managing user profiles, displaying in-app messages, and handling web push notifications.
 
 **Human URL:** [https://github.com/Iterable/iterable-web-sdk](https://github.com/Iterable/iterable-web-sdk)
 
@@ -93,7 +93,7 @@ The Iterable Android SDK provides native integration between Android application
 - [Documentation](https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs)
 
 ### Iterable React Native SDK
-The Iterable React Native SDK enables developers to integrate Iterable's marketing automation capabilities into cross-platform mobile applications built with React Native. It wraps Iterable's native iOS and Android SDKs and supports both JavaScript and TypeScript. The SDK provides access to push notifications, in-app messages, Mobile Inbox, user event tracking, and deep linking. It is fully compatible with React Native's New Architecture and allows developers to build unified cross-platform marketing integrations from a single codebase.
+The Iterable React Native SDK enables developers to integrate Iterable's marketing automation capabilities into cross-platform mobile applications built with React Native. It wraps Iterable's native iOS and Android SDKs and supports both JavaScript and TypeScript. The SDK provides access to push notifications, in-app messages, Mobile Inbox, user event tracking, and deep linking.
 
 **Human URL:** [https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK](https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK)
 
@@ -108,17 +108,22 @@ The Iterable React Native SDK enables developers to integrate Iterable's marketi
 
 ## Common Properties
 
-- [Portal](https://support.iterable.com/hc/en-us)
-- [Documentation](https://api.iterable.com/api/docs)
+- [AsyncAPI](asyncapi/iterable-system-webhooks-asyncapi.yml)
+- [JSON-LD](json-ld/iterable-context.jsonld)
+- [JSONSchema](json-schema/iterable-user-schema.json)
+- [JSONSchema](json-schema/iterable-campaign-schema.json)
+- [JSONSchema](json-schema/iterable-event-schema.json)
+- [JSONSchema](json-schema/iterable-commerce-item-schema.json)
 - [Website](https://iterable.com/)
-- [PrivacyPolicy](https://iterable.com/trust/privacy-policy/)
-- [TermsOfService](https://iterable.com/trust/terms-of-service/)
+- [Documentation](https://api.iterable.com/api/docs)
 - [Support](https://support.iterable.com/hc/en-us)
 - [Blog](https://iterable.com/blog/)
 - [Login](https://app.iterable.com/login)
+- [PrivacyPolicy](https://iterable.com/trust/privacy-policy/)
+- [TermsOfService](https://iterable.com/trust/terms-of-service/)
 
 ## Maintainers
 
-**FN:** API Evangelist
+**FN:** Kin Lane
 
-**Email:** info@apievangelist.com
+**Email:** kin@apievangelist.com

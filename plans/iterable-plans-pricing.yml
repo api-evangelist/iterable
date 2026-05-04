@@ -1,0 +1,107 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Iterable
+providerId: iterable
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Marketing Automation
+  - Cross-Channel Marketing
+description: Iterable per-MAU pricing across Growth / Premier / Enterprise (custom contracts).
+sources:
+  - https://www.iterable.com/pricing/
+plans:
+  - id: iterable-growth
+    name: Growth
+    type: enterprise
+    description: $3,000-$5,000/mo for 10K-50K MAUs (annual).
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 3000.00-5000.00
+        userMultiplied: false
+      - label: MAUs included
+        name: mau
+        type: quota
+        metric: MAU
+        limit: 50000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Email + Push
+      - name: SMS
+      - name: In-app messaging
+      - name: Workflows
+      - name: Annual contracts
+  - id: iterable-premier
+    name: Premier
+    type: enterprise
+    description: $6,000-$15,000/mo for 50K-200K MAUs.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 6000.00-15000.00
+        userMultiplied: false
+      - label: MAUs included
+        name: mau
+        type: quota
+        metric: MAU
+        limit: 200000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: All Growth features
+      - name: Web push
+      - name: Direct mail
+      - name: AI Optimization
+      - name: Advanced segmentation
+  - id: iterable-enterprise
+    name: Enterprise
+    type: enterprise
+    description: From $20,000/mo for 200K+ MAUs.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 20000.00+
+        userMultiplied: false
+      - label: MAUs
+        name: mau
+        type: quota
+        metric: MAU
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: scales
+        userMultiplied: false
+    elements:
+      - name: Dedicated CSM
+      - name: Custom integrations
+      - name: Volume discounts
+      - name: Multi-year savings

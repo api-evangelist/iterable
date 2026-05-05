@@ -1,0 +1,13 @@
+{
+  "repo": "iterable",
+  "feeds": [
+    {
+      "source": "https://iterable.com/blog/",
+      "feed_url": "https://iterable.com/feed/",
+      "saved": 10,
+      "title": "Iterable"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:29:41Z"
+}

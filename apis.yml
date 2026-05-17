@@ -4,7 +4,7 @@ description: Iterable is an AI customer engagement platform that powers unified 
   experiences and empowers marketers to create, optimize, and measure relevant interactions across email,
   push, SMS, in-app, and web channels. Their developer platform provides REST APIs, export APIs, AsyncAPI
   webhooks, and native SDKs for web, iOS, Android, and React Native.
-type: Contract
+kind: contract
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Cross-Channel Messaging
@@ -141,7 +141,7 @@ apis:
 common:
   - type: AsyncAPI
     url: asyncapi/iterable-system-webhooks-asyncapi.yml
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/iterable-context.jsonld
   - type: JSONSchema
     url: json-schema/iterable-user-schema.json

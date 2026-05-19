@@ -1,0 +1,312 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Iterable REST API — Users
+  description: 'Iterable REST API — Users. 8 operations. Lead operation: Bulk update user profiles. Self-contained Naftiko
+    capability covering one Iterable business surface.'
+  tags:
+  - Iterable
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ITERABLE_API_KEY: ITERABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-users
+    baseUri: https://api.iterable.com/api
+    description: Iterable REST API — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users-bulkUpdate
+      path: /users/bulkUpdate
+      operations:
+      - name: bulkupdateusers
+        method: POST
+        description: Bulk update user profiles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-byUserId-userId
+      path: /users/byUserId/{userId}
+      operations:
+      - name: getuserbyuserid
+        method: GET
+        description: Get a user by userId
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteuserbyuserid
+        method: DELETE
+        description: Delete a user by userId
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-getFields
+      path: /users/getFields
+      operations:
+      - name: getuserfields
+        method: GET
+        description: Get user fields
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-registerDeviceToken
+      path: /users/registerDeviceToken
+      operations:
+      - name: registerdevicetoken
+        method: POST
+        description: Register a device token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-update
+      path: /users/update
+      operations:
+      - name: updateuser
+        method: POST
+        description: Update a user profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-email
+      path: /users/{email}
+      operations:
+      - name: getuserbyemail
+        method: GET
+        description: Get a user by email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteuserbyemail
+        method: DELETE
+        description: Delete a user by email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Api-Key
+      value: '{{env.ITERABLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-users-rest
+    port: 8080
+    description: REST adapter for Iterable REST API — Users. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/users/bulkupdate
+      name: users-bulkupdate
+      description: REST surface for users-bulkUpdate.
+      operations:
+      - method: POST
+        name: bulkupdateusers
+        description: Bulk update user profiles
+        call: rest-users.bulkupdateusers
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/byuserid/{userid}
+      name: users-byuserid-userid
+      description: REST surface for users-byUserId-userId.
+      operations:
+      - method: GET
+        name: getuserbyuserid
+        description: Get a user by userId
+        call: rest-users.getuserbyuserid
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteuserbyuserid
+        description: Delete a user by userId
+        call: rest-users.deleteuserbyuserid
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/getfields
+      name: users-getfields
+      description: REST surface for users-getFields.
+      operations:
+      - method: GET
+        name: getuserfields
+        description: Get user fields
+        call: rest-users.getuserfields
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/registerdevicetoken
+      name: users-registerdevicetoken
+      description: REST surface for users-registerDeviceToken.
+      operations:
+      - method: POST
+        name: registerdevicetoken
+        description: Register a device token
+        call: rest-users.registerdevicetoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/update
+      name: users-update
+      description: REST surface for users-update.
+      operations:
+      - method: POST
+        name: updateuser
+        description: Update a user profile
+        call: rest-users.updateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{email}
+      name: users-email
+      description: REST surface for users-email.
+      operations:
+      - method: GET
+        name: getuserbyemail
+        description: Get a user by email
+        call: rest-users.getuserbyemail
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteuserbyemail
+        description: Delete a user by email
+        call: rest-users.deleteuserbyemail
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Iterable REST API — Users. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: bulk-update-user-profiles
+      description: Bulk update user profiles
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-users.bulkupdateusers
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-userid
+      description: Get a user by userId
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-users.getuserbyuserid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user-userid
+      description: Delete a user by userId
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-users.deleteuserbyuserid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-fields
+      description: Get user fields
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-users.getuserfields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-device-token
+      description: Register a device token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-users.registerdevicetoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-user-profile
+      description: Update a user profile
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-users.updateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-email
+      description: Get a user by email
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-users.getuserbyemail
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user-email
+      description: Delete a user by email
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-users.deleteuserbyemail
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,257 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Iterable REST API — Metadata
+  description: 'Iterable REST API — Metadata. 5 operations. Lead operation: Get metadata table keys. Self-contained Naftiko
+    capability covering one Iterable business surface.'
+  tags:
+  - Iterable
+  - Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ITERABLE_API_KEY: ITERABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-metadata
+    baseUri: https://api.iterable.com/api
+    description: Iterable REST API — Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: metadata-table
+      path: /metadata/{table}
+      operations:
+      - name: getmetadatatable
+        method: GET
+        description: Get metadata table keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          description: The name of the metadata table
+          required: true
+      - name: deletemetadatatable
+        method: DELETE
+        description: Delete a metadata table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          description: The name of the metadata table
+          required: true
+    - name: metadata-table-key
+      path: /metadata/{table}/{key}
+      operations:
+      - name: getmetadataentry
+        method: GET
+        description: Get a metadata entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          description: The name of the metadata table
+          required: true
+        - name: key
+          in: path
+          type: string
+          description: The key of the metadata entry
+          required: true
+      - name: putmetadataentry
+        method: PUT
+        description: Create or update a metadata entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          description: The name of the metadata table
+          required: true
+        - name: key
+          in: path
+          type: string
+          description: The key of the metadata entry
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemetadataentry
+        method: DELETE
+        description: Delete a metadata entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          description: The name of the metadata table
+          required: true
+        - name: key
+          in: path
+          type: string
+          description: The key of the metadata entry
+          required: true
+    authentication:
+      type: apikey
+      key: Api-Key
+      value: '{{env.ITERABLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-metadata-rest
+    port: 8080
+    description: REST adapter for Iterable REST API — Metadata. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/metadata/{table}
+      name: metadata-table
+      description: REST surface for metadata-table.
+      operations:
+      - method: GET
+        name: getmetadatatable
+        description: Get metadata table keys
+        call: rest-metadata.getmetadatatable
+        with:
+          table: rest.table
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemetadatatable
+        description: Delete a metadata table
+        call: rest-metadata.deletemetadatatable
+        with:
+          table: rest.table
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metadata/{table}/{key}
+      name: metadata-table-key
+      description: REST surface for metadata-table-key.
+      operations:
+      - method: GET
+        name: getmetadataentry
+        description: Get a metadata entry
+        call: rest-metadata.getmetadataentry
+        with:
+          table: rest.table
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putmetadataentry
+        description: Create or update a metadata entry
+        call: rest-metadata.putmetadataentry
+        with:
+          table: rest.table
+          key: rest.key
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemetadataentry
+        description: Delete a metadata entry
+        call: rest-metadata.deletemetadataentry
+        with:
+          table: rest.table
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Iterable REST API — Metadata. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-metadata-table-keys
+      description: Get metadata table keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-metadata.getmetadatatable
+      with:
+        table: tools.table
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-metadata-table
+      description: Delete a metadata table
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-metadata.deletemetadatatable
+      with:
+        table: tools.table
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-metadata-entry
+      description: Get a metadata entry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-metadata.getmetadataentry
+      with:
+        table: tools.table
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-metadata-entry
+      description: Create or update a metadata entry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-metadata.putmetadataentry
+      with:
+        table: tools.table
+        key: tools.key
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-metadata-entry
+      description: Delete a metadata entry
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-metadata.deletemetadataentry
+      with:
+        table: tools.table
+        key: tools.key
+      outputParameters:
+      - type: object
+        mapping: $.

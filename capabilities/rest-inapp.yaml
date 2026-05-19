@@ -1,0 +1,99 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Iterable REST API — InApp
+  description: 'Iterable REST API — InApp. 1 operations. Lead operation: Get in-app messages for a user. Self-contained Naftiko
+    capability covering one Iterable business surface.'
+  tags:
+  - Iterable
+  - InApp
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ITERABLE_API_KEY: ITERABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-inapp
+    baseUri: https://api.iterable.com/api
+    description: Iterable REST API — InApp business capability. Self-contained, no shared references.
+    resources:
+    - name: inApp-getMessages
+      path: /inApp/getMessages
+      operations:
+      - name: getinappmessages
+        method: GET
+        description: Get in-app messages for a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: email
+          in: query
+          type: string
+          description: Email address of the user
+        - name: userId
+          in: query
+          type: string
+          description: UserId of the user
+        - name: count
+          in: query
+          type: integer
+          description: Maximum number of messages to return
+        - name: platform
+          in: query
+          type: string
+          description: The platform to get messages for
+    authentication:
+      type: apikey
+      key: Api-Key
+      value: '{{env.ITERABLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-inapp-rest
+    port: 8080
+    description: REST adapter for Iterable REST API — InApp. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/inapp/getmessages
+      name: inapp-getmessages
+      description: REST surface for inApp-getMessages.
+      operations:
+      - method: GET
+        name: getinappmessages
+        description: Get in-app messages for a user
+        call: rest-inapp.getinappmessages
+        with:
+          email: rest.email
+          userId: rest.userId
+          count: rest.count
+          platform: rest.platform
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-inapp-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Iterable REST API — InApp. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-app-messages-user
+      description: Get in-app messages for a user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-inapp.getinappmessages
+      with:
+        email: tools.email
+        userId: tools.userId
+        count: tools.count
+        platform: tools.platform
+      outputParameters:
+      - type: object
+        mapping: $.

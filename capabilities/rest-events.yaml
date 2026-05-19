@@ -1,0 +1,165 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Iterable REST API — Events
+  description: 'Iterable REST API — Events. 3 operations. Lead operation: Track a custom event. Self-contained Naftiko capability
+    covering one Iterable business surface.'
+  tags:
+  - Iterable
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ITERABLE_API_KEY: ITERABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-events
+    baseUri: https://api.iterable.com/api
+    description: Iterable REST API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: events-track
+      path: /events/track
+      operations:
+      - name: trackevent
+        method: POST
+        description: Track a custom event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: events-trackBulk
+      path: /events/trackBulk
+      operations:
+      - name: trackbulkevents
+        method: POST
+        description: Track multiple events in bulk
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: events-email
+      path: /events/{email}
+      operations:
+      - name: geteventsbyemail
+        method: GET
+        description: Get events for a user by email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of events to return
+    authentication:
+      type: apikey
+      key: Api-Key
+      value: '{{env.ITERABLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-events-rest
+    port: 8080
+    description: REST adapter for Iterable REST API — Events. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/events/track
+      name: events-track
+      description: REST surface for events-track.
+      operations:
+      - method: POST
+        name: trackevent
+        description: Track a custom event
+        call: rest-events.trackevent
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/events/trackbulk
+      name: events-trackbulk
+      description: REST surface for events-trackBulk.
+      operations:
+      - method: POST
+        name: trackbulkevents
+        description: Track multiple events in bulk
+        call: rest-events.trackbulkevents
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/events/{email}
+      name: events-email
+      description: REST surface for events-email.
+      operations:
+      - method: GET
+        name: geteventsbyemail
+        description: Get events for a user by email
+        call: rest-events.geteventsbyemail
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Iterable REST API — Events. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: track-custom-event
+      description: Track a custom event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-events.trackevent
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: track-multiple-events-bulk
+      description: Track multiple events in bulk
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-events.trackbulkevents
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-events-user-email
+      description: Get events for a user by email
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-events.geteventsbyemail
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Iterable REST API — Email
+  description: 'Iterable REST API — Email. 1 operations. Lead operation: Send a transactional email. Self-contained Naftiko
+    capability covering one Iterable business surface.'
+  tags:
+  - Iterable
+  - Email
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ITERABLE_API_KEY: ITERABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-email
+    baseUri: https://api.iterable.com/api
+    description: Iterable REST API — Email business capability. Self-contained, no shared references.
+    resources:
+    - name: email-target
+      path: /email/target
+      operations:
+      - name: sendtransactionalemail
+        method: POST
+        description: Send a transactional email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Api-Key
+      value: '{{env.ITERABLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-email-rest
+    port: 8080
+    description: REST adapter for Iterable REST API — Email. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/email/target
+      name: email-target
+      description: REST surface for email-target.
+      operations:
+      - method: POST
+        name: sendtransactionalemail
+        description: Send a transactional email
+        call: rest-email.sendtransactionalemail
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-email-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Iterable REST API — Email. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: send-transactional-email
+      description: Send a transactional email
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-email.sendtransactionalemail
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

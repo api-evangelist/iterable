@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Iterable REST API — WebPush
+  description: 'Iterable REST API — WebPush. 1 operations. Lead operation: Send a web push notification. Self-contained Naftiko
+    capability covering one Iterable business surface.'
+  tags:
+  - Iterable
+  - WebPush
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ITERABLE_API_KEY: ITERABLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-webpush
+    baseUri: https://api.iterable.com/api
+    description: Iterable REST API — WebPush business capability. Self-contained, no shared references.
+    resources:
+    - name: webPush-target
+      path: /webPush/target
+      operations:
+      - name: sendwebpush
+        method: POST
+        description: Send a web push notification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Api-Key
+      value: '{{env.ITERABLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-webpush-rest
+    port: 8080
+    description: REST adapter for Iterable REST API — WebPush. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/webpush/target
+      name: webpush-target
+      description: REST surface for webPush-target.
+      operations:
+      - method: POST
+        name: sendwebpush
+        description: Send a web push notification
+        call: rest-webpush.sendwebpush
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-webpush-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Iterable REST API — WebPush. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: send-web-push-notification
+      description: Send a web push notification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-webpush.sendwebpush
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CampaignCreateRequest",
+  "title": "CampaignCreateRequest",
+  "type": "object",
+  "description": "Request body for creating a new campaign",
+  "required": [
+    "name",
+    "listIds",
+    "templateId"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Campaign name"
+    },
+    "listIds": {
+      "type": "array",
+      "description": "List IDs to target",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "templateId": {
+      "type": "integer",
+      "description": "Template ID to use"
+    },
+    "suppressionListIds": {
+      "type": "array",
+      "description": "List IDs for suppression",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "sendAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled send time in ISO 8601 format"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Additional data fields for personalization",
+      "additionalProperties": true
+    }
+  }
+}

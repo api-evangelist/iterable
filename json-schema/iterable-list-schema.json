@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/List",
+  "title": "List",
+  "type": "object",
+  "description": "A subscriber list in Iterable",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "List ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "List name"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "List creation date"
+    },
+    "listType": {
+      "type": "string",
+      "description": "Type of list"
+    },
+    "description": {
+      "type": "string",
+      "description": "List description"
+    }
+  }
+}

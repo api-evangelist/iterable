@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TrackEventRequest",
+  "title": "TrackEventRequest",
+  "type": "object",
+  "description": "Request body for tracking a custom event",
+  "required": [
+    "email",
+    "eventName"
+  ],
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the user"
+    },
+    "userId": {
+      "type": "string",
+      "description": "UserId of the user"
+    },
+    "eventName": {
+      "type": "string",
+      "description": "Name of the event to track"
+    },
+    "createdAt": {
+      "type": "integer",
+      "description": "Unix timestamp of when the event occurred"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Additional data associated with the event",
+      "additionalProperties": true
+    },
+    "campaignId": {
+      "type": "integer",
+      "description": "Campaign ID to attribute the event to"
+    },
+    "templateId": {
+      "type": "integer",
+      "description": "Template ID to attribute the event to"
+    }
+  }
+}

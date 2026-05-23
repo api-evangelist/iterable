@@ -1,0 +1,510 @@
+{
+  "provider": "Iterable",
+  "providerId": "iterable",
+  "kind": "json-structure",
+  "description": "Structural overview of the Iterable API surface; extracted from openapi/.",
+  "schemaCount": 14,
+  "operationCount": 44,
+  "schemas": [
+    {
+      "name": "IterableResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "UserUpdateRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "UserResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "TrackEventRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "email",
+        "eventName"
+      ]
+    },
+    {
+      "name": "Event",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Campaign",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "CampaignCreateRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name",
+        "listIds",
+        "templateId"
+      ]
+    },
+    {
+      "name": "List",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Channel",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "EmailTemplate",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "EmailTemplateUpdate",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "templateId"
+      ]
+    },
+    {
+      "name": "PurchaseRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "user",
+        "items",
+        "total"
+      ]
+    },
+    {
+      "name": "CommerceItem",
+      "type": "object",
+      "propertyCount": 10,
+      "required": [
+        "id",
+        "name",
+        "price",
+        "quantity"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/users/update",
+      "operationId": "updateUser",
+      "summary": "Update a user profile",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/bulkUpdate",
+      "operationId": "bulkUpdateUsers",
+      "summary": "Bulk update user profiles",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{email}",
+      "operationId": "getUserByEmail",
+      "summary": "Get a user by email",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{email}",
+      "operationId": "deleteUserByEmail",
+      "summary": "Delete a user by email",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/byUserId/{userId}",
+      "operationId": "getUserByUserId",
+      "summary": "Get a user by userId",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/byUserId/{userId}",
+      "operationId": "deleteUserByUserId",
+      "summary": "Delete a user by userId",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/getFields",
+      "operationId": "getUserFields",
+      "summary": "Get user fields",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/registerDeviceToken",
+      "operationId": "registerDeviceToken",
+      "summary": "Register a device token",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/events/track",
+      "operationId": "trackEvent",
+      "summary": "Track a custom event",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/events/trackBulk",
+      "operationId": "trackBulkEvents",
+      "summary": "Track multiple events in bulk",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events/{email}",
+      "operationId": "getEventsByEmail",
+      "summary": "Get events for a user by email",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/campaigns",
+      "operationId": "listCampaigns",
+      "summary": "List campaigns",
+      "tags": [
+        "Campaigns"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/campaigns/create",
+      "operationId": "createCampaign",
+      "summary": "Create a campaign",
+      "tags": [
+        "Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/campaigns/metrics",
+      "operationId": "getCampaignMetrics",
+      "summary": "Get campaign metrics",
+      "tags": [
+        "Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/lists",
+      "operationId": "listLists",
+      "summary": "Get all lists",
+      "tags": [
+        "Lists"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lists",
+      "operationId": "createList",
+      "summary": "Create a list",
+      "tags": [
+        "Lists"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lists/subscribe",
+      "operationId": "subscribeToList",
+      "summary": "Subscribe users to a list",
+      "tags": [
+        "Lists"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/lists/unsubscribe",
+      "operationId": "unsubscribeFromList",
+      "summary": "Unsubscribe users from a list",
+      "tags": [
+        "Lists"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/channels",
+      "operationId": "listChannels",
+      "summary": "List channels",
+      "tags": [
+        "Channels"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/templates/email/get",
+      "operationId": "getEmailTemplate",
+      "summary": "Get an email template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/templates/email/update",
+      "operationId": "updateEmailTemplate",
+      "summary": "Update an email template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/templates/push/get",
+      "operationId": "getPushTemplate",
+      "summary": "Get a push notification template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/templates/sms/get",
+      "operationId": "getSmsTemplate",
+      "summary": "Get an SMS template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/templates/inApp/get",
+      "operationId": "getInAppTemplate",
+      "summary": "Get an in-app message template",
+      "tags": [
+        "Templates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workflows/triggerWorkflow",
+      "operationId": "triggerWorkflow",
+      "summary": "Trigger a workflow",
+      "tags": [
+        "Workflows"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/commerce/trackPurchase",
+      "operationId": "trackPurchase",
+      "summary": "Track a purchase event",
+      "tags": [
+        "Commerce"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/commerce/updateCart",
+      "operationId": "updateCart",
+      "summary": "Update a user's shopping cart",
+      "tags": [
+        "Commerce"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/catalogs/{catalogName}",
+      "operationId": "getCatalog",
+      "summary": "Get a catalog",
+      "tags": [
+        "Catalogs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/catalogs/{catalogName}",
+      "operationId": "deleteCatalog",
+      "summary": "Delete a catalog",
+      "tags": [
+        "Catalogs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/catalogs/{catalogName}/items",
+      "operationId": "listCatalogItems",
+      "summary": "List items in a catalog",
+      "tags": [
+        "Catalogs"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/catalogs/{catalogName}/items/{itemId}",
+      "operationId": "createOrReplaceCatalogItem",
+      "summary": "Create or replace a catalog item",
+      "tags": [
+        "Catalogs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/catalogs/{catalogName}/items/{itemId}",
+      "operationId": "deleteCatalogItem",
+      "summary": "Delete a catalog item",
+      "tags": [
+        "Catalogs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/experiments/metrics",
+      "operationId": "getExperimentMetrics",
+      "summary": "Get experiment metrics",
+      "tags": [
+        "Experiments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/email/target",
+      "operationId": "sendTransactionalEmail",
+      "summary": "Send a transactional email",
+      "tags": [
+        "Email"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/push/target",
+      "operationId": "sendPushNotification",
+      "summary": "Send a push notification",
+      "tags": [
+        "Push"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sms/target",
+      "operationId": "sendSms",
+      "summary": "Send an SMS message",
+      "tags": [
+        "SMS"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inApp/getMessages",
+      "operationId": "getInAppMessages",
+      "summary": "Get in-app messages for a user",
+      "tags": [
+        "InApp"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/messageTypes",
+      "operationId": "listMessageTypes",
+      "summary": "List message types",
+      "tags": [
+        "MessageTypes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metadata/{table}",
+      "operationId": "getMetadataTable",
+      "summary": "Get metadata table keys",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/metadata/{table}",
+      "operationId": "deleteMetadataTable",
+      "summary": "Delete a metadata table",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metadata/{table}/{key}",
+      "operationId": "getMetadataEntry",
+      "summary": "Get a metadata entry",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/metadata/{table}/{key}",
+      "operationId": "putMetadataEntry",
+      "summary": "Create or update a metadata entry",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/metadata/{table}/{key}",
+      "operationId": "deleteMetadataEntry",
+      "summary": "Delete a metadata entry",
+      "tags": [
+        "Metadata"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/webPush/target",
+      "operationId": "sendWebPush",
+      "summary": "Send a web push notification",
+      "tags": [
+        "WebPush"
+      ]
+    }
+  ]
+}

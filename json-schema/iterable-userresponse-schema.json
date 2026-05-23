@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserResponse",
+  "title": "UserResponse",
+  "type": "object",
+  "description": "User profile response containing all user data",
+  "properties": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User ID"
+        },
+        "dataFields": {
+          "type": "object",
+          "description": "Custom user data fields",
+          "additionalProperties": true
+        },
+        "signupDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "User signup date"
+        },
+        "profileUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last profile update timestamp"
+        }
+      }
+    }
+  }
+}

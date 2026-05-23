@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Channel",
+  "title": "Channel",
+  "type": "object",
+  "description": "A messaging channel in Iterable",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Channel ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Channel name"
+    },
+    "channelType": {
+      "type": "string",
+      "description": "Type of channel"
+    },
+    "messageMedium": {
+      "type": "string",
+      "description": "Message medium for this channel"
+    }
+  }
+}

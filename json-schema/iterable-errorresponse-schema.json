@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ErrorResponse",
+  "title": "ErrorResponse",
+  "type": "object",
+  "description": "Error response returned when a request fails",
+  "properties": {
+    "msg": {
+      "type": "string",
+      "description": "Error message describing what went wrong"
+    },
+    "code": {
+      "type": "string",
+      "description": "Error code"
+    }
+  }
+}

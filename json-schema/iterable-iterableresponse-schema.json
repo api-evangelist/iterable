@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IterableResponse",
+  "title": "IterableResponse",
+  "type": "object",
+  "description": "Standard Iterable API response indicating success or failure",
+  "properties": {
+    "msg": {
+      "type": "string",
+      "description": "Human-readable response message"
+    },
+    "code": {
+      "type": "string",
+      "description": "Response code indicating success or error type"
+    },
+    "params": {
+      "type": "object",
+      "description": "Additional response parameters",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PurchaseRequest",
+  "title": "PurchaseRequest",
+  "type": "object",
+  "description": "Request body for tracking a purchase event",
+  "required": [
+    "user",
+    "items",
+    "total"
+  ],
+  "properties": {
+    "user": {
+      "type": "object",
+      "description": "The user who made the purchase",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UserId of the user"
+        },
+        "dataFields": {
+          "type": "object",
+          "description": "Additional user data fields to update",
+          "additionalProperties": true
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of items purchased",
+      "items": {
+        "$ref": "#/components/schemas/CommerceItem"
+      }
+    },
+    "total": {
+      "type": "number",
+      "description": "Total value of the purchase"
+    },
+    "createdAt": {
+      "type": "integer",
+      "description": "Unix timestamp of the purchase"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Additional purchase data fields",
+      "additionalProperties": true
+    },
+    "campaignId": {
+      "type": "integer",
+      "description": "Campaign ID to attribute the purchase to"
+    },
+    "templateId": {
+      "type": "integer",
+      "description": "Template ID to attribute the purchase to"
+    }
+  }
+}

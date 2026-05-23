@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmailTemplate",
+  "title": "EmailTemplate",
+  "type": "object",
+  "description": "An email template",
+  "properties": {
+    "templateId": {
+      "type": "integer",
+      "description": "Template ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Template name"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line"
+    },
+    "preheaderText": {
+      "type": "string",
+      "description": "Email preheader text"
+    },
+    "html": {
+      "type": "string",
+      "description": "HTML content of the template"
+    },
+    "plainText": {
+      "type": "string",
+      "description": "Plain text content of the template"
+    },
+    "fromName": {
+      "type": "string",
+      "description": "From name for the email"
+    },
+    "fromEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "From email address"
+    },
+    "replyToEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Reply-to email address"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Template creation date"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Template last update date"
+    }
+  }
+}

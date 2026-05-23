@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExportedEvent",
+  "title": "ExportedEvent",
+  "type": "object",
+  "description": "An exported event record",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the user"
+    },
+    "eventName": {
+      "type": "string",
+      "description": "Name of the event"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the event was created"
+    },
+    "campaignId": {
+      "type": "integer",
+      "description": "Associated campaign ID if applicable"
+    },
+    "templateId": {
+      "type": "integer",
+      "description": "Associated template ID if applicable"
+    },
+    "messageId": {
+      "type": "string",
+      "description": "Unique message ID for sent messages"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Additional event data fields",
+      "additionalProperties": true
+    },
+    "contentId": {
+      "type": "integer",
+      "description": "Content ID for experiments"
+    },
+    "channelId": {
+      "type": "integer",
+      "description": "Channel ID for the message"
+    },
+    "messageTypeId": {
+      "type": "integer",
+      "description": "Message type ID"
+    },
+    "workflowId": {
+      "type": "integer",
+      "description": "Workflow ID if the event was triggered by a workflow"
+    },
+    "workflowName": {
+      "type": "string",
+      "description": "Name of the associated workflow"
+    },
+    "campaignName": {
+      "type": "string",
+      "description": "Name of the associated campaign"
+    },
+    "templateName": {
+      "type": "string",
+      "description": "Name of the associated template"
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels associated with the campaign",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

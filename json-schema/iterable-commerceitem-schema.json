@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CommerceItem",
+  "title": "CommerceItem",
+  "type": "object",
+  "description": "A commerce item in a purchase or cart",
+  "required": [
+    "id",
+    "name",
+    "price",
+    "quantity"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Item ID or SKU"
+    },
+    "sku": {
+      "type": "string",
+      "description": "Item SKU"
+    },
+    "name": {
+      "type": "string",
+      "description": "Item name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Item description"
+    },
+    "categories": {
+      "type": "array",
+      "description": "Item categories",
+      "items": {
+        "type": "string"
+      }
+    },
+    "price": {
+      "type": "number",
+      "description": "Item price"
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Quantity purchased"
+    },
+    "imageUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the item image"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the item page"
+    },
+    "dataFields": {
+      "type": "object",
+      "description": "Additional item data fields",
+      "additionalProperties": true
+    }
+  }
+}

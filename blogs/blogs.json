@@ -2,12 +2,20 @@
   "repo": "iterable",
   "feeds": [
     {
-      "source": "https://iterable.com/blog/",
+      "source": "https://iterable.com/blog/feed/",
       "feed_url": "https://iterable.com/blog/feed/",
-      "title": "Comments on: Blog",
-      "saved": 0
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://iterable.com/blog/",
+      "feed_url": "https://iterable.com/feed/",
+      "title": "",
+      "saved": 2,
+      "method": "discovered"
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 12,
+  "fetched": "2026-06-01T23:35:02Z"
 }

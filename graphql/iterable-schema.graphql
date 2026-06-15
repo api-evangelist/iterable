@@ -1,0 +1,788 @@
+"""
+Iterable GraphQL Schema
+Conceptual schema derived from the Iterable REST API.
+Iterable is a cross-channel marketing automation platform covering user management,
+event tracking, email/SMS/push campaigns, workflows, A/B testing, audience
+segmentation, catalog items, and engagement analytics.
+"""
+
+# ─── Scalars ───────────────────────────────────────────────────────────────────
+
+"""ISO 8601 date-time string"""
+scalar DateTime
+
+"""Arbitrary JSON object"""
+scalar JSON
+
+"""URI string"""
+scalar URL
+
+# ─── Enums ─────────────────────────────────────────────────────────────────────
+
+"""Supported message delivery channels"""
+enum MessageMedium {
+  EMAIL
+  PUSH
+  SMS
+  IN_APP
+  WEB_PUSH
+}
+
+"""Lifecycle state of a campaign"""
+enum CampaignState {
+  DRAFT
+  SCHEDULED
+  RUNNING
+  FINISHED
+  CANCELLED
+}
+
+"""Category of campaign"""
+enum CampaignType {
+  BLAST
+  TRIGGERED
+  PROOF
+  AUTOMATED
+}
+
+"""Template content type"""
+enum TemplateType {
+  EMAIL
+  PUSH
+  SMS
+  IN_APP
+  WEB_PUSH
+}
+
+"""Subscription status for a user on a channel"""
+enum SubscriptionStatus {
+  SUBSCRIBED
+  UNSUBSCRIBED
+  OPT_OUT
+}
+
+"""Experiment / A-B test status"""
+enum ExperimentStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  DRAFT
+}
+
+"""Workflow trigger type"""
+enum WorkflowTriggerType {
+  EVENT
+  API
+  SCHEDULED
+  LIST_CHANGE
+}
+
+"""Sort direction"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Export data type"""
+enum ExportDataType {
+  USER
+  EVENT
+  PURCHASE
+  EMAIL_CLICK
+  EMAIL_OPEN
+  EMAIL_BOUNCE
+  EMAIL_UNSUBSCRIBE
+  EMAIL_SEND
+  PUSH_SEND
+  PUSH_OPEN
+  SMS_SEND
+  SMS_RECEIVED
+  IN_APP_CLICK
+  IN_APP_OPEN
+}
+
+# ─── Core Domain Types ──────────────────────────────────────────────────────────
+
+"""A user profile in Iterable"""
+type User {
+  email: String!
+  userId: String
+  dataFields: JSON
+  signupDate: DateTime
+  profileUpdatedAt: DateTime
+  emailListIds: [Int!]
+  phoneNumber: String
+  firstName: String
+  lastName: String
+  events(limit: Int, offset: Int): [Event!]!
+  subscriptionPreferences: SubscriptionPreferences
+  devices: [Device!]!
+}
+
+"""Subscription preference settings for a user"""
+type SubscriptionPreferences {
+  email: SubscriptionStatus
+  sms: SubscriptionStatus
+  push: SubscriptionStatus
+  inApp: SubscriptionStatus
+  webPush: SubscriptionStatus
+  unsubscribedChannelIds: [Int!]
+  unsubscribedMessageTypeIds: [Int!]
+  subscribedMessageTypeIds: [Int!]
+}
+
+"""A push / web-push device token registered for a user"""
+type Device {
+  token: String!
+  platform: String!
+  applicationName: String
+  createdAt: DateTime
+  lastUsedAt: DateTime
+  dataFields: JSON
+}
+
+"""A tracked event for a user"""
+type Event {
+  eventName: String!
+  createdAt: DateTime!
+  dataFields: JSON
+  campaignId: Int
+  templateId: Int
+  userId: String
+  email: String
+  messageId: String
+}
+
+"""A marketing campaign"""
+type Campaign {
+  id: Int!
+  name: String!
+  type: CampaignType
+  templateId: Int
+  template: Template
+  createdAt: DateTime
+  updatedAt: DateTime
+  startAt: DateTime
+  endAt: DateTime
+  messageMedium: MessageMedium
+  campaignState: CampaignState
+  listIds: [Int!]
+  suppressionListIds: [Int!]
+  labels: [String!]
+  dataFields: JSON
+  sendSize: Int
+  metrics: CampaignMetrics
+}
+
+"""Aggregate performance metrics for a campaign"""
+type CampaignMetrics {
+  campaignId: Int!
+  sends: Int
+  opens: Int
+  clicks: Int
+  bounces: Int
+  unsubscribes: Int
+  conversions: Int
+  revenue: Float
+  uniqueOpens: Int
+  uniqueClicks: Int
+  openRate: Float
+  clickRate: Float
+  conversionRate: Float
+  unsubscribeRate: Float
+}
+
+"""A subscriber list"""
+type List {
+  id: Int!
+  name: String!
+  description: String
+  listType: String
+  createdAt: DateTime
+  userCount: Int
+}
+
+"""A messaging channel"""
+type Channel {
+  id: Int!
+  name: String!
+  channelType: String
+  messageMedium: MessageMedium
+  messageTypes: [MessageType!]!
+}
+
+"""A message type within a channel"""
+type MessageType {
+  id: Int!
+  name: String!
+  channelId: Int!
+  channel: Channel
+  subscriptionPolicy: String
+  frequency: String
+}
+
+"""A content template"""
+type Template {
+  templateId: Int!
+  name: String!
+  templateType: TemplateType
+  createdAt: DateTime
+  updatedAt: DateTime
+  creator: String
+  messageTypeId: Int
+  messageType: MessageType
+}
+
+"""An email-specific template"""
+type EmailTemplate {
+  templateId: Int!
+  name: String!
+  subject: String
+  preheaderText: String
+  html: String
+  plainText: String
+  fromName: String
+  fromEmail: String
+  replyToEmail: String
+  googleAnalyticsCampaignName: String
+  linkParameters: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A push notification template"""
+type PushTemplate {
+  templateId: Int!
+  name: String!
+  title: String
+  message: String
+  sound: String
+  badge: String
+  deeplink: String
+  imageUrl: URL
+  payload: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""An SMS template"""
+type SmsTemplate {
+  templateId: Int!
+  name: String!
+  message: String!
+  fromPhoneNumber: String
+  locale: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""An in-app message template"""
+type InAppTemplate {
+  templateId: Int!
+  name: String!
+  html: String
+  payloadJSON: JSON
+  inAppDisplaySettings: InAppDisplaySettings
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Display configuration for an in-app message"""
+type InAppDisplaySettings {
+  orientation: String
+  shouldAnimate: Boolean
+  backgroundAlpha: Float
+  edge: String
+  edgeOffset: Int
+  htmlBodyColor: String
+  bodyHtml: String
+}
+
+"""A product catalog"""
+type Catalog {
+  name: String!
+  description: String
+  definedFields: [CatalogFieldDefinition!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  itemCount: Int
+}
+
+"""A field definition within a catalog"""
+type CatalogFieldDefinition {
+  name: String!
+  fieldType: String!
+  indexed: Boolean
+}
+
+"""An item within a product catalog"""
+type CatalogItem {
+  itemId: String!
+  catalogName: String!
+  value: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A purchase / commerce event"""
+type Purchase {
+  id: String
+  user: User
+  items: [CommerceItem!]!
+  total: Float!
+  createdAt: DateTime
+  campaignId: Int
+  templateId: Int
+  dataFields: JSON
+}
+
+"""A line-item within a purchase or cart"""
+type CommerceItem {
+  id: String!
+  sku: String
+  name: String!
+  description: String
+  categories: [String!]
+  price: Float!
+  quantity: Int!
+  imageUrl: URL
+  url: URL
+  dataFields: JSON
+}
+
+"""An A/B experiment"""
+type Experiment {
+  id: Int!
+  name: String
+  state: ExperimentStatus
+  type: String
+  startAt: DateTime
+  endAt: DateTime
+  createdAt: DateTime
+  campaigns: [Campaign!]!
+  metrics: ExperimentMetrics
+}
+
+"""Metrics comparing experiment variants"""
+type ExperimentMetrics {
+  experimentId: Int!
+  variantMetrics: [VariantMetrics!]!
+  winnerVariantId: Int
+}
+
+"""Metrics for a single experiment variant"""
+type VariantMetrics {
+  variantId: Int!
+  variantName: String
+  sends: Int
+  opens: Int
+  clicks: Int
+  conversions: Int
+  revenue: Float
+  openRate: Float
+  clickRate: Float
+  conversionRate: Float
+  confidence: Float
+}
+
+"""A journey / automation workflow"""
+type Workflow {
+  id: Int!
+  name: String!
+  description: String
+  triggerType: WorkflowTriggerType
+  active: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+  triggers: [WorkflowTrigger!]!
+}
+
+"""A trigger configuration attached to a workflow"""
+type WorkflowTrigger {
+  workflowId: Int!
+  type: WorkflowTriggerType!
+  triggerEventName: String
+  triggerCampaignId: Int
+  configuration: JSON
+}
+
+"""A metadata table"""
+type MetadataTable {
+  name: String!
+  entries(limit: Int, offset: Int): [MetadataEntry!]!
+}
+
+"""A single key/value metadata entry"""
+type MetadataEntry {
+  tableName: String!
+  key: String!
+  value: JSON
+}
+
+"""A send-time optimization configuration"""
+type SendTimeOptimization {
+  enabled: Boolean!
+  algorithm: String
+  lookaheadWindowHours: Int
+}
+
+"""A segment / audience definition"""
+type Segment {
+  id: Int!
+  name: String!
+  description: String
+  segmentType: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userCount: Int
+}
+
+"""A global unsubscribe record"""
+type GlobalUnsubscribe {
+  email: String!
+  unsubscribedAt: DateTime
+  reason: String
+}
+
+"""Input for triggering an email send"""
+input SendEmailInput {
+  campaignId: Int!
+  recipientEmail: String!
+  dataFields: JSON
+  allowRepeatMarketingSends: Boolean
+}
+
+"""An export job result"""
+type ExportResult {
+  exportType: ExportDataType!
+  startTime: DateTime
+  endTime: DateTime
+  rowCount: Int
+  downloadUrl: URL
+  status: String
+}
+
+"""An in-app message ready for client rendering"""
+type InAppMessage {
+  messageId: String!
+  campaignId: Int
+  templateId: Int
+  html: String
+  displaySettings: InAppDisplaySettings
+  customPayload: JSON
+  createdAt: DateTime
+  expiresAt: DateTime
+}
+
+"""A web push subscription token"""
+type WebPushToken {
+  token: String!
+  endpoint: URL
+  platform: String
+  browserName: String
+  createdAt: DateTime
+}
+
+"""Summary statistics for a single list"""
+type ListMetrics {
+  listId: Int!
+  userCount: Int
+  activeUserCount: Int
+  bouncedCount: Int
+  unsubscribedCount: Int
+}
+
+# ─── Input Types ───────────────────────────────────────────────────────────────
+
+"""Input for creating or updating a user"""
+input UserInput {
+  email: String
+  userId: String
+  dataFields: JSON
+  preferUserId: Boolean
+  mergeNestedObjects: Boolean
+}
+
+"""Input for tracking a custom event"""
+input TrackEventInput {
+  email: String
+  userId: String
+  eventName: String!
+  createdAt: Int
+  dataFields: JSON
+  campaignId: Int
+  templateId: Int
+}
+
+"""Input for tracking a purchase"""
+input PurchaseInput {
+  user: UserInput!
+  items: [CommerceItemInput!]!
+  total: Float!
+  createdAt: Int
+  dataFields: JSON
+  campaignId: Int
+  templateId: Int
+}
+
+"""Input for a single commerce line item"""
+input CommerceItemInput {
+  id: String!
+  sku: String
+  name: String!
+  description: String
+  categories: [String!]
+  price: Float!
+  quantity: Int!
+  imageUrl: String
+  url: String
+  dataFields: JSON
+}
+
+"""Input for creating a campaign"""
+input CampaignCreateInput {
+  name: String!
+  listIds: [Int!]!
+  templateId: Int!
+  suppressionListIds: [Int!]
+  sendAt: DateTime
+  dataFields: JSON
+}
+
+"""Input for updating an email template"""
+input EmailTemplateUpdateInput {
+  templateId: Int!
+  name: String
+  subject: String
+  preheaderText: String
+  html: String
+  plainText: String
+  fromName: String
+  fromEmail: String
+  replyToEmail: String
+}
+
+"""Input for updating a push template"""
+input PushTemplateUpdateInput {
+  templateId: Int!
+  name: String
+  title: String
+  message: String
+  sound: String
+  badge: String
+  deeplink: String
+  imageUrl: String
+  payload: JSON
+}
+
+"""Input for updating an SMS template"""
+input SmsTemplateUpdateInput {
+  templateId: Int!
+  name: String
+  message: String
+  fromPhoneNumber: String
+  locale: String
+}
+
+"""Input for upserting a catalog item"""
+input CatalogItemInput {
+  itemId: String!
+  value: JSON!
+}
+
+"""Pagination arguments"""
+input PaginationInput {
+  limit: Int = 20
+  offset: Int = 0
+}
+
+# ─── Payload / Response Types ──────────────────────────────────────────────────
+
+"""Standard mutation response"""
+type MutationResponse {
+  success: Boolean!
+  message: String
+  code: String
+}
+
+"""Paginated list of users"""
+type UserConnection {
+  nodes: [User!]!
+  totalCount: Int
+  hasNextPage: Boolean!
+}
+
+"""Paginated list of campaigns"""
+type CampaignConnection {
+  nodes: [Campaign!]!
+  totalCount: Int
+  hasNextPage: Boolean!
+}
+
+"""Paginated list of templates"""
+type TemplateConnection {
+  nodes: [Template!]!
+  totalCount: Int
+  hasNextPage: Boolean!
+}
+
+"""Paginated list of catalog items"""
+type CatalogItemConnection {
+  nodes: [CatalogItem!]!
+  totalCount: Int
+  hasNextPage: Boolean!
+}
+
+"""Paginated list of events"""
+type EventConnection {
+  nodes: [Event!]!
+  totalCount: Int
+  hasNextPage: Boolean!
+}
+
+# ─── Root Operations ────────────────────────────────────────────────────────────
+
+type Query {
+  """Retrieve a user profile by email"""
+  userByEmail(email: String!): User
+
+  """Retrieve a user profile by userId"""
+  userByUserId(userId: String!): User
+
+  """List user events"""
+  userEvents(email: String, userId: String, pagination: PaginationInput): EventConnection!
+
+  """List all campaigns"""
+  campaigns(state: CampaignState, medium: MessageMedium, pagination: PaginationInput): CampaignConnection!
+
+  """Retrieve a single campaign by ID"""
+  campaign(id: Int!): Campaign
+
+  """Get metrics for a campaign"""
+  campaignMetrics(campaignId: Int!): CampaignMetrics
+
+  """List all subscriber lists"""
+  lists(pagination: PaginationInput): [List!]!
+
+  """Get a subscriber list by ID"""
+  list(id: Int!): List
+
+  """Get list metrics"""
+  listMetrics(listId: Int!): ListMetrics
+
+  """List all channels"""
+  channels: [Channel!]!
+
+  """Get a channel by ID"""
+  channel(id: Int!): Channel
+
+  """List all message types"""
+  messageTypes(channelId: Int): [MessageType!]!
+
+  """List all templates"""
+  templates(templateType: TemplateType, pagination: PaginationInput): TemplateConnection!
+
+  """Get an email template"""
+  emailTemplate(templateId: Int!): EmailTemplate
+
+  """Get a push template"""
+  pushTemplate(templateId: Int!): PushTemplate
+
+  """Get an SMS template"""
+  smsTemplate(templateId: Int!): SmsTemplate
+
+  """Get an in-app template"""
+  inAppTemplate(templateId: Int!): InAppTemplate
+
+  """List all catalogs"""
+  catalogs: [Catalog!]!
+
+  """Get a catalog by name"""
+  catalog(name: String!): Catalog
+
+  """List items in a catalog"""
+  catalogItems(catalogName: String!, pagination: PaginationInput): CatalogItemConnection!
+
+  """Get a single catalog item"""
+  catalogItem(catalogName: String!, itemId: String!): CatalogItem
+
+  """List all experiments"""
+  experiments(status: ExperimentStatus, pagination: PaginationInput): [Experiment!]!
+
+  """Get an experiment by ID"""
+  experiment(id: Int!): Experiment
+
+  """Get experiment metrics"""
+  experimentMetrics(experimentId: Int!): ExperimentMetrics
+
+  """List all workflows"""
+  workflows(pagination: PaginationInput): [Workflow!]!
+
+  """Get a workflow by ID"""
+  workflow(id: Int!): Workflow
+
+  """Get a metadata entry"""
+  metadataEntry(tableName: String!, key: String!): MetadataEntry
+
+  """List metadata tables"""
+  metadataTables: [MetadataTable!]!
+
+  """Get in-app messages for a user"""
+  inAppMessages(email: String, userId: String): [InAppMessage!]!
+}
+
+type Mutation {
+  """Create or update a user profile"""
+  upsertUser(input: UserInput!): MutationResponse!
+
+  """Bulk update user profiles"""
+  bulkUpsertUsers(users: [UserInput!]!): MutationResponse!
+
+  """Delete a user by email"""
+  deleteUserByEmail(email: String!): MutationResponse!
+
+  """Delete a user by userId"""
+  deleteUserByUserId(userId: String!): MutationResponse!
+
+  """Subscribe a user to a list"""
+  subscribeUsersToList(listId: Int!, subscribers: [UserInput!]!): MutationResponse!
+
+  """Unsubscribe users from a list"""
+  unsubscribeUsersFromList(listId: Int!, unsubscribers: [UserInput!]!): MutationResponse!
+
+  """Track a custom event"""
+  trackEvent(input: TrackEventInput!): MutationResponse!
+
+  """Track a purchase"""
+  trackPurchase(input: PurchaseInput!): MutationResponse!
+
+  """Update cart data for a user"""
+  updateCart(user: UserInput!, items: [CommerceItemInput!]!): MutationResponse!
+
+  """Create a campaign"""
+  createCampaign(input: CampaignCreateInput!): Campaign
+
+  """Update an email template"""
+  updateEmailTemplate(input: EmailTemplateUpdateInput!): MutationResponse!
+
+  """Update a push template"""
+  updatePushTemplate(input: PushTemplateUpdateInput!): MutationResponse!
+
+  """Update an SMS template"""
+  updateSmsTemplate(input: SmsTemplateUpdateInput!): MutationResponse!
+
+  """Upsert a catalog item"""
+  upsertCatalogItem(catalogName: String!, item: CatalogItemInput!): MutationResponse!
+
+  """Delete a catalog item"""
+  deleteCatalogItem(catalogName: String!, itemId: String!): MutationResponse!
+
+  """Trigger a workflow"""
+  triggerWorkflow(workflowId: Int!, email: String, userId: String, dataFields: JSON): MutationResponse!
+
+  """Put a metadata entry"""
+  putMetadataEntry(tableName: String!, key: String!, value: JSON!): MutationResponse!
+
+  """Delete a metadata entry"""
+  deleteMetadataEntry(tableName: String!, key: String!): MutationResponse!
+}

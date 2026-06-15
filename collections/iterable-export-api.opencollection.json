@@ -1,0 +1,182 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export data as JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/export/data.json",
+            "params": [
+              {
+                "name": "dataTypeName",
+                "value": "",
+                "type": "query",
+                "description": "The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick."
+              },
+              {
+                "name": "startDateTime",
+                "value": "",
+                "type": "query",
+                "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)"
+              },
+              {
+                "name": "endDateTime",
+                "value": "",
+                "type": "query",
+                "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All."
+              },
+              {
+                "name": "omitFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude from the export"
+              },
+              {
+                "name": "onlyFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned."
+              }
+            ]
+          },
+          "docs": "Exports event data from the Iterable project in JSON format. Supports filtering by date range and data type. The response is a stream of newline-delimited JSON objects, each representing a single event record."
+        },
+        {
+          "info": {
+            "name": "Export data as CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/export/data.csv",
+            "params": [
+              {
+                "name": "dataTypeName",
+                "value": "",
+                "type": "query",
+                "description": "The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick."
+              },
+              {
+                "name": "startDateTime",
+                "value": "",
+                "type": "query",
+                "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)"
+              },
+              {
+                "name": "endDateTime",
+                "value": "",
+                "type": "query",
+                "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All."
+              },
+              {
+                "name": "omitFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude from the export"
+              },
+              {
+                "name": "onlyFields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned."
+              }
+            ]
+          },
+          "docs": "Exports event data from the Iterable project in CSV format. Supports filtering by date range and data type. The response is a CSV file with headers in the first row."
+        },
+        {
+          "info": {
+            "name": "Export events for a specific user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/export/userEvents",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the user whose events to export"
+              },
+              {
+                "name": "includeCustomEvents",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include custom events in the export"
+              }
+            ]
+          },
+          "docs": "Exports all tracked events for a specific user identified by email address. Returns events in JSON format with support for pagination and filtering by event type."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExperimentMetrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export experiment metrics as CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/experiments/metrics",
+            "params": [
+              {
+                "name": "experimentId",
+                "value": "",
+                "type": "query",
+                "description": "One or more experiment IDs to export metrics for"
+              },
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "query",
+                "description": "One or more campaign IDs to export metrics for"
+              }
+            ]
+          },
+          "docs": "Exports experiment metrics for A/B tests as CSV. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total per request. This endpoint returns data only for email experiments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,974 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable REST API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update a user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/users/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user profile or creates a new one if the user does not already exist. Accepts user fields, email, userId, and data fields to set or update on the user profile."
+        },
+        {
+          "info": {
+            "name": "Bulk update user profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/users/bulkUpdate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates multiple user profiles in a single request. Each user object in the array can include email, userId, and data fields to update."
+        },
+        {
+          "info": {
+            "name": "Get a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/users/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves the full user profile for a given email address, including all data fields and subscription preferences."
+        },
+        {
+          "info": {
+            "name": "Delete a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/users/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of the user"
+              }
+            ]
+          },
+          "docs": "Deletes a user profile identified by email address from the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Get a user by userId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/users/byUserId/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The userId of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves the full user profile for a given userId, including all data fields and subscription preferences."
+        },
+        {
+          "info": {
+            "name": "Delete a user by userId",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/users/byUserId/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The userId of the user"
+              }
+            ]
+          },
+          "docs": "Deletes a user profile identified by userId from the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Get user fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/users/getFields"
+          },
+          "docs": "Retrieves all user field names and their data types defined in the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Register a device token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/users/registerDeviceToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a device token (APNs or FCM) for a user to enable push notification delivery."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Track a custom event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/events/track",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks a custom event for a user. Events can be used to trigger campaigns, segment users, and track user behavior within the Iterable platform."
+        },
+        {
+          "info": {
+            "name": "Track multiple events in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/events/trackBulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks multiple custom events in a single request. Each event in the array includes the user identifier, event name, and associated data fields."
+        },
+        {
+          "info": {
+            "name": "Get events for a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/events/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of the user"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              }
+            ]
+          },
+          "docs": "Retrieves events tracked for a user identified by email address. Supports pagination and filtering by event type."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/campaigns"
+          },
+          "docs": "Retrieves metadata for all campaigns in the project associated with the API key. Returns campaign id, name, type, status, template information, and creation dates."
+        },
+        {
+          "info": {
+            "name": "Create a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/campaigns/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new campaign in the Iterable project with the specified name, template, list, and configuration options."
+        },
+        {
+          "info": {
+            "name": "Get campaign metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/campaigns/metrics",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "query",
+                "description": "One or more campaign IDs to retrieve metrics for"
+              },
+              {
+                "name": "startDateTime",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the metrics period in ISO 8601 format"
+              },
+              {
+                "name": "endDateTime",
+                "value": "",
+                "type": "query",
+                "description": "End date for the metrics period in ISO 8601 format"
+              }
+            ]
+          },
+          "docs": "Retrieves engagement metrics for one or more campaigns, including sends, opens, clicks, unsubscribes, bounces, and complaints."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/lists"
+          },
+          "docs": "Retrieves all subscriber lists in the Iterable project, including list ID, name, creation date, and size."
+        },
+        {
+          "info": {
+            "name": "Create a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new subscriber list in the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Subscribe users to a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/lists/subscribe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds one or more users to a subscriber list. Users are identified by email address."
+        },
+        {
+          "info": {
+            "name": "Unsubscribe users from a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/lists/unsubscribe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes one or more users from a subscriber list. Users are identified by email address."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/channels"
+          },
+          "docs": "Retrieves all messaging channels configured in the Iterable project. Channels organize message types and are used to group campaign templates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an email template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/email/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the email template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of an email template by its template ID."
+        },
+        {
+          "info": {
+            "name": "Update an email template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/templates/email/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content and metadata of an existing email template."
+        },
+        {
+          "info": {
+            "name": "Get a push notification template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/push/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the push template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of a push notification template by its template ID."
+        },
+        {
+          "info": {
+            "name": "Get an SMS template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/sms/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the SMS template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of an SMS template by its template ID."
+        },
+        {
+          "info": {
+            "name": "Get an in-app message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/inApp/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the in-app template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of an in-app message template by its template ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/workflows/triggerWorkflow",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a workflow enrollment for one or more users. The workflow must already be created and activated in the Iterable project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Commerce",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Track a purchase event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/commerce/trackPurchase",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks a purchase event for a user, including the items purchased, total value, and associated properties. Purchase data is used for revenue attribution and campaign triggering."
+        },
+        {
+          "info": {
+            "name": "Update a user's shopping cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/commerce/updateCart",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the shopping cart contents for a user. Cart data can be used for abandoned cart campaigns and personalization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Catalogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              }
+            ]
+          },
+          "docs": "Retrieves a catalog by name, including its field definitions and metadata."
+        },
+        {
+          "info": {
+            "name": "Delete a catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              }
+            ]
+          },
+          "docs": "Deletes a catalog and all its items from the Iterable project."
+        },
+        {
+          "info": {
+            "name": "List items in a catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName/items",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              }
+            ]
+          },
+          "docs": "Retrieves items from a catalog with support for pagination."
+        },
+        {
+          "info": {
+            "name": "Create or replace a catalog item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName/items/:itemId",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the catalog item"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new catalog item or replaces an existing one with the specified item ID and field values."
+        },
+        {
+          "info": {
+            "name": "Delete a catalog item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName/items/:itemId",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the catalog item"
+              }
+            ]
+          },
+          "docs": "Deletes a catalog item by its item ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Experiments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get experiment metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/experiments/metrics",
+            "params": [
+              {
+                "name": "experimentId",
+                "value": "",
+                "type": "query",
+                "description": "One or more experiment IDs"
+              },
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "query",
+                "description": "One or more campaign IDs"
+              }
+            ]
+          },
+          "docs": "Retrieves experiment metrics for A/B tests. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a transactional email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/email/target",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a transactional email to a specific user using a template. Supports personalization via data fields and attachments."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Push",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a push notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/push/target",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a push notification to a specific user using a template. Supports personalization via data fields."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SMS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send an SMS message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/sms/target",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an SMS message to a specific user using a template. Supports personalization via data fields."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "InApp",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get in-app messages for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/inApp/getMessages",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the user"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "UserId of the user"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of messages to return"
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "The platform to get messages for"
+              }
+            ]
+          },
+          "docs": "Retrieves pending in-app messages for a user, typically called by mobile or web SDKs to display in-app content."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MessageTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List message types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/messageTypes"
+          },
+          "docs": "Retrieves all message types configured in the Iterable project. Message types categorize the kinds of messages sent through channels."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata table keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/metadata/:table",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              }
+            ]
+          },
+          "docs": "Retrieves all keys in a metadata table."
+        },
+        {
+          "info": {
+            "name": "Delete a metadata table",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/metadata/:table",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              }
+            ]
+          },
+          "docs": "Deletes a metadata table and all its entries."
+        },
+        {
+          "info": {
+            "name": "Get a metadata entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/metadata/:table/:key",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the metadata entry"
+              }
+            ]
+          },
+          "docs": "Retrieves a single metadata entry by table name and key."
+        },
+        {
+          "info": {
+            "name": "Create or update a metadata entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.iterable.com/api/metadata/:table/:key",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the metadata entry"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a metadata entry for the specified table and key."
+        },
+        {
+          "info": {
+            "name": "Delete a metadata entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/metadata/:table/:key",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the metadata entry"
+              }
+            ]
+          },
+          "docs": "Deletes a metadata entry by table name and key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "WebPush",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a web push notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/webPush/target",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a web push notification to a specific user using a template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

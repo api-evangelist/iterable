@@ -1,0 +1,1097 @@
+{
+  "item": [
+    {
+      "id": "f1569403-7151-4082-b905-700d173da7c1",
+      "name": "ExperimentMetrics",
+      "description": {
+        "content": "Export experiment and A/B test metrics as CSV for analysis.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0f727452-e73e-41e1-a2ff-bba5da9e15e9",
+          "name": "Export experiment metrics as CSV",
+          "request": {
+            "name": "Export experiment metrics as CSV",
+            "description": {
+              "content": "Exports experiment metrics for A/B tests as CSV. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total per request. This endpoint returns data only for email experiments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiments",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "experimentId",
+                  "value": "<integer>",
+                  "description": "One or more experiment IDs to export metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "experimentId",
+                  "value": "<integer>",
+                  "description": "One or more experiment IDs to export metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<integer>",
+                  "description": "One or more campaign IDs to export metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<integer>",
+                  "description": "One or more campaign IDs to export metrics for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "230543a2-312a-44b3-929f-8a5b1469feda",
+              "name": "Experiment metrics in CSV format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiments",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3144018d-8d64-4d5c-bd50-d6ba5525376b",
+              "name": "Bad request - too many IDs or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiments",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77394064-6656-4809-8499-86eb2c79f2ee",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiments",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b8f01a20-3eb0-4c5c-b2dd-bacd17d1f1e6",
+      "name": "Export",
+      "description": {
+        "content": "Endpoints for exporting data from Iterable projects in CSV and JSON formats. Supports exporting user events, message engagement data, and campaign metrics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89c5f4e8-78c6-441a-bc6a-8cf2f850a2dd",
+          "name": "Export data as JSON",
+          "request": {
+            "name": "Export data as JSON",
+            "description": {
+              "content": "Exports event data from the Iterable project in JSON format. Supports filtering by date range and data type. The response is a stream of newline-delimited JSON objects, each representing a single event record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "export",
+                "data.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataTypeName",
+                  "value": "<string>",
+                  "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDateTime",
+                  "value": "<dateTime>",
+                  "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDateTime",
+                  "value": "<dateTime>",
+                  "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)"
+                },
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All."
+                },
+                {
+                  "disabled": false,
+                  "key": "omitFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to exclude from the export"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5787df43-09b8-4907-bdf7-1a1e39a439d9",
+              "name": "Newline-delimited JSON export of event data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "data.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataTypeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8bc1789d-cec9-40b7-ba36-e0e1efca454a",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "data.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataTypeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df38ea98-5af2-4f01-a6b6-684a7f8a5aa4",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "data.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataTypeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c013217-754e-4821-9290-ee0254e75db1",
+          "name": "Export data as CSV",
+          "request": {
+            "name": "Export data as CSV",
+            "description": {
+              "content": "Exports event data from the Iterable project in CSV format. Supports filtering by date range and data type. The response is a CSV file with headers in the first row.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "export",
+                "data.csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataTypeName",
+                  "value": "<string>",
+                  "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDateTime",
+                  "value": "<dateTime>",
+                  "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDateTime",
+                  "value": "<dateTime>",
+                  "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)"
+                },
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All."
+                },
+                {
+                  "disabled": false,
+                  "key": "omitFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to exclude from the export"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyFields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c2b58ff-204b-4e64-a316-fafaf64f94b1",
+              "name": "CSV export of event data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "data.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataTypeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "64471144-76b6-40aa-99bd-5f3818112534",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "data.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataTypeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e20d842-c78e-4570-b8dd-d9fae9cc136d",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "data.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataTypeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1969012c-e216-4cd2-b735-3f800088d6a3",
+          "name": "Export events for a specific user",
+          "request": {
+            "name": "Export events for a specific user",
+            "description": {
+              "content": "Exports all tracked events for a specific user identified by email address. Returns events in JSON format with support for pagination and filtering by event type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "export",
+                "userEvents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "(Required) Email address of the user whose events to export"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeCustomEvents",
+                  "value": "true",
+                  "description": "Whether to include custom events in the export"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fffaae3-b596-42a0-ae2f-b34ede3161f7",
+              "name": "User events data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "userEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "includeCustomEvents",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"email\": \"E5l5rO7mxx@sSWEqzNkhZDwdRIkXcXBo.cm\",\n      \"eventName\": \"string\",\n      \"createdAt\": \"1985-03-16T23:49:44.386Z\",\n      \"campaignId\": 7396,\n      \"templateId\": 2984,\n      \"messageId\": \"string\",\n      \"dataFields\": {\n        \"key_0\": 289,\n        \"key_1\": 5106.679338466773,\n        \"key_2\": 502\n      },\n      \"contentId\": 1502,\n      \"channelId\": 8429,\n      \"messageTypeId\": 5464,\n      \"workflowId\": 2203,\n      \"workflowName\": \"string\",\n      \"campaignName\": \"string\",\n      \"templateName\": \"string\",\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"email\": \"uj-vc6cE@aaPOHImpEFQcAwrZTULy.fiz\",\n      \"eventName\": \"string\",\n      \"createdAt\": \"1957-02-24T01:18:37.014Z\",\n      \"campaignId\": 5525,\n      \"templateId\": 4238,\n      \"messageId\": \"string\",\n      \"dataFields\": {\n        \"key_0\": 7980,\n        \"key_1\": 6263.722708310974,\n        \"key_2\": \"string\",\n        \"key_3\": false\n      },\n      \"contentId\": 9684,\n      \"channelId\": 7255,\n      \"messageTypeId\": 923,\n      \"workflowId\": 4645,\n      \"workflowName\": \"string\",\n      \"campaignName\": \"string\",\n      \"templateName\": \"string\",\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab682035-bb02-4264-ab10-cd8ac232537e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "userEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "includeCustomEvents",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "630927d3-38da-45ed-8337-f04f4cd56ef2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "userEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "includeCustomEvents",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a99454e7-cddc-4a02-bc41-da98bf317283",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export",
+                    "userEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "includeCustomEvents",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6379c4d3-4da3-4e7f-ac3d-b55dad4fbbf2",
+    "name": "Iterable Export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

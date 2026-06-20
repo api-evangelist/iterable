@@ -6,7 +6,7 @@ description: Iterable is an AI customer engagement platform that powers unified 
   platform provides REST APIs, export APIs, AsyncAPI webhooks, and native SDKs for
   web, iOS, Android, and React Native.
 kind: contract
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Cross-Channel Messaging
 - Customer Engagement
@@ -29,7 +29,7 @@ apis:
   - Push Notifications
   - SMS
   - Users
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.iterable.com
   humanURL: https://api.iterable.com/api/docs
   properties:
@@ -52,7 +52,7 @@ apis:
   - Data Export
   - Marketing Data
   - Reporting
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.iterable.com
   humanURL: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   properties:
@@ -75,7 +75,7 @@ apis:
   - SDK
   - User Tracking
   - Web
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://github.com/Iterable/iterable-web-sdk
   properties:
@@ -94,7 +94,7 @@ apis:
   - Push Notifications
   - SDK
   - Swift
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
   properties:
@@ -115,7 +115,7 @@ apis:
   - Mobile
   - Push Notifications
   - SDK
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
   properties:
@@ -136,7 +136,7 @@ apis:
   - Mobile
   - React Native
   - SDK
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
   properties:

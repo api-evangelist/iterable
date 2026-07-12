@@ -148,6 +148,12 @@ apis:
     both JavaScript and TypeScript. The SDK provides access to push notifications,
     in-app messages, Mobile Inbox, user event tracking, and deep linking.
 common:
+- type: TrustCenter
+  url: security/iterable-trust-center.yml
+- type: DomainSecurity
+  url: security/iterable-domain-security.yml
+- type: Authentication
+  url: authentication/iterable-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/iterable
 - type: AsyncAPI

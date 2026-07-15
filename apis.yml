@@ -148,6 +148,8 @@ apis:
     both JavaScript and TypeScript. The SDK provides access to push notifications,
     in-app messages, Mobile Inbox, user event tracking, and deep linking.
 common:
+- type: AgenticAccess
+  url: agentic-access/iterable-agentic-access.yml
 - type: TrustCenter
   url: security/iterable-trust-center.yml
 - type: DomainSecurity

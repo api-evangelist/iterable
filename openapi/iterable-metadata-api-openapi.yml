@@ -1,0 +1,209 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Metadata API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Metadata
+  description: Store and retrieve key-value metadata tables for use in personalization and campaign logic.
+paths:
+  /metadata/{table}:
+    get:
+      operationId: getMetadataTable
+      summary: Get metadata table keys
+      description: Retrieves all keys in a metadata table.
+      tags:
+      - Metadata
+      parameters:
+      - name: table
+        in: path
+        required: true
+        description: The name of the metadata table
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata table keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: object
+                          additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Table not found
+    delete:
+      operationId: deleteMetadataTable
+      summary: Delete a metadata table
+      description: Deletes a metadata table and all its entries.
+      tags:
+      - Metadata
+      parameters:
+      - name: table
+        in: path
+        required: true
+        description: The name of the metadata table
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata table deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+  /metadata/{table}/{key}:
+    get:
+      operationId: getMetadataEntry
+      summary: Get a metadata entry
+      description: Retrieves a single metadata entry by table name and key.
+      tags:
+      - Metadata
+      parameters:
+      - name: table
+        in: path
+        required: true
+        description: The name of the metadata table
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        description: The key of the metadata entry
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata entry
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: object
+                    additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Entry not found
+    put:
+      operationId: putMetadataEntry
+      summary: Create or update a metadata entry
+      description: Creates or updates a metadata entry for the specified table and key.
+      tags:
+      - Metadata
+      parameters:
+      - name: table
+        in: path
+        required: true
+        description: The name of the metadata table
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        description: The key of the metadata entry
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - value
+              properties:
+                value:
+                  type: object
+                  description: The value to store
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Metadata entry saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteMetadataEntry
+      summary: Delete a metadata entry
+      description: Deletes a metadata entry by table name and key.
+      tags:
+      - Metadata
+      parameters:
+      - name: table
+        in: path
+        required: true
+        description: The name of the metadata table
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        description: The key of the metadata entry
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata entry deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

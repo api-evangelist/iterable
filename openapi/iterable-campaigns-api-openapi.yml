@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Campaigns
+  description: Create, retrieve, and manage marketing campaigns. Access campaign metrics and trigger campaign sends.
+paths:
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      summary: List campaigns
+      description: Retrieves metadata for all campaigns in the project associated with the API key. Returns campaign id, name, type, status, template information, and creation dates.
+      tags:
+      - Campaigns
+      responses:
+        '200':
+          description: List of campaigns
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  campaigns:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Campaign'
+        '401':
+          description: Unauthorized
+  /campaigns/create:
+    post:
+      operationId: createCampaign
+      summary: Create a campaign
+      description: Creates a new campaign in the Iterable project with the specified name, template, list, and configuration options.
+      tags:
+      - Campaigns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCreateRequest'
+      responses:
+        '200':
+          description: Campaign created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                  code:
+                    type: string
+                  params:
+                    type: object
+                    properties:
+                      campaignId:
+                        type: integer
+                        description: The ID of the created campaign
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /campaigns/metrics:
+    get:
+      operationId: getCampaignMetrics
+      summary: Get campaign metrics
+      description: Retrieves engagement metrics for one or more campaigns, including sends, opens, clicks, unsubscribes, bounces, and complaints.
+      tags:
+      - Campaigns
+      parameters:
+      - name: campaignId
+        in: query
+        required: true
+        description: One or more campaign IDs to retrieve metrics for
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: startDateTime
+        in: query
+        description: Start date for the metrics period in ISO 8601 format
+        schema:
+          type: string
+          format: date-time
+      - name: endDateTime
+        in: query
+        description: End date for the metrics period in ISO 8601 format
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Campaign metrics data
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    CampaignCreateRequest:
+      type: object
+      description: Request body for creating a new campaign
+      required:
+      - name
+      - listIds
+      - templateId
+      properties:
+        name:
+          type: string
+          description: Campaign name
+        listIds:
+          type: array
+          description: List IDs to target
+          items:
+            type: integer
+        templateId:
+          type: integer
+          description: Template ID to use
+        suppressionListIds:
+          type: array
+          description: List IDs for suppression
+          items:
+            type: integer
+        sendAt:
+          type: string
+          format: date-time
+          description: Scheduled send time in ISO 8601 format
+        dataFields:
+          type: object
+          description: Additional data fields for personalization
+          additionalProperties: true
+    Campaign:
+      type: object
+      description: A marketing campaign in Iterable
+      properties:
+        id:
+          type: integer
+          description: Campaign ID
+        name:
+          type: string
+          description: Campaign name
+        type:
+          type: string
+          description: Campaign type (blast, triggered, proof, etc.)
+        templateId:
+          type: integer
+          description: Associated template ID
+        createdAt:
+          type: string
+          format: date-time
+          description: Campaign creation date
+        updatedAt:
+          type: string
+          format: date-time
+          description: Campaign last update date
+        messageMedium:
+          type: string
+          description: Message medium (Email, Push, SMS, InApp)
+          enum:
+          - Email
+          - Push
+          - SMS
+          - InApp
+        campaignState:
+          type: string
+          description: Current state of the campaign
+          enum:
+          - Draft
+          - Scheduled
+          - Running
+          - Finished
+          - Cancelled
+        listIds:
+          type: array
+          description: List IDs the campaign targets
+          items:
+            type: integer
+        labels:
+          type: array
+          description: Labels applied to the campaign
+          items:
+            type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

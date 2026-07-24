@@ -1,0 +1,83 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns WebPush API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: WebPush
+  description: Send web push notifications and manage web push subscription tokens.
+paths:
+  /webPush/target:
+    post:
+      operationId: sendWebPush
+      summary: Send a web push notification
+      description: Sends a web push notification to a specific user using a template.
+      tags:
+      - WebPush
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - campaignId
+              - recipientEmail
+              properties:
+                campaignId:
+                  type: integer
+                  description: The campaign ID to send
+                recipientEmail:
+                  type: string
+                  description: The recipient email address
+                dataFields:
+                  type: object
+                  description: Personalization data fields
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Web push notification sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

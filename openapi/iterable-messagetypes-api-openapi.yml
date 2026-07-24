@@ -1,0 +1,58 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns MessageTypes API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: MessageTypes
+  description: Manage message types that categorize the kinds of messages sent through channels.
+paths:
+  /messageTypes:
+    get:
+      operationId: listMessageTypes
+      summary: List message types
+      description: Retrieves all message types configured in the Iterable project. Message types categorize the kinds of messages sent through channels.
+      tags:
+      - MessageTypes
+      responses:
+        '200':
+          description: List of message types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messageTypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        channelId:
+                          type: integer
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

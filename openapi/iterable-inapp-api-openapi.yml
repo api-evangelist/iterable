@@ -1,0 +1,90 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns InApp API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: InApp
+  description: Manage in-app messages and retrieve in-app message content for mobile and web clients.
+paths:
+  /inApp/getMessages:
+    get:
+      operationId: getInAppMessages
+      summary: Get in-app messages for a user
+      description: Retrieves pending in-app messages for a user, typically called by mobile or web SDKs to display in-app content.
+      tags:
+      - InApp
+      parameters:
+      - name: email
+        in: query
+        description: Email address of the user
+        schema:
+          type: string
+      - name: userId
+        in: query
+        description: UserId of the user
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Maximum number of messages to return
+        schema:
+          type: integer
+          default: 1
+      - name: platform
+        in: query
+        description: The platform to get messages for
+        schema:
+          type: string
+          enum:
+          - iOS
+          - Android
+          - Web
+      responses:
+        '200':
+          description: In-app messages for the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inAppMessages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        messageId:
+                          type: string
+                        campaignId:
+                          type: integer
+                        content:
+                          type: object
+                          properties:
+                            html:
+                              type: string
+                            payload:
+                              type: object
+                              additionalProperties: true
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

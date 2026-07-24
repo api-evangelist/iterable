@@ -1,0 +1,266 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Templates API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Templates
+  description: Manage email, push, SMS, and in-app message templates. Retrieve template content and metadata.
+paths:
+  /templates/email/get:
+    get:
+      operationId: getEmailTemplate
+      summary: Get an email template
+      description: Retrieves the content and metadata of an email template by its template ID.
+      tags:
+      - Templates
+      parameters:
+      - name: templateId
+        in: query
+        required: true
+        description: The ID of the email template to retrieve
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Email template data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailTemplate'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /templates/email/update:
+    post:
+      operationId: updateEmailTemplate
+      summary: Update an email template
+      description: Updates the content and metadata of an existing email template.
+      tags:
+      - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailTemplateUpdate'
+      responses:
+        '200':
+          description: Template updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /templates/push/get:
+    get:
+      operationId: getPushTemplate
+      summary: Get a push notification template
+      description: Retrieves the content and metadata of a push notification template by its template ID.
+      tags:
+      - Templates
+      parameters:
+      - name: templateId
+        in: query
+        required: true
+        description: The ID of the push template to retrieve
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Push template data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templateId:
+                    type: integer
+                  name:
+                    type: string
+                  message:
+                    type: string
+                  sound:
+                    type: string
+                  deeplink:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /templates/sms/get:
+    get:
+      operationId: getSmsTemplate
+      summary: Get an SMS template
+      description: Retrieves the content and metadata of an SMS template by its template ID.
+      tags:
+      - Templates
+      parameters:
+      - name: templateId
+        in: query
+        required: true
+        description: The ID of the SMS template to retrieve
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: SMS template data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templateId:
+                    type: integer
+                  name:
+                    type: string
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /templates/inApp/get:
+    get:
+      operationId: getInAppTemplate
+      summary: Get an in-app message template
+      description: Retrieves the content and metadata of an in-app message template by its template ID.
+      tags:
+      - Templates
+      parameters:
+      - name: templateId
+        in: query
+        required: true
+        description: The ID of the in-app template to retrieve
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: In-app template data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templateId:
+                    type: integer
+                  name:
+                    type: string
+                  html:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+components:
+  schemas:
+    EmailTemplate:
+      type: object
+      description: An email template
+      properties:
+        templateId:
+          type: integer
+          description: Template ID
+        name:
+          type: string
+          description: Template name
+        subject:
+          type: string
+          description: Email subject line
+        preheaderText:
+          type: string
+          description: Email preheader text
+        html:
+          type: string
+          description: HTML content of the template
+        plainText:
+          type: string
+          description: Plain text content of the template
+        fromName:
+          type: string
+          description: From name for the email
+        fromEmail:
+          type: string
+          format: email
+          description: From email address
+        replyToEmail:
+          type: string
+          format: email
+          description: Reply-to email address
+        createdAt:
+          type: string
+          format: date-time
+          description: Template creation date
+        updatedAt:
+          type: string
+          format: date-time
+          description: Template last update date
+    EmailTemplateUpdate:
+      type: object
+      description: Request body for updating an email template
+      required:
+      - templateId
+      properties:
+        templateId:
+          type: integer
+          description: Template ID to update
+        name:
+          type: string
+          description: Updated template name
+        subject:
+          type: string
+          description: Updated email subject line
+        preheaderText:
+          type: string
+          description: Updated preheader text
+        html:
+          type: string
+          description: Updated HTML content
+        plainText:
+          type: string
+          description: Updated plain text content
+        fromName:
+          type: string
+          description: Updated from name
+        fromEmail:
+          type: string
+          format: email
+          description: Updated from email address
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

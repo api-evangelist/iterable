@@ -1,0 +1,192 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Events API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Events
+  description: Track custom events, retrieve event data for users, and manage event metadata used for segmentation and campaign triggering.
+paths:
+  /events/track:
+    post:
+      operationId: trackEvent
+      summary: Track a custom event
+      description: Tracks a custom event for a user. Events can be used to trigger campaigns, segment users, and track user behavior within the Iterable platform.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEventRequest'
+      responses:
+        '200':
+          description: Event tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /events/trackBulk:
+    post:
+      operationId: trackBulkEvents
+      summary: Track multiple events in bulk
+      description: Tracks multiple custom events in a single request. Each event in the array includes the user identifier, event name, and associated data fields.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - events
+              properties:
+                events:
+                  type: array
+                  description: Array of events to track
+                  items:
+                    $ref: '#/components/schemas/TrackEventRequest'
+      responses:
+        '200':
+          description: Events tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /events/{email}:
+    get:
+      operationId: getEventsByEmail
+      summary: Get events for a user by email
+      description: Retrieves events tracked for a user identified by email address. Supports pagination and filtering by event type.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/emailPath'
+      - name: limit
+        in: query
+        description: Maximum number of events to return
+        schema:
+          type: integer
+          default: 30
+      responses:
+        '200':
+          description: List of user events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+components:
+  schemas:
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+    TrackEventRequest:
+      type: object
+      description: Request body for tracking a custom event
+      required:
+      - email
+      - eventName
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+        userId:
+          type: string
+          description: UserId of the user
+        eventName:
+          type: string
+          description: Name of the event to track
+        createdAt:
+          type: integer
+          description: Unix timestamp of when the event occurred
+        dataFields:
+          type: object
+          description: Additional data associated with the event
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: Campaign ID to attribute the event to
+        templateId:
+          type: integer
+          description: Template ID to attribute the event to
+    Event:
+      type: object
+      description: An event tracked for a user
+      properties:
+        eventName:
+          type: string
+          description: Name of the event
+        createdAt:
+          type: string
+          format: date-time
+          description: When the event was created
+        dataFields:
+          type: object
+          description: Event data fields
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: Associated campaign ID
+        templateId:
+          type: integer
+          description: Associated template ID
+  parameters:
+    emailPath:
+      name: email
+      in: path
+      required: true
+      description: Email address of the user
+      schema:
+        type: string
+        format: email
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

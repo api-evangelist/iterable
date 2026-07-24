@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns ExperimentMetrics API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: ExperimentMetrics
+  description: Export experiment and A/B test metrics as CSV for analysis.
+paths:
+  /experiments/metrics:
+    get:
+      operationId: exportExperimentMetrics
+      summary: Export experiment metrics as CSV
+      description: Exports experiment metrics for A/B tests as CSV. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total per request. This endpoint returns data only for email experiments.
+      tags:
+      - ExperimentMetrics
+      parameters:
+      - name: experimentId
+        in: query
+        description: One or more experiment IDs to export metrics for
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: campaignId
+        in: query
+        description: One or more campaign IDs to export metrics for
+        schema:
+          type: array
+          items:
+            type: integer
+      responses:
+        '200':
+          description: Experiment metrics in CSV format
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: CSV formatted experiment metrics data
+        '400':
+          description: Bad request - too many IDs or invalid parameters
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

@@ -1,0 +1,206 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Lists API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Lists
+  description: Create and manage subscriber lists. Subscribe and unsubscribe users from lists. Retrieve list metadata and membership.
+paths:
+  /lists:
+    get:
+      operationId: listLists
+      summary: Get all lists
+      description: Retrieves all subscriber lists in the Iterable project, including list ID, name, creation date, and size.
+      tags:
+      - Lists
+      responses:
+        '200':
+          description: List of subscriber lists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lists:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/List'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createList
+      summary: Create a list
+      description: Creates a new subscriber list in the Iterable project.
+      tags:
+      - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the new list
+      responses:
+        '200':
+          description: List created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  listId:
+                    type: integer
+                    description: The ID of the created list
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /lists/subscribe:
+    post:
+      operationId: subscribeToList
+      summary: Subscribe users to a list
+      description: Adds one or more users to a subscriber list. Users are identified by email address.
+      tags:
+      - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - listId
+              - subscribers
+              properties:
+                listId:
+                  type: integer
+                  description: The ID of the list to subscribe users to
+                subscribers:
+                  type: array
+                  description: Array of subscriber objects
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        description: Email address of the user to subscribe
+                      userId:
+                        type: string
+                        description: UserId of the user to subscribe
+                      dataFields:
+                        type: object
+                        description: Optional data fields to set on the user
+                        additionalProperties: true
+      responses:
+        '200':
+          description: Users subscribed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  successCount:
+                    type: integer
+                  failCount:
+                    type: integer
+                  invalidEmails:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /lists/unsubscribe:
+    post:
+      operationId: unsubscribeFromList
+      summary: Unsubscribe users from a list
+      description: Removes one or more users from a subscriber list. Users are identified by email address.
+      tags:
+      - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - listId
+              - subscribers
+              properties:
+                listId:
+                  type: integer
+                  description: The ID of the list to unsubscribe users from
+                subscribers:
+                  type: array
+                  description: Array of subscriber objects
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        description: Email address of the user to unsubscribe
+      responses:
+        '200':
+          description: Users unsubscribed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  successCount:
+                    type: integer
+                  failCount:
+                    type: integer
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    List:
+      type: object
+      description: A subscriber list in Iterable
+      properties:
+        id:
+          type: integer
+          description: List ID
+        name:
+          type: string
+          description: List name
+        createdAt:
+          type: string
+          format: date-time
+          description: List creation date
+        listType:
+          type: string
+          description: Type of list
+        description:
+          type: string
+          description: List description
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

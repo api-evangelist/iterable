@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Channels API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Channels
+  description: Retrieve and manage messaging channels and message types used for organizing campaigns and templates.
+paths:
+  /channels:
+    get:
+      operationId: listChannels
+      summary: List channels
+      description: Retrieves all messaging channels configured in the Iterable project. Channels organize message types and are used to group campaign templates.
+      tags:
+      - Channels
+      responses:
+        '200':
+          description: List of channels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  channels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Channel'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    Channel:
+      type: object
+      description: A messaging channel in Iterable
+      properties:
+        id:
+          type: integer
+          description: Channel ID
+        name:
+          type: string
+          description: Channel name
+        channelType:
+          type: string
+          description: Type of channel
+        messageMedium:
+          type: string
+          description: Message medium for this channel
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

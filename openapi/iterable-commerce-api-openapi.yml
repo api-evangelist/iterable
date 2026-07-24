@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Commerce API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Commerce
+  description: Track purchase events, update cart data, and manage commerce-related user activity for revenue attribution.
+paths:
+  /commerce/trackPurchase:
+    post:
+      operationId: trackPurchase
+      summary: Track a purchase event
+      description: Tracks a purchase event for a user, including the items purchased, total value, and associated properties. Purchase data is used for revenue attribution and campaign triggering.
+      tags:
+      - Commerce
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseRequest'
+      responses:
+        '200':
+          description: Purchase tracked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /commerce/updateCart:
+    post:
+      operationId: updateCart
+      summary: Update a user's shopping cart
+      description: Updates the shopping cart contents for a user. Cart data can be used for abandoned cart campaigns and personalization.
+      tags:
+      - Commerce
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      description: Email address of the user
+                    userId:
+                      type: string
+                      description: UserId of the user
+                items:
+                  type: array
+                  description: Array of cart items
+                  items:
+                    $ref: '#/components/schemas/CommerceItem'
+      responses:
+        '200':
+          description: Cart updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    CommerceItem:
+      type: object
+      description: A commerce item in a purchase or cart
+      required:
+      - id
+      - name
+      - price
+      - quantity
+      properties:
+        id:
+          type: string
+          description: Item ID or SKU
+        sku:
+          type: string
+          description: Item SKU
+        name:
+          type: string
+          description: Item name
+        description:
+          type: string
+          description: Item description
+        categories:
+          type: array
+          description: Item categories
+          items:
+            type: string
+        price:
+          type: number
+          description: Item price
+        quantity:
+          type: integer
+          description: Quantity purchased
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of the item image
+        url:
+          type: string
+          format: uri
+          description: URL of the item page
+        dataFields:
+          type: object
+          description: Additional item data fields
+          additionalProperties: true
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+    PurchaseRequest:
+      type: object
+      description: Request body for tracking a purchase event
+      required:
+      - user
+      - items
+      - total
+      properties:
+        user:
+          type: object
+          description: The user who made the purchase
+          properties:
+            email:
+              type: string
+              format: email
+              description: Email address of the user
+            userId:
+              type: string
+              description: UserId of the user
+            dataFields:
+              type: object
+              description: Additional user data fields to update
+              additionalProperties: true
+        items:
+          type: array
+          description: Array of items purchased
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+        total:
+          type: number
+          description: Total value of the purchase
+        createdAt:
+          type: integer
+          description: Unix timestamp of the purchase
+        dataFields:
+          type: object
+          description: Additional purchase data fields
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: Campaign ID to attribute the purchase to
+        templateId:
+          type: integer
+          description: Template ID to attribute the purchase to
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

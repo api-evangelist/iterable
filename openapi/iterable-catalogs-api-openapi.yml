@@ -1,0 +1,204 @@
+openapi: 3.1.0
+info:
+  title: Iterable Export Campaigns Catalogs API
+  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  version: 1.0.0
+  contact:
+    name: Iterable Support
+    url: https://support.iterable.com
+  termsOfService: https://iterable.com/trust/terms-of-service
+servers:
+- url: https://api.iterable.com/api
+  description: US Data Center (USDC)
+- url: https://api.eu.iterable.com/api
+  description: European Data Center (EDC)
+security:
+- apiKeyAuth: []
+tags:
+- name: Catalogs
+  description: Manage product catalogs and catalog items used for personalization and recommendation in campaigns.
+paths:
+  /catalogs/{catalogName}:
+    get:
+      operationId: getCatalog
+      summary: Get a catalog
+      description: Retrieves a catalog by name, including its field definitions and metadata.
+      tags:
+      - Catalogs
+      parameters:
+      - $ref: '#/components/parameters/catalogNamePath'
+      responses:
+        '200':
+          description: Catalog data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  params:
+                    type: object
+                    properties:
+                      catalogName:
+                        type: string
+                      fieldMappings:
+                        type: object
+                        additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog not found
+    delete:
+      operationId: deleteCatalog
+      summary: Delete a catalog
+      description: Deletes a catalog and all its items from the Iterable project.
+      tags:
+      - Catalogs
+      parameters:
+      - $ref: '#/components/parameters/catalogNamePath'
+      responses:
+        '200':
+          description: Catalog deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog not found
+  /catalogs/{catalogName}/items:
+    get:
+      operationId: listCatalogItems
+      summary: List items in a catalog
+      description: Retrieves items from a catalog with support for pagination.
+      tags:
+      - Catalogs
+      parameters:
+      - $ref: '#/components/parameters/catalogNamePath'
+      - name: page
+        in: query
+        description: Page number for pagination
+        schema:
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items per page
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: List of catalog items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  params:
+                    type: object
+                    properties:
+                      catalogItemsWithProperties:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: true
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog not found
+  /catalogs/{catalogName}/items/{itemId}:
+    put:
+      operationId: createOrReplaceCatalogItem
+      summary: Create or replace a catalog item
+      description: Creates a new catalog item or replaces an existing one with the specified item ID and field values.
+      tags:
+      - Catalogs
+      parameters:
+      - $ref: '#/components/parameters/catalogNamePath'
+      - name: itemId
+        in: path
+        required: true
+        description: The unique identifier for the catalog item
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: object
+                  description: Field values for the catalog item
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Catalog item created or replaced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteCatalogItem
+      summary: Delete a catalog item
+      description: Deletes a catalog item by its item ID.
+      tags:
+      - Catalogs
+      parameters:
+      - $ref: '#/components/parameters/catalogNamePath'
+      - name: itemId
+        in: path
+        required: true
+        description: The unique identifier for the catalog item
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Catalog item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Catalog item not found
+components:
+  parameters:
+    catalogNamePath:
+      name: catalogName
+      in: path
+      required: true
+      description: The name of the catalog
+      schema:
+        type: string
+  schemas:
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
+externalDocs:
+  description: Iterable API Endpoints and Sample Payloads
+  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads

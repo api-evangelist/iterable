@@ -6,7 +6,20 @@ description: Iterable is an AI customer engagement platform that powers unified 
   platform provides REST APIs, export APIs, AsyncAPI webhooks, and native SDKs for
   web, iOS, Android, and React Native.
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/iterable.png
 tags:
 - Cross-Channel Messaging
 - Customer Engagement
@@ -19,32 +32,6 @@ created: '2026-03-20'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: iterable:rest-api
-  name: Iterable REST API
-  tags:
-  - Campaigns
-  - Cross-Channel Messaging
-  - Email
-  - Marketing Automation
-  - Push Notifications
-  - SMS
-  - Users
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.iterable.com
-  humanURL: https://api.iterable.com/api/docs
-  properties:
-  - url: https://api.iterable.com/api/docs
-    type: Documentation
-  - type: OpenAPI
-    url: openapi/iterable-rest-api-openapi.yml
-  - url: graphql/iterable-graphql.md
-    type: GraphQL
-  description: The Iterable REST API provides programmatic access to the Iterable
-    cross-channel marketing automation platform. It exposes endpoints for managing
-    users, campaigns, lists, events, commerce tracking, catalogs, channels, templates,
-    experiments, workflows, and message delivery across email, push, SMS, and in-app
-    channels. The API uses standard HTTP methods, JSON request and response bodies,
-    and supports authentication via API keys or JWT-enabled keys.
 - aid: iterable:export-api
   name: Iterable Export API
   tags:
@@ -54,19 +41,20 @@ apis:
   - Reporting
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.iterable.com
-  humanURL: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   properties:
-  - url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  - url: >-
+      https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
     type: Documentation
   - type: OpenAPI
     url: openapi/iterable-export-api-openapi.yml
-  description: The Iterable Export API enables developers to extract data from Iterable
-    projects for analytics, reporting, and data warehousing purposes. It provides
-    asynchronous export endpoints that allow bulk retrieval of user data, event data,
-    campaign metrics, and message engagement information. The export endpoints support
-    filtering by date ranges and other criteria, making it possible to build custom
-    reporting pipelines and synchronize Iterable data with external business intelligence
-    tools.
+  description: >-
+    The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting,
+    and data warehousing purposes. It provides asynchronous export endpoints that allow bulk retrieval
+    of user data, event data, campaign metrics, and message engagement information. The export endpoints
+    support filtering by date ranges and other criteria, making it possible to build custom reporting
+    pipelines and synchronize Iterable data with external business intelligence tools.
 - aid: iterable:web-sdk
   name: Iterable Web SDK
   tags:
@@ -81,10 +69,10 @@ apis:
   properties:
   - url: https://github.com/Iterable/iterable-web-sdk
     type: Documentation
-  description: The Iterable Web SDK enables developers to integrate Iterable's marketing
-    automation capabilities directly into JavaScript and Node.js applications. It
-    provides functions for tracking user events, managing user profiles, displaying
-    in-app messages, and handling web push notifications.
+  description: >-
+    The Iterable Web SDK enables developers to integrate Iterable's marketing automation capabilities
+    directly into JavaScript and Node.js applications. It provides functions for tracking user events,
+    managing user profiles, displaying in-app messages, and handling web push notifications.
 - aid: iterable:ios-sdk
   name: Iterable iOS SDK
   tags:
@@ -100,13 +88,12 @@ apis:
   properties:
   - url: https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
     type: Documentation
-  description: The Iterable iOS SDK allows developers to integrate Iterable's marketing
-    automation features into native iOS applications built with Swift or Objective-C.
-    It supports push notifications, in-app messages, deep links, and Mobile Inbox
-    functionality. The SDK can be installed via Swift Package Manager, CocoaPods,
-    or Carthage, and supports iOS 10 and higher. It enables mobile apps to track user
-    events, display targeted in-app content, and participate in Iterable's cross-channel
-    marketing campaigns.
+  description: >-
+    The Iterable iOS SDK allows developers to integrate Iterable's marketing automation features into
+    native iOS applications built with Swift or Objective-C. It supports push notifications, in-app messages,
+    deep links, and Mobile Inbox functionality. The SDK can be installed via Swift Package Manager, CocoaPods,
+    or Carthage, and supports iOS 10 and higher. It enables mobile apps to track user events, display
+    targeted in-app content, and participate in Iterable's cross-channel marketing campaigns.
 - aid: iterable:android-sdk
   name: Iterable Android SDK
   tags:
@@ -117,17 +104,18 @@ apis:
   - SDK
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
-  humanURL: https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
   properties:
-  - url: https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
+  - url: >-
+      https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
     type: Documentation
-  description: The Iterable Android SDK provides native integration between Android
-    applications and the Iterable marketing automation platform. It supports push
-    notifications, in-app messages, deep links, and Mobile Inbox features. The open-source
-    SDK enables Android apps to track user events, manage user profiles, render in-app
-    content, and connect with Iterable's cross-channel campaign orchestration. Developers
-    can use it to deliver personalized marketing experiences within their Android
-    applications.
+  description: >-
+    The Iterable Android SDK provides native integration between Android applications and the Iterable
+    marketing automation platform. It supports push notifications, in-app messages, deep links, and Mobile
+    Inbox features. The open-source SDK enables Android apps to track user events, manage user profiles,
+    render in-app content, and connect with Iterable's cross-channel campaign orchestration. Developers
+    can use it to deliver personalized marketing experiences within their Android applications.
 - aid: iterable:react-native-sdk
   name: Iterable React Native SDK
   tags:
@@ -138,16 +126,284 @@ apis:
   - SDK
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
-  humanURL: https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
   properties:
-  - url: https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
+  - url: >-
+      https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
     type: Documentation
-  description: The Iterable React Native SDK enables developers to integrate Iterable's
-    marketing automation capabilities into cross-platform mobile applications built
-    with React Native. It wraps Iterable's native iOS and Android SDKs and supports
-    both JavaScript and TypeScript. The SDK provides access to push notifications,
+  description: >-
+    The Iterable React Native SDK enables developers to integrate Iterable's marketing automation capabilities
+    into cross-platform mobile applications built with React Native. It wraps Iterable's native iOS and
+    Android SDKs and supports both JavaScript and TypeScript. The SDK provides access to push notifications,
     in-app messages, Mobile Inbox, user event tracking, and deep linking.
+- aid: iterable:iterable-campaigns-api
+  name: Iterable Campaigns API
+  description: >-
+    Create, retrieve, and manage marketing campaigns. Access campaign metrics and trigger campaign sends.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-catalogs-api
+  name: Iterable Catalogs API
+  description: >-
+    Manage product catalogs and catalog items used for personalization and recommendation in campaigns.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Catalogs
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-catalogs-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-channels-api
+  name: Iterable Channels API
+  description: >-
+    Retrieve and manage messaging channels and message types used for organizing campaigns and templates.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-channels-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-commerce-api
+  name: Iterable Commerce API
+  description: >-
+    Track purchase events, update cart data, and manage commerce-related user activity for revenue attribution.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Commerce
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-commerce-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-email-api
+  name: Iterable Email API
+  description: Send transactional emails and manage email-specific delivery settings.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Email
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-email-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-events-api
+  name: Iterable Events API
+  description: >-
+    Track custom events, retrieve event data for users, and manage event metadata used for segmentation
+    and campaign triggering.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-events-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-experimentmetrics-api
+  name: Iterable ExperimentMetrics API
+  description: Export experiment and A/B test metrics as CSV for analysis.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - ExperimentMetrics
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-experimentmetrics-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-experiments-api
+  name: Iterable Experiments API
+  description: Retrieve experiment configurations and metrics for A/B tests running across campaigns.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Experiments
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-experiments-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-inapp-api
+  name: Iterable InApp API
+  description: Manage in-app messages and retrieve in-app message content for mobile and web clients.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - InApp
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-inapp-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-lists-api
+  name: Iterable Lists API
+  description: >-
+    Create and manage subscriber lists. Subscribe and unsubscribe users from lists. Retrieve list metadata
+    and membership.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-lists-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-messagetypes-api
+  name: Iterable MessageTypes API
+  description: Manage message types that categorize the kinds of messages sent through channels.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - MessageTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-messagetypes-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-metadata-api
+  name: Iterable Metadata API
+  description: >-
+    Store and retrieve key-value metadata tables for use in personalization and campaign logic.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-push-api
+  name: Iterable Push API
+  description: Send push notifications and manage push notification delivery settings and tokens.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Push
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-push-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-sms-api
+  name: Iterable SMS API
+  description: Send SMS messages and manage SMS-specific delivery settings.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - SMS
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-sms-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-templates-api
+  name: Iterable Templates API
+  description: >-
+    Manage email, push, SMS, and in-app message templates. Retrieve template content and metadata.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-templates-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-users-api
+  name: Iterable Users API
+  description: >-
+    Manage user profiles, update user fields, bulk update users, get user data by email or userId, and
+    delete users.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-users-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-webpush-api
+  name: Iterable WebPush API
+  description: Send web push notifications and manage web push subscription tokens.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - WebPush
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-webpush-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-workflows-api
+  name: Iterable Workflows API
+  description: Trigger workflow enrollments and manage journey-based automation workflows.
+  humanURL: https://api.iterable.com/api/docs
+  baseURL: https://api.iterable.com
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/iterable/overview
 - type: AgenticAccess
   url: agentic-access/iterable-agentic-access.yml
 - type: TrustCenter

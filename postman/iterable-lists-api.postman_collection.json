@@ -1,0 +1,766 @@
+{
+  "info": {
+    "_postman_id": "de1bde98-0f5a-4d39-90ad-ff99e87e0c0c",
+    "name": "Iterable Export Campaigns Lists API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:35.000Z",
+    "updatedAt": "2026-07-28T01:59:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-de1bde98-0f5a-4d39-90ad-ff99e87e0c0c"
+  },
+  "item": [
+    {
+      "name": "lists",
+      "item": [
+        {
+          "name": "subscribe",
+          "item": [
+            {
+              "name": "Subscribe users to a list",
+              "id": "7d37013d-6586-40d0-9b4e-1dc6bd958f0b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"enim_7c\": 48299280,\n        \"adf_1\": true,\n        \"consectetur_92e\": -94627582,\n        \"commodo7b\": true,\n        \"eacf7\": 94369327.3748312\n      }\n    },\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"exercitation_82\": 17263206.60822487,\n        \"minim8\": \"aute eiusmod ex mollit\",\n        \"sed_9d\": false\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/lists/subscribe",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists",
+                    "subscribe"
+                  ]
+                },
+                "description": "Adds one or more users to a subscriber list. Users are identified by email address."
+              },
+              "response": [
+                {
+                  "id": "1f06c077-f46a-4d8c-9fd6-f36baaf37252",
+                  "name": "Users subscribed successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"enim_7c\": 48299280,\n        \"adf_1\": true,\n        \"consectetur_92e\": -94627582,\n        \"commodo7b\": true,\n        \"eacf7\": 94369327.3748312\n      }\n    },\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"exercitation_82\": 17263206.60822487,\n        \"minim8\": \"aute eiusmod ex mollit\",\n        \"sed_9d\": false\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lists/subscribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lists",
+                        "subscribe"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"successCount\": \"<integer>\",\n  \"failCount\": \"<integer>\",\n  \"invalidEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-07-28T01:59:36.000Z",
+                  "updatedAt": "2026-07-28T01:59:36.000Z",
+                  "uid": "35240-1f06c077-f46a-4d8c-9fd6-f36baaf37252"
+                },
+                {
+                  "id": "41710377-1402-4956-8afd-68ede887aa96",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"enim_7c\": 48299280,\n        \"adf_1\": true,\n        \"consectetur_92e\": -94627582,\n        \"commodo7b\": true,\n        \"eacf7\": 94369327.3748312\n      }\n    },\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"exercitation_82\": 17263206.60822487,\n        \"minim8\": \"aute eiusmod ex mollit\",\n        \"sed_9d\": false\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lists/subscribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lists",
+                        "subscribe"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:36.000Z",
+                  "updatedAt": "2026-07-28T01:59:36.000Z",
+                  "uid": "35240-41710377-1402-4956-8afd-68ede887aa96"
+                },
+                {
+                  "id": "1109b528-8082-4246-abaf-85ce61aaa707",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"enim_7c\": 48299280,\n        \"adf_1\": true,\n        \"consectetur_92e\": -94627582,\n        \"commodo7b\": true,\n        \"eacf7\": 94369327.3748312\n      }\n    },\n    {\n      \"email\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"dataFields\": {\n        \"exercitation_82\": 17263206.60822487,\n        \"minim8\": \"aute eiusmod ex mollit\",\n        \"sed_9d\": false\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lists/subscribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lists",
+                        "subscribe"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:36.000Z",
+                  "updatedAt": "2026-07-28T01:59:36.000Z",
+                  "uid": "35240-1109b528-8082-4246-abaf-85ce61aaa707"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-7d37013d-6586-40d0-9b4e-1dc6bd958f0b"
+            }
+          ],
+          "id": "1f00e2d5-4788-46f5-97fa-267c21573844",
+          "createdAt": "2026-07-28T01:59:36.000Z",
+          "updatedAt": "2026-07-28T01:59:36.000Z",
+          "uid": "35240-1f00e2d5-4788-46f5-97fa-267c21573844"
+        },
+        {
+          "name": "unsubscribe",
+          "item": [
+            {
+              "name": "Unsubscribe users from a list",
+              "id": "5d3dfded-54e1-4f86-8870-ec6d57ca8b68",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/lists/unsubscribe",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists",
+                    "unsubscribe"
+                  ]
+                },
+                "description": "Removes one or more users from a subscriber list. Users are identified by email address."
+              },
+              "response": [
+                {
+                  "id": "257f5530-900e-4015-9dd1-607e81c2590d",
+                  "name": "Users unsubscribed successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lists/unsubscribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lists",
+                        "unsubscribe"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"successCount\": \"<integer>\",\n  \"failCount\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:59:36.000Z",
+                  "updatedAt": "2026-07-28T01:59:36.000Z",
+                  "uid": "35240-257f5530-900e-4015-9dd1-607e81c2590d"
+                },
+                {
+                  "id": "7462192b-b6ed-46fb-aa9d-723fbc5c8794",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lists/unsubscribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lists",
+                        "unsubscribe"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:36.000Z",
+                  "updatedAt": "2026-07-28T01:59:36.000Z",
+                  "uid": "35240-7462192b-b6ed-46fb-aa9d-723fbc5c8794"
+                },
+                {
+                  "id": "0b0fced3-2595-4a3d-8d6b-e8e5a1015c88",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"listId\": \"<integer>\",\n  \"subscribers\": [\n    {\n      \"email\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/lists/unsubscribe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "lists",
+                        "unsubscribe"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:36.000Z",
+                  "updatedAt": "2026-07-28T01:59:36.000Z",
+                  "uid": "35240-0b0fced3-2595-4a3d-8d6b-e8e5a1015c88"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-5d3dfded-54e1-4f86-8870-ec6d57ca8b68"
+            }
+          ],
+          "id": "2453eb54-4096-4ca2-babf-9e4444371edf",
+          "createdAt": "2026-07-28T01:59:36.000Z",
+          "updatedAt": "2026-07-28T01:59:36.000Z",
+          "uid": "35240-2453eb54-4096-4ca2-babf-9e4444371edf"
+        },
+        {
+          "name": "Get all lists",
+          "id": "a6d0024f-9042-4397-ae94-88e8d7d3d131",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/lists",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lists"
+              ]
+            },
+            "description": "Retrieves all subscriber lists in the Iterable project, including list ID, name, creation date, and size."
+          },
+          "response": [
+            {
+              "id": "3c338e48-c626-4d34-b330-59c573462e35",
+              "name": "List of subscriber lists",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/lists",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"lists\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"listType\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"listType\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-3c338e48-c626-4d34-b330-59c573462e35"
+            },
+            {
+              "id": "deace862-e615-4e75-84e5-1e05bec0db9c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/lists",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-deace862-e615-4e75-84e5-1e05bec0db9c"
+            }
+          ],
+          "createdAt": "2026-07-28T01:59:36.000Z",
+          "updatedAt": "2026-07-28T01:59:36.000Z",
+          "uid": "35240-a6d0024f-9042-4397-ae94-88e8d7d3d131"
+        },
+        {
+          "name": "Create a list",
+          "id": "e80d1a89-34a4-49b2-ab5f-4af684208bb1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lists",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lists"
+              ]
+            },
+            "description": "Creates a new subscriber list in the Iterable project."
+          },
+          "response": [
+            {
+              "id": "5592f7f4-ecb7-4b1c-bc19-babd2fa7dc9c",
+              "name": "List created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/lists",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"listId\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-5592f7f4-ecb7-4b1c-bc19-babd2fa7dc9c"
+            },
+            {
+              "id": "c6faa2b4-c165-48f7-b0d8-22f0c224ecab",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/lists",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-c6faa2b4-c165-48f7-b0d8-22f0c224ecab"
+            },
+            {
+              "id": "4564a374-ca2c-448c-9504-d3d869a4a8f4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/lists",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:59:36.000Z",
+              "updatedAt": "2026-07-28T01:59:36.000Z",
+              "uid": "35240-4564a374-ca2c-448c-9504-d3d869a4a8f4"
+            }
+          ],
+          "createdAt": "2026-07-28T01:59:36.000Z",
+          "updatedAt": "2026-07-28T01:59:36.000Z",
+          "uid": "35240-e80d1a89-34a4-49b2-ab5f-4af684208bb1"
+        }
+      ],
+      "id": "8806ba36-4324-493c-be58-317db5b26432",
+      "createdAt": "2026-07-28T01:59:36.000Z",
+      "updatedAt": "2026-07-28T01:59:36.000Z",
+      "uid": "35240-8806ba36-4324-493c-be58-317db5b26432"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

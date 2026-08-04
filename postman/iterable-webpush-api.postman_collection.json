@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "7175f4d6-e685-4e57-a470-cc7e561caa57",
+    "name": "Iterable Export Campaigns WebPush API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:43.000Z",
+    "updatedAt": "2026-07-28T01:59:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7175f4d6-e685-4e57-a470-cc7e561caa57"
+  },
+  "item": [
+    {
+      "name": "webPush",
+      "item": [
+        {
+          "name": "target",
+          "item": [
+            {
+              "name": "Send a web push notification",
+              "id": "dfb185ab-67d3-4812-ad24-fadbf95bb99c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"cupidatat3\": \"fugiat id in incididunt\",\n    \"anim_7\": true,\n    \"quisa\": 41635221.99398816\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webPush/target",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webPush",
+                    "target"
+                  ]
+                },
+                "description": "Sends a web push notification to a specific user using a template."
+              },
+              "response": [
+                {
+                  "id": "85ab6226-8c12-4279-9411-92ec334dc94a",
+                  "name": "Web push notification sent",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"cupidatat3\": \"fugiat id in incididunt\",\n    \"anim_7\": true,\n    \"quisa\": 41635221.99398816\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webPush/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webPush",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"dolore_ce\": true\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:44.000Z",
+                  "updatedAt": "2026-07-28T01:59:44.000Z",
+                  "uid": "35240-85ab6226-8c12-4279-9411-92ec334dc94a"
+                },
+                {
+                  "id": "df93032e-84b7-430c-9598-3cdc0bb17109",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"cupidatat3\": \"fugiat id in incididunt\",\n    \"anim_7\": true,\n    \"quisa\": 41635221.99398816\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webPush/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webPush",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:44.000Z",
+                  "updatedAt": "2026-07-28T01:59:44.000Z",
+                  "uid": "35240-df93032e-84b7-430c-9598-3cdc0bb17109"
+                },
+                {
+                  "id": "72ba2c43-9dcd-48d8-9487-d7e3d9ac6905",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"cupidatat3\": \"fugiat id in incididunt\",\n    \"anim_7\": true,\n    \"quisa\": 41635221.99398816\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webPush/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webPush",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:44.000Z",
+                  "updatedAt": "2026-07-28T01:59:44.000Z",
+                  "uid": "35240-72ba2c43-9dcd-48d8-9487-d7e3d9ac6905"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:44.000Z",
+              "updatedAt": "2026-07-28T01:59:44.000Z",
+              "uid": "35240-dfb185ab-67d3-4812-ad24-fadbf95bb99c"
+            }
+          ],
+          "id": "6c6acd4d-2778-4742-9e7c-48aeaf286c1b",
+          "createdAt": "2026-07-28T01:59:44.000Z",
+          "updatedAt": "2026-07-28T01:59:44.000Z",
+          "uid": "35240-6c6acd4d-2778-4742-9e7c-48aeaf286c1b"
+        }
+      ],
+      "id": "e4077508-5796-4e51-b083-3db116e6f1d9",
+      "createdAt": "2026-07-28T01:59:44.000Z",
+      "updatedAt": "2026-07-28T01:59:44.000Z",
+      "uid": "35240-e4077508-5796-4e51-b083-3db116e6f1d9"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

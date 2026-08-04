@@ -1,0 +1,873 @@
+{
+  "info": {
+    "_postman_id": "8a35dfd2-5f32-471c-b620-dd7fa75b02a9",
+    "name": "Iterable Campaigns Export API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:11.000Z",
+    "updatedAt": "2026-07-28T01:59:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8a35dfd2-5f32-471c-b620-dd7fa75b02a9"
+  },
+  "item": [
+    {
+      "name": "export",
+      "item": [
+        {
+          "name": "data.json",
+          "item": [
+            {
+              "name": "Export data as JSON",
+              "id": "38eec0d5-aa28-43f1-ad24-b38210656ee1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/export/data.json?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export",
+                    "data.json"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                      "key": "dataTypeName",
+                      "value": "emailSend"
+                    },
+                    {
+                      "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                      "key": "range",
+                      "value": "All"
+                    },
+                    {
+                      "description": "Comma-separated list of fields to exclude from the export",
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Exports event data from the Iterable project in JSON format. Supports filtering by date range and data type. The response is a stream of newline-delimited JSON objects, each representing a single event record."
+              },
+              "response": [
+                {
+                  "id": "46f71189-d61e-406d-ab38-5cff26d76b57",
+                  "name": "Newline-delimited JSON export of event data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/x-ndjson"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/data.json?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "data.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                          "key": "dataTypeName",
+                          "value": "emailSend"
+                        },
+                        {
+                          "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                          "key": "startDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                          "key": "endDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                          "key": "range",
+                          "value": "All"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to exclude from the export",
+                          "key": "omitFields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                          "key": "onlyFields",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/x-ndjson"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-46f71189-d61e-406d-ab38-5cff26d76b57"
+                },
+                {
+                  "id": "bd95e3c4-cd4b-4e93-935f-c358203fd0a6",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/data.json?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "data.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                          "key": "dataTypeName",
+                          "value": "emailSend"
+                        },
+                        {
+                          "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                          "key": "startDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                          "key": "endDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                          "key": "range",
+                          "value": "All"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to exclude from the export",
+                          "key": "omitFields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                          "key": "onlyFields",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-bd95e3c4-cd4b-4e93-935f-c358203fd0a6"
+                },
+                {
+                  "id": "c2f48cd4-a008-465a-a1f0-3f4027f4827e",
+                  "name": "Unauthorized - invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/data.json?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "data.json"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                          "key": "dataTypeName",
+                          "value": "emailSend"
+                        },
+                        {
+                          "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                          "key": "startDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                          "key": "endDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                          "key": "range",
+                          "value": "All"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to exclude from the export",
+                          "key": "omitFields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                          "key": "onlyFields",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-c2f48cd4-a008-465a-a1f0-3f4027f4827e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:12.000Z",
+              "updatedAt": "2026-07-28T01:59:12.000Z",
+              "uid": "35240-38eec0d5-aa28-43f1-ad24-b38210656ee1"
+            }
+          ],
+          "id": "8919347f-e890-4e09-96b5-2e1d9870e033",
+          "createdAt": "2026-07-28T01:59:12.000Z",
+          "updatedAt": "2026-07-28T01:59:12.000Z",
+          "uid": "35240-8919347f-e890-4e09-96b5-2e1d9870e033"
+        },
+        {
+          "name": "data.csv",
+          "item": [
+            {
+              "name": "Export data as CSV",
+              "id": "1ef3b013-22ff-4ed7-9c4f-b234ea674660",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/export/data.csv?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export",
+                    "data.csv"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                      "key": "dataTypeName",
+                      "value": "emailSend"
+                    },
+                    {
+                      "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                      "key": "range",
+                      "value": "All"
+                    },
+                    {
+                      "description": "Comma-separated list of fields to exclude from the export",
+                      "key": "omitFields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                      "key": "onlyFields",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Exports event data from the Iterable project in CSV format. Supports filtering by date range and data type. The response is a CSV file with headers in the first row."
+              },
+              "response": [
+                {
+                  "id": "d1d3a81c-46c3-4065-a7cd-bd344c56cefb",
+                  "name": "CSV export of event data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/csv"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/data.csv?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "data.csv"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                          "key": "dataTypeName",
+                          "value": "emailSend"
+                        },
+                        {
+                          "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                          "key": "startDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                          "key": "endDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                          "key": "range",
+                          "value": "All"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to exclude from the export",
+                          "key": "omitFields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                          "key": "onlyFields",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/csv"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-d1d3a81c-46c3-4065-a7cd-bd344c56cefb"
+                },
+                {
+                  "id": "e7fd0b9b-3752-46b1-ba51-880db62ceccd",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/data.csv?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "data.csv"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                          "key": "dataTypeName",
+                          "value": "emailSend"
+                        },
+                        {
+                          "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                          "key": "startDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                          "key": "endDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                          "key": "range",
+                          "value": "All"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to exclude from the export",
+                          "key": "omitFields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                          "key": "onlyFields",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-e7fd0b9b-3752-46b1-ba51-880db62ceccd"
+                },
+                {
+                  "id": "a1550c5e-2f48-46f9-8233-d37bdef9631b",
+                  "name": "Unauthorized - invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/data.csv?dataTypeName=emailSend&startDateTime=<dateTime>&endDateTime=<dateTime>&range=All&omitFields=<string>&onlyFields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "data.csv"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.",
+                          "key": "dataTypeName",
+                          "value": "emailSend"
+                        },
+                        {
+                          "description": "Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)",
+                          "key": "startDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)",
+                          "key": "endDateTime",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.",
+                          "key": "range",
+                          "value": "All"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to exclude from the export",
+                          "key": "omitFields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of fields to include in the export. When specified, only these fields are returned.",
+                          "key": "onlyFields",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-a1550c5e-2f48-46f9-8233-d37bdef9631b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:12.000Z",
+              "updatedAt": "2026-07-28T01:59:12.000Z",
+              "uid": "35240-1ef3b013-22ff-4ed7-9c4f-b234ea674660"
+            }
+          ],
+          "id": "8415b480-ca5c-47b4-a7f7-8745091c0673",
+          "createdAt": "2026-07-28T01:59:12.000Z",
+          "updatedAt": "2026-07-28T01:59:12.000Z",
+          "uid": "35240-8415b480-ca5c-47b4-a7f7-8745091c0673"
+        },
+        {
+          "name": "userEvents",
+          "item": [
+            {
+              "name": "Export events for a specific user",
+              "id": "3a476a86-ee82-43ae-9295-23a3390a1827",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/export/userEvents?email=<email>&includeCustomEvents=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export",
+                    "userEvents"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Email address of the user whose events to export",
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "description": "Whether to include custom events in the export",
+                      "key": "includeCustomEvents",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Exports all tracked events for a specific user identified by email address. Returns events in JSON format with support for pagination and filtering by event type."
+              },
+              "response": [
+                {
+                  "id": "6e6ddfc9-9321-4b29-b87e-92090ea218d3",
+                  "name": "User events data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/userEvents?email=<email>&includeCustomEvents=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "userEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Email address of the user whose events to export",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "description": "Whether to include custom events in the export",
+                          "key": "includeCustomEvents",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"events\": [\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\",\n      \"messageId\": \"<string>\",\n      \"dataFields\": {\n        \"reprehenderit_70\": \"dolor sint deserunt Ut\",\n        \"eu__5\": 43449506\n      },\n      \"contentId\": \"<integer>\",\n      \"channelId\": \"<integer>\",\n      \"messageTypeId\": \"<integer>\",\n      \"workflowId\": \"<integer>\",\n      \"workflowName\": \"<string>\",\n      \"campaignName\": \"<string>\",\n      \"templateName\": \"<string>\",\n      \"labels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\",\n      \"messageId\": \"<string>\",\n      \"dataFields\": {\n        \"nisi_f0b\": 39753279.604991436\n      },\n      \"contentId\": \"<integer>\",\n      \"channelId\": \"<integer>\",\n      \"messageTypeId\": \"<integer>\",\n      \"workflowId\": \"<integer>\",\n      \"workflowName\": \"<string>\",\n      \"campaignName\": \"<string>\",\n      \"templateName\": \"<string>\",\n      \"labels\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-6e6ddfc9-9321-4b29-b87e-92090ea218d3"
+                },
+                {
+                  "id": "80a6e1a7-5ddd-4089-9510-68c03987a87c",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/userEvents?email=<email>&includeCustomEvents=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "userEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Email address of the user whose events to export",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "description": "Whether to include custom events in the export",
+                          "key": "includeCustomEvents",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-80a6e1a7-5ddd-4089-9510-68c03987a87c"
+                },
+                {
+                  "id": "2416c18d-44dc-4696-a265-447ee493aafc",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/userEvents?email=<email>&includeCustomEvents=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "userEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Email address of the user whose events to export",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "description": "Whether to include custom events in the export",
+                          "key": "includeCustomEvents",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-2416c18d-44dc-4696-a265-447ee493aafc"
+                },
+                {
+                  "id": "fb45f48b-d5d8-4ba5-a396-279b3ee17826",
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/export/userEvents?email=<email>&includeCustomEvents=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "export",
+                        "userEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Email address of the user whose events to export",
+                          "key": "email",
+                          "value": "<email>"
+                        },
+                        {
+                          "description": "Whether to include custom events in the export",
+                          "key": "includeCustomEvents",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:12.000Z",
+                  "updatedAt": "2026-07-28T01:59:12.000Z",
+                  "uid": "35240-fb45f48b-d5d8-4ba5-a396-279b3ee17826"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:12.000Z",
+              "updatedAt": "2026-07-28T01:59:12.000Z",
+              "uid": "35240-3a476a86-ee82-43ae-9295-23a3390a1827"
+            }
+          ],
+          "id": "d7a56d9d-c1db-4779-99a6-872cc88246d4",
+          "createdAt": "2026-07-28T01:59:12.000Z",
+          "updatedAt": "2026-07-28T01:59:12.000Z",
+          "uid": "35240-d7a56d9d-c1db-4779-99a6-872cc88246d4"
+        }
+      ],
+      "id": "5ca4f1ff-9626-4be6-844e-71f3ace81bb0",
+      "createdAt": "2026-07-28T01:59:12.000Z",
+      "updatedAt": "2026-07-28T01:59:12.000Z",
+      "uid": "35240-5ca4f1ff-9626-4be6-844e-71f3ace81bb0"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

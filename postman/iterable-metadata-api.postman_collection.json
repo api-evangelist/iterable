@@ -1,0 +1,928 @@
+{
+  "info": {
+    "_postman_id": "6fb15f9f-6807-4cbd-ad67-886ff92d36d0",
+    "name": "Iterable Export Campaigns Metadata API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:38.000Z",
+    "updatedAt": "2026-07-28T01:59:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6fb15f9f-6807-4cbd-ad67-886ff92d36d0"
+  },
+  "item": [
+    {
+      "name": "metadata",
+      "item": [
+        {
+          "name": "{table}",
+          "item": [
+            {
+              "name": "{key}",
+              "item": [
+                {
+                  "name": "Get a metadata entry",
+                  "id": "f9c45195-151e-4dca-ab94-c43041bd8ce4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "id": "47cbe435-8a25-4da8-b905-d6d8800badc7",
+                          "key": "table",
+                          "value": "<string>",
+                          "description": "(Required) The name of the metadata table"
+                        },
+                        {
+                          "id": "cba87996-202e-4f8c-8e6a-e2c8227fc878",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) The key of the metadata entry"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a single metadata entry by table name and key."
+                  },
+                  "response": [
+                    {
+                      "id": "ad3e241e-f299-4895-b028-ea69401ff8bc",
+                      "name": "Metadata entry",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"value\": {\n    \"nisi2\": true,\n    \"nostrud28b\": \"ut elit\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-ad3e241e-f299-4895-b028-ea69401ff8bc"
+                    },
+                    {
+                      "id": "4089170a-b07e-4a0f-a0e4-677b5dcd94e3",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-4089170a-b07e-4a0f-a0e4-677b5dcd94e3"
+                    },
+                    {
+                      "id": "1e79c4d8-283f-4726-b783-54db80a5fcf7",
+                      "name": "Entry not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-1e79c4d8-283f-4726-b783-54db80a5fcf7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-f9c45195-151e-4dca-ab94-c43041bd8ce4"
+                },
+                {
+                  "name": "Create or update a metadata entry",
+                  "id": "12b96844-b19d-498e-8556-4a16d6dc4657",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"value\": {\n    \"dolore4\": -35950666.242707506,\n    \"reprehenderit_210\": \"in\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c6b8b6f3-883e-4d46-8cc4-8a9e5fe73515",
+                          "key": "table",
+                          "value": "<string>",
+                          "description": "(Required) The name of the metadata table"
+                        },
+                        {
+                          "id": "246eabec-ffad-4b00-85c5-d058be530307",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) The key of the metadata entry"
+                        }
+                      ]
+                    },
+                    "description": "Creates or updates a metadata entry for the specified table and key."
+                  },
+                  "response": [
+                    {
+                      "id": "e44d3112-5252-4b1c-9bb2-461f2902907d",
+                      "name": "Metadata entry saved",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"value\": {\n    \"dolore4\": -35950666.242707506,\n    \"reprehenderit_210\": \"in\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"aute45\": 18458933,\n    \"irureadb\": false,\n    \"exercitation_1\": false,\n    \"officia65a\": 71283750.79368871\n  }\n}",
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-e44d3112-5252-4b1c-9bb2-461f2902907d"
+                    },
+                    {
+                      "id": "4bdbcc4d-2a8d-4cc6-973f-4d56f65562b9",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"value\": {\n    \"dolore4\": -35950666.242707506,\n    \"reprehenderit_210\": \"in\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-4bdbcc4d-2a8d-4cc6-973f-4d56f65562b9"
+                    },
+                    {
+                      "id": "a6e4aaef-1a2d-4922-b1b9-e6a429e485f7",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"value\": {\n    \"dolore4\": -35950666.242707506,\n    \"reprehenderit_210\": \"in\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-a6e4aaef-1a2d-4922-b1b9-e6a429e485f7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-12b96844-b19d-498e-8556-4a16d6dc4657"
+                },
+                {
+                  "name": "Delete a metadata entry",
+                  "id": "c31ab72d-e94e-46da-8664-798209535a21",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "id": "14c23e38-555d-4185-95e5-501be7ac9062",
+                          "key": "table",
+                          "value": "<string>",
+                          "description": "(Required) The name of the metadata table"
+                        },
+                        {
+                          "id": "d53235f3-8bad-4b56-89c1-e22b0990ec44",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) The key of the metadata entry"
+                        }
+                      ]
+                    },
+                    "description": "Deletes a metadata entry by table name and key."
+                  },
+                  "response": [
+                    {
+                      "id": "16595b2a-8ba1-4080-82ee-ac0c9918b17d",
+                      "name": "Metadata entry deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"aute45\": 18458933,\n    \"irureadb\": false,\n    \"exercitation_1\": false,\n    \"officia65a\": 71283750.79368871\n  }\n}",
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-16595b2a-8ba1-4080-82ee-ac0c9918b17d"
+                    },
+                    {
+                      "id": "926b7866-9f30-4a0b-972d-dac73899e667",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/metadata/:table/:key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "metadata",
+                            ":table",
+                            ":key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "table"
+                            },
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:39.000Z",
+                      "updatedAt": "2026-07-28T01:59:39.000Z",
+                      "uid": "35240-926b7866-9f30-4a0b-972d-dac73899e667"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-c31ab72d-e94e-46da-8664-798209535a21"
+                }
+              ],
+              "id": "8297bd49-ec5a-4e73-8ef7-15fc2280ac4b",
+              "createdAt": "2026-07-28T01:59:39.000Z",
+              "updatedAt": "2026-07-28T01:59:39.000Z",
+              "uid": "35240-8297bd49-ec5a-4e73-8ef7-15fc2280ac4b"
+            },
+            {
+              "name": "Get metadata table keys",
+              "id": "6ba4fa10-82a9-4ad9-8799-c4ea713e08d7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata/:table",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata",
+                    ":table"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2ba4150c-1da1-443f-8626-738a709ee079",
+                      "key": "table",
+                      "value": "<string>",
+                      "description": "(Required) The name of the metadata table"
+                    }
+                  ]
+                },
+                "description": "Retrieves all keys in a metadata table."
+              },
+              "response": [
+                {
+                  "id": "baba7b95-ee97-4f30-969c-01a3929ce4dd",
+                  "name": "Metadata table keys",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table"
+                      ],
+                      "variable": [
+                        {
+                          "key": "table"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"results\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": {\n        \"ex_05\": true,\n        \"exercitation7\": -11138876.226108164\n      }\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": {\n        \"mollit_87\": true,\n        \"utb_6\": 97975770,\n        \"amet_f\": -98819416.81492071\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-baba7b95-ee97-4f30-969c-01a3929ce4dd"
+                },
+                {
+                  "id": "474f10fb-a1e7-4fc7-bdf7-8749915399ef",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table"
+                      ],
+                      "variable": [
+                        {
+                          "key": "table"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-474f10fb-a1e7-4fc7-bdf7-8749915399ef"
+                },
+                {
+                  "id": "b6fc4aff-d396-4f3e-a40f-89815cc53804",
+                  "name": "Table not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table"
+                      ],
+                      "variable": [
+                        {
+                          "key": "table"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-b6fc4aff-d396-4f3e-a40f-89815cc53804"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:39.000Z",
+              "updatedAt": "2026-07-28T01:59:39.000Z",
+              "uid": "35240-6ba4fa10-82a9-4ad9-8799-c4ea713e08d7"
+            },
+            {
+              "name": "Delete a metadata table",
+              "id": "453c268a-6228-47fa-903f-9379d6ac5872",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata/:table",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata",
+                    ":table"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9719daec-2f14-47f7-b80f-1796ea930afa",
+                      "key": "table",
+                      "value": "<string>",
+                      "description": "(Required) The name of the metadata table"
+                    }
+                  ]
+                },
+                "description": "Deletes a metadata table and all its entries."
+              },
+              "response": [
+                {
+                  "id": "39301904-cdbc-40e0-8385-17230e574999",
+                  "name": "Metadata table deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table"
+                      ],
+                      "variable": [
+                        {
+                          "key": "table"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"aute45\": 18458933,\n    \"irureadb\": false,\n    \"exercitation_1\": false,\n    \"officia65a\": 71283750.79368871\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-39301904-cdbc-40e0-8385-17230e574999"
+                },
+                {
+                  "id": "42e59906-fde6-4bc9-b77d-fa14936e2280",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/metadata/:table",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metadata",
+                        ":table"
+                      ],
+                      "variable": [
+                        {
+                          "key": "table"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:39.000Z",
+                  "updatedAt": "2026-07-28T01:59:39.000Z",
+                  "uid": "35240-42e59906-fde6-4bc9-b77d-fa14936e2280"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:39.000Z",
+              "updatedAt": "2026-07-28T01:59:39.000Z",
+              "uid": "35240-453c268a-6228-47fa-903f-9379d6ac5872"
+            }
+          ],
+          "id": "e06181a7-e7b4-45f1-bcac-ff1e1ce969bd",
+          "createdAt": "2026-07-28T01:59:39.000Z",
+          "updatedAt": "2026-07-28T01:59:39.000Z",
+          "uid": "35240-e06181a7-e7b4-45f1-bcac-ff1e1ce969bd"
+        }
+      ],
+      "id": "4c5220d7-d7dd-41c8-9733-8eca856a9963",
+      "createdAt": "2026-07-28T01:59:39.000Z",
+      "updatedAt": "2026-07-28T01:59:39.000Z",
+      "uid": "35240-4c5220d7-d7dd-41c8-9733-8eca856a9963"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

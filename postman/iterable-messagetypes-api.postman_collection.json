@@ -1,0 +1,155 @@
+{
+  "info": {
+    "_postman_id": "1db66653-f7f5-48e9-9586-3f6db1399d28",
+    "name": "Iterable Export Campaigns MessageTypes API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:37.000Z",
+    "updatedAt": "2026-07-28T01:59:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1db66653-f7f5-48e9-9586-3f6db1399d28"
+  },
+  "item": [
+    {
+      "name": "messageTypes",
+      "item": [
+        {
+          "name": "List message types",
+          "id": "307d762d-db5b-4341-a463-12cff0c6ef3f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messageTypes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "messageTypes"
+              ]
+            },
+            "description": "Retrieves all message types configured in the Iterable project. Message types categorize the kinds of messages sent through channels."
+          },
+          "response": [
+            {
+              "id": "0209b28b-1e4d-4e1a-9c92-035cc1c72dd4",
+              "name": "List of message types",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/messageTypes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "messageTypes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"messageTypes\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"channelId\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"channelId\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T01:59:38.000Z",
+              "updatedAt": "2026-07-28T01:59:38.000Z",
+              "uid": "35240-0209b28b-1e4d-4e1a-9c92-035cc1c72dd4"
+            },
+            {
+              "id": "72652cf2-8d48-4d47-91c7-f14c3c6d5a10",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/messageTypes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "messageTypes"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:59:38.000Z",
+              "updatedAt": "2026-07-28T01:59:38.000Z",
+              "uid": "35240-72652cf2-8d48-4d47-91c7-f14c3c6d5a10"
+            }
+          ],
+          "createdAt": "2026-07-28T01:59:38.000Z",
+          "updatedAt": "2026-07-28T01:59:38.000Z",
+          "uid": "35240-307d762d-db5b-4341-a463-12cff0c6ef3f"
+        }
+      ],
+      "id": "144ffe63-d6c0-4c6e-8f74-2582fad6416a",
+      "createdAt": "2026-07-28T01:59:38.000Z",
+      "updatedAt": "2026-07-28T01:59:38.000Z",
+      "uid": "35240-144ffe63-d6c0-4c6e-8f74-2582fad6416a"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "6e829d30-c718-48b1-ab8e-a1d788c399e1",
+    "name": "Iterable Export Campaigns Workflows API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:44.000Z",
+    "updatedAt": "2026-07-28T01:59:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6e829d30-c718-48b1-ab8e-a1d788c399e1"
+  },
+  "item": [
+    {
+      "name": "workflows",
+      "item": [
+        {
+          "name": "triggerWorkflow",
+          "item": [
+            {
+              "name": "Trigger a workflow",
+              "id": "824c76c2-6466-4150-bbef-163933011c0e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"laborea35\": \"esse Duis\",\n    \"cupidatat_75\": true\n  },\n  \"listId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/workflows/triggerWorkflow",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workflows",
+                    "triggerWorkflow"
+                  ]
+                },
+                "description": "Triggers a workflow enrollment for one or more users. The workflow must already be created and activated in the Iterable project."
+              },
+              "response": [
+                {
+                  "id": "d07cdb05-40ae-4b2d-9c69-bd067048b9c9",
+                  "name": "Workflow triggered successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"laborea35\": \"esse Duis\",\n    \"cupidatat_75\": true\n  },\n  \"listId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workflows/triggerWorkflow",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflows",
+                        "triggerWorkflow"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"laborum_2e_\": \"aute sunt\",\n    \"et_f8c\": 25894652.50137146\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:45.000Z",
+                  "updatedAt": "2026-07-28T01:59:45.000Z",
+                  "uid": "35240-d07cdb05-40ae-4b2d-9c69-bd067048b9c9"
+                },
+                {
+                  "id": "b22c9826-58b8-4647-939a-83afabf0a249",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"laborea35\": \"esse Duis\",\n    \"cupidatat_75\": true\n  },\n  \"listId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workflows/triggerWorkflow",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflows",
+                        "triggerWorkflow"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:45.000Z",
+                  "updatedAt": "2026-07-28T01:59:45.000Z",
+                  "uid": "35240-b22c9826-58b8-4647-939a-83afabf0a249"
+                },
+                {
+                  "id": "4c57a95d-870a-40be-b589-bdeb2c33f261",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"laborea35\": \"esse Duis\",\n    \"cupidatat_75\": true\n  },\n  \"listId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workflows/triggerWorkflow",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflows",
+                        "triggerWorkflow"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:45.000Z",
+                  "updatedAt": "2026-07-28T01:59:45.000Z",
+                  "uid": "35240-4c57a95d-870a-40be-b589-bdeb2c33f261"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:45.000Z",
+              "updatedAt": "2026-07-28T01:59:45.000Z",
+              "uid": "35240-824c76c2-6466-4150-bbef-163933011c0e"
+            }
+          ],
+          "id": "df741906-8c06-4ab8-8ec8-01029eb8facb",
+          "createdAt": "2026-07-28T01:59:45.000Z",
+          "updatedAt": "2026-07-28T01:59:45.000Z",
+          "uid": "35240-df741906-8c06-4ab8-8ec8-01029eb8facb"
+        }
+      ],
+      "id": "806c29ab-27fc-4b8c-86a9-c1cfa71744d8",
+      "createdAt": "2026-07-28T01:59:45.000Z",
+      "updatedAt": "2026-07-28T01:59:45.000Z",
+      "uid": "35240-806c29ab-27fc-4b8c-86a9-c1cfa71744d8"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "info": {
+    "_postman_id": "308f9e9f-d6b5-4dc8-993b-58de0982f7ba",
+    "name": "Iterable Export Campaigns InApp API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:34.000Z",
+    "updatedAt": "2026-07-28T01:59:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-308f9e9f-d6b5-4dc8-993b-58de0982f7ba"
+  },
+  "item": [
+    {
+      "name": "inApp",
+      "item": [
+        {
+          "name": "getMessages",
+          "item": [
+            {
+              "name": "Get in-app messages for a user",
+              "id": "123462eb-4b02-43aa-a9f3-1db36e42083f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inApp/getMessages?email=<string>&userId=<string>&count=1&platform=iOS",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inApp",
+                    "getMessages"
+                  ],
+                  "query": [
+                    {
+                      "description": "Email address of the user",
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "UserId of the user",
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of messages to return",
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "description": "The platform to get messages for",
+                      "key": "platform",
+                      "value": "iOS"
+                    }
+                  ]
+                },
+                "description": "Retrieves pending in-app messages for a user, typically called by mobile or web SDKs to display in-app content."
+              },
+              "response": [
+                {
+                  "id": "46ef5d50-0e7c-44f0-ac19-851e1eef13b7",
+                  "name": "In-app messages for the user",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inApp/getMessages?email=<string>&userId=<string>&count=1&platform=iOS",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inApp",
+                        "getMessages"
+                      ],
+                      "query": [
+                        {
+                          "description": "Email address of the user",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "UserId of the user",
+                          "key": "userId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of messages to return",
+                          "key": "count",
+                          "value": "1"
+                        },
+                        {
+                          "description": "The platform to get messages for",
+                          "key": "platform",
+                          "value": "iOS"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"inAppMessages\": [\n    {\n      \"messageId\": \"<string>\",\n      \"campaignId\": \"<integer>\",\n      \"content\": {\n        \"html\": \"<string>\",\n        \"payload\": {\n          \"consequat302\": 26433230.5611414,\n          \"culpa_4b5\": -11437781,\n          \"Excepteurbaa\": 64707965.145080626\n        }\n      }\n    },\n    {\n      \"messageId\": \"<string>\",\n      \"campaignId\": \"<integer>\",\n      \"content\": {\n        \"html\": \"<string>\",\n        \"payload\": {\n          \"commodo_ca\": true\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:59:35.000Z",
+                  "updatedAt": "2026-07-28T01:59:35.000Z",
+                  "uid": "35240-46ef5d50-0e7c-44f0-ac19-851e1eef13b7"
+                },
+                {
+                  "id": "08678caa-3811-41f1-af4d-f7a7b07684fa",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/inApp/getMessages?email=<string>&userId=<string>&count=1&platform=iOS",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "inApp",
+                        "getMessages"
+                      ],
+                      "query": [
+                        {
+                          "description": "Email address of the user",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "UserId of the user",
+                          "key": "userId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of messages to return",
+                          "key": "count",
+                          "value": "1"
+                        },
+                        {
+                          "description": "The platform to get messages for",
+                          "key": "platform",
+                          "value": "iOS"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:35.000Z",
+                  "updatedAt": "2026-07-28T01:59:35.000Z",
+                  "uid": "35240-08678caa-3811-41f1-af4d-f7a7b07684fa"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:35.000Z",
+              "updatedAt": "2026-07-28T01:59:35.000Z",
+              "uid": "35240-123462eb-4b02-43aa-a9f3-1db36e42083f"
+            }
+          ],
+          "id": "4e114cdc-2b95-4846-af5b-ea1d0d2c417b",
+          "createdAt": "2026-07-28T01:59:35.000Z",
+          "updatedAt": "2026-07-28T01:59:35.000Z",
+          "uid": "35240-4e114cdc-2b95-4846-af5b-ea1d0d2c417b"
+        }
+      ],
+      "id": "256ad38d-f57f-4a30-adbc-cebe41a271f9",
+      "createdAt": "2026-07-28T01:59:35.000Z",
+      "updatedAt": "2026-07-28T01:59:35.000Z",
+      "uid": "35240-256ad38d-f57f-4a30-adbc-cebe41a271f9"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

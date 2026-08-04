@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "7f0467d1-e201-4c8f-b9d2-85b4bcd98ce7",
+    "name": "Iterable Export Campaigns SMS API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:40.000Z",
+    "updatedAt": "2026-07-28T01:59:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7f0467d1-e201-4c8f-b9d2-85b4bcd98ce7"
+  },
+  "item": [
+    {
+      "name": "sms",
+      "item": [
+        {
+          "name": "target",
+          "item": [
+            {
+              "name": "Send an SMS message",
+              "id": "3555a098-bc13-4a30-a743-e2890be95332",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"deserunt_f8\": \"sint\",\n    \"labore_b4\": -64556021,\n    \"in_d2\": \"est eiusmod\",\n    \"fugiat_d4\": \"nisi eiusmod reprehenderit\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sms/target",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sms",
+                    "target"
+                  ]
+                },
+                "description": "Sends an SMS message to a specific user using a template. Supports personalization via data fields."
+              },
+              "response": [
+                {
+                  "id": "46a2bc66-475c-4dc7-87a2-dfbe447b2fe0",
+                  "name": "SMS sent successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"deserunt_f8\": \"sint\",\n    \"labore_b4\": -64556021,\n    \"in_d2\": \"est eiusmod\",\n    \"fugiat_d4\": \"nisi eiusmod reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sms/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sms",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"id_d\": -55280337,\n    \"ea_f\": -14353755,\n    \"mollit41a\": \"laborum irure\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:41.000Z",
+                  "updatedAt": "2026-07-28T01:59:41.000Z",
+                  "uid": "35240-46a2bc66-475c-4dc7-87a2-dfbe447b2fe0"
+                },
+                {
+                  "id": "2ea5dc64-f2f2-467d-a86c-bc1f644561f3",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"deserunt_f8\": \"sint\",\n    \"labore_b4\": -64556021,\n    \"in_d2\": \"est eiusmod\",\n    \"fugiat_d4\": \"nisi eiusmod reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sms/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sms",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:41.000Z",
+                  "updatedAt": "2026-07-28T01:59:41.000Z",
+                  "uid": "35240-2ea5dc64-f2f2-467d-a86c-bc1f644561f3"
+                },
+                {
+                  "id": "906745e1-3616-4a20-ac28-c0130575117b",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"deserunt_f8\": \"sint\",\n    \"labore_b4\": -64556021,\n    \"in_d2\": \"est eiusmod\",\n    \"fugiat_d4\": \"nisi eiusmod reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sms/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sms",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:41.000Z",
+                  "updatedAt": "2026-07-28T01:59:41.000Z",
+                  "uid": "35240-906745e1-3616-4a20-ac28-c0130575117b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:41.000Z",
+              "updatedAt": "2026-07-28T01:59:41.000Z",
+              "uid": "35240-3555a098-bc13-4a30-a743-e2890be95332"
+            }
+          ],
+          "id": "eb4036b0-c9b4-4898-8ef3-c590fa230ce4",
+          "createdAt": "2026-07-28T01:59:41.000Z",
+          "updatedAt": "2026-07-28T01:59:41.000Z",
+          "uid": "35240-eb4036b0-c9b4-4898-8ef3-c590fa230ce4"
+        }
+      ],
+      "id": "d9d180db-de1b-48d0-9e77-2aaeccc10f73",
+      "createdAt": "2026-07-28T01:59:41.000Z",
+      "updatedAt": "2026-07-28T01:59:41.000Z",
+      "uid": "35240-d9d180db-de1b-48d0-9e77-2aaeccc10f73"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

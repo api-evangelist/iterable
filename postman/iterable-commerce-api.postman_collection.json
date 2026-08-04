@@ -1,0 +1,465 @@
+{
+  "info": {
+    "_postman_id": "d9180983-1b60-465b-a273-ed170932a0c4",
+    "name": "Iterable Export Campaigns Commerce API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:30.000Z",
+    "updatedAt": "2026-07-28T01:59:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d9180983-1b60-465b-a273-ed170932a0c4"
+  },
+  "item": [
+    {
+      "name": "commerce",
+      "item": [
+        {
+          "name": "trackPurchase",
+          "item": [
+            {
+              "name": "Track a purchase event",
+              "id": "e8ce3a3f-ce83-44c4-a301-69ae05bce956",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"pariatur8\": \"velit\",\n      \"sed7c\": false,\n      \"dolore_0\": true,\n      \"veniam_29\": -67665059.24381137\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"voluptate36c\": \"quis\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"proident_da6\": true,\n        \"anim_9\": false,\n        \"adipisicingb9d\": true\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"id_7\": false,\n    \"dolore6\": \"nisi reprehenderit\",\n    \"fugiat_d\": 661858\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/commerce/trackPurchase",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "commerce",
+                    "trackPurchase"
+                  ]
+                },
+                "description": "Tracks a purchase event for a user, including the items purchased, total value, and associated properties. Purchase data is used for revenue attribution and campaign triggering."
+              },
+              "response": [
+                {
+                  "id": "61e068f0-12e1-489e-b333-c896796534d8",
+                  "name": "Purchase tracked successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"pariatur8\": \"velit\",\n      \"sed7c\": false,\n      \"dolore_0\": true,\n      \"veniam_29\": -67665059.24381137\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"voluptate36c\": \"quis\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"proident_da6\": true,\n        \"anim_9\": false,\n        \"adipisicingb9d\": true\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"id_7\": false,\n    \"dolore6\": \"nisi reprehenderit\",\n    \"fugiat_d\": 661858\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/trackPurchase",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "trackPurchase"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"incididunt_5\": 43139985.86068103\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:31.000Z",
+                  "updatedAt": "2026-07-28T01:59:31.000Z",
+                  "uid": "35240-61e068f0-12e1-489e-b333-c896796534d8"
+                },
+                {
+                  "id": "ff299334-638e-4ad2-9722-225fc81efa3b",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"pariatur8\": \"velit\",\n      \"sed7c\": false,\n      \"dolore_0\": true,\n      \"veniam_29\": -67665059.24381137\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"voluptate36c\": \"quis\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"proident_da6\": true,\n        \"anim_9\": false,\n        \"adipisicingb9d\": true\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"id_7\": false,\n    \"dolore6\": \"nisi reprehenderit\",\n    \"fugiat_d\": 661858\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/trackPurchase",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "trackPurchase"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:31.000Z",
+                  "updatedAt": "2026-07-28T01:59:31.000Z",
+                  "uid": "35240-ff299334-638e-4ad2-9722-225fc81efa3b"
+                },
+                {
+                  "id": "a43eaf18-cd6f-433f-a1ae-139a313e2aa4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"pariatur8\": \"velit\",\n      \"sed7c\": false,\n      \"dolore_0\": true,\n      \"veniam_29\": -67665059.24381137\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"voluptate36c\": \"quis\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"proident_da6\": true,\n        \"anim_9\": false,\n        \"adipisicingb9d\": true\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"id_7\": false,\n    \"dolore6\": \"nisi reprehenderit\",\n    \"fugiat_d\": 661858\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/trackPurchase",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "trackPurchase"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:31.000Z",
+                  "updatedAt": "2026-07-28T01:59:31.000Z",
+                  "uid": "35240-a43eaf18-cd6f-433f-a1ae-139a313e2aa4"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:31.000Z",
+              "updatedAt": "2026-07-28T01:59:31.000Z",
+              "uid": "35240-e8ce3a3f-ce83-44c4-a301-69ae05bce956"
+            }
+          ],
+          "id": "9cc6a34f-ebec-4bb6-a610-e1b77d83e650",
+          "createdAt": "2026-07-28T01:59:30.000Z",
+          "updatedAt": "2026-07-28T01:59:30.000Z",
+          "uid": "35240-9cc6a34f-ebec-4bb6-a610-e1b77d83e650"
+        },
+        {
+          "name": "updateCart",
+          "item": [
+            {
+              "name": "Update a user's shopping cart",
+              "id": "b7b98b9b-ebd4-45f0-bc7a-2c74a2bf13d3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"velit_ad\": -80990729,\n        \"utee\": -62148912.22644074\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"in_6\": -89089149.572867,\n        \"esse_40\": 29956514\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/commerce/updateCart",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "commerce",
+                    "updateCart"
+                  ]
+                },
+                "description": "Updates the shopping cart contents for a user. Cart data can be used for abandoned cart campaigns and personalization."
+              },
+              "response": [
+                {
+                  "id": "f2f86991-72d3-49e3-b7c0-75acf503af0e",
+                  "name": "Cart updated successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"velit_ad\": -80990729,\n        \"utee\": -62148912.22644074\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"in_6\": -89089149.572867,\n        \"esse_40\": 29956514\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/updateCart",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "updateCart"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"incididunt_5\": 43139985.86068103\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:31.000Z",
+                  "updatedAt": "2026-07-28T01:59:31.000Z",
+                  "uid": "35240-f2f86991-72d3-49e3-b7c0-75acf503af0e"
+                },
+                {
+                  "id": "14620922-00af-4a5f-a66f-e135df282d30",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"velit_ad\": -80990729,\n        \"utee\": -62148912.22644074\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"in_6\": -89089149.572867,\n        \"esse_40\": 29956514\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/updateCart",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "updateCart"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:31.000Z",
+                  "updatedAt": "2026-07-28T01:59:31.000Z",
+                  "uid": "35240-14620922-00af-4a5f-a66f-e135df282d30"
+                },
+                {
+                  "id": "f8920571-6b88-4987-a425-87c2e9b8e225",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"velit_ad\": -80990729,\n        \"utee\": -62148912.22644074\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"in_6\": -89089149.572867,\n        \"esse_40\": 29956514\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/updateCart",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "updateCart"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:31.000Z",
+                  "updatedAt": "2026-07-28T01:59:31.000Z",
+                  "uid": "35240-f8920571-6b88-4987-a425-87c2e9b8e225"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:31.000Z",
+              "updatedAt": "2026-07-28T01:59:31.000Z",
+              "uid": "35240-b7b98b9b-ebd4-45f0-bc7a-2c74a2bf13d3"
+            }
+          ],
+          "id": "5de76c9e-144e-4f05-8b2c-c85a0b9f16d7",
+          "createdAt": "2026-07-28T01:59:30.000Z",
+          "updatedAt": "2026-07-28T01:59:30.000Z",
+          "uid": "35240-5de76c9e-144e-4f05-8b2c-c85a0b9f16d7"
+        }
+      ],
+      "id": "dc94bd3f-0a8a-427a-a3dc-bac13d094553",
+      "createdAt": "2026-07-28T01:59:30.000Z",
+      "updatedAt": "2026-07-28T01:59:30.000Z",
+      "uid": "35240-dc94bd3f-0a8a-427a-a3dc-bac13d094553"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

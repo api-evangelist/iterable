@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "7c43ae13-a539-4b0f-b30b-4d7f74ffa239",
+    "name": "Iterable Export Campaigns Email API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:31.000Z",
+    "updatedAt": "2026-07-28T01:59:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7c43ae13-a539-4b0f-b30b-4d7f74ffa239"
+  },
+  "item": [
+    {
+      "name": "email",
+      "item": [
+        {
+          "name": "target",
+          "item": [
+            {
+              "name": "Send a transactional email",
+              "id": "42ccbcbb-7233-4ab8-8957-96749a73d923",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"essef8\": -16152428\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/email/target",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "email",
+                    "target"
+                  ]
+                },
+                "description": "Sends a transactional email to a specific user using a template. Supports personalization via data fields and attachments."
+              },
+              "response": [
+                {
+                  "id": "e6730e0c-574d-4323-a718-620f591186cb",
+                  "name": "Email sent successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"essef8\": -16152428\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/email/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "email",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"sunt_f8d\": 82664535,\n    \"labore935\": -72565200,\n    \"eiusmodc\": \"proident dolor\",\n    \"sunt_5a8\": true\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-e6730e0c-574d-4323-a718-620f591186cb"
+                },
+                {
+                  "id": "c6ad210b-ad36-4970-a5a3-161e0000fd25",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"essef8\": -16152428\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/email/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "email",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-c6ad210b-ad36-4970-a5a3-161e0000fd25"
+                },
+                {
+                  "id": "4bd0314a-d70e-4bfe-b3cd-7328011c2b19",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"essef8\": -16152428\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/email/target",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "email",
+                        "target"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-4bd0314a-d70e-4bfe-b3cd-7328011c2b19"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:32.000Z",
+              "updatedAt": "2026-07-28T01:59:32.000Z",
+              "uid": "35240-42ccbcbb-7233-4ab8-8957-96749a73d923"
+            }
+          ],
+          "id": "64b7c141-75dc-4068-8dba-3708c4bee9d9",
+          "createdAt": "2026-07-28T01:59:32.000Z",
+          "updatedAt": "2026-07-28T01:59:32.000Z",
+          "uid": "35240-64b7c141-75dc-4068-8dba-3708c4bee9d9"
+        }
+      ],
+      "id": "e73fcc72-62ee-4335-8780-f3363be3827b",
+      "createdAt": "2026-07-28T01:59:32.000Z",
+      "updatedAt": "2026-07-28T01:59:32.000Z",
+      "uid": "35240-e73fcc72-62ee-4335-8780-f3363be3827b"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

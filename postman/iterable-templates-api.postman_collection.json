@@ -1,0 +1,1033 @@
+{
+  "info": {
+    "_postman_id": "3b6f0c44-1b57-4d13-9682-e0732c7d0461",
+    "name": "Iterable Export Campaigns Templates API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:41.000Z",
+    "updatedAt": "2026-07-28T01:59:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3b6f0c44-1b57-4d13-9682-e0732c7d0461"
+  },
+  "item": [
+    {
+      "name": "templates",
+      "item": [
+        {
+          "name": "email",
+          "item": [
+            {
+              "name": "get",
+              "item": [
+                {
+                  "name": "Get an email template",
+                  "id": "99928f3b-e9a2-4fd7-bb7e-2397c57307ac",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/email/get?templateId=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        "email",
+                        "get"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The ID of the email template to retrieve",
+                          "key": "templateId",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the content and metadata of an email template by its template ID."
+                  },
+                  "response": [
+                    {
+                      "id": "b0b51913-7e91-4e42-b0bc-0c364e9b5b57",
+                      "name": "Email template data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/email/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "email",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the email template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"preheaderText\": \"<string>\",\n  \"html\": \"<string>\",\n  \"plainText\": \"<string>\",\n  \"fromName\": \"<string>\",\n  \"fromEmail\": \"<email>\",\n  \"replyToEmail\": \"<email>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-b0b51913-7e91-4e42-b0bc-0c364e9b5b57"
+                    },
+                    {
+                      "id": "cb3e421a-7832-49ab-9228-bc4c81869ff0",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/email/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "email",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the email template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-cb3e421a-7832-49ab-9228-bc4c81869ff0"
+                    },
+                    {
+                      "id": "b5eee72d-c82a-4c82-a422-22165393bdd4",
+                      "name": "Template not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/email/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "email",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the email template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-b5eee72d-c82a-4c82-a422-22165393bdd4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:42.000Z",
+                  "updatedAt": "2026-07-28T01:59:42.000Z",
+                  "uid": "35240-99928f3b-e9a2-4fd7-bb7e-2397c57307ac"
+                }
+              ],
+              "id": "8e5f3cbf-e746-475d-9fb8-5b197885d471",
+              "createdAt": "2026-07-28T01:59:42.000Z",
+              "updatedAt": "2026-07-28T01:59:42.000Z",
+              "uid": "35240-8e5f3cbf-e746-475d-9fb8-5b197885d471"
+            },
+            {
+              "name": "update",
+              "item": [
+                {
+                  "name": "Update an email template",
+                  "id": "7c9551e9-9e23-4e3e-be55-7e97672be581",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"preheaderText\": \"<string>\",\n  \"html\": \"<string>\",\n  \"plainText\": \"<string>\",\n  \"fromName\": \"<string>\",\n  \"fromEmail\": \"<email>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/email/update",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        "email",
+                        "update"
+                      ]
+                    },
+                    "description": "Updates the content and metadata of an existing email template."
+                  },
+                  "response": [
+                    {
+                      "id": "0e718dd5-6ddf-4bdd-912b-0d276b6b70bf",
+                      "name": "Template updated successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"preheaderText\": \"<string>\",\n  \"html\": \"<string>\",\n  \"plainText\": \"<string>\",\n  \"fromName\": \"<string>\",\n  \"fromEmail\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/email/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "email",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"Ut_14a\": -40931358,\n    \"ipsum_7\": true\n  }\n}",
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-0e718dd5-6ddf-4bdd-912b-0d276b6b70bf"
+                    },
+                    {
+                      "id": "9a4676ec-4298-46f7-8dbb-fb8051d6531d",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"preheaderText\": \"<string>\",\n  \"html\": \"<string>\",\n  \"plainText\": \"<string>\",\n  \"fromName\": \"<string>\",\n  \"fromEmail\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/email/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "email",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-9a4676ec-4298-46f7-8dbb-fb8051d6531d"
+                    },
+                    {
+                      "id": "7130a54d-3256-4dd3-834d-58395a1ce7b4",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"preheaderText\": \"<string>\",\n  \"html\": \"<string>\",\n  \"plainText\": \"<string>\",\n  \"fromName\": \"<string>\",\n  \"fromEmail\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/email/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "email",
+                            "update"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-7130a54d-3256-4dd3-834d-58395a1ce7b4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:42.000Z",
+                  "updatedAt": "2026-07-28T01:59:42.000Z",
+                  "uid": "35240-7c9551e9-9e23-4e3e-be55-7e97672be581"
+                }
+              ],
+              "id": "1a929e9c-0e30-4cea-988f-9620208c4b1a",
+              "createdAt": "2026-07-28T01:59:42.000Z",
+              "updatedAt": "2026-07-28T01:59:42.000Z",
+              "uid": "35240-1a929e9c-0e30-4cea-988f-9620208c4b1a"
+            }
+          ],
+          "id": "ba0f1f91-b0b6-493d-aecf-b292912c539f",
+          "createdAt": "2026-07-28T01:59:42.000Z",
+          "updatedAt": "2026-07-28T01:59:42.000Z",
+          "uid": "35240-ba0f1f91-b0b6-493d-aecf-b292912c539f"
+        },
+        {
+          "name": "push",
+          "item": [
+            {
+              "name": "get",
+              "item": [
+                {
+                  "name": "Get a push notification template",
+                  "id": "228430be-2877-428a-a5b7-00d14a0449f1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/push/get?templateId=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        "push",
+                        "get"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The ID of the push template to retrieve",
+                          "key": "templateId",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the content and metadata of a push notification template by its template ID."
+                  },
+                  "response": [
+                    {
+                      "id": "c619f007-6268-410a-ac82-f57a96923bf9",
+                      "name": "Push template data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/push/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "push",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the push template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\",\n  \"sound\": \"<string>\",\n  \"deeplink\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-c619f007-6268-410a-ac82-f57a96923bf9"
+                    },
+                    {
+                      "id": "3e8c5cff-0081-48bf-9bcd-81f9d7b9fe45",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/push/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "push",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the push template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-3e8c5cff-0081-48bf-9bcd-81f9d7b9fe45"
+                    },
+                    {
+                      "id": "b03c249e-a242-44fd-9f25-492cc3164b0e",
+                      "name": "Template not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/push/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "push",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the push template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-b03c249e-a242-44fd-9f25-492cc3164b0e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:42.000Z",
+                  "updatedAt": "2026-07-28T01:59:42.000Z",
+                  "uid": "35240-228430be-2877-428a-a5b7-00d14a0449f1"
+                }
+              ],
+              "id": "5dd82fd0-290d-4897-aa88-145d794d6b30",
+              "createdAt": "2026-07-28T01:59:42.000Z",
+              "updatedAt": "2026-07-28T01:59:42.000Z",
+              "uid": "35240-5dd82fd0-290d-4897-aa88-145d794d6b30"
+            }
+          ],
+          "id": "c7b56434-939a-4dd7-8a61-73a071edd770",
+          "createdAt": "2026-07-28T01:59:42.000Z",
+          "updatedAt": "2026-07-28T01:59:42.000Z",
+          "uid": "35240-c7b56434-939a-4dd7-8a61-73a071edd770"
+        },
+        {
+          "name": "sms",
+          "item": [
+            {
+              "name": "get",
+              "item": [
+                {
+                  "name": "Get an SMS template",
+                  "id": "7334840e-d4a8-499b-9dc4-2a3de2ef569a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/sms/get?templateId=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        "sms",
+                        "get"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The ID of the SMS template to retrieve",
+                          "key": "templateId",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the content and metadata of an SMS template by its template ID."
+                  },
+                  "response": [
+                    {
+                      "id": "16c3efb7-4204-49fd-8fbb-b85f2f15f79b",
+                      "name": "SMS template data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/sms/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "sms",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the SMS template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-16c3efb7-4204-49fd-8fbb-b85f2f15f79b"
+                    },
+                    {
+                      "id": "7f85d66e-052d-4251-885f-99ed680f43d2",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/sms/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "sms",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the SMS template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-7f85d66e-052d-4251-885f-99ed680f43d2"
+                    },
+                    {
+                      "id": "02b1b94e-a315-4dd2-9798-03ec926b712d",
+                      "name": "Template not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/sms/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "sms",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the SMS template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-02b1b94e-a315-4dd2-9798-03ec926b712d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:42.000Z",
+                  "updatedAt": "2026-07-28T01:59:42.000Z",
+                  "uid": "35240-7334840e-d4a8-499b-9dc4-2a3de2ef569a"
+                }
+              ],
+              "id": "fe66150b-1866-479d-bf67-b008bed856a6",
+              "createdAt": "2026-07-28T01:59:42.000Z",
+              "updatedAt": "2026-07-28T01:59:42.000Z",
+              "uid": "35240-fe66150b-1866-479d-bf67-b008bed856a6"
+            }
+          ],
+          "id": "62b1eee9-5bbb-4d54-b8cf-ad72e7b3fe20",
+          "createdAt": "2026-07-28T01:59:42.000Z",
+          "updatedAt": "2026-07-28T01:59:42.000Z",
+          "uid": "35240-62b1eee9-5bbb-4d54-b8cf-ad72e7b3fe20"
+        },
+        {
+          "name": "inApp",
+          "item": [
+            {
+              "name": "get",
+              "item": [
+                {
+                  "name": "Get an in-app message template",
+                  "id": "611be408-53e9-4eef-9557-7899716697b5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/templates/inApp/get?templateId=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "templates",
+                        "inApp",
+                        "get"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The ID of the in-app template to retrieve",
+                          "key": "templateId",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the content and metadata of an in-app message template by its template ID."
+                  },
+                  "response": [
+                    {
+                      "id": "2c8e12e7-4bc3-48ff-a7d3-824dc2d95854",
+                      "name": "In-app template data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/inApp/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "inApp",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the in-app template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"templateId\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"html\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-2c8e12e7-4bc3-48ff-a7d3-824dc2d95854"
+                    },
+                    {
+                      "id": "3e9c3a7e-17ed-49bc-be4f-c43eebd8e78e",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/inApp/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "inApp",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the in-app template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-3e9c3a7e-17ed-49bc-be4f-c43eebd8e78e"
+                    },
+                    {
+                      "id": "e5ff524e-049d-4f8a-9b30-bed1e304904f",
+                      "name": "Template not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Api-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/templates/inApp/get?templateId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "templates",
+                            "inApp",
+                            "get"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The ID of the in-app template to retrieve",
+                              "key": "templateId",
+                              "value": "<integer>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:59:42.000Z",
+                      "updatedAt": "2026-07-28T01:59:42.000Z",
+                      "uid": "35240-e5ff524e-049d-4f8a-9b30-bed1e304904f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:59:42.000Z",
+                  "updatedAt": "2026-07-28T01:59:42.000Z",
+                  "uid": "35240-611be408-53e9-4eef-9557-7899716697b5"
+                }
+              ],
+              "id": "6f460403-a1b2-407b-b481-77c1345b9c77",
+              "createdAt": "2026-07-28T01:59:42.000Z",
+              "updatedAt": "2026-07-28T01:59:42.000Z",
+              "uid": "35240-6f460403-a1b2-407b-b481-77c1345b9c77"
+            }
+          ],
+          "id": "28dcb834-6cf4-4d5e-be39-8f530546230d",
+          "createdAt": "2026-07-28T01:59:42.000Z",
+          "updatedAt": "2026-07-28T01:59:42.000Z",
+          "uid": "35240-28dcb834-6cf4-4d5e-be39-8f530546230d"
+        }
+      ],
+      "id": "9dc81475-26a3-45ae-a187-74d899300233",
+      "createdAt": "2026-07-28T01:59:42.000Z",
+      "updatedAt": "2026-07-28T01:59:42.000Z",
+      "uid": "35240-9dc81475-26a3-45ae-a187-74d899300233"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

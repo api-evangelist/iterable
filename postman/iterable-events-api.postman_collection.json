@@ -1,0 +1,668 @@
+{
+  "info": {
+    "_postman_id": "1dba8fb0-0b50-4c91-9b9a-25eaa6efba5e",
+    "name": "Iterable Export Campaigns Events API",
+    "description": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:59:32.000Z",
+    "updatedAt": "2026-07-28T01:59:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1dba8fb0-0b50-4c91-9b9a-25eaa6efba5e"
+  },
+  "item": [
+    {
+      "name": "events",
+      "item": [
+        {
+          "name": "track",
+          "item": [
+            {
+              "name": "Track a custom event",
+              "id": "18dab158-f130-45ff-9f62-f426c4485ce6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"Duis_e9\": false,\n    \"sint_b\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/track",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "track"
+                  ]
+                },
+                "description": "Tracks a custom event for a user. Events can be used to trigger campaigns, segment users, and track user behavior within the Iterable platform."
+              },
+              "response": [
+                {
+                  "id": "8909e904-a92a-44cc-ad77-9ff6ba490129",
+                  "name": "Event tracked successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"Duis_e9\": false,\n    \"sint_b\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/events/track",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        "track"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"proident_b\": false\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-8909e904-a92a-44cc-ad77-9ff6ba490129"
+                },
+                {
+                  "id": "96cf4d18-27a0-4551-98f3-80fa6d96da1f",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"Duis_e9\": false,\n    \"sint_b\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/events/track",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        "track"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-96cf4d18-27a0-4551-98f3-80fa6d96da1f"
+                },
+                {
+                  "id": "89dadc00-8b31-49c6-9e20-3dfbf1211450",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"Duis_e9\": false,\n    \"sint_b\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/events/track",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        "track"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-89dadc00-8b31-49c6-9e20-3dfbf1211450"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:32.000Z",
+              "updatedAt": "2026-07-28T01:59:32.000Z",
+              "uid": "35240-18dab158-f130-45ff-9f62-f426c4485ce6"
+            }
+          ],
+          "id": "c25adc4f-ba4c-4587-8225-c7fa2dddbd08",
+          "createdAt": "2026-07-28T01:59:32.000Z",
+          "updatedAt": "2026-07-28T01:59:32.000Z",
+          "uid": "35240-c25adc4f-ba4c-4587-8225-c7fa2dddbd08"
+        },
+        {
+          "name": "trackBulk",
+          "item": [
+            {
+              "name": "Track multiple events in bulk",
+              "id": "bc6994f1-81ee-4c87-b38c-b1c3327be638",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"nulla48\": true,\n        \"ea_9\": -65203271,\n        \"ad_f\": -97260429,\n        \"quis4b3\": \"amet Excepteur\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"et_86d\": \"culpa dolor minim sint\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/trackBulk",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "trackBulk"
+                  ]
+                },
+                "description": "Tracks multiple custom events in a single request. Each event in the array includes the user identifier, event name, and associated data fields."
+              },
+              "response": [
+                {
+                  "id": "a48ad873-9dbc-47a0-9597-b2fe615d6f1f",
+                  "name": "Events tracked successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"nulla48\": true,\n        \"ea_9\": -65203271,\n        \"ad_f\": -97260429,\n        \"quis4b3\": \"amet Excepteur\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"et_86d\": \"culpa dolor minim sint\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/events/trackBulk",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        "trackBulk"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"msg\": \"<string>\",\n  \"code\": \"<string>\",\n  \"params\": {\n    \"proident_b\": false\n  }\n}",
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-a48ad873-9dbc-47a0-9597-b2fe615d6f1f"
+                },
+                {
+                  "id": "fbbf6d9e-654b-4276-b599-a13b0b9d841e",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"nulla48\": true,\n        \"ea_9\": -65203271,\n        \"ad_f\": -97260429,\n        \"quis4b3\": \"amet Excepteur\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"et_86d\": \"culpa dolor minim sint\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/events/trackBulk",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        "trackBulk"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-fbbf6d9e-654b-4276-b599-a13b0b9d841e"
+                },
+                {
+                  "id": "70e60335-e9f9-419d-96ee-8740a2769d63",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"nulla48\": true,\n        \"ea_9\": -65203271,\n        \"ad_f\": -97260429,\n        \"quis4b3\": \"amet Excepteur\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"et_86d\": \"culpa dolor minim sint\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/events/trackBulk",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        "trackBulk"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-70e60335-e9f9-419d-96ee-8740a2769d63"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:32.000Z",
+              "updatedAt": "2026-07-28T01:59:32.000Z",
+              "uid": "35240-bc6994f1-81ee-4c87-b38c-b1c3327be638"
+            }
+          ],
+          "id": "b1993b28-fd88-4d49-8f03-cac4220c87ed",
+          "createdAt": "2026-07-28T01:59:32.000Z",
+          "updatedAt": "2026-07-28T01:59:32.000Z",
+          "uid": "35240-b1993b28-fd88-4d49-8f03-cac4220c87ed"
+        },
+        {
+          "name": "{email}",
+          "item": [
+            {
+              "name": "Get events for a user by email",
+              "id": "6b1deb5a-4346-4b3f-b936-b3b2ecf7d023",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/events/:email?limit=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    ":email"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of events to return",
+                      "key": "limit",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "ef44b5ec-cefb-4970-a4c6-695551e56ab0",
+                      "key": "email",
+                      "value": "<email>",
+                      "description": "(Required) Email address of the user"
+                    }
+                  ]
+                },
+                "description": "Retrieves events tracked for a user identified by email address. Supports pagination and filtering by event type."
+              },
+              "response": [
+                {
+                  "id": "ebd83144-28df-45fe-a8d0-544e4860c12c",
+                  "name": "List of user events",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:email?limit=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":email"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of events to return",
+                          "key": "limit",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "email"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"events\": [\n    {\n      \"eventName\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"dataFields\": {\n        \"dolor_9b\": \"occaecat mollit eiusmod\",\n        \"id_45\": \"occaecat dolore\"\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    },\n    {\n      \"eventName\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"dataFields\": {\n        \"in73\": true,\n        \"sit_2a\": true,\n        \"reprehenderit_6e\": -40490969\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-ebd83144-28df-45fe-a8d0-544e4860c12c"
+                },
+                {
+                  "id": "ade9f634-25ce-4435-bbe3-dc173cbd689c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:email?limit=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":email"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of events to return",
+                          "key": "limit",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "email"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-ade9f634-25ce-4435-bbe3-dc173cbd689c"
+                },
+                {
+                  "id": "23780e0c-51ae-4e5e-8833-ab2a8cb27088",
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/events/:email?limit=30",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "events",
+                        ":email"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of events to return",
+                          "key": "limit",
+                          "value": "30"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "email"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:59:32.000Z",
+                  "updatedAt": "2026-07-28T01:59:32.000Z",
+                  "uid": "35240-23780e0c-51ae-4e5e-8833-ab2a8cb27088"
+                }
+              ],
+              "createdAt": "2026-07-28T01:59:32.000Z",
+              "updatedAt": "2026-07-28T01:59:32.000Z",
+              "uid": "35240-6b1deb5a-4346-4b3f-b936-b3b2ecf7d023"
+            }
+          ],
+          "id": "5db7a981-e255-47e8-b54e-908de7280618",
+          "createdAt": "2026-07-28T01:59:32.000Z",
+          "updatedAt": "2026-07-28T01:59:32.000Z",
+          "uid": "35240-5db7a981-e255-47e8-b54e-908de7280618"
+        }
+      ],
+      "id": "11774e1b-fdc5-4d07-ba3c-fa9614142f1a",
+      "createdAt": "2026-07-28T01:59:32.000Z",
+      "updatedAt": "2026-07-28T01:59:32.000Z",
+      "uid": "35240-11774e1b-fdc5-4d07-ba3c-fa9614142f1a"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.iterable.com/api"
+    }
+  ]
+}

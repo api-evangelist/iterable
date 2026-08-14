@@ -29,7 +29,7 @@ tags:
 - SMS
 url: https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml
 created: '2026-03-20'
-modified: '2026-05-19'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: iterable:export-api
@@ -49,6 +49,8 @@ apis:
     type: Documentation
   - type: OpenAPI
     url: openapi/iterable-export-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-export-api-overlay.yaml
   description: >-
     The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting,
     and data warehousing purposes. It provides asynchronous export endpoints that allow bulk retrieval
@@ -64,7 +66,7 @@ apis:
   - User Tracking
   - Web
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.example.com
+  baseURL: https://api.iterable.com
   humanURL: https://github.com/Iterable/iterable-web-sdk
   properties:
   - url: https://github.com/Iterable/iterable-web-sdk
@@ -83,7 +85,7 @@ apis:
   - SDK
   - Swift
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.example.com
+  baseURL: https://api.iterable.com
   humanURL: https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
   properties:
   - url: https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK
@@ -103,7 +105,7 @@ apis:
   - Push Notifications
   - SDK
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.example.com
+  baseURL: https://api.iterable.com
   humanURL: >-
     https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs
   properties:
@@ -125,7 +127,7 @@ apis:
   - React Native
   - SDK
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.example.com
+  baseURL: https://api.iterable.com
   humanURL: >-
     https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK
   properties:
@@ -148,6 +150,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-campaigns-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-campaigns-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -163,6 +167,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-catalogs-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-catalogs-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -178,6 +184,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-channels-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-channels-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -193,6 +201,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-commerce-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-commerce-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -207,6 +217,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-email-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-email-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -223,6 +235,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-events-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-events-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -237,6 +251,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-experimentmetrics-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-experimentmetrics-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -251,6 +267,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-experiments-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-experiments-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -265,6 +283,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-inapp-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-inapp-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -281,6 +301,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-lists-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-lists-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -295,6 +317,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-messagetypes-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-messagetypes-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -310,6 +334,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-metadata-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-metadata-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -324,6 +350,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-push-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-push-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -338,6 +366,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-sms-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-sms-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -353,6 +383,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-templates-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-templates-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -369,6 +401,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-users-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-users-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -383,6 +417,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-webpush-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-webpush-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -397,11 +433,92 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/iterable-workflows-api-openapi.yml
+  - type: Overlay
+    url: overlays/iterable-workflows-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
     url: graphql/iterable-graphql.md
 common:
+- type: OpenAPI
+  name: Iterable API (harvested Swagger 2.0 source, 129 paths)
+  url: openapi/_original/iterable-api-openapi.json
+  note: >-
+    Harvested verbatim from https://api.iterable.com/api-docs on 2026-08-13. Ownership confirmed
+    from the document itself: info.title "Iterable API", host api.iterable.com, termsOfService
+    https://iterable.com/terms/, securityDefinitions api_key in the Api-Key header. It supersedes
+    the 36-path hand-written scaffold in openapi/_original/iterable-rest-api-openapi.yml that the
+    current per-tag files were split from — a refine-openapis run should re-split from this source.
+- type: Packages
+  url: packages/iterable-packages.yml
+- type: SDKs
+  name: Iterable first-party SDKs and client libraries
+  url: packages/iterable-packages.yml
+- type: CLI
+  name: Iterable CLI (@iterable/cli)
+  url: cli/iterable-cli.yml
+- type: MCPServer
+  name: Iterable MCP Server (@iterable/mcp, local stdio)
+  url: mcp/iterable-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/iterable-tool-crosswalk.yml
+- type: AgentSkill
+  name: Iterable Agent Skills
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/iterable-llms.txt
+- type: Conventions
+  url: conventions/iterable-conventions.yml
+- type: ErrorCatalog
+  name: Iterable named error codes
+  url: errors/iterable-error-codes.yml
+- type: ErrorCatalog
+  name: Iterable HTTP problem types
+  url: errors/iterable-problem-types.yml
+- type: RateLimits
+  url: rate-limits/iterable-rate-limits.yml
+- type: DataModel
+  url: data-model/iterable-data-model.yml
+- type: Lifecycle
+  url: lifecycle/iterable-lifecycle.yml
+- type: StatusPage
+  name: Iterable Status
+  url: https://status.iterable.com/
+- type: Deprecation
+  name: Iterable SDK Support Policy (12-month end-of-life; SDK-scoped)
+  url: https://support.iterable.com/hc/en-us/articles/360046136171-SDK-Support-Policy
+- type: Conformance
+  url: conformance/iterable-conformance.yml
+- type: Compliance
+  name: Iterable Trust Center (SOC 2, ISO 27001, HIPAA, GDPR)
+  url: https://trust.iterable.com/
+- type: ChangeLog
+  url: changelog/iterable-changelog.yml
+- type: ChangeLog
+  name: Iterable 2026 Release Notes
+  url: https://support.iterable.com/hc/en-us/articles/44900665796628-2026-Release-Notes
+- type: Webhooks
+  name: Iterable System Webhooks
+  url: https://support.iterable.com/hc/en-us/articles/208013936-System-Webhooks
+- type: Vocabulary
+  url: vocabulary/iterable-vocabulary.yml
+- type: DeveloperPortal
+  name: Iterable Developer Documentation
+  url: https://support.iterable.com/hc/en-us/categories/360002288712
+  note: >-
+    Listed by Iterable's own llms.txt as Developer Documentation. Zendesk returns 403 to
+    non-browser clients (checked 2026-08-13); the page is public in a browser.
+- type: APIReference
+  name: Iterable API Reference (USDC)
+  url: https://api.iterable.com/api/docs
+- type: GettingStarted
+  name: Getting Started with Iterable's API
+  url: https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API
+- type: GitHubOrganization
+  url: https://github.com/Iterable
+- type: Community
+  name: Iterable Community
+  url: https://community.iterable.com/
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/iterable/overview
 - type: AgenticAccess
@@ -445,7 +562,7 @@ common:
   url: https://iterable.com/trust/privacy-policy/
   type: PrivacyPolicy
 - name: Iterable Terms of Service
-  url: https://iterable.com/trust/terms-of-service/
+  url: https://iterable.com/legal/terms/
   type: TermsOfService
 - type: Features
   data:
@@ -471,3 +588,9 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 39
+  pass: local-v1

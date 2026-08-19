@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update a user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/users/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user profile or creates a new one if the user does not already exist. Accepts user fields, email, userId, and data fields to set or update on the user profile."
+        },
+        {
+          "info": {
+            "name": "Bulk update user profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/users/bulkUpdate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates multiple user profiles in a single request. Each user object in the array can include email, userId, and data fields to update."
+        },
+        {
+          "info": {
+            "name": "Get a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/users/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves the full user profile for a given email address, including all data fields and subscription preferences."
+        },
+        {
+          "info": {
+            "name": "Delete a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/users/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of the user"
+              }
+            ]
+          },
+          "docs": "Deletes a user profile identified by email address from the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Get a user by userId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/users/byUserId/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The userId of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves the full user profile for a given userId, including all data fields and subscription preferences."
+        },
+        {
+          "info": {
+            "name": "Delete a user by userId",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/users/byUserId/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The userId of the user"
+              }
+            ]
+          },
+          "docs": "Deletes a user profile identified by userId from the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Get user fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/users/getFields"
+          },
+          "docs": "Retrieves all user field names and their data types defined in the Iterable project."
+        },
+        {
+          "info": {
+            "name": "Register a device token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/users/registerDeviceToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a device token (APNs or FCM) for a user to enable push notification delivery."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,122 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API,
+  https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys,
+  https://support.iterable.com/hc/en-us/articles/39629320560148-API-Response-Codes and the published
+  contract at https://api.iterable.com/api-docs (saved to openapi/_original/iterable-api-openapi.json).
+description: >-
+  Cross-cutting request/response semantics for the Iterable REST API: how it authenticates, paginates,
+  filters fields, versions, signals errors and rate limits. These are the runtime behaviours the
+  OpenAPI document does not fully express.
+
+base_urls:
+  usdc: https://api.iterable.com
+  edc: https://api.eu.iterable.com
+  note: >-
+    A project's data center determines its base URL AND its API keys — a USDC key cannot call the EDC
+    endpoints. Full paths are prefixed /api (for example https://api.iterable.com/api/events/track).
+api_style: REST over HTTPS, JSON request and response bodies (some export endpoints return text/csv)
+transport_requirement: Clients must support TLS 1.2.
+
+authentication:
+  scheme: API key in an Api-Key (or Api_Key) request header
+  key_types: [server-side, client-side, JWT-enabled]
+  jwt: >-
+    JWT-enabled keys add a signed JWT that binds the request to a specific user; client-side keys
+    should require JWT authentication because they are exposed in browser and mobile code.
+  legacy_note: >-
+    Keys passed in the query string or request body are legacy-only and, since 2025-11-10, are
+    subject to stricter rate limiting.
+  docs: https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys
+  detail: authentication/iterable-authentication.yml
+
+idempotency:
+  supported: false
+  mechanism: null
+  evidence: >-
+    No idempotency key header, parameter or retry-safety contract appears anywhere in Iterable's
+    published Swagger document (grep for "idempoten" over api-docs returns nothing) or in the
+    Getting Started / API Response Codes references. Bulk writes are asynchronous and Iterable warns
+    that events are processed out of band, so retries after a timeout can duplicate work.
+  guidance: >-
+    Callers must supply their own de-duplication. For events, keep a single ingestion path (bulk or
+    non-bulk, not both) — Iterable states ordering is only preserved within one endpoint.
+
+pagination:
+  style: page-number (offset), endpoint-specific
+  request_params:
+    page: 1-based page number (campaigns, catalogs, child campaigns, experiments, journeys)
+    pageSize: items per page
+    startAfter: cursor used by GET /api/export/{jobId}/files to page through export files
+    limit: row cap on several list endpoints
+    sort / order: field and direction on campaign and catalog listings
+  note: >-
+    Not every collection paginates. Some projects are configured for an unpaginated campaigns API,
+    where omitting page/pageSize returns every campaign.
+
+field_selection:
+  supported: true
+  params:
+    onlyFields: return only the named user fields
+    omitFields: exclude the named user fields
+  applies_to: user retrieval and export endpoints
+
+metadata:
+  user_profile: Arbitrary custom fields on the user profile (dataFields) plus project-defined field types.
+  key_value_store: /api/metadata/{table}/{key} provides project-scoped key-value tables for personalization.
+
+request_tracing:
+  request_id_header: null
+  note: >-
+    Iterable does not document a request-id response header. Error bodies instead echo context in
+    params (endpoint, ip, apiKeyIdentifier, apiKeyType), which is what support asks for.
+
+versioning:
+  scheme: unversioned path
+  current: 'Swagger info.version 1.8 (as published at https://api.iterable.com/api-docs on 2026-08-13)'
+  compatibility: >-
+    Iterable states it may add fields to response bodies without prior notice, and that clients must
+    not break when new fields appear. Documented fields are not renamed or removed without prior
+    communication. Response schemas are otherwise subject to change without notice.
+  detail: lifecycle/iterable-lifecycle.yml
+
+error_envelope:
+  content_type: application/json
+  fields: [msg, code, params]
+  rfc9457: false
+  catalog: errors/iterable-error-codes.yml
+
+rate_limit_signaling:
+  status: 429
+  code: RateLimitExceeded
+  headers: [Retry-After]
+  published_where: per-endpoint, inside the operation description in the API reference
+  scopes: [per project, per API key, per organization]
+  retry: exponential backoff
+  detail: rate-limits/iterable-rate-limits.yml
+
+async_semantics:
+  note: >-
+    Several surfaces are explicitly asynchronous — catalog item writes, data exports (job-based:
+    POST /api/export/start then GET /api/export/{jobId}/files), user deletion, and event tracking.
+    A 202 means accepted, not applied.
+
+race_conditions:
+  documented: true
+  guidance: >-
+    Iterable's Getting Started guide calls out race conditions when creating new fields and when
+    updating the same user concurrently, and recommends serializing those calls.
+
+testing:
+  note: >-
+    The API reference at /api/docs executes live calls against real project data. Iterable's guidance
+    is to use a separate project dedicated to testing or development; there is no test-mode key
+    prefix or sandbox host.
+
+related:
+  authentication: authentication/iterable-authentication.yml
+  errors: errors/iterable-error-codes.yml
+  rate_limits: rate-limits/iterable-rate-limits.yml
+  lifecycle: lifecycle/iterable-lifecycle.yml
+  data_model: data-model/iterable-data-model.yml

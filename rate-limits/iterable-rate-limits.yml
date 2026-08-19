@@ -4,31 +4,302 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Iterable
 providerId: iterable
 created: '2026-05-04'
-modified: '2026-05-04'
-reconciled: true
+modified: '2026-08-13'
+method: searched
+source: >-
+  https://api.iterable.com/api-docs — Iterable publishes each endpoint's rate limit inside the
+  operation description of its own Swagger contract; the rows below are read verbatim from that
+  document (saved at openapi/_original/iterable-api-openapi.json). Handling guidance from
+  https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API
+docs: https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API
 tags:
   - Rate Limiting
   - Marketing
-description: Iterable API rate limits per project.
-sources:
-  - https://www.iterable.com/pricing/
-  - https://api.iterable.com/api/docs
+description: >-
+  Iterable applies rate limits per endpoint, and each endpoint states whether its limit is counted
+  per project, per API key or per organization. Exhaustion returns HTTP 429 with the named code
+  RateLimitExceeded; Iterable tells clients to retry with exponential backoff.
 headers:
   retryAfter: Retry-After
+  note: >-
+    Iterable does not document X-RateLimit-* or RFC 9238 RateLimit-* response headers. The only
+    documented runtime signal is the 429 status code; the limits themselves are published per
+    endpoint in the API reference rather than returned in headers.
 responseCodes:
   throttled: 429
+  code: RateLimitExceeded
+retry_policy: exponential backoff (documented in Getting Started with Iterable's API)
+scopes_used: [per project, per API key, per organization]
+limit_count: 53
 limits:
-  - name: Default REST API
+  - name: "GET /api/campaigns"
+    endpoint: "/api/campaigns"
+    method: GET
     scope: project
-    metric: requests_per_second
-    limit: 30
-    timeFrame: second
-  - name: Bulk events
+    published: 100 requests/second, per project
+  - name: "POST /api/campaigns/archive"
+    endpoint: "/api/campaigns/archive"
+    method: POST
+    scope: api_key
+    published: 5 requests/second, per API key
+  - name: "GET /api/campaigns/metrics"
+    endpoint: "/api/campaigns/metrics"
+    method: GET
+    scope: project
+    published: 10 requests/minute, per project
+  - name: "GET /api/campaigns/recurring/{id}/childCampaigns"
+    endpoint: "/api/campaigns/recurring/{id}/childCampaigns"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/campaigns/{id}"
+    endpoint: "/api/campaigns/{id}"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/catalogs"
+    endpoint: "/api/catalogs"
+    method: GET
+    scope: api_key
+    published: 100 requests/second, per API key
+  - name: "GET /api/catalogs/{catalogName}/items"
+    endpoint: "/api/catalogs/{catalogName}/items"
+    method: GET
+    scope: api_key
+    published: 100 requests/second, per API key
+  - name: "POST /api/catalogs/{catalogName}/items"
+    endpoint: "/api/catalogs/{catalogName}/items"
+    method: POST
+    scope: api_key
+    published: 100 requests/second, per API key
+  - name: "PUT /api/catalogs/{catalogName}/items/{itemId}"
+    endpoint: "/api/catalogs/{catalogName}/items/{itemId}"
+    method: PUT
+    scope: api_key
+    published: 1000 requests/second, per API key
+  - name: "GET /api/channels"
+    endpoint: "/api/channels"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/email/viewInBrowser"
+    endpoint: "/api/email/viewInBrowser"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/events/byUserId/{userId}"
+    endpoint: "/api/events/byUserId/{userId}"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "POST /api/events/track"
+    endpoint: "/api/events/track"
+    method: POST
+    scope: project
+    published: 2000 requests/second, per project
+  - name: "POST /api/events/trackBulk"
+    endpoint: "/api/events/trackBulk"
+    method: POST
+    scope: project
+    published: 10 requests/second, per project
+  - name: "GET /api/events/{email}"
+    endpoint: "/api/events/{email}"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/export/data.csv"
+    endpoint: "/api/export/data.csv"
+    method: GET
+    scope: project
+    published: 4 requests/minute, per project
+  - name: "GET /api/export/data.json"
+    endpoint: "/api/export/data.json"
+    method: GET
+    scope: project
+    published: 4 requests/minute, per project
+  - name: "POST /api/export/start"
+    endpoint: "/api/export/start"
+    method: POST
+    scope: organization
+    published: 1 request/second, per organization
+  - name: "DELETE /api/export/{jobId}"
+    endpoint: "/api/export/{jobId}"
+    method: DELETE
+    scope: project
+    published: 1 request/second, per project
+  - name: "GET /api/export/{jobId}/files"
+    endpoint: "/api/export/{jobId}/files"
+    method: GET
+    scope: organization
+    published: 1 request/second, per organization
+  - name: "GET /api/lists"
+    endpoint: "/api/lists"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/lists/getUsers"
+    endpoint: "/api/lists/getUsers"
+    method: GET
+    scope: project
+    published: 5 requests/minute, per project
+  - name: "GET /api/lists/previewUsers"
+    endpoint: "/api/lists/previewUsers"
+    method: GET
+    scope: project
+    published: 5 requests/minute, per project
+  - name: "GET /api/lists/{listId}/size"
+    endpoint: "/api/lists/{listId}/size"
+    method: GET
+    scope: project
+    published: 5 requests/minute, per project
+  - name: "GET /api/messageTypes"
+    endpoint: "/api/messageTypes"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/templates"
+    endpoint: "/api/templates"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/templates/email/get"
+    endpoint: "/api/templates/email/get"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "POST /api/templates/email/preview"
+    endpoint: "/api/templates/email/preview"
+    method: POST
+    scope: project
+    published: 10 requests/second, per project
+  - name: "POST /api/templates/email/proof"
+    endpoint: "/api/templates/email/proof"
+    method: POST
+    scope: api_key
+    published: 20 requests/second, per API key
+  - name: "GET /api/templates/embedded/get"
+    endpoint: "/api/templates/embedded/get"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/templates/getByClientTemplateId"
+    endpoint: "/api/templates/getByClientTemplateId"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "POST /api/templates/inapp/preview"
+    endpoint: "/api/templates/inapp/preview"
+    method: POST
+    scope: project
+    published: 10 requests/second, per project
+  - name: "POST /api/templates/inapp/proof"
+    endpoint: "/api/templates/inapp/proof"
+    method: POST
+    scope: api_key
+    published: 20 requests/second, per API key
+  - name: "GET /api/templates/push/get"
+    endpoint: "/api/templates/push/get"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "POST /api/templates/push/proof"
+    endpoint: "/api/templates/push/proof"
+    method: POST
+    scope: api_key
+    published: 20 requests/second, per API key
+  - name: "GET /api/templates/sms/get"
+    endpoint: "/api/templates/sms/get"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "POST /api/templates/sms/proof"
+    endpoint: "/api/templates/sms/proof"
+    method: POST
+    scope: api_key
+    published: 20 requests/second, per API key
+  - name: "POST /api/users/bulkUpdate"
+    endpoint: "/api/users/bulkUpdate"
+    method: POST
+    scope: project
+    published: 5 requests/second, per project
+  - name: "GET /api/users/byUserId"
+    endpoint: "/api/users/byUserId"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "DELETE /api/users/byUserId/{userId}"
+    endpoint: "/api/users/byUserId/{userId}"
+    method: DELETE
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/users/byUserId/{userId}"
+    endpoint: "/api/users/byUserId/{userId}"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "POST /api/users/forget"
+    endpoint: "/api/users/forget"
+    method: POST
+    scope: project
+    published: 3 requests/second, per project
+  - name: "GET /api/users/forgotten"
+    endpoint: "/api/users/forgotten"
+    method: GET
+    scope: project
+    published: 3 requests/second, per project
+  - name: "GET /api/users/forgottenUserIds"
+    endpoint: "/api/users/forgottenUserIds"
+    method: GET
+    scope: project
+    published: 3 requests/second, per project
+  - name: "GET /api/users/getByEmail"
+    endpoint: "/api/users/getByEmail"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/users/getFields"
+    endpoint: "/api/users/getFields"
+    method: GET
+    scope: project
+    published: 3 requests/second, per project
+  - name: "GET /api/users/getSentMessages"
+    endpoint: "/api/users/getSentMessages"
+    method: GET
+    scope: project
+    published: 3 requests/second, per project
+  - name: "POST /api/users/merge"
+    endpoint: "/api/users/merge"
+    method: POST
+    scope: api_key
+    published: 50 requests/second, per API key
+  - name: "POST /api/users/registerDeviceToken"
+    endpoint: "/api/users/registerDeviceToken"
+    method: POST
+    scope: project
+    published: 500 requests/second, per project
+  - name: "POST /api/users/unforget"
+    endpoint: "/api/users/unforget"
+    method: POST
+    scope: project
+    published: 3 requests/second, per project
+  - name: "POST /api/users/update"
+    endpoint: "/api/users/update"
+    method: POST
+    scope: project
+    published: 500 requests/second, per project
+  - name: "DELETE /api/users/{email}"
+    endpoint: "/api/users/{email}"
+    method: DELETE
+    scope: project
+    published: 100 requests/second, per project
+  - name: "GET /api/users/{email}"
+    endpoint: "/api/users/{email}"
+    method: GET
+    scope: project
+    published: 100 requests/second, per project
+  - name: Bulk event batch size
     scope: request
     metric: events
     limit: 1000
     timeFrame: request
-  - name: List import
-    scope: project
-    metric: concurrent
-    limit: 5
+    published: "POST /api/events/trackBulk accepts up to 1000 events per request (spec description)"

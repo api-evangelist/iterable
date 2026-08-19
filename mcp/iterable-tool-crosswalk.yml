@@ -1,0 +1,795 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived by binding each tool in https://github.com/Iterable/mcp-server/blob/main/TOOLS.md (109 tools,
+  read 2026-08-13) to the operation it calls in Iterable's published Swagger 2.0 contract at
+  https://api.iterable.com/api-docs (openapi/_original/iterable-api-openapi.json, 128 operations).
+  Every REST target below was verified to exist in that document; nothing is inferred beyond the
+  tool name, its published description and the matching path.
+note: >-
+  Iterable's MCP tool inputSchemas could not be introspected live — the server is local stdio and
+  requires an API key — so each tool inherits its real input contract from the parameters and body
+  schema of the bound operation in the OpenAPI document.
+surfaces:
+  openapi: openapi/_original/iterable-api-openapi.json
+  openapi_source: https://api.iterable.com/api-docs
+  mcp:
+    package: "@iterable/mcp"
+    transport: stdio
+    gated: true
+    note: tools/list requires a locally installed server plus an Iterable API key; no remote endpoint exists.
+  graphql:
+    endpoint: null
+    note: Iterable publishes no GraphQL API; graphql/iterable-schema.graphql in this repo is a conceptual model, not a served schema.
+crosswalk:
+- tool: abort_campaign
+  category: Campaigns
+  rest: [abort campaign]
+  operation: "POST /api/campaigns/abort"
+  binding: rest
+  confidence: high
+- tool: activate_triggered_campaign
+  category: Campaigns
+  rest: [activate triggered campaign]
+  operation: "POST /api/campaigns/activateTriggered"
+  binding: rest
+  confidence: high
+- tool: archive_campaigns
+  category: Campaigns
+  rest: [archive campaigns]
+  operation: "POST /api/campaigns/archive"
+  binding: rest
+  confidence: high
+- tool: cancel_campaign
+  category: Campaigns
+  rest: [cancel campaign]
+  operation: "POST /api/campaigns/cancel"
+  binding: rest
+  confidence: high
+- tool: create_blast_campaign
+  category: Campaigns
+  rest: [create campaign]
+  operation: "POST /api/campaigns/create"
+  binding: rest
+  confidence: medium
+  note: POST /api/campaigns/create serves both blast and triggered creation; the tool fixes the campaign type in the body.
+- tool: create_triggered_campaign
+  category: Campaigns
+  rest: [create campaign]
+  operation: "POST /api/campaigns/create"
+  binding: rest
+  confidence: medium
+  note: Same endpoint as create_blast_campaign; campaign type is selected by the request body, so two tools fan in to one operation.
+- tool: deactivate_triggered_campaign
+  category: Campaigns
+  rest: [Deactivate triggered campaign]
+  operation: "POST /api/campaigns/deactivateTriggered"
+  binding: rest
+  confidence: high
+- tool: get_campaign
+  category: Campaigns
+  rest: [getCampaign]
+  operation: "GET /api/campaigns/{id}"
+  binding: rest
+  confidence: high
+- tool: get_campaign_metrics
+  category: Campaigns
+  rest: [metrics]
+  operation: "GET /api/campaigns/metrics"
+  binding: rest
+  confidence: high
+- tool: get_campaigns
+  category: Campaigns
+  rest: [campaigns]
+  operation: "GET /api/campaigns"
+  binding: rest
+  confidence: high
+- tool: get_child_campaigns
+  category: Campaigns
+  rest: [child campaigns]
+  operation: "GET /api/campaigns/recurring/{id}/childCampaigns"
+  binding: rest
+  confidence: high
+- tool: schedule_campaign
+  category: Campaigns
+  rest: [schedule campaign]
+  operation: "POST /api/campaigns/{campaignId}/schedule"
+  binding: rest
+  confidence: high
+- tool: send_campaign
+  category: Campaigns
+  rest: [send campaign]
+  operation: "POST /api/campaigns/{campaignId}/send"
+  binding: rest
+  confidence: high
+- tool: trigger_campaign
+  category: Campaigns
+  rest: [trigger campaign]
+  operation: "POST /api/campaigns/trigger"
+  binding: rest
+  confidence: high
+- tool: bulk_delete_catalog_items
+  category: Catalogs
+  rest: [bulkDeleteCatalogItems]
+  operation: "DELETE /api/catalogs/{catalogName}/items"
+  binding: rest
+  confidence: high
+- tool: create_catalog
+  category: Catalogs
+  rest: [createCatalog]
+  operation: "POST /api/catalogs/{catalogName}"
+  binding: rest
+  confidence: high
+- tool: delete_catalog
+  category: Catalogs
+  rest: [deleteCatalog]
+  operation: "DELETE /api/catalogs/{catalogName}"
+  binding: rest
+  confidence: high
+- tool: delete_catalog_item
+  category: Catalogs
+  rest: [deleteCatalogItem]
+  operation: "DELETE /api/catalogs/{catalogName}/items/{itemId}"
+  binding: rest
+  confidence: high
+- tool: get_catalog_field_mappings
+  category: Catalogs
+  rest: [getFieldMappings]
+  operation: "GET /api/catalogs/{catalogName}/fieldMappings"
+  binding: rest
+  confidence: high
+- tool: get_catalog_item
+  category: Catalogs
+  rest: [getCatalogItem]
+  operation: "GET /api/catalogs/{catalogName}/items/{itemId}"
+  binding: rest
+  confidence: high
+- tool: get_catalog_items
+  category: Catalogs
+  rest: [listCatalogItems]
+  operation: "GET /api/catalogs/{catalogName}/items"
+  binding: rest
+  confidence: high
+- tool: get_catalogs
+  category: Catalogs
+  rest: [listCatalogs]
+  operation: "GET /api/catalogs"
+  binding: rest
+  confidence: high
+- tool: partial_update_catalog_item
+  category: Catalogs
+  rest: [partialUpdateCatalogItem]
+  operation: "PATCH /api/catalogs/{catalogName}/items/{itemId}"
+  binding: rest
+  confidence: high
+- tool: partial_update_catalog_items
+  category: Catalogs
+  rest: [bulkUpdateCatalogItems]
+  operation: "POST /api/catalogs/{catalogName}/items"
+  binding: rest
+  confidence: medium
+  note: Bulk item endpoint; the tool selects merge semantics via the request body.
+- tool: replace_catalog_item
+  category: Catalogs
+  rest: [indexCatalogItem]
+  operation: "PUT /api/catalogs/{catalogName}/items/{itemId}"
+  binding: rest
+  confidence: high
+- tool: replace_catalog_items
+  category: Catalogs
+  rest: [bulkUpdateCatalogItems]
+  operation: "POST /api/catalogs/{catalogName}/items"
+  binding: rest
+  confidence: medium
+  note: Same bulk item endpoint as partial_update_catalog_items; the tool selects replace semantics via the request body.
+- tool: update_catalog_field_mappings
+  category: Catalogs
+  rest: [updateFieldTypes]
+  operation: "PUT /api/catalogs/{catalogName}/fieldMappings"
+  binding: rest
+  confidence: high
+- tool: cancel_export_job
+  category: Data Export
+  rest: [cancelExport]
+  operation: "DELETE /api/export/{jobId}"
+  binding: rest
+  confidence: high
+- tool: get_export_files
+  category: Data Export
+  rest: [getExportFiles]
+  operation: "GET /api/export/{jobId}/files"
+  binding: rest
+  confidence: high
+- tool: get_export_jobs
+  category: Data Export
+  rest: [getExportJobs]
+  operation: "GET /api/export/jobs"
+  binding: rest
+  confidence: high
+- tool: start_export_job
+  category: Data Export
+  rest: [startExport]
+  operation: "POST /api/export/start"
+  binding: rest
+  confidence: high
+- tool: get_user_events_by_email
+  category: Events
+  rest: [User events]
+  operation: "GET /api/events/{email}"
+  binding: rest
+  confidence: high
+- tool: get_user_events_by_user_id
+  category: Events
+  rest: [User events by userId]
+  operation: "GET /api/events/byUserId/{userId}"
+  binding: rest
+  confidence: high
+- tool: track_bulk_events
+  category: Events
+  rest: [trackBulk]
+  operation: "POST /api/events/trackBulk"
+  binding: rest
+  confidence: high
+- tool: track_event
+  category: Events
+  rest: [track]
+  operation: "POST /api/events/track"
+  binding: rest
+  confidence: high
+- tool: get_experiment
+  category: Experiments
+  rest: [get]
+  operation: "GET /api/experiments/{experimentId}"
+  binding: rest
+  confidence: high
+- tool: get_experiment_metrics
+  category: Experiments
+  rest: [metrics]
+  operation: "GET /api/experiments/metrics"
+  binding: rest
+  confidence: high
+- tool: get_experiment_variants
+  category: Experiments
+  rest: [variants]
+  operation: "GET /api/experiments/{experimentId}/variants"
+  binding: rest
+  confidence: high
+- tool: list_experiments
+  category: Experiments
+  rest: [list]
+  operation: "GET /api/experiments"
+  binding: rest
+  confidence: high
+- tool: get_journeys
+  category: Journeys
+  rest: [getJourneys]
+  operation: "GET /api/journeys"
+  binding: rest
+  confidence: high
+- tool: trigger_journey
+  category: Journeys
+  rest: [triggerWorkflow]
+  operation: "POST /api/workflows/triggerWorkflow"
+  binding: rest
+  confidence: medium
+  note: Journeys are workflows in the REST surface; the tool calls POST /api/workflows/triggerWorkflow.
+- tool: create_list
+  category: Lists
+  rest: [create]
+  operation: "POST /api/lists"
+  binding: rest
+  confidence: high
+- tool: delete_list
+  category: Lists
+  rest: [delete]
+  operation: "DELETE /api/lists/{listId}"
+  binding: rest
+  confidence: high
+- tool: get_list_preview_users
+  category: Lists
+  rest: [getUsersPreview]
+  operation: "GET /api/lists/previewUsers"
+  binding: rest
+  confidence: high
+- tool: get_list_size
+  category: Lists
+  rest: [getListCount]
+  operation: "GET /api/lists/{listId}/size"
+  binding: rest
+  confidence: high
+- tool: get_list_users
+  category: Lists
+  rest: [getUsers]
+  operation: "GET /api/lists/getUsers"
+  binding: rest
+  confidence: high
+- tool: get_lists
+  category: Lists
+  rest: [getLists]
+  operation: "GET /api/lists"
+  binding: rest
+  confidence: high
+- tool: subscribe_to_list
+  category: Lists
+  rest: [subscribe]
+  operation: "POST /api/lists/subscribe"
+  binding: rest
+  confidence: high
+- tool: unsubscribe_from_list
+  category: Lists
+  rest: [unsubscribe]
+  operation: "POST /api/lists/unsubscribe"
+  binding: rest
+  confidence: high
+- tool: cancel_email
+  category: Messaging
+  rest: [cancel]
+  operation: "POST /api/email/cancel"
+  binding: rest
+  confidence: high
+- tool: cancel_in_app
+  category: Messaging
+  rest: [cancel]
+  operation: "POST /api/inApp/cancel"
+  binding: rest
+  confidence: high
+- tool: cancel_push
+  category: Messaging
+  rest: [cancel]
+  operation: "POST /api/push/cancel"
+  binding: rest
+  confidence: high
+- tool: cancel_sms
+  category: Messaging
+  rest: [cancel]
+  operation: "POST /api/sms/cancel"
+  binding: rest
+  confidence: high
+- tool: cancel_web_push
+  category: Messaging
+  rest: [cancel]
+  operation: "POST /api/webPush/cancel"
+  binding: rest
+  confidence: high
+- tool: cancel_whatsapp
+  category: Messaging
+  rest: [cancel]
+  operation: "POST /api/whatsApp/cancel"
+  binding: rest
+  confidence: high
+- tool: get_channels
+  category: Messaging
+  rest: [channels]
+  operation: "GET /api/channels"
+  binding: rest
+  confidence: high
+- tool: get_embedded_messages
+  category: Messaging
+  rest: [messages]
+  operation: "GET /api/embedded-messaging/messages"
+  binding: rest
+  confidence: high
+- tool: get_in_app_messages
+  category: Messaging
+  rest: [getMessages]
+  operation: "GET /api/inApp/getMessages"
+  binding: rest
+  confidence: high
+- tool: get_message_types
+  category: Messaging
+  rest: [messageTypes]
+  operation: "GET /api/messageTypes"
+  binding: rest
+  confidence: high
+- tool: send_email
+  category: Messaging
+  rest: [target]
+  operation: "POST /api/email/target"
+  binding: rest
+  confidence: high
+- tool: send_in_app
+  category: Messaging
+  rest: [target]
+  operation: "POST /api/inApp/target"
+  binding: rest
+  confidence: high
+- tool: send_push
+  category: Messaging
+  rest: [target]
+  operation: "POST /api/push/target"
+  binding: rest
+  confidence: high
+- tool: send_sms
+  category: Messaging
+  rest: [target]
+  operation: "POST /api/sms/target"
+  binding: rest
+  confidence: high
+- tool: send_web_push
+  category: Messaging
+  rest: [target]
+  operation: "POST /api/webPush/target"
+  binding: rest
+  confidence: high
+- tool: send_whatsapp
+  category: Messaging
+  rest: [target]
+  operation: "POST /api/whatsApp/target"
+  binding: rest
+  confidence: high
+- tool: create_snippet
+  category: Snippets
+  rest: [createSnippet]
+  operation: "POST /api/snippets"
+  binding: rest
+  confidence: high
+- tool: delete_snippet
+  category: Snippets
+  rest: [deleteSnippet]
+  operation: "DELETE /api/snippets/{identifier}"
+  binding: rest
+  confidence: high
+- tool: get_snippet
+  category: Snippets
+  rest: [getSnippet]
+  operation: "GET /api/snippets/{identifier}"
+  binding: rest
+  confidence: high
+- tool: get_snippets
+  category: Snippets
+  rest: [getSnippets]
+  operation: "GET /api/snippets"
+  binding: rest
+  confidence: high
+- tool: update_snippet
+  category: Snippets
+  rest: [updateSnippet]
+  operation: "PUT /api/snippets/{identifier}"
+  binding: rest
+  confidence: high
+- tool: bulk_update_subscriptions
+  category: Subscriptions
+  rest: [Bulk subscription action]
+  operation: "PUT /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}"
+  binding: rest
+  confidence: high
+- tool: subscribe_user_by_email
+  category: Subscriptions
+  rest: [subscribeSingleUser]
+  operation: "PATCH /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/user/{userEmail}"
+  binding: rest
+  confidence: high
+- tool: subscribe_user_by_userid
+  category: Subscriptions
+  rest: [subscribeSingleUserByUserId]
+  operation: "PATCH /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/byUserId/{userId}"
+  binding: rest
+  confidence: high
+- tool: unsubscribe_user_by_email
+  category: Subscriptions
+  rest: [unsubscribeSingleUser]
+  operation: "DELETE /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/user/{userEmail}"
+  binding: rest
+  confidence: high
+- tool: unsubscribe_user_by_userid
+  category: Subscriptions
+  rest: [unsubscribeSingleUserByUserId]
+  operation: "DELETE /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/byUserId/{userId}"
+  binding: rest
+  confidence: high
+- tool: delete_templates
+  category: Templates
+  rest: [bulk delete templates]
+  operation: "POST /api/templates/bulkDelete"
+  binding: rest
+  confidence: high
+- tool: get_email_template
+  category: Templates
+  rest: [getEmailTemplate]
+  operation: "GET /api/templates/email/get"
+  binding: rest
+  confidence: high
+- tool: get_inapp_template
+  category: Templates
+  rest: [getInAppTemplate]
+  operation: "GET /api/templates/inapp/get"
+  binding: rest
+  confidence: high
+- tool: get_push_template
+  category: Templates
+  rest: [getPushTemplate]
+  operation: "GET /api/templates/push/get"
+  binding: rest
+  confidence: high
+- tool: get_sms_template
+  category: Templates
+  rest: [getSMSTemplate]
+  operation: "GET /api/templates/sms/get"
+  binding: rest
+  confidence: high
+- tool: get_template_by_client_id
+  category: Templates
+  rest: [getByClientTemplateId]
+  operation: "GET /api/templates/getByClientTemplateId"
+  binding: rest
+  confidence: high
+- tool: get_templates
+  category: Templates
+  rest: [getTemplates]
+  operation: "GET /api/templates"
+  binding: rest
+  confidence: high
+- tool: preview_email_template
+  category: Templates
+  rest: [previewEmailTemplate]
+  operation: "POST /api/templates/email/preview"
+  binding: rest
+  confidence: high
+- tool: preview_inapp_template
+  category: Templates
+  rest: [previewInAppTemplate]
+  operation: "POST /api/templates/inapp/preview"
+  binding: rest
+  confidence: high
+- tool: send_email_template_proof
+  category: Templates
+  rest: [emailProof]
+  operation: "POST /api/templates/email/proof"
+  binding: rest
+  confidence: high
+- tool: send_inapp_template_proof
+  category: Templates
+  rest: [inappProof]
+  operation: "POST /api/templates/inapp/proof"
+  binding: rest
+  confidence: high
+- tool: send_push_template_proof
+  category: Templates
+  rest: [pushProof]
+  operation: "POST /api/templates/push/proof"
+  binding: rest
+  confidence: high
+- tool: send_sms_template_proof
+  category: Templates
+  rest: [smsProof]
+  operation: "POST /api/templates/sms/proof"
+  binding: rest
+  confidence: high
+- tool: update_email_template
+  category: Templates
+  rest: [updateEmailTemplate]
+  operation: "POST /api/templates/email/update"
+  binding: rest
+  confidence: high
+- tool: update_inapp_template
+  category: Templates
+  rest: [updateInAppTemplate]
+  operation: "POST /api/templates/inapp/update"
+  binding: rest
+  confidence: high
+- tool: update_push_template
+  category: Templates
+  rest: [updatePushTemplate]
+  operation: "POST /api/templates/push/update"
+  binding: rest
+  confidence: high
+- tool: update_sms_template
+  category: Templates
+  rest: [updateSMSTemplate]
+  operation: "POST /api/templates/sms/update"
+  binding: rest
+  confidence: high
+- tool: upsert_email_template
+  category: Templates
+  rest: [upsertEmailTemplate]
+  operation: "POST /api/templates/email/upsert"
+  binding: rest
+  confidence: high
+- tool: upsert_inapp_template
+  category: Templates
+  rest: [upsertInAppTemplate]
+  operation: "POST /api/templates/inapp/upsert"
+  binding: rest
+  confidence: high
+- tool: upsert_push_template
+  category: Templates
+  rest: [upsertPushTemplate]
+  operation: "POST /api/templates/push/upsert"
+  binding: rest
+  confidence: high
+- tool: upsert_sms_template
+  category: Templates
+  rest: [upsertSMSTemplate]
+  operation: "POST /api/templates/sms/upsert"
+  binding: rest
+  confidence: high
+- tool: bulk_update_users
+  category: Users
+  rest: [bulkUpdateUser]
+  operation: "POST /api/users/bulkUpdate"
+  binding: rest
+  confidence: high
+- tool: delete_user_by_email
+  category: Users
+  rest: [delete]
+  operation: "DELETE /api/users/{email}"
+  binding: rest
+  confidence: high
+- tool: delete_user_by_user_id
+  category: Users
+  rest: [delete]
+  operation: "DELETE /api/users/byUserId/{userId}"
+  binding: rest
+  confidence: high
+- tool: get_sent_messages
+  category: Users
+  rest: [getSentMessages]
+  operation: "GET /api/users/getSentMessages"
+  binding: rest
+  confidence: high
+- tool: get_user_by_email
+  category: Users
+  rest: [getUser]
+  operation: "GET /api/users/getByEmail"
+  binding: rest
+  confidence: high
+- tool: get_user_by_user_id
+  category: Users
+  rest: [getUserById]
+  operation: "GET /api/users/byUserId"
+  binding: rest
+  confidence: medium
+  note: "GET /api/users/byUserId (query form). The path form GET /api/users/byUserId/{userId} carries the same operationId in the spec."
+- tool: get_user_fields
+  category: Users
+  rest: [getUserFields]
+  operation: "GET /api/users/getFields"
+  binding: rest
+  confidence: high
+- tool: update_email
+  category: Users
+  rest: [updateEmail]
+  operation: "POST /api/users/updateEmail"
+  binding: rest
+  confidence: high
+- tool: update_user
+  category: Users
+  rest: [updateUser]
+  operation: "POST /api/users/update"
+  binding: rest
+  confidence: high
+- tool: update_user_subscriptions
+  category: Users
+  rest: [updateSubscriptions]
+  operation: "POST /api/users/updateSubscriptions"
+  binding: rest
+  confidence: high
+- tool: get_webhooks
+  category: Webhooks
+  rest: [getWebhooks]
+  operation: "GET /api/webhooks"
+  binding: rest
+  confidence: high
+- tool: update_webhook
+  category: Webhooks
+  rest: [updateWebhook]
+  operation: "POST /api/webhooks"
+  binding: rest
+  confidence: high
+mcp_only:
+- tool: get_available_export_data_types
+  reason: No public REST operation enumerates export data types; the MCP server returns a server-side list used to populate start_export_job.
+rest_only:
+- capability: In-app
+  operations:
+  - operation: "GET /api/inApp/getPriorityMessage"
+    operation_id: getPriorityMessage
+- capability: In-app-web
+  operations:
+  - operation: "GET /api/inApp/web/getMessages"
+    operation_id: getMessages
+- capability: Verify
+  operations:
+  - operation: "POST /api/verify/sms/begin"
+    operation_id: beginSmsVerification
+  - operation: "POST /api/verify/sms/check"
+    operation_id: checkSmsVerification
+- capability: commerce
+  operations:
+  - operation: "POST /api/commerce/trackPurchase"
+    operation_id: trackPurchase
+  - operation: "POST /api/commerce/updateCart"
+    operation_id: updateCart
+- capability: email
+  operations:
+  - operation: "GET /api/email/viewInBrowser"
+    operation_id: viewInBrowser
+- capability: events
+  operations:
+  - operation: "POST /api/embedded-messaging/events/click"
+    operation_id: embedded-track-click
+  - operation: "POST /api/embedded-messaging/events/received"
+    operation_id: embedded-track-received
+  - operation: "POST /api/embedded-messaging/events/session"
+    operation_id: embedded-track-impression
+  - operation: "POST /api/events/inAppConsume"
+    operation_id: inAppConsume
+  - operation: "POST /api/events/trackInAppClick"
+    operation_id: trackInAppClick
+  - operation: "POST /api/events/trackInAppClose"
+    operation_id: trackInAppClose
+  - operation: "POST /api/events/trackInAppDelivery"
+    operation_id: trackInAppDelivery
+  - operation: "POST /api/events/trackInAppOpen"
+    operation_id: trackInAppOpen
+  - operation: "POST /api/events/trackPushOpen"
+    operation_id: trackPushOpen
+  - operation: "POST /api/events/trackWebPushClick"
+    operation_id: trackWebPushClick
+- capability: export
+  operations:
+  - operation: "GET /api/export/data.csv"
+    operation_id: exportDataCsv
+  - operation: "GET /api/export/data.json"
+    operation_id: exportDataJson
+  - operation: "GET /api/export/userEvents"
+    operation_id: exportUserEvents
+- capability: metadata
+  operations:
+  - operation: "GET /api/metadata"
+    operation_id: list tables
+  - operation: "DELETE /api/metadata/{table}"
+    operation_id: delete
+  - operation: "GET /api/metadata/{table}"
+    operation_id: list
+  - operation: "DELETE /api/metadata/{table}/{key}"
+    operation_id: delete
+  - operation: "GET /api/metadata/{table}/{key}"
+    operation_id: get
+  - operation: "PUT /api/metadata/{table}/{key}"
+    operation_id: put
+- capability: subscriptions
+  operations:
+  - operation: "POST /api/subscriptions/subscribeToDoubleOptIn"
+    operation_id: subscribeSingleUserToDoubleOptIn
+- capability: templates
+  operations:
+  - operation: "GET /api/templates/embedded/get"
+    operation_id: getEmbeddedTemplate
+  - operation: "POST /api/templates/embedded/update"
+    operation_id: updateEmbeddedTemplate
+  - operation: "POST /api/templates/embedded/upsert"
+    operation_id: upsertEmbeddedTemplate
+- capability: users
+  operations:
+  - operation: "POST /api/auth/jwts/invalidate"
+    operation_id: Invalidate JWT
+  - operation: "POST /api/users/bulkUpdateSubscriptions"
+    operation_id: bulkUpdateSubscriptions
+  - operation: "GET /api/users/byUserId/{userId}"
+    operation_id: getUserById
+  - operation: "POST /api/users/disableDevice"
+    operation_id: disableDevice
+  - operation: "POST /api/users/forget"
+    operation_id: forget
+  - operation: "GET /api/users/forgotten"
+    operation_id: exportProjectForgottenUsers
+  - operation: "GET /api/users/forgottenUserIds"
+    operation_id: exportProjectForgottenUserIds
+  - operation: "POST /api/users/merge"
+    operation_id: mergeUsers
+  - operation: "POST /api/users/registerBrowserToken"
+    operation_id: registerBrowserToken
+  - operation: "POST /api/users/registerDeviceToken"
+    operation_id: registerDeviceToken
+  - operation: "POST /api/users/unforget"
+    operation_id: unforget
+  - operation: "GET /api/users/{email}"
+    operation_id: getUser
+coverage:
+  tools_named: 109
+  tools_bound: 108
+  mcp_only: 1
+  rest_operations_total: 148
+  rest_operations_with_tool: 106
+  rest_only: 42

@@ -1,0 +1,109 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/iterable-api-openapi.json (harvested from https://api.iterable.com/api-docs, 2026-08-13)
+docs: https://support.iterable.com/hc/en-us/articles/39629320560148-API-Response-Codes
+format: json-envelope
+envelope: >-
+  Iterable does not use RFC 9457 application/problem+json. Errors are returned as an
+  application/json object with msg (human-readable message), code (a named error code) and
+  params (an object with request context, or null). The named codes are catalogued in
+  errors/iterable-error-codes.yml; this file records the HTTP statuses each operation declares.
+problems:
+- status: 400
+  title: Bad request
+  operations_declaring: 138
+  spec_descriptions:
+  - Invalid parameters
+  - Invalid request
+  - Invalid request parameters
+  source_operations:
+  - POST /api/auth/jwts/invalidate
+  - POST /api/campaigns/abort
+  - POST /api/campaigns/activateTriggered
+  - POST /api/campaigns/archive
+- status: 401
+  title: Unauthorized
+  operations_declaring: 144
+  spec_descriptions:
+  - Invalid API key
+  - Unauthorized
+  - Invalid API key.
+  source_operations:
+  - POST /api/auth/jwts/invalidate
+  - GET /api/campaigns
+  - POST /api/campaigns/abort
+  - POST /api/campaigns/activateTriggered
+- status: 403
+  title: Forbidden
+  operations_declaring: 11
+  spec_descriptions:
+  - Forbidden
+  - API triggered campaign activation is not enabled for your project
+  - API triggered campaign deactivation is not enabled for your project
+  source_operations:
+  - POST /api/campaigns/activateTriggered
+  - POST /api/campaigns/archive
+  - POST /api/campaigns/deactivateTriggered
+  - "POST /api/campaigns/{campaignId}/schedule"
+- status: 404
+  title: Not found
+  operations_declaring: 25
+  spec_descriptions:
+  - Endpoint not found
+  - Catalog not found
+  - Content does not exit for specified locale
+  source_operations:
+  - "GET /api/campaigns/{id}"
+  - "GET /api/catalogs/{catalogName}/fieldMappings"
+  - "GET /api/catalogs/{catalogName}/items"
+  - "POST /api/catalogs/{catalogName}/items"
+- status: 409
+  title: Conflict
+  operations_declaring: 15
+  spec_descriptions:
+  - Email/userId conflict
+  - Contact is GDPR forgotten Email/userId conflict
+  - List is in use
+  source_operations:
+  - POST /api/commerce/trackPurchase
+  - POST /api/commerce/updateCart
+  - "DELETE /api/lists/{listId}"
+  - "PUT /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}"
+- status: 422
+  title: Unprocessable entity
+  operations_declaring: 1
+  spec_descriptions:
+  - Empty catalog collection encountered
+  source_operations:
+  - GET /api/email/viewInBrowser
+- status: 429
+  title: Rate limit exceeded
+  operations_declaring: 6
+  spec_descriptions:
+  - Rate limit exceeded
+  - "Rate limit exceeded. Response includes params with: rateLimitLimit — maximum token capacity (burst allowance) rateLimitRemaining — tokens remaining after this request rateLimitReset — seconds until en"
+  source_operations:
+  - POST /api/campaigns/trigger
+  - GET /api/export/data.csv
+  - GET /api/export/data.json
+  - GET /api/export/userEvents
+- status: 500
+  title: Internal server error
+  operations_declaring: 12
+  spec_descriptions:
+  - Internal server error
+  - Internal server error (plain text)
+  source_operations:
+  - POST /api/campaigns/archive
+  - "POST /api/catalogs/{catalogName}"
+  - "GET /api/catalogs/{catalogName}/items"
+  - "POST /api/catalogs/{catalogName}/items"
+- status: 503
+  title: Service unavailable
+  operations_declaring: 3
+  spec_descriptions:
+  - Request timeout. Try again later.
+  source_operations:
+  - GET /api/lists/getUsers
+  - GET /api/lists/previewUsers
+  - "GET /api/lists/{listId}/size"

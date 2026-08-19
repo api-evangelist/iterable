@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.iterable.com/hc/en-us/articles/44900665796628-2026-Release-Notes
+description: >-
+  Iterable publishes dated release notes per calendar year in its help center, plus a marketing-side
+  "What's New" page. Product changes ship as a monthly release with named features; SDK changes are
+  tracked in separate per-SDK release-note articles. Entries below are the recent window read from
+  the 2026 article on 2026-08-13 (article last updated 2026-07-24).
+scheme: dated release notes (per year article, monthly cadence)
+current_year_url: https://support.iterable.com/hc/en-us/articles/44900665796628-2026-Release-Notes
+whats_new: https://iterable.com/product/whats-new/
+api_version: '1.8 (info.version in https://api.iterable.com/api-docs, read 2026-08-13)'
+archives:
+- year: 2025
+  url: https://support.iterable.com/hc/en-us/articles/33302033277332-2025-Release-Notes
+- year: 2023
+  url: https://support.iterable.com/hc/en-us/articles/11667879575572-2023-Release-Notes
+- year: 2022
+  url: https://support.iterable.com/hc/en-us/articles/5670417757588-2022-Release-Notes
+- year: 2021
+  url: https://support.iterable.com/hc/en-us/articles/5670450366996-2021-Release-Notes
+- year: 2020
+  url: https://support.iterable.com/hc/en-us/articles/6003782974356-2020-Release-Notes
+sdk_release_notes:
+- name: Android SDK
+  url: https://support.iterable.com/hc/en-us/articles/360027543332-Release-Notes-Iterable-s-Android-SDK
+entries:
+- date: '2026-07-24'
+  title: New Handlebars capabilities
+  breaking: false
+  highlights:
+  - New sortBy and groupBy Handlebars helpers for sorting and grouping arrays in templates.
+  - New sentAt email merge tag that renders a message's original send time.
+- date: '2026-07-21'
+  title: July's Monthly Release
+  breaking: false
+  highlights:
+  - Journeys Live Data generally available — call an external HTTPS endpoint from a Live Data tile via a journey webhook with Data Retrieval enabled, branch on the returned fields and personalize downstream messages.
+  - Templates can now be used as experiment variants.
+  - Nova Agent responses include footnotes citing their documentation sources.
+  - Monthly SDK updates across Android, iOS and Web SDKs.
+- date: '2026-06-23'
+  title: June's Monthly Release
+  breaking: false
+- date: '2026-06-09'
+  title: Default Quiet Hours for new SMS campaigns
+  breaking: false
+- date: '2026-05-27'
+  title: May's Monthly Release
+  breaking: false
+- date: '2026-04-22'
+  title: Spring Product Release
+  breaking: false
+  highlights:
+  - The Command Center and a new Iterable app.
+  - Nova Agent, powered by Nova Intelligence.
+  - Activate previously unknown users.
+  - Google Ads integration (beta).
+  - Stored Messages for trust and compliance.
+- date: '2026-04-02'
+  title: Updates to Campaign Label criteria in segmentation
+  breaking: false
+- date: '2026-03-31'
+  title: March's Monthly Release
+  breaking: false
+- date: '2026-02-24'
+  title: February's Monthly Release
+  breaking: false
+- date: '2026-02-09'
+  title: Improved validation for WhatsApp template submission
+  breaking: false
+- date: '2026-02-05'
+  title: Updates to WhatsApp messaging limits
+  breaking: false
+- date: '2026-02-03'
+  title: Restored HREF_INDEX field in Snowflake
+  breaking: false
+- date: '2026-01-08'
+  title: Custom date picker added to the enhanced Usage and Billing page
+  breaking: false
+note: >-
+  The release notes are product-level. Iterable does not publish a per-endpoint API changelog, and its
+  own documentation states that response schemas may change without prior notice (documented fields
+  are not renamed or removed without prior communication).

@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from openapi/_original/iterable-api-openapi.json (harvested from
+  https://api.iterable.com/api-docs 2026-08-13), the well-known probe in
+  well-known/iterable-well-known.yml, and Iterable's own references for authentication, response
+  codes and compliance (https://trust.iterable.com/).
+description: >-
+  Which cross-cutting standards Iterable's public API conforms to. Iterable is an API-key platform
+  with a JSON envelope of its own design: it does not implement OAuth, OIDC, RFC 9457 problem details
+  or the well-known discovery surfaces, and it publishes Swagger 2.0 rather than OpenAPI 3.x.
+standards:
+- id: openapi-3
+  conforms: false
+  evidence: >-
+    The contract Iterable publishes at https://api.iterable.com/api-docs is swagger 2.0
+    (info.version 1.8, 129 paths, 196 definitions). No OpenAPI 3.x document is published.
+- id: swagger-2
+  conforms: true
+  evidence: 'openapi/_original/iterable-api-openapi.json declares "swagger": "2.0"'
+- id: oauth2
+  conforms: false
+  evidence: >-
+    securityDefinitions declares only api_key (apiKey, in header, name Api-Key). No oauth2 flows are
+    declared and no OAuth docs exist; /.well-known/oauth-authorization-server 404s.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on iterable.com and api.iterable.com (probed 2026-08-13).
+- id: jwt
+  conforms: true
+  evidence: >-
+    JWT-enabled API keys bind a signed JWT to a specific user for client-side use; the API declares
+    InvalidJwtPayload and JwtUserIdentifiersMismatched error codes and a POST /api/auth/jwts/invalidate
+    operation. https://support.iterable.com/hc/en-us/articles/360050801231-JWT-Enabled-API-Keys
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are application/json {msg, code, params}, not application/problem+json. See
+    errors/iterable-error-codes.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on iterable.com, www.iterable.com and api.iterable.com.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: well-known/iterable-well-known.yml — every probed path returned 404.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support is documented; see lifecycle/iterable-lifecycle.yml.
+- id: idempotency-key
+  conforms: false
+  evidence: No idempotency key is defined anywhere in the contract or the docs; see conventions/iterable-conventions.yml.
+- id: pagination
+  conforms: true
+  evidence: page/pageSize query parameters on collection endpoints; startAfter cursor on export files.
+- id: json-schema
+  conforms: true
+  evidence: 196 shared definitions in the Swagger contract; extracted schemas in json-schema/.
+- id: asyncapi
+  conforms: true
+  evidence: asyncapi/iterable-system-webhooks-asyncapi.yml describes the system webhook event surface.
+- id: mcp
+  conforms: true
+  evidence: >-
+    First-party MCP server @iterable/mcp (109 tools) — mcp/iterable-mcp.yml. Local stdio only; no
+    remote endpoint.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on every Iterable host probed 2026-08-13.
+- id: llms-txt
+  conforms: true
+  evidence: https://iterable.com/llms.txt returns 200 text/plain (saved verbatim to llms/iterable-llms.txt).
+- id: tls12
+  conforms: true
+  evidence: Iterable requires clients to support TLS 1.2; probes recorded in security/iterable-domain-security.yml.
+compliance_program:
+  url: https://trust.iterable.com/
+  certifications: [SOC 2, ISO 27001, HIPAA, GDPR]
+  source: security/iterable-trust-center.yml
+  note: >-
+    Iterable's own llms.txt states SOC 2 Type II and support for GDPR and CCPA, and advises
+    confirming HIPAA scope directly with Iterable.

@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "0fff0f7e-3cb8-4c6f-b236-d99756bda68f",
+      "name": "ExperimentMetrics",
+      "description": {
+        "content": "Export experiment and A/B test metrics as CSV for analysis.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a375ef8-d2a5-406e-a6ba-baf23bc05668",
+          "name": "Export experiment metrics as CSV",
+          "request": {
+            "name": "Export experiment metrics as CSV",
+            "description": {
+              "content": "Exports experiment metrics for A/B tests as CSV. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total per request. This endpoint returns data only for email experiments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiments",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "experimentId",
+                  "value": "<integer>",
+                  "description": "One or more experiment IDs to export metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "experimentId",
+                  "value": "<integer>",
+                  "description": "One or more experiment IDs to export metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<integer>",
+                  "description": "One or more campaign IDs to export metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<integer>",
+                  "description": "One or more campaign IDs to export metrics for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f50e6e6e-19df-4feb-912f-368faceb1887",
+              "name": "Experiment metrics in CSV format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiments",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "618cc78c-2095-44dc-93c1-1a8666836abb",
+              "name": "Bad request - too many IDs or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiments",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "032fa462-856f-4c00-95b7-856773acf9bf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiments",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "experimentId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2c70fc32-af98-4582-a225-cb5e27fb053f",
+    "name": "Iterable Export Campaigns ExperimentMetrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

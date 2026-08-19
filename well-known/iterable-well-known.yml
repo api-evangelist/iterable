@@ -1,0 +1,51 @@
+generated: '2026-08-13'
+method: probed
+source: Direct HTTPS GETs on 2026-08-13
+description: >-
+  Iterable serves no /.well-known/ discovery surface. Every path below returned 404 on every host
+  probed — the marketing site (WordPress), the API host, the app host and the Zendesk help center.
+  No pointer is emitted for this artifact: it records an absence, not a presence.
+result: none
+hosts_probed: [iterable.com, www.iterable.com, api.iterable.com, app.iterable.com, support.iterable.com]
+documents:
+- path: /.well-known/security.txt
+  hosts:
+  - {host: iterable.com, status: 404}
+  - {host: www.iterable.com, status: 404}
+  - {host: api.iterable.com, status: 404}
+- path: /.well-known/openid-configuration
+  hosts:
+  - {host: iterable.com, status: 404}
+  - {host: api.iterable.com, status: 404}
+- path: /.well-known/oauth-authorization-server
+  hosts:
+  - {host: api.iterable.com, status: 404}
+- path: /.well-known/oauth-protected-resource
+  hosts:
+  - {host: api.iterable.com, status: 404}
+- path: /.well-known/api-catalog
+  hosts:
+  - {host: iterable.com, status: 404}
+  - {host: api.iterable.com, status: 404}
+- path: /.well-known/ai-plugin.json
+  hosts:
+  - {host: iterable.com, status: 404}
+  - {host: api.iterable.com, status: 404}
+- path: /.well-known/agent-card.json
+  hosts:
+  - {host: iterable.com, status: 404}
+  - {host: api.iterable.com, status: 404}
+  - {host: app.iterable.com, status: 404}
+  - {host: support.iterable.com, status: 404}
+- path: /.well-known/agent.json
+  hosts:
+  - {host: iterable.com, status: 404}
+  - {host: api.iterable.com, status: 404}
+adjacent_hits:
+- url: https://iterable.com/llms.txt
+  status: 200
+  content_type: text/plain
+  file: llms/iterable-llms.txt
+  note: >-
+    Not a /.well-known/ path, but the one machine-readable discovery document Iterable does serve
+    from its own root.

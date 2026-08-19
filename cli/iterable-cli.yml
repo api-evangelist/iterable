@@ -1,0 +1,98 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/Iterable/cli — README.md + COMMANDS.md read verbatim on 2026-08-13
+docs: https://iterable.github.io/cli/
+description: >-
+  @iterable/cli is a first-party command-line interface for the Iterable REST API, published by the
+  Iterable GitHub organization under the @iterable npm scope. It exposes 111 commands across 14
+  categories and stores API keys in the operating-system keychain. The README states plainly that it
+  is an open-source developer tool rather than an officially supported Iterable product (MIT
+  licence, no support guarantee) — record that caveat with the artifact.
+name: iterable
+package: "@iterable/cli"
+package_version: 0.4.0
+package_published: '2026-07-09'
+repository: https://github.com/Iterable/cli
+license: MIT
+support_status: open-source developer tool, not an officially supported Iterable product
+requires:
+  node: ">=20 (v22 LTS recommended)"
+  credentials: An Iterable API key
+install:
+- method: npm
+  command: npm install -g @iterable/cli
+- method: npx
+  command: npx @iterable/cli campaigns list
+authentication:
+  interactive: iterable keys add
+  storage: system keychain (per-key, per-endpoint)
+  env: ITERABLE_API_KEY
+  note: Keys are bound to an endpoint (US, EU or custom) matching the project's data center.
+usage: "iterable <category> <command> [options]"
+global_options:
+- flag: "--help, -h"
+  description: Show help
+- flag: "--version, -V"
+  description: Show version
+- flag: "--output <format>"
+  description: "Output format: json, pretty, table"
+- flag: "--columns <cols>"
+  description: Comma-separated columns for table output
+- flag: "--json <data>"
+  description: Pass raw JSON (use - for stdin)
+command_count: 111
+commands:
+- category: campaigns
+  count: 14
+  commands: [abort, activate, archive, cancel, create-blast, create-triggered, deactivate, get, get-children, get-metrics, list, schedule, send, trigger]
+- category: catalogs
+  count: 13
+  commands: [bulk-delete-items, create, delete, delete-item, get-field-mappings, get-item, get-items, list, partial-update-item, partial-update-items, replace-item, replace-items, update-field-mappings]
+- category: events
+  count: 4
+  commands: [get-by-email, get-by-userid, track, track-bulk]
+- category: experiments
+  count: 4
+  commands: [get, get-metrics, get-variants, list]
+- category: export
+  count: 4
+  commands: [cancel, get-files, list-jobs, start]
+- category: journeys
+  count: 2
+  commands: [list, trigger]
+- category: lists
+  count: 8
+  commands: [create, delete, get-preview-users, get-size, get-users, list, subscribe, unsubscribe]
+- category: messaging
+  count: 16
+  commands: [cancel-email, cancel-in-app, cancel-push, cancel-sms, cancel-web-push, cancel-whatsapp, get-channels, get-embedded-messages, get-in-app-messages, get-message-types, send-email, send-in-app, send-push, send-sms, send-web-push, send-whatsapp]
+- category: snippets
+  count: 5
+  commands: [create, delete, get, list, update]
+- category: subscriptions
+  count: 5
+  commands: [bulk-update, subscribe-by-email, subscribe-by-userid, unsubscribe-by-email, unsubscribe-by-userid]
+- category: templates
+  count: 21
+  commands: [delete, get-by-client-id, get-email, get-inapp, get-push, get-sms, list, preview-email, preview-inapp, proof-email, proof-inapp, proof-push, proof-sms, update-email, update-inapp, update-push, update-sms, upsert-email, upsert-inapp, upsert-push, upsert-sms]
+- category: users
+  count: 13
+  commands: [bulk-update, delete, delete-by-email, delete-by-userid, get, get-by-email, get-by-userid, get-fields, get-sent-messages, merge, update, update-email, update-subscriptions]
+- category: webhooks
+  count: 2
+  commands: [list, update]
+- category: keys
+  commands: [list, add, update, activate, deactivate, delete, validate]
+  note: Local credential management, not an API surface.
+key_flows:
+- name: List and inspect campaigns
+  example: iterable campaigns list --sort createdAt --order desc --output table
+- name: Look up a user (identifier auto-detected)
+  example: iterable users get user@example.com
+- name: Create a blast campaign from JSON
+  example: "iterable campaigns create-blast --json '{\"name\":\"My Campaign\",\"templateId\":123,\"listIds\":[1,2,3]}'"
+- name: Pipe JSON from stdin
+  example: "echo '{\"page\":1,\"pageSize\":5}' | iterable campaigns list --json -"
+related:
+  packages: packages/iterable-packages.yml
+  mcp: mcp/iterable-mcp.yml

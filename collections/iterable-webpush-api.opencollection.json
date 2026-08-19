@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns WebPush API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WebPush",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send a web push notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/webPush/target",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a web push notification to a specific user using a template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

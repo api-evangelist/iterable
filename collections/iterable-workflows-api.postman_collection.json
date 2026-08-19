@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "7a531cf5-7e33-4d52-b5d8-cc88903c0571",
+      "name": "Workflows",
+      "description": {
+        "content": "Trigger workflow enrollments and manage journey-based automation workflows.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "912fb7ff-0b0f-4859-8e1d-2809088dce2e",
+          "name": "Trigger a workflow",
+          "request": {
+            "name": "Trigger a workflow",
+            "description": {
+              "content": "Triggers a workflow enrollment for one or more users. The workflow must already be created and activated in the Iterable project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflows",
+                "triggerWorkflow"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"listId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "10716bdd-fc50-471d-bf2d-d79a6b9889f2",
+              "name": "Workflow triggered successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows",
+                    "triggerWorkflow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": false,\n    \"key_1\": 7598,\n    \"key_2\": 9315.109454432746\n  },\n  \"listId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"key_0\": 4928.716073821818,\n    \"key_1\": false,\n    \"key_2\": 6773.488672688468\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "024bef01-0f76-40a3-8754-c643d5a7f8a9",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows",
+                    "triggerWorkflow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": false,\n    \"key_1\": 7598,\n    \"key_2\": 9315.109454432746\n  },\n  \"listId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed95e769-9ee6-4ac9-aca5-bda23aaad16d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows",
+                    "triggerWorkflow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowId\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": false,\n    \"key_1\": 7598,\n    \"key_2\": 9315.109454432746\n  },\n  \"listId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "02b346a1-a388-4838-ac59-fa8507e2c99a",
+    "name": "Iterable Export Campaigns Workflows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns Metadata API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata table keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/metadata/:table",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              }
+            ]
+          },
+          "docs": "Retrieves all keys in a metadata table."
+        },
+        {
+          "info": {
+            "name": "Delete a metadata table",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/metadata/:table",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              }
+            ]
+          },
+          "docs": "Deletes a metadata table and all its entries."
+        },
+        {
+          "info": {
+            "name": "Get a metadata entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/metadata/:table/:key",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the metadata entry"
+              }
+            ]
+          },
+          "docs": "Retrieves a single metadata entry by table name and key."
+        },
+        {
+          "info": {
+            "name": "Create or update a metadata entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.iterable.com/api/metadata/:table/:key",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the metadata entry"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a metadata entry for the specified table and key."
+        },
+        {
+          "info": {
+            "name": "Delete a metadata entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/metadata/:table/:key",
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "The name of the metadata table"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The key of the metadata entry"
+              }
+            ]
+          },
+          "docs": "Deletes a metadata entry by table name and key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

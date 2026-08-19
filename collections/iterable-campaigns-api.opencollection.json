@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/campaigns"
+          },
+          "docs": "Retrieves metadata for all campaigns in the project associated with the API key. Returns campaign id, name, type, status, template information, and creation dates."
+        },
+        {
+          "info": {
+            "name": "Create a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/campaigns/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new campaign in the Iterable project with the specified name, template, list, and configuration options."
+        },
+        {
+          "info": {
+            "name": "Get campaign metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/campaigns/metrics",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "query",
+                "description": "One or more campaign IDs to retrieve metrics for"
+              },
+              {
+                "name": "startDateTime",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the metrics period in ISO 8601 format"
+              },
+              {
+                "name": "endDateTime",
+                "value": "",
+                "type": "query",
+                "description": "End date for the metrics period in ISO 8601 format"
+              }
+            ]
+          },
+          "docs": "Retrieves engagement metrics for one or more campaigns, including sends, opens, clicks, unsubscribes, bounces, and complaints."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Track a custom event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/events/track",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks a custom event for a user. Events can be used to trigger campaigns, segment users, and track user behavior within the Iterable platform."
+        },
+        {
+          "info": {
+            "name": "Track multiple events in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/events/trackBulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tracks multiple custom events in a single request. Each event in the array includes the user identifier, event name, and associated data fields."
+        },
+        {
+          "info": {
+            "name": "Get events for a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/events/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email address of the user"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              }
+            ]
+          },
+          "docs": "Retrieves events tracked for a user identified by email address. Supports pagination and filtering by event type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,443 @@
+{
+  "item": [
+    {
+      "id": "4dee5b8a-417a-4d7a-b41f-d5003aa1174c",
+      "name": "Commerce",
+      "description": {
+        "content": "Track purchase events, update cart data, and manage commerce-related user activity for revenue attribution.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e451ba5a-43c9-4fbb-92d7-f60b5a143e8e",
+          "name": "Track a purchase event",
+          "request": {
+            "name": "Track a purchase event",
+            "description": {
+              "content": "Tracks a purchase event for a user, including the items purchased, total value, and associated properties. Purchase data is used for revenue attribution and campaign triggering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "trackPurchase"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"key_0\": 5574.343700285678,\n      \"key_1\": 9083\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"key_0\": false,\n        \"key_1\": 5669,\n        \"key_2\": true\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4594.5174640473315\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": 8509,\n    \"key_1\": 9552.68857261267,\n    \"key_2\": 8676.228854999003\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b0e00a9-9904-4312-93a1-9bc7c615cafc",
+              "name": "Purchase tracked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "trackPurchase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"key_0\": 6075.65396924143\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 1920.0636524173565,\n      \"quantity\": 4828,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://HfdoDekJukgcbSTjpSfaltVF.wpppJzAZKUgkcexyPvqDUPWN4ZecFpfeGxQSSbq1-1nhC\",\n      \"url\": \"https://HAKrUsGLExtvuCr.tklkpsACWk6l\",\n      \"dataFields\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 6753.406137351586,\n      \"quantity\": 2128,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://WixnpdMOoPJcbspUDWTjRjqOrCTbooH.hpetT+.ob2sG9E849tCyiZTdaC7ysPCmBm6ppF0TO4fHL9bupeBJYxr67hbM\",\n      \"url\": \"https://ampWTnJnxBgetrEYz.tnrKQlgSljKVAmTuDaUTJr5SLtH38QPZUjEnPk58E..n+t936scu3ZmlIyYKzgNhwIOrgOtUQxy\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7529.371594743164\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"key_0\": 1516,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03fecd18-5034-40cd-a24c-d4dbda1f0c8e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "trackPurchase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"key_0\": 6075.65396924143\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 1920.0636524173565,\n      \"quantity\": 4828,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://HfdoDekJukgcbSTjpSfaltVF.wpppJzAZKUgkcexyPvqDUPWN4ZecFpfeGxQSSbq1-1nhC\",\n      \"url\": \"https://HAKrUsGLExtvuCr.tklkpsACWk6l\",\n      \"dataFields\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 6753.406137351586,\n      \"quantity\": 2128,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://WixnpdMOoPJcbspUDWTjRjqOrCTbooH.hpetT+.ob2sG9E849tCyiZTdaC7ysPCmBm6ppF0TO4fHL9bupeBJYxr67hbM\",\n      \"url\": \"https://ampWTnJnxBgetrEYz.tnrKQlgSljKVAmTuDaUTJr5SLtH38QPZUjEnPk58E..n+t936scu3ZmlIyYKzgNhwIOrgOtUQxy\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7529.371594743164\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "49b2df76-e50d-49bc-8056-6b72320519ac",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "trackPurchase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<email>\",\n    \"userId\": \"<string>\",\n    \"dataFields\": {\n      \"key_0\": 6075.65396924143\n    }\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 1920.0636524173565,\n      \"quantity\": 4828,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://HfdoDekJukgcbSTjpSfaltVF.wpppJzAZKUgkcexyPvqDUPWN4ZecFpfeGxQSSbq1-1nhC\",\n      \"url\": \"https://HAKrUsGLExtvuCr.tklkpsACWk6l\",\n      \"dataFields\": {\n        \"key_0\": false\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 6753.406137351586,\n      \"quantity\": 2128,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://WixnpdMOoPJcbspUDWTjRjqOrCTbooH.hpetT+.ob2sG9E849tCyiZTdaC7ysPCmBm6ppF0TO4fHL9bupeBJYxr67hbM\",\n      \"url\": \"https://ampWTnJnxBgetrEYz.tnrKQlgSljKVAmTuDaUTJr5SLtH38QPZUjEnPk58E..n+t936scu3ZmlIyYKzgNhwIOrgOtUQxy\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7529.371594743164\n      }\n    }\n  ],\n  \"total\": \"<number>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c83d7c8-f5db-4107-84e7-8b113ea7c4a2",
+          "name": "Update a user's shopping cart",
+          "request": {
+            "name": "Update a user's shopping cart",
+            "description": {
+              "content": "Updates the shopping cart contents for a user. Cart data can be used for abandoned cart campaigns and personalization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "updateCart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"key_0\": 6694.566340560558,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"url\": \"<uri>\",\n      \"dataFields\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84f6c97f-83e9-4df1-932c-f25069c48930",
+              "name": "Cart updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "updateCart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 9019.93644823888,\n      \"quantity\": 5819,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"https://OY.kdK3LOv1vist5sNIKgFhJJyBDzQQvyqbFdnb5T2cKyIzI5AWN+NVzjGPp1jg1mhZKQy\",\n      \"url\": \"https://lMWXBMDlWtsGRMeTKTZCPUdVFdBbDtB.rrOsBNcqYdREZyKoRAFVJdmL4wYqIZgJzAdjtQWLE6nRc7QWZunI,iE9cX\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 910,\n        \"key_2\": 6179.745112044199,\n        \"key_3\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 2434.90258844007,\n      \"quantity\": 99,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://QcLVbhFLZ.nygrCWsdBaHtC9rNKuXUovK1rBvK-0WQrbszrsH7qi5TRcZCj\",\n      \"url\": \"http://DftdCpEPSQpASEFMKmbBUazRPFNLF.fowaAmsnYxiokp\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"key_0\": 1516,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "705c4d32-1c21-4393-b3d5-a712961f3819",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "updateCart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 9019.93644823888,\n      \"quantity\": 5819,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"https://OY.kdK3LOv1vist5sNIKgFhJJyBDzQQvyqbFdnb5T2cKyIzI5AWN+NVzjGPp1jg1mhZKQy\",\n      \"url\": \"https://lMWXBMDlWtsGRMeTKTZCPUdVFdBbDtB.rrOsBNcqYdREZyKoRAFVJdmL4wYqIZgJzAdjtQWLE6nRc7QWZunI,iE9cX\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 910,\n        \"key_2\": 6179.745112044199,\n        \"key_3\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 2434.90258844007,\n      \"quantity\": 99,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://QcLVbhFLZ.nygrCWsdBaHtC9rNKuXUovK1rBvK-0WQrbszrsH7qi5TRcZCj\",\n      \"url\": \"http://DftdCpEPSQpASEFMKmbBUazRPFNLF.fowaAmsnYxiokp\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd3e7172-2953-4b95-b580-373ba466c6e3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "updateCart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": {\n    \"email\": \"<string>\",\n    \"userId\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 9019.93644823888,\n      \"quantity\": 5819,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"https://OY.kdK3LOv1vist5sNIKgFhJJyBDzQQvyqbFdnb5T2cKyIzI5AWN+NVzjGPp1jg1mhZKQy\",\n      \"url\": \"https://lMWXBMDlWtsGRMeTKTZCPUdVFdBbDtB.rrOsBNcqYdREZyKoRAFVJdmL4wYqIZgJzAdjtQWLE6nRc7QWZunI,iE9cX\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 910,\n        \"key_2\": 6179.745112044199,\n        \"key_3\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"price\": 2434.90258844007,\n      \"quantity\": 99,\n      \"sku\": \"string\",\n      \"description\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"imageUrl\": \"http://QcLVbhFLZ.nygrCWsdBaHtC9rNKuXUovK1rBvK-0WQrbszrsH7qi5TRcZCj\",\n      \"url\": \"http://DftdCpEPSQpASEFMKmbBUazRPFNLF.fowaAmsnYxiokp\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "62ec4ea7-00e2-42fd-a8ff-9da54e1adac0",
+    "name": "Iterable Export Campaigns Commerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

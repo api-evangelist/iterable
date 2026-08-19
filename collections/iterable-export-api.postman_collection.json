@@ -1,254 +1,7 @@
 {
   "item": [
     {
-      "id": "f1569403-7151-4082-b905-700d173da7c1",
-      "name": "ExperimentMetrics",
-      "description": {
-        "content": "Export experiment and A/B test metrics as CSV for analysis.",
-        "type": "text/plain"
-      },
-      "item": [
-        {
-          "id": "0f727452-e73e-41e1-a2ff-bba5da9e15e9",
-          "name": "Export experiment metrics as CSV",
-          "request": {
-            "name": "Export experiment metrics as CSV",
-            "description": {
-              "content": "Exports experiment metrics for A/B tests as CSV. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total per request. This endpoint returns data only for email experiments.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "experiments",
-                "metrics"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "experimentId",
-                  "value": "<integer>",
-                  "description": "One or more experiment IDs to export metrics for"
-                },
-                {
-                  "disabled": false,
-                  "key": "experimentId",
-                  "value": "<integer>",
-                  "description": "One or more experiment IDs to export metrics for"
-                },
-                {
-                  "disabled": false,
-                  "key": "campaignId",
-                  "value": "<integer>",
-                  "description": "One or more campaign IDs to export metrics for"
-                },
-                {
-                  "disabled": false,
-                  "key": "campaignId",
-                  "value": "<integer>",
-                  "description": "One or more campaign IDs to export metrics for"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "text/csv"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "230543a2-312a-44b3-929f-8a5b1469feda",
-              "name": "Experiment metrics in CSV format",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "experiments",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "experimentId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "experimentId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "campaignId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "campaignId",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/csv"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/csv"
-                }
-              ],
-              "body": "string",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3144018d-8d64-4d5c-bd50-d6ba5525376b",
-              "name": "Bad request - too many IDs or invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "experiments",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "experimentId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "experimentId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "campaignId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "campaignId",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "Api-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "77394064-6656-4809-8499-86eb2c79f2ee",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "experiments",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "experimentId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "experimentId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "campaignId",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "campaignId",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "Api-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        }
-      ],
-      "event": []
-    },
-    {
-      "id": "b8f01a20-3eb0-4c5c-b2dd-bacd17d1f1e6",
+      "id": "e0bfdc04-b801-4cca-a711-7a61ccf1b854",
       "name": "Export",
       "description": {
         "content": "Endpoints for exporting data from Iterable projects in CSV and JSON formats. Supports exporting user events, message engagement data, and campaign metrics.",
@@ -256,7 +9,7 @@
       },
       "item": [
         {
-          "id": "89c5f4e8-78c6-441a-bc6a-8cf2f850a2dd",
+          "id": "abff3eca-fe5d-4ae3-88ea-604712b7ec19",
           "name": "Export data as JSON",
           "request": {
             "name": "Export data as JSON",
@@ -323,7 +76,7 @@
           },
           "response": [
             {
-              "id": "5787df43-09b8-4907-bdf7-1a1e39a439d9",
+              "id": "73f0fd6e-4ae5-487d-b0b3-4668ed3517ef",
               "name": "Newline-delimited JSON export of event data",
               "originalRequest": {
                 "url": {
@@ -392,7 +145,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8bc1789d-cec9-40b7-ba36-e0e1efca454a",
+              "id": "55f71867-242c-423c-85f4-322957cff401",
               "name": "Bad request - invalid parameters",
               "originalRequest": {
                 "url": {
@@ -461,7 +214,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "df38ea98-5af2-4f01-a6b6-684a7f8a5aa4",
+              "id": "086de522-4d80-4c4b-ab50-d2ca311d31db",
               "name": "Unauthorized - invalid API key",
               "originalRequest": {
                 "url": {
@@ -532,7 +285,7 @@
           }
         },
         {
-          "id": "1c013217-754e-4821-9290-ee0254e75db1",
+          "id": "6bf8de28-32f5-4714-9cb1-89059d2fc215",
           "name": "Export data as CSV",
           "request": {
             "name": "Export data as CSV",
@@ -599,7 +352,7 @@
           },
           "response": [
             {
-              "id": "8c2b58ff-204b-4e64-a316-fafaf64f94b1",
+              "id": "61da26fc-0dfc-4519-83ff-cffa0a125827",
               "name": "CSV export of event data",
               "originalRequest": {
                 "url": {
@@ -668,7 +421,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "64471144-76b6-40aa-99bd-5f3818112534",
+              "id": "fe0bec07-28da-48d7-aafd-682fbf4326c3",
               "name": "Bad request - invalid parameters",
               "originalRequest": {
                 "url": {
@@ -737,7 +490,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4e20d842-c78e-4570-b8dd-d9fae9cc136d",
+              "id": "f0818036-36db-4ffe-b58d-3b4b527ec17c",
               "name": "Unauthorized - invalid API key",
               "originalRequest": {
                 "url": {
@@ -808,7 +561,7 @@
           }
         },
         {
-          "id": "1969012c-e216-4cd2-b735-3f800088d6a3",
+          "id": "5dc9a173-05ae-4bcc-a11c-deda4676d15d",
           "name": "Export events for a specific user",
           "request": {
             "name": "Export events for a specific user",
@@ -851,7 +604,7 @@
           },
           "response": [
             {
-              "id": "2fffaae3-b596-42a0-ae2f-b34ede3161f7",
+              "id": "d63ae3ad-978f-4067-aceb-d69bdbff734d",
               "name": "User events data",
               "originalRequest": {
                 "url": {
@@ -899,12 +652,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"events\": [\n    {\n      \"email\": \"E5l5rO7mxx@sSWEqzNkhZDwdRIkXcXBo.cm\",\n      \"eventName\": \"string\",\n      \"createdAt\": \"1985-03-16T23:49:44.386Z\",\n      \"campaignId\": 7396,\n      \"templateId\": 2984,\n      \"messageId\": \"string\",\n      \"dataFields\": {\n        \"key_0\": 289,\n        \"key_1\": 5106.679338466773,\n        \"key_2\": 502\n      },\n      \"contentId\": 1502,\n      \"channelId\": 8429,\n      \"messageTypeId\": 5464,\n      \"workflowId\": 2203,\n      \"workflowName\": \"string\",\n      \"campaignName\": \"string\",\n      \"templateName\": \"string\",\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"email\": \"uj-vc6cE@aaPOHImpEFQcAwrZTULy.fiz\",\n      \"eventName\": \"string\",\n      \"createdAt\": \"1957-02-24T01:18:37.014Z\",\n      \"campaignId\": 5525,\n      \"templateId\": 4238,\n      \"messageId\": \"string\",\n      \"dataFields\": {\n        \"key_0\": 7980,\n        \"key_1\": 6263.722708310974,\n        \"key_2\": \"string\",\n        \"key_3\": false\n      },\n      \"contentId\": 9684,\n      \"channelId\": 7255,\n      \"messageTypeId\": 923,\n      \"workflowId\": 4645,\n      \"workflowName\": \"string\",\n      \"campaignName\": \"string\",\n      \"templateName\": \"string\",\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "body": "{\n  \"events\": [\n    {\n      \"email\": \"Ijt1@vnafttxbvOdlhUb.mcmh\",\n      \"eventName\": \"string\",\n      \"createdAt\": \"1997-01-25T05:36:30.124Z\",\n      \"campaignId\": 8540,\n      \"templateId\": 8714,\n      \"messageId\": \"string\",\n      \"dataFields\": {\n        \"key_0\": 2436,\n        \"key_1\": \"string\"\n      },\n      \"contentId\": 7721,\n      \"channelId\": 7117,\n      \"messageTypeId\": 5936,\n      \"workflowId\": 5540,\n      \"workflowName\": \"string\",\n      \"campaignName\": \"string\",\n      \"templateName\": \"string\",\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"email\": \"eB5OboB86MD1T@KfDZcTpS.ja\",\n      \"eventName\": \"string\",\n      \"createdAt\": \"1973-03-24T22:35:40.112Z\",\n      \"campaignId\": 8808,\n      \"templateId\": 7201,\n      \"messageId\": \"string\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 8345.897668144096,\n        \"key_2\": true,\n        \"key_3\": true\n      },\n      \"contentId\": 7887,\n      \"channelId\": 366,\n      \"messageTypeId\": 7864,\n      \"workflowId\": 3101,\n      \"workflowName\": \"string\",\n      \"campaignName\": \"string\",\n      \"templateName\": \"string\",\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "ab682035-bb02-4264-ab10-cd8ac232537e",
+              "id": "da50edfc-afdc-42ee-95af-a428ff273abd",
               "name": "Bad request",
               "originalRequest": {
                 "url": {
@@ -953,7 +706,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "630927d3-38da-45ed-8337-f04f4cd56ef2",
+              "id": "3602405d-e4a5-4509-bc8f-64102b2f0afa",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1002,7 +755,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a99454e7-cddc-4a02-bc41-da98bf317283",
+              "id": "e2f30942-4a6a-4b0e-8c0b-f8ded707f11a",
               "name": "User not found",
               "originalRequest": {
                 "url": {
@@ -1086,8 +839,8 @@
     ]
   },
   "info": {
-    "_postman_id": "6379c4d3-4da3-4e7f-ac3d-b55dad4fbbf2",
-    "name": "Iterable Export API",
+    "_postman_id": "f824a367-aff2-4e4d-a4c6-67b960cd104c",
+    "name": "Iterable Campaigns Export API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",

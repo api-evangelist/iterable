@@ -1,0 +1,542 @@
+{
+  "item": [
+    {
+      "id": "b39a1d38-81aa-45c2-b95c-c5b9e22425ac",
+      "name": "Campaigns",
+      "description": {
+        "content": "Create, retrieve, and manage marketing campaigns. Access campaign metrics and trigger campaign sends.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d00c934e-4f3f-4260-864b-021db91961ea",
+          "name": "List campaigns",
+          "request": {
+            "name": "List campaigns",
+            "description": {
+              "content": "Retrieves metadata for all campaigns in the project associated with the API key. Returns campaign id, name, type, status, template information, and creation dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b1e70ad-749d-4e63-a31d-22ec41ba7c34",
+              "name": "List of campaigns",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaigns\": [\n    {\n      \"id\": 3618,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"templateId\": 7868,\n      \"createdAt\": \"1950-12-15T09:40:08.102Z\",\n      \"updatedAt\": \"2009-01-11T13:40:31.538Z\",\n      \"messageMedium\": \"Push\",\n      \"campaignState\": \"Draft\",\n      \"listIds\": [\n        5740,\n        3111\n      ],\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": 7251,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"templateId\": 6961,\n      \"createdAt\": \"2019-03-01T13:55:04.298Z\",\n      \"updatedAt\": \"2011-07-01T07:59:56.774Z\",\n      \"messageMedium\": \"Email\",\n      \"campaignState\": \"Finished\",\n      \"listIds\": [\n        6535,\n        7914\n      ],\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12bf7ae0-bd28-4518-81d0-15230ca8101f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ac04dab-51f6-441d-9acc-38888192c77d",
+          "name": "Create a campaign",
+          "request": {
+            "name": "Create a campaign",
+            "description": {
+              "content": "Creates a new campaign in the Iterable project with the specified name, template, list, and configuration options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"listIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"templateId\": \"<integer>\",\n  \"suppressionListIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"sendAt\": \"<dateTime>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3172,\n    \"key_2\": 7587\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35c36417-b939-4489-9300-e74b450a866f",
+              "name": "Campaign created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"listIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"templateId\": \"<integer>\",\n  \"suppressionListIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"sendAt\": \"<dateTime>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"campaignId\": 8537\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baf6ae4d-00e6-43ed-ad22-aa5f364549f1",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"listIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"templateId\": \"<integer>\",\n  \"suppressionListIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"sendAt\": \"<dateTime>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "54ea544e-93c7-41ce-859d-1e3a429f8d27",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"listIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"templateId\": \"<integer>\",\n  \"suppressionListIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"sendAt\": \"<dateTime>\",\n  \"dataFields\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4faec4a5-9bfe-45f8-b757-f0465af43207",
+          "name": "Get campaign metrics",
+          "request": {
+            "name": "Get campaign metrics",
+            "description": {
+              "content": "Retrieves engagement metrics for one or more campaigns, including sends, opens, clicks, unsubscribes, bounces, and complaints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<integer>",
+                  "description": "(Required) One or more campaign IDs to retrieve metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<integer>",
+                  "description": "(Required) One or more campaign IDs to retrieve metrics for"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDateTime",
+                  "value": "<dateTime>",
+                  "description": "Start date for the metrics period in ISO 8601 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDateTime",
+                  "value": "<dateTime>",
+                  "description": "End date for the metrics period in ISO 8601 format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1cbad5f-f123-4eee-a5db-b7a975feb4fa",
+              "name": "Campaign metrics data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54384d71-865a-4608-a0c1-b914dc2963fa",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "campaignId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startDateTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDateTime",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5364ead9-7d84-4bb2-bfd8-e3dd5f431ddd",
+    "name": "Iterable Export Campaigns API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

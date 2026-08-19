@@ -1,0 +1,657 @@
+{
+  "item": [
+    {
+      "id": "b993f136-b6d6-49f8-bc42-2bb715e51be1",
+      "name": "Events",
+      "description": {
+        "content": "Track custom events, retrieve event data for users, and manage event metadata used for segmentation and campaign triggering.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8544a11d-f9f1-4d58-ae90-58f9529f393a",
+          "name": "Track a custom event",
+          "request": {
+            "name": "Track a custom event",
+            "description": {
+              "content": "Tracks a custom event for a user. Events can be used to trigger campaigns, segment users, and track user behavior within the Iterable platform.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "track"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": 2940.877671349522\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0233b817-5a84-414a-a129-9d99edb3d52c",
+              "name": "Event tracked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": 7281,\n    \"key_1\": 728,\n    \"key_2\": \"string\",\n    \"key_3\": 94\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1fd5bd7-d984-4e94-91e4-91eac5ee1ad9",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": 7281,\n    \"key_1\": 728,\n    \"key_2\": \"string\",\n    \"key_3\": 94\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53ba840f-8f8d-4be1-b831-874ec9267201",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"eventName\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"dataFields\": {\n    \"key_0\": 7281,\n    \"key_1\": 728,\n    \"key_2\": \"string\",\n    \"key_3\": 94\n  },\n  \"campaignId\": \"<integer>\",\n  \"templateId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d20dd3ee-c4db-4bbb-85ad-34e247c86cb6",
+          "name": "Track multiple events in bulk",
+          "request": {
+            "name": "Track multiple events in bulk",
+            "description": {
+              "content": "Tracks multiple custom events in a single request. Each event in the array includes the user identifier, event name, and associated data fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "trackBulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"key_0\": false,\n        \"key_1\": 4151,\n        \"key_2\": 6180.55047957451,\n        \"key_3\": false,\n        \"key_4\": 4730\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"eventName\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"dataFields\": {\n        \"key_0\": 1775\n      },\n      \"campaignId\": \"<integer>\",\n      \"templateId\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a20f9ade-b7f7-469a-a0d2-ea4a7492a51c",
+              "name": "Events tracked successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "trackBulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"email\": \"T1zQA4@eR.jmsh\",\n      \"eventName\": \"string\",\n      \"userId\": \"string\",\n      \"createdAt\": 9201,\n      \"dataFields\": {\n        \"key_0\": \"string\"\n      },\n      \"campaignId\": 6623,\n      \"templateId\": 7538\n    },\n    {\n      \"email\": \"GmJp@CvcvsPsXEVXUOTruaQCzvkvorzVcFP.ix\",\n      \"eventName\": \"string\",\n      \"userId\": \"string\",\n      \"createdAt\": 5792,\n      \"dataFields\": {\n        \"key_0\": 8721.168768392876\n      },\n      \"campaignId\": 7743,\n      \"templateId\": 8681\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "362ef7cd-09d1-46f3-9a2f-8d1e3f22c860",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "trackBulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"email\": \"T1zQA4@eR.jmsh\",\n      \"eventName\": \"string\",\n      \"userId\": \"string\",\n      \"createdAt\": 9201,\n      \"dataFields\": {\n        \"key_0\": \"string\"\n      },\n      \"campaignId\": 6623,\n      \"templateId\": 7538\n    },\n    {\n      \"email\": \"GmJp@CvcvsPsXEVXUOTruaQCzvkvorzVcFP.ix\",\n      \"eventName\": \"string\",\n      \"userId\": \"string\",\n      \"createdAt\": 5792,\n      \"dataFields\": {\n        \"key_0\": 8721.168768392876\n      },\n      \"campaignId\": 7743,\n      \"templateId\": 8681\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d242172a-18ab-4008-925a-d4492a08d4f6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "trackBulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"email\": \"T1zQA4@eR.jmsh\",\n      \"eventName\": \"string\",\n      \"userId\": \"string\",\n      \"createdAt\": 9201,\n      \"dataFields\": {\n        \"key_0\": \"string\"\n      },\n      \"campaignId\": 6623,\n      \"templateId\": 7538\n    },\n    {\n      \"email\": \"GmJp@CvcvsPsXEVXUOTruaQCzvkvorzVcFP.ix\",\n      \"eventName\": \"string\",\n      \"userId\": \"string\",\n      \"createdAt\": 5792,\n      \"dataFields\": {\n        \"key_0\": 8721.168768392876\n      },\n      \"campaignId\": 7743,\n      \"templateId\": 8681\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f159c757-d447-40d0-9a12-8d380991db37",
+          "name": "Get events for a user by email",
+          "request": {
+            "name": "Get events for a user by email",
+            "description": {
+              "content": "Retrieves events tracked for a user identified by email address. Supports pagination and filtering by event type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Maximum number of events to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "email",
+                  "description": "(Required) Email address of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b9e6810-7a3f-40a5-98e0-913e709acf4c",
+              "name": "List of user events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) Email address of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"eventName\": \"string\",\n      \"createdAt\": \"1951-04-20T07:10:17.620Z\",\n      \"dataFields\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4847.375971474479,\n        \"key_2\": 3003\n      },\n      \"campaignId\": 5751,\n      \"templateId\": 3115\n    },\n    {\n      \"eventName\": \"string\",\n      \"createdAt\": \"1986-06-27T18:07:22.020Z\",\n      \"dataFields\": {\n        \"key_0\": 2507\n      },\n      \"campaignId\": 6618,\n      \"templateId\": 3541\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06ed5f7a-775c-4327-8aaa-c1bd44715053",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) Email address of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5431bcc2-eca8-40d1-a3ef-0c15c2757c79",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) Email address of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "acad605a-9c84-4838-b992-5f44ffc42730",
+    "name": "Iterable Export Campaigns Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

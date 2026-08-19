@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an email template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/email/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the email template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of an email template by its template ID."
+        },
+        {
+          "info": {
+            "name": "Update an email template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.iterable.com/api/templates/email/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content and metadata of an existing email template."
+        },
+        {
+          "info": {
+            "name": "Get a push notification template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/push/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the push template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of a push notification template by its template ID."
+        },
+        {
+          "info": {
+            "name": "Get an SMS template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/sms/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the SMS template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of an SMS template by its template ID."
+        },
+        {
+          "info": {
+            "name": "Get an in-app message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/templates/inApp/get",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the in-app template to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves the content and metadata of an in-app message template by its template ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

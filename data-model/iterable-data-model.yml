@@ -1,0 +1,1483 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/iterable-api-openapi.json — 196 component definitions, $ref edges and *Id reference fields
+docs: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+description: >-
+  Entity-relationship graph derived from the definitions in Iterable's published Swagger contract.
+  Iterable is organised around a project: users carry profile fields and events, campaigns bind a
+  template to a list or segment over a channel/message type, and catalogs supply personalization data.
+entity_count: 196
+entities:
+- name: Action
+  fields: 2
+  key_fields: [data, type]
+- name: ActionIcon
+  fields: 2
+  key_fields: [iconType, imageName]
+- name: ApiEmailTemplateModel
+  fields: 24
+  key_fields: [bccEmails, cacheDataFeed, campaignDataFields, ccEmails, clientTemplateId, creatorUserId, dataFeedId, dataFeedIds]
+- name: ApiEmbeddedMessage
+  fields: 3
+  key_fields: [elements, metadata, payload]
+- name: ApiEmbeddedMessagingElements
+  fields: 7
+  key_fields: [body, buttons, defaultAction, mediaUrl, mediaUrlCaption, text, title]
+- name: ApiEmbeddedMessagingMetadata
+  fields: 5
+  key_fields: [campaignId, isProof, messageId, placementId, priorityOrder]
+- name: ApiEmbeddedPlacement
+  fields: 2
+  key_fields: [embeddedMessages, placementId]
+- name: ApiEmbeddedTemplateModel
+  fields: 13
+  key_fields: [body, campaignDataFields, campaignId, clientTemplateId, elements, isDefaultLocale, locale, messageTypeId]
+- name: ApiInAppMessage
+  fields: 15
+  key_fields: [campaignId, content, createdAt, customPayload, expiresAt, inboxMetadata, jsonOnly, messageId]
+- name: ApiInAppMessagesResponse
+  fields: 1
+  key_fields: [inAppMessages]
+- name: ApiInAppTemplateModel
+  fields: 15
+  key_fields: [campaignDataFields, campaignId, clientTemplateId, expirationDateTime, expirationDuration, html, inAppDisplaySettings, inboxMetadata]
+- name: ApiPushTemplateModel
+  fields: 25
+  key_fields: [badge, buttons, cacheDataFeed, campaignDataFields, campaignId, clientTemplateId, createdAt, dataFeedIds]
+- name: ApiResponseUser
+  fields: 3
+  key_fields: [dataFields, email, userId]
+- name: ApiSMSTemplateModel
+  fields: 15
+  key_fields: [campaignDataFields, campaignId, clientTemplateId, createdAt, googleAnalyticsCampaignName, imageUrl, isDefaultLocale, linkParams]
+- name: ApiTemplateEntry
+  fields: 3
+  key_fields: [campaignId, locales, templateId]
+- name: ApiTemplateResponse
+  fields: 8
+  key_fields: [campaignId, clientTemplateId, createdAt, creatorUserId, messageTypeId, name, templateId, updatedAt]
+- name: ApiUserUpdateRequest
+  fields: 6
+  key_fields: [createNewFields, dataFields, email, mergeNestedObjects, preferUserId, userId]
+- name: ApiWebhookModel
+  fields: 8
+  key_fields: [authToken, authType, blastSendEnabled, enabled, endpoint, headers, id, triggeredSendEnabled]
+- name: ApiWebhookResponse
+  fields: 8
+  key_fields: [authType, blastSendEnabled, channelIds, enabled, endpoint, id, messageTypeIds, triggeredSendEnabled]
+- name: ArrayMerge
+  fields: 2
+  key_fields: [dedupeBy, field]
+- name: BeginSmsVerificationRequest
+  fields: 2
+  key_fields: [phoneNumber, verificationProfileId]
+- name: BgColor
+  fields: 2
+  key_fields: [alpha, hex]
+- name: BulkArchiveCampaignRequest
+  fields: 1
+  key_fields: [campaignIds]
+- name: BulkArchiveCampaignsResponse
+  fields: 2
+  key_fields: [failed, success]
+- name: BulkDeleteTemplatesRequest
+  fields: 1
+  key_fields: [ids]
+- name: BulkDeleteTemplatesResponse
+  fields: 3
+  key_fields: [failed, failureReason, success]
+- name: BulkSubscriptionActionRequest
+  fields: 2
+  key_fields: [users, usersByUserId]
+- name: BulkTrackRequest
+  fields: 1
+  key_fields: [events]
+- name: BulkTrackResponse
+  fields: 8
+  key_fields: [createdFields, disallowedEventNames, failCount, failedUpdates, filteredOutFields, invalidEmails, invalidUserIds, successCount]
+- name: BulkUpdateSubscriptionsRequest
+  fields: 1
+  key_fields: [updateSubscriptionsRequests]
+- name: BulkUpdateSubscriptionsResponse
+  fields: 6
+  key_fields: [failCount, invalidEmails, invalidUserIds, successCount, validEmailFailures, validUserIdFailures]
+- name: BulkUpdateUsersRequest
+  fields: 2
+  key_fields: [createNewFields, users]
+- name: Button
+  fields: 3
+  key_fields: [action, id, title]
+- name: CampaignDetails
+  fields: 19
+  key_fields: [campaignState, createdAt, createdByUserId, endedAt, id, labelIds, labels, listIds]
+- name: CampaignIdRequest
+  fields: 1
+  key_fields: [campaignId]
+- name: CampaignsResponse
+  fields: 4
+  key_fields: [campaigns, nextPageUrl, previousPageUrl, totalCampaignsCount]
+- name: CancelScheduledMessageRequest - campaignId OR scheduledMessageId are required
+  fields: 4
+  key_fields: [campaignId, email, scheduledMessageId, userId]
+- name: CatalogBulkDeleteRequest
+  fields: 1
+  key_fields: [itemIds]
+- name: CatalogBulkUploadRequest
+  fields: 2
+  key_fields: [documents, replaceUploadedFieldsOnly]
+- name: CatalogFieldDefinitionSerializedModel
+  fields: 3
+  key_fields: [children, fieldName, fieldType]
+- name: CatalogFieldMappingsResponse
+  fields: 2
+  key_fields: [definedMappings, undefinedFields]
+- name: CatalogIndexItemRequest
+  fields: 1
+  key_fields: [value]
+- name: CatalogItemWithProperties
+  fields: 5
+  key_fields: [catalogName, itemId, lastModified, size, value]
+- name: CatalogMappingsUpdateRequest
+  fields: 1
+  key_fields: [mappingsUpdates]
+- name: CatalogName
+  fields: 1
+  key_fields: [name]
+- name: CatalogUpdateItemRequest
+  fields: 1
+  key_fields: [update]
+- name: ChannelDetails
+  fields: 4
+  key_fields: [channelType, id, messageMedium, name]
+- name: ChannelsResponse
+  fields: 1
+  key_fields: [channels]
+- name: CheckSmsVerificationRequest
+  fields: 3
+  key_fields: [code, phoneNumber, verificationProfileId]
+- name: ClientDataType
+  fields: 2
+  key_fields: [send, updatable]
+- name: ClientTemplateIdResponse
+  fields: 1
+  key_fields: [templates]
+- name: CommerceItem
+  fields: 10
+  key_fields: [categories, dataFields, description, id, imageUrl, name, price, quantity]
+- name: Cookie
+  fields: 9
+  key_fields: [asJava, domain, httpOnly, maxAge, name, path, sameSite, secure]
+- name: CreateCampaignRequest
+  fields: 12
+  key_fields: [campaignDataFields, dataFields, defaultTimeZone, labelIds, listIds, name, scheduleSend, sendAt]
+- name: CreateCampaignResponse
+  fields: 1
+  key_fields: [campaignId]
+- name: CreateListRequest
+  fields: 2
+  key_fields: [description, name]
+- name: CreateListResponse
+  fields: 1
+  key_fields: [listId]
+- name: CreateSnippetRequest
+  fields: 5
+  key_fields: [content, createdByUserId, description, name, variables]
+- name: CreateSnippetResponse
+  fields: 1
+  key_fields: [snippetId]
+- name: DeeplinkURI
+  fields: 2
+  key_fields: [android, ios]
+- name: DeleteSnippetResponse
+  fields: 1
+  key_fields: [snippetId]
+- name: Device
+  fields: 4
+  key_fields: [applicationName, dataFields, platform, token]
+- name: DeviceInfo
+  fields: 3
+  key_fields: [appPackageName, deviceId, platform]
+- name: DisableDeviceRequest
+  fields: 3
+  key_fields: [email, token, userId]
+- name: DoubleOptInSubscriptionsRequest
+  fields: 5
+  key_fields: [brandName, email, messageTypeIds, phoneNumber, userId]
+- name: Elements
+  fields: 5
+  key_fields: [buttons, defaultAction, mediaUrl, mediaUrlCaption, text]
+- name: EmbeddedClickRequest
+  fields: 7
+  key_fields: [buttonIdentifier, createdAt, deviceInfo, email, messageId, targetUrl, userId]
+- name: EmbeddedMessagesResponse
+  fields: 1
+  key_fields: [placements]
+- name: EmbeddedReceivedRequest
+  fields: 5
+  key_fields: [createdAt, deviceInfo, email, messageId, userId]
+- name: EmbeddedSession
+  fields: 3
+  key_fields: [end, id, start]
+- name: EmbeddedSessionRequest
+  fields: 6
+  key_fields: [createdAt, deviceInfo, email, impressions, session, userId]
+- name: ErrorHttpResponse
+  fields: 4
+  key_fields: [code, data, error, message]
+- name: ErrorWithStatus
+  fields: 1
+  key_fields: [status]
+- name: ExperimentConstraints
+  fields: 2
+  key_fields: [suppressionListIds, targetSegment]
+- name: ExperimentListItem
+  fields: 7
+  key_fields: [author, channelType, finishDate, id, name, startDate, status]
+- name: ExperimentListResponse
+  fields: 2
+  key_fields: [experiments, pagination]
+- name: ExperimentMeta
+  fields: 5
+  key_fields: [campaignId, conversionMetrics, name, orgId, projectId]
+- name: ExperimentMetricsResponse
+  fields: 2
+  key_fields: [headers, rows]
+- name: ExperimentResponse
+  fields: 12
+  key_fields: [allocationMode, channelType, constraints, creationDate, experimentType, finishDate, id, meta]
+- name: ExperimentSizingResponse
+  fields: 6
+  key_fields: [holdoutPercentage, perVariantPercentage, testGroupPercentage, winnerGroupPercentage, testDurationMinutes, sendsPerVariant]
+- name: ExperimentVariantSummary
+  fields: 6
+  key_fields: [currentPercentage, id, isControl, isWinner, name, value]
+- name: ExperimentVariantValue
+  fields: 3
+  key_fields: [sendTime, stoGroup, templateId]
+- name: ExperimentVariantsResponse
+  fields: 2
+  key_fields: [experimentId, variants]
+- name: ExportFileAndUrl
+  fields: 2
+  key_fields: [file, url]
+- name: ExportJobStatusAndFiles
+  fields: 4
+  key_fields: [exportTruncated, files, jobId, jobState]
+- name: FailedEventUpdates
+  fields: 6
+  key_fields: [forgottenEmails, forgottenUserIds, invalidEmails, invalidUserIds, notFoundEmails, notFoundUserIds]
+- name: FailedUserUpdates
+  fields: 10
+  key_fields: [conflictEmails, conflictUserIds, forgottenEmails, forgottenUserIds, invalidDataEmails, invalidDataUserIds, invalidEmails, invalidUserIds]
+- name: Flash
+  fields: 3
+  key_fields: [asJava, data, empty]
+- name: FrequencyCap
+  fields: 2
+  key_fields: [days, messages]
+- name: GetCatalogItemsResponse
+  fields: 4
+  key_fields: [catalogItemsWithProperties, nextPageUrl, previousPageUrl, totalItemsCount]
+- name: GetCatalogsResponse
+  fields: 4
+  key_fields: [catalogNames, nextPageUrl, previousPageUrl, totalCatalogsCount]
+- name: GetEventsResponse
+  fields: 1
+  key_fields: [events]
+- name: GetForgottenUserEmailsResponse
+  fields: 1
+  key_fields: [hashedEmails]
+- name: GetForgottenUserIdsResponse
+  fields: 1
+  key_fields: [hashedUserIds]
+- name: GetJourneysResponse
+  fields: 4
+  key_fields: [journeys, nextPageUrl, previousPageUrl, totalJourneysCount]
+- name: GetListsResponse
+  fields: 1
+  key_fields: [lists]
+- name: GetSentMessagesResponse
+  fields: 1
+  key_fields: [messages]
+- name: GetSnippetResponse
+  fields: 1
+  key_fields: [snippet]
+- name: GetSnippetsResponse
+  fields: 1
+  key_fields: [snippets]
+- name: GetTemplatesResponse
+  fields: 4
+  key_fields: [nextPageUrl, previousPageUrl, templates, totalTemplatesCount]
+- name: GetUserFieldsResponse
+  fields: 1
+  key_fields: [fields]
+- name: GetWebhooksResponse
+  fields: 1
+  key_fields: [webhooks]
+- name: HttpEntity
+  fields: 1
+  key_fields: [knownEmpty]
+- name: Impression
+  fields: 4
+  key_fields: [displayCount, displayDuration, messageId, placementId]
+- name: InAppClickRequest
+  fields: 7
+  key_fields: [clickedUrl, createdAt, deviceInfo, email, messageContext, messageId, userId]
+- name: InAppCloseRequest
+  fields: 9
+  key_fields: [clickedUrl, closeAction, createdAt, deviceInfo, email, inboxSessionId, messageContext, messageId]
+- name: InAppConsumeRequest
+  fields: 7
+  key_fields: [createdAt, deleteAction, deviceInfo, email, messageContext, messageId, userId]
+- name: InAppContentApi
+  fields: 4
+  key_fields: [html, inAppDisplaySettings, ottPayload, webInAppDisplaySettings]
+- name: InAppDeliveryRequest
+  fields: 6
+  key_fields: [createdAt, deviceInfo, email, messageContext, messageId, userId]
+- name: InAppDisplaySettings
+  fields: 6
+  key_fields: [bgColor, bottom, left, right, shouldAnimate, top]
+- name: InAppOpenRequest
+  fields: 6
+  key_fields: [createdAt, deviceInfo, email, messageContext, messageId, userId]
+- name: InAppTrigger
+  fields: 1
+  key_fields: [type]
+- name: InboxMessageContext
+  fields: 3
+  key_fields: [location, saveToInbox, silentInbox]
+- name: InboxMetadata
+  fields: 3
+  key_fields: [icon, subtitle, title]
+- name: InvalidateJwtRequest
+  fields: 3
+  key_fields: [email, issuedBefore, userId]
+- name: IterableApiResponse
+  fields: 3
+  key_fields: [code, msg, params]
+- name: JobModel
+  fields: 6
+  key_fields: [bytesExported, dataTypeName, endTime, id, jobState, scheduledStartTime]
+- name: JobState
+  fields: 1
+  key_fields: [final]
+- name: JobsResponse
+  fields: 1
+  key_fields: [jobs]
+- name: JourneyDetails
+  fields: 14
+  key_fields: [createdAt, creatorUserId, description, draft, enabled, id, isArchived, journeyType]
+- name: JourneyDraftDetails
+  fields: 5
+  key_fields: [createdAt, creatorUserId, id, name, updatedAt]
+- name: JsObject
+  fields: 1
+  key_fields: [underlying]
+- name: LinkParam
+  fields: 2
+  key_fields: [key, value]
+- name: ListDetails
+  fields: 6
+  key_fields: [createdAt, description, id, isGlobalSuppressionEnabled, listType, name]
+- name: ListMetadataTablesResponse
+  fields: 1
+  key_fields: [results]
+- name: Listing
+  fields: 2
+  key_fields: [nextMarker, results]
+- name: MergeUsersRequest
+  fields: 5
+  key_fields: [arrayMerge, destinationEmail, destinationUserId, sourceEmail, sourceUserId]
+- name: MessageContext
+  fields: 2
+  key_fields: [saveToInbox, silentInbox]
+- name: MessageTypeDetails
+  fields: 8
+  key_fields: [channelId, createdAt, frequencyCap, id, name, rateLimitPerMinute, subscriptionPolicy, updatedAt]
+- name: MessageTypesResponse
+  fields: 1
+  key_fields: [messageTypes]
+- name: MetadataProperties
+  fields: 4
+  key_fields: [key, lastModified, size, table]
+- name: MetadataWithProperties
+  fields: 5
+  key_fields: [key, lastModified, size, table, value]
+- name: OptionalApiUser
+  fields: 5
+  key_fields: [dataFields, email, mergeNestedObjects, preferUserId, userId]
+- name: PaginationResponse
+  fields: 3
+  key_fields: [limit, offset, total]
+- name: PushAction
+  fields: 2
+  key_fields: [data, type]
+- name: PushActionButton
+  fields: 9
+  key_fields: [action, actionIcon, buttonType, identifier, inputPlaceholder, inputTitle, openApp, requiresUnlock]
+- name: PutMetadataRequest
+  fields: 1
+  key_fields: [value]
+- name: RecipientTimeZoneRequest
+  fields: 2
+  key_fields: [defaultTimeZone, startTimeZone]
+- name: RegisterBrowserTokenRequest
+  fields: 3
+  key_fields: [browserToken, email, userId]
+- name: RegisterDeviceTokenRequest
+  fields: 4
+  key_fields: [device, email, preferUserId, userId]
+- name: ResponseHeader
+  fields: 3
+  key_fields: [headers, reasonPhrase, status]
+- name: RichMediaURL
+  fields: 2
+  key_fields: [android, ios]
+- name: RokuButtonContent
+  fields: 7
+  key_fields: [buttonBorderColor, buttonColorFocused, buttonColorUnFocused, buttonDeeplink, buttonText, buttonTextColorFocused, buttonTextColorUnFocused]
+- name: RokuContent
+  fields: 9
+  key_fields: [backgroundColor, buttons, dialogBodyFont, dialogButtonFont, dialogHeader, dialogHeaderFont, dialogText, fhd_image]
+- name: SameSite
+  fields: 1
+  key_fields: [value]
+- name: ScheduleCampaignRequest
+  fields: 2
+  key_fields: [recipientTimeZone, sendAt]
+- name: SentMessage
+  fields: 4
+  key_fields: [campaignId, createdAt, messageId, templateId]
+- name: Session
+  fields: 3
+  key_fields: [asJava, data, empty]
+- name: SnippetResponse
+  fields: 10
+  key_fields: [content, createdAt, createdBy, description, id, name, projectId, updatedAt]
+- name: StartExportRequest
+  fields: 8
+  key_fields: [campaignId, dataTypeName, delimiter, endDateTime, omitFields, onlyFields, outputFormat, startDateTime]
+- name: StartExportResponse
+  fields: 1
+  key_fields: [jobId]
+- name: Status
+  fields: 6
+  key_fields: [attrs, body, header, newCookies, newFlash, newSession]
+- name: SubscribeRequest
+  fields: 3
+  key_fields: [listId, subscribers, updateExistingUsersOnly]
+- name: Table
+  fields: 1
+  key_fields: [name]
+- name: TargetEmailRequest
+  fields: 7
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, metadata, recipientEmail, recipientUserId, sendAt]
+- name: TargetInAppRequest
+  fields: 6
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, recipientEmail, recipientUserId, sendAt]
+- name: TargetPushRequest
+  fields: 7
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, metadata, recipientEmail, recipientUserId, sendAt]
+- name: TargetSMSRequest
+  fields: 6
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, recipientEmail, recipientUserId, sendAt]
+- name: TargetWebPushRequest
+  fields: 6
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, recipientEmail, recipientUserId, sendAt]
+- name: TargetWhatsAppRequest
+  fields: 6
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, recipientEmail, recipientUserId, sendAt]
+- name: TemplateContentResponse
+  fields: 4
+  key_fields: [htmlSource, plainText, preheader, subject]
+- name: TemplatePreviewRequest
+  fields: 3
+  key_fields: [dataFeed, dataFields, fetchDataFeeds]
+- name: TemplateProofRequest
+  fields: 5
+  key_fields: [dataFields, locale, recipientEmail, recipientUserId, templateId]
+- name: Text
+  fields: 2
+  key_fields: [label, text]
+- name: TrackPurchaseRequest
+  fields: 8
+  key_fields: [campaignId, createdAt, dataFields, id, items, templateId, total, user]
+- name: TrackPushOpenRequest
+  fields: 7
+  key_fields: [campaignId, createdAt, dataFields, email, messageId, templateId, userId]
+- name: TrackRequest
+  fields: 9
+  key_fields: [campaignId, createNewFields, createdAt, dataFields, email, eventName, id, templateId]
+- name: TriggerCampaignRequest
+  fields: 5
+  key_fields: [allowRepeatMarketingSends, campaignId, dataFields, listIds, suppressionListIds]
+- name: TriggerWorkflowRequest
+  fields: 5
+  key_fields: [dataFields, email, listId, userId, workflowId]
+- name: UnsubscribeRequest
+  fields: 4
+  key_fields: [campaignId, channelUnsubscribe, listId, subscribers]
+- name: Unsubscriber
+  fields: 2
+  key_fields: [email, userId]
+- name: UpdateCartRequest
+  fields: 2
+  key_fields: [items, user]
+- name: UpdateEmailRequest
+  fields: 3
+  key_fields: [currentEmail, currentUserId, newEmail]
+- name: UpdateSnippetRequest
+  fields: 4
+  key_fields: [content, createdByUserId, description, variables]
+- name: UpdateSnippetResponse
+  fields: 1
+  key_fields: [snippetId]
+- name: UpdateSubscriptionsRequest
+  fields: 9
+  key_fields: [campaignId, email, emailListIds, subscribedMessageTypeIds, templateId, unsubscribedChannelIds, unsubscribedMessageTypeIds, userId]
+- name: UpsertEmailTemplateModel
+  fields: 22
+  key_fields: [bccEmails, cacheDataFeed, campaignDataFields, ccEmails, clientTemplateId, creatorUserId, dataFeedId, dataFeedIds]
+- name: UpsertEmbeddedTemplateModel
+  fields: 12
+  key_fields: [body, campaignDataFields, clientTemplateId, creatorUserId, elements, isDefaultLocale, locale, messageTypeId]
+- name: UpsertInAppTemplateModel
+  fields: 14
+  key_fields: [campaignDataFields, clientTemplateId, creatorUserId, expirationDateTime, expirationDuration, html, inAppDisplaySettings, inboxMetadata]
+- name: UpsertPushTemplateModel
+  fields: 22
+  key_fields: [badge, buttons, cacheDataFeed, campaignDataFields, clientTemplateId, creatorUserId, dataFeedIds, deeplink]
+- name: UpsertSMSTemplateModel
+  fields: 11
+  key_fields: [campaignDataFields, clientTemplateId, creatorUserId, googleAnalyticsCampaignName, imageUrl, isDefaultLocale, linkParams, locale]
+- name: UserBulkUpdateListResponse
+  fields: 7
+  key_fields: [createdFields, failCount, failedUpdates, filteredOutFields, invalidEmails, invalidUserIds, successCount]
+- name: UserRequest
+  fields: 2
+  key_fields: [email, userId]
+- name: UserResponse
+  fields: 1
+  key_fields: [user]
+- name: VariantContentResponse
+  fields: 5
+  key_fields: [content, currentPercentage, name, value, variantId]
+- name: WebInAppDisplaySettings
+  fields: 1
+  key_fields: [position]
+- name: WebPushClickEventRequest
+  fields: 6
+  key_fields: [campaignId, createdAt, email, messageId, templateId, userId]
+- name: string
+  fields: 2
+  key_fields: [displayLanguage, languageTag]
+relationships:
+- from: ActionIcon
+  kind: has_one
+  to: ActionIconType
+  via: iconType
+- from: ApiEmailTemplateModel
+  kind: has_many
+  to: LinkParam
+  via: linkParams
+- from: ApiEmailTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: ApiEmailTemplateModel
+  kind: has_one
+  to: ApiTemplateResponse
+  via: metadata
+- from: ApiEmailTemplateModel
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiEmbeddedMessage
+  kind: has_one
+  to: ApiEmbeddedMessagingElements
+  via: elements
+- from: ApiEmbeddedMessage
+  kind: has_one
+  to: ApiEmbeddedMessagingMetadata
+  via: metadata
+- from: ApiEmbeddedMessagingElements
+  kind: has_many
+  to: Button
+  via: buttons
+- from: ApiEmbeddedMessagingElements
+  kind: has_one
+  to: Action
+  via: defaultAction
+- from: ApiEmbeddedMessagingElements
+  kind: has_many
+  to: Text
+  via: text
+- from: ApiEmbeddedMessagingMetadata
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiEmbeddedPlacement
+  kind: has_many
+  to: ApiEmbeddedMessage
+  via: embeddedMessages
+- from: ApiEmbeddedTemplateModel
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiEmbeddedTemplateModel
+  kind: has_one
+  to: Elements
+  via: elements
+- from: ApiEmbeddedTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: ApiEmbeddedTemplateModel
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiInAppMessage
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiInAppMessage
+  kind: has_one
+  to: InAppContentApi
+  via: content
+- from: ApiInAppMessage
+  kind: has_one
+  to: InboxMetadata
+  via: inboxMetadata
+- from: ApiInAppMessage
+  kind: has_one
+  to: InAppType
+  via: messageType
+- from: ApiInAppMessage
+  kind: has_one
+  to: RokuContent
+  via: ottPayload
+- from: ApiInAppMessage
+  kind: has_one
+  to: InAppTrigger
+  via: trigger
+- from: ApiInAppMessage
+  kind: has_one
+  to: InAppTypeOfContent
+  via: typeOfContent
+- from: ApiInAppMessagesResponse
+  kind: has_many
+  to: ApiInAppMessage
+  via: inAppMessages
+- from: ApiInAppTemplateModel
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiInAppTemplateModel
+  kind: has_one
+  to: InAppDisplaySettings
+  via: inAppDisplaySettings
+- from: ApiInAppTemplateModel
+  kind: has_one
+  to: InboxMetadata
+  via: inboxMetadata
+- from: ApiInAppTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: ApiInAppTemplateModel
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiInAppTemplateModel
+  kind: has_one
+  to: WebInAppDisplaySettings
+  via: webInAppDisplaySettings
+- from: ApiPushTemplateModel
+  kind: has_many
+  to: PushActionButton
+  via: buttons
+- from: ApiPushTemplateModel
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiPushTemplateModel
+  kind: has_one
+  to: DeeplinkURI
+  via: deeplink
+- from: ApiPushTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: ApiPushTemplateModel
+  kind: has_one
+  to: RichMediaURL
+  via: richMedia
+- from: ApiPushTemplateModel
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiResponseUser
+  kind: belongs_to
+  to: user
+  via: userId
+- from: ApiSMSTemplateModel
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiSMSTemplateModel
+  kind: has_many
+  to: LinkParam
+  via: linkParams
+- from: ApiSMSTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: ApiSMSTemplateModel
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiTemplateEntry
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiTemplateEntry
+  kind: has_many
+  to: string
+  via: locales
+- from: ApiTemplateEntry
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiTemplateResponse
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ApiTemplateResponse
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: ApiTemplateResponse
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ApiUserUpdateRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: ApiWebhookModel
+  kind: has_many
+  to: LinkParam
+  via: headers
+- from: BulkTrackRequest
+  kind: has_many
+  to: TrackRequest
+  via: events
+- from: BulkTrackResponse
+  kind: has_one
+  to: FailedEventUpdates
+  via: failedUpdates
+- from: BulkUpdateSubscriptionsRequest
+  kind: has_many
+  to: UpdateSubscriptionsRequest
+  via: updateSubscriptionsRequests
+- from: BulkUpdateUsersRequest
+  kind: has_many
+  to: OptionalApiUser
+  via: users
+- from: Button
+  kind: has_one
+  to: Action
+  via: action
+- from: CampaignDetails
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: CampaignDetails
+  kind: belongs_to
+  to: workflow
+  via: workflowId
+- from: CampaignIdRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: CampaignsResponse
+  kind: has_many
+  to: CampaignDetails
+  via: campaigns
+- from: CancelScheduledMessageRequest - campaignId OR scheduledMessageId are required
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: CancelScheduledMessageRequest - campaignId OR scheduledMessageId are required
+  kind: belongs_to
+  to: user
+  via: userId
+- from: CatalogFieldDefinitionSerializedModel
+  kind: has_many
+  to: CatalogFieldDefinitionSerializedModel
+  via: children
+- from: CatalogItemWithProperties
+  kind: belongs_to
+  to: item
+  via: itemId
+- from: CatalogItemWithProperties
+  kind: has_one
+  to: JsObject
+  via: value
+- from: CatalogMappingsUpdateRequest
+  kind: has_many
+  to: CatalogFieldDefinitionSerializedModel
+  via: mappingsUpdates
+- from: ChannelsResponse
+  kind: has_many
+  to: ChannelDetails
+  via: channels
+- from: ClientTemplateIdResponse
+  kind: has_many
+  to: ApiTemplateEntry
+  via: templates
+- from: Cookie
+  kind: has_one
+  to: Cookie
+  via: asJava
+- from: Cookie
+  kind: has_one
+  to: SameSite
+  via: sameSite
+- from: CreateCampaignRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: CreateCampaignResponse
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: CreateListResponse
+  kind: belongs_to
+  to: list
+  via: listId
+- from: CreateSnippetResponse
+  kind: belongs_to
+  to: snippet
+  via: snippetId
+- from: DeleteSnippetResponse
+  kind: belongs_to
+  to: snippet
+  via: snippetId
+- from: DisableDeviceRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: DoubleOptInSubscriptionsRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: Elements
+  kind: has_many
+  to: Button
+  via: buttons
+- from: Elements
+  kind: has_one
+  to: Action
+  via: defaultAction
+- from: Elements
+  kind: has_many
+  to: Text
+  via: text
+- from: EmbeddedClickRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: EmbeddedClickRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: EmbeddedMessagesResponse
+  kind: has_many
+  to: ApiEmbeddedPlacement
+  via: placements
+- from: EmbeddedReceivedRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: EmbeddedReceivedRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: EmbeddedSessionRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: EmbeddedSessionRequest
+  kind: has_many
+  to: Impression
+  via: impressions
+- from: EmbeddedSessionRequest
+  kind: has_one
+  to: EmbeddedSession
+  via: session
+- from: EmbeddedSessionRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: ErrorHttpResponse
+  kind: has_one
+  to: JsObject
+  via: data
+- from: ErrorHttpResponse
+  kind: has_one
+  to: ErrorWithStatus
+  via: error
+- from: ErrorWithStatus
+  kind: has_one
+  to: Status
+  via: status
+- from: ExperimentListResponse
+  kind: has_many
+  to: ExperimentListItem
+  via: experiments
+- from: ExperimentListResponse
+  kind: has_one
+  to: PaginationResponse
+  via: pagination
+- from: ExperimentMeta
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: ExperimentResponse
+  kind: has_one
+  to: ExperimentConstraints
+  via: constraints
+- from: ExperimentResponse
+  kind: has_one
+  to: ExperimentMeta
+  via: meta
+- from: ExperimentResponse
+  kind: has_one
+  to: ExperimentSizingResponse
+  via: sizing
+- from: ExperimentResponse
+  kind: has_many
+  to: ExperimentVariantSummary
+  via: variants
+- from: ExperimentVariantSummary
+  kind: has_one
+  to: ExperimentVariantValue
+  via: value
+- from: ExperimentVariantValue
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: ExperimentVariantsResponse
+  kind: belongs_to
+  to: experiment
+  via: experimentId
+- from: ExperimentVariantsResponse
+  kind: has_many
+  to: VariantContentResponse
+  via: variants
+- from: VariantContentResponse
+  kind: has_one
+  to: TemplateContentResponse
+  via: content
+- from: VariantContentResponse
+  kind: has_one
+  to: ExperimentVariantValue
+  via: value
+- from: ExportJobStatusAndFiles
+  kind: has_many
+  to: ExportFileAndUrl
+  via: files
+- from: ExportJobStatusAndFiles
+  kind: belongs_to
+  to: job
+  via: jobId
+- from: Flash
+  kind: has_one
+  to: Flash
+  via: asJava
+- from: GetCatalogItemsResponse
+  kind: has_many
+  to: CatalogItemWithProperties
+  via: catalogItemsWithProperties
+- from: GetCatalogsResponse
+  kind: has_many
+  to: CatalogName
+  via: catalogNames
+- from: GetJourneysResponse
+  kind: has_many
+  to: JourneyDetails
+  via: journeys
+- from: GetListsResponse
+  kind: has_many
+  to: ListDetails
+  via: lists
+- from: GetSentMessagesResponse
+  kind: has_many
+  to: SentMessage
+  via: messages
+- from: GetSnippetResponse
+  kind: has_one
+  to: SnippetResponse
+  via: snippet
+- from: GetSnippetsResponse
+  kind: has_many
+  to: SnippetResponse
+  via: snippets
+- from: GetTemplatesResponse
+  kind: has_many
+  to: ApiTemplateResponse
+  via: templates
+- from: GetWebhooksResponse
+  kind: has_many
+  to: ApiWebhookResponse
+  via: webhooks
+- from: InAppClickRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: InAppClickRequest
+  kind: has_one
+  to: InboxMessageContext
+  via: messageContext
+- from: InAppClickRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: InAppCloseRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: InAppCloseRequest
+  kind: has_one
+  to: InboxMessageContext
+  via: messageContext
+- from: InAppCloseRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: InAppConsumeRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: InAppConsumeRequest
+  kind: has_one
+  to: InboxMessageContext
+  via: messageContext
+- from: InAppConsumeRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: InAppContentApi
+  kind: has_one
+  to: InAppDisplaySettings
+  via: inAppDisplaySettings
+- from: InAppContentApi
+  kind: has_one
+  to: RokuContent
+  via: ottPayload
+- from: InAppContentApi
+  kind: has_one
+  to: WebInAppDisplaySettings
+  via: webInAppDisplaySettings
+- from: InAppDeliveryRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: InAppDeliveryRequest
+  kind: has_one
+  to: MessageContext
+  via: messageContext
+- from: InAppDeliveryRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: InAppDisplaySettings
+  kind: has_one
+  to: BgColor
+  via: bgColor
+- from: InAppDisplaySettings
+  kind: has_one
+  to: InAppDisplaySetting
+  via: bottom
+- from: InAppDisplaySettings
+  kind: has_one
+  to: InAppDisplaySetting
+  via: left
+- from: InAppDisplaySettings
+  kind: has_one
+  to: InAppDisplaySetting
+  via: right
+- from: InAppDisplaySettings
+  kind: has_one
+  to: InAppDisplaySetting
+  via: top
+- from: InAppOpenRequest
+  kind: has_one
+  to: DeviceInfo
+  via: deviceInfo
+- from: InAppOpenRequest
+  kind: has_one
+  to: InboxMessageContext
+  via: messageContext
+- from: InAppOpenRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: InAppTrigger
+  kind: has_one
+  to: Value
+  via: type
+- from: InvalidateJwtRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: JobModel
+  kind: has_one
+  to: ClientDataType
+  via: dataTypeName
+- from: JobModel
+  kind: has_one
+  to: JobState
+  via: jobState
+- from: JobsResponse
+  kind: has_many
+  to: JobModel
+  via: jobs
+- from: JourneyDetails
+  kind: has_one
+  to: JourneyDraftDetails
+  via: draft
+- from: JsObject
+  kind: has_one
+  to: JsValue
+  via: underlying
+- from: ListMetadataTablesResponse
+  kind: has_many
+  to: Table
+  via: results
+- from: Listing
+  kind: has_many
+  to: MetadataProperties
+  via: results
+- from: MergeUsersRequest
+  kind: has_many
+  to: ArrayMerge
+  via: arrayMerge
+- from: MessageTypeDetails
+  kind: belongs_to
+  to: channel
+  via: channelId
+- from: MessageTypeDetails
+  kind: has_one
+  to: FrequencyCap
+  via: frequencyCap
+- from: MessageTypesResponse
+  kind: has_many
+  to: MessageTypeDetails
+  via: messageTypes
+- from: OptionalApiUser
+  kind: belongs_to
+  to: user
+  via: userId
+- from: PushActionButton
+  kind: has_one
+  to: PushAction
+  via: action
+- from: PushActionButton
+  kind: has_one
+  to: ActionIcon
+  via: actionIcon
+- from: RegisterBrowserTokenRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: RegisterDeviceTokenRequest
+  kind: has_one
+  to: Device
+  via: device
+- from: RegisterDeviceTokenRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: RokuContent
+  kind: has_many
+  to: RokuButtonContent
+  via: buttons
+- from: ScheduleCampaignRequest
+  kind: has_one
+  to: RecipientTimeZoneRequest
+  via: recipientTimeZone
+- from: SentMessage
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: SentMessage
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: Session
+  kind: has_one
+  to: Session
+  via: asJava
+- from: StartExportRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: StartExportResponse
+  kind: belongs_to
+  to: job
+  via: jobId
+- from: Status
+  kind: has_one
+  to: TypedMap
+  via: attrs
+- from: Status
+  kind: has_one
+  to: HttpEntity
+  via: body
+- from: Status
+  kind: has_one
+  to: ResponseHeader
+  via: header
+- from: Status
+  kind: has_many
+  to: Cookie
+  via: newCookies
+- from: Status
+  kind: has_one
+  to: Flash
+  via: newFlash
+- from: Status
+  kind: has_one
+  to: Session
+  via: newSession
+- from: SubscribeRequest
+  kind: belongs_to
+  to: list
+  via: listId
+- from: SubscribeRequest
+  kind: has_many
+  to: OptionalApiUser
+  via: subscribers
+- from: TargetEmailRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TargetInAppRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TargetPushRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TargetSMSRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TargetWebPushRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TargetWhatsAppRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TemplateProofRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: TrackPurchaseRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TrackPurchaseRequest
+  kind: has_many
+  to: CommerceItem
+  via: items
+- from: TrackPurchaseRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: TrackPurchaseRequest
+  kind: has_one
+  to: ApiUserUpdateRequest
+  via: user
+- from: TrackPushOpenRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TrackPushOpenRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: TrackPushOpenRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: TrackRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TrackRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: TrackRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: TriggerCampaignRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: TriggerWorkflowRequest
+  kind: belongs_to
+  to: list
+  via: listId
+- from: TriggerWorkflowRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: TriggerWorkflowRequest
+  kind: belongs_to
+  to: workflow
+  via: workflowId
+- from: UnsubscribeRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: UnsubscribeRequest
+  kind: belongs_to
+  to: list
+  via: listId
+- from: UnsubscribeRequest
+  kind: has_many
+  to: Unsubscriber
+  via: subscribers
+- from: Unsubscriber
+  kind: belongs_to
+  to: user
+  via: userId
+- from: UpdateCartRequest
+  kind: has_many
+  to: CommerceItem
+  via: items
+- from: UpdateCartRequest
+  kind: has_one
+  to: ApiUserUpdateRequest
+  via: user
+- from: UpdateSnippetResponse
+  kind: belongs_to
+  to: snippet
+  via: snippetId
+- from: UpdateSubscriptionsRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: UpdateSubscriptionsRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: UpdateSubscriptionsRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: UpsertEmailTemplateModel
+  kind: has_many
+  to: LinkParam
+  via: linkParams
+- from: UpsertEmailTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: UpsertEmbeddedTemplateModel
+  kind: has_one
+  to: Elements
+  via: elements
+- from: UpsertEmbeddedTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: UpsertEmbeddedTemplateModel
+  kind: has_one
+  to: JsObject
+  via: payload
+- from: UpsertInAppTemplateModel
+  kind: has_one
+  to: InAppDisplaySettings
+  via: inAppDisplaySettings
+- from: UpsertInAppTemplateModel
+  kind: has_one
+  to: InboxMetadata
+  via: inboxMetadata
+- from: UpsertInAppTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: UpsertInAppTemplateModel
+  kind: has_one
+  to: JsObject
+  via: payload
+- from: UpsertInAppTemplateModel
+  kind: has_one
+  to: WebInAppDisplaySettings
+  via: webInAppDisplaySettings
+- from: UpsertPushTemplateModel
+  kind: has_many
+  to: PushActionButton
+  via: buttons
+- from: UpsertPushTemplateModel
+  kind: has_one
+  to: DeeplinkURI
+  via: deeplink
+- from: UpsertPushTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: UpsertPushTemplateModel
+  kind: has_one
+  to: JsObject
+  via: payload
+- from: UpsertPushTemplateModel
+  kind: has_one
+  to: RichMediaURL
+  via: richMedia
+- from: UpsertSMSTemplateModel
+  kind: has_many
+  to: LinkParam
+  via: linkParams
+- from: UpsertSMSTemplateModel
+  kind: belongs_to
+  to: messageType
+  via: messageTypeId
+- from: UserBulkUpdateListResponse
+  kind: has_one
+  to: FailedUserUpdates
+  via: failedUpdates
+- from: UserRequest
+  kind: belongs_to
+  to: user
+  via: userId
+- from: UserResponse
+  kind: has_one
+  to: ApiResponseUser
+  via: user
+- from: WebInAppDisplaySettings
+  kind: has_one
+  to: PositionOption
+  via: position
+- from: WebPushClickEventRequest
+  kind: belongs_to
+  to: campaign
+  via: campaignId
+- from: WebPushClickEventRequest
+  kind: belongs_to
+  to: template
+  via: templateId
+- from: WebPushClickEventRequest
+  kind: belongs_to
+  to: user
+  via: userId

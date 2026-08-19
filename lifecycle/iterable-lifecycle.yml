@@ -1,0 +1,59 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API,
+  https://support.iterable.com/hc/en-us/articles/360046136171-SDK-Support-Policy,
+  https://status.iterable.com/ (HTTP 200, probed 2026-08-13), and the published contract at
+  https://api.iterable.com/api-docs.
+description: >-
+  How Iterable versions, deprecates and reports on its API. The REST API itself is unversioned in the
+  path and carries no published deprecation policy; the only formal end-of-life commitment Iterable
+  publishes covers its client SDKs.
+versioning:
+  scheme: unversioned URI path
+  current: '1.8'
+  version_source: info.version in https://api.iterable.com/api-docs
+  docs: https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API
+  compatibility_statement: >-
+    Iterable may add fields to API response bodies without prior notice and requires clients to
+    tolerate new fields. It states it will not rename or remove existing documented response fields
+    without prior communication. Response schemas are otherwise subject to change without notice.
+deprecation:
+  api_policy_url: null
+  api_policy: >-
+    Iterable publishes no REST API deprecation policy and no Sunset/Deprecation header support. No
+    operation in the published Swagger document is marked deprecated (checked 2026-08-13).
+  sunset_header: false
+  sdk_policy_url: https://support.iterable.com/hc/en-us/articles/360046136171-SDK-Support-Policy
+  sdk_policy: >-
+    A deprecated SDK version is an iOS, Android, React Native or web SDK version with an announced
+    end-of-life date. An SDK version's end-of-life date is 12 months after the release of its
+    successor. Through that date Iterable investigates bugs and answers questions; after it, Iterable
+    does not guarantee message delivery to apps on that version and may turn off message serving if
+    severe bugs are found.
+  scope: client SDKs only — this policy does not cover REST endpoints
+status_page: https://status.iterable.com/
+status_page_status: 200
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime target is published; Iterable sells enterprise contracts and its pricing
+    page is not public (https://iterable.com/pricing/ returns 404, probed 2026-08-13).
+deprecated_operations: []
+data_centers:
+- name: USDC
+  base_url: https://api.iterable.com
+  docs: https://api.iterable.com/api/docs
+- name: EDC
+  base_url: https://api.eu.iterable.com
+  docs: https://api.eu.iterable.com/api/docs
+notable_transitions:
+- date: '2025-11-10'
+  change: >-
+    API calls that pass the key in the query string or request body became subject to stricter rate
+    limiting. Affects legacy projects with an exception to use that form.
+  source: https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API
+related:
+  changelog: changelog/iterable-changelog.yml
+  conventions: conventions/iterable-conventions.yml

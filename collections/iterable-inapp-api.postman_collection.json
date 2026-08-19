@@ -1,0 +1,228 @@
+{
+  "item": [
+    {
+      "id": "8d68b40e-95aa-4678-abdc-50c8105d3ae2",
+      "name": "InApp",
+      "description": {
+        "content": "Manage in-app messages and retrieve in-app message content for mobile and web clients.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d00ebbcb-9f0a-402c-9ca8-5a2502a45fc6",
+          "name": "Get in-app messages for a user",
+          "request": {
+            "name": "Get in-app messages for a user",
+            "description": {
+              "content": "Retrieves pending in-app messages for a user, typically called by mobile or web SDKs to display in-app content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inApp",
+                "getMessages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "Email address of the user"
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "UserId of the user"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "1",
+                  "description": "Maximum number of messages to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform",
+                  "value": "<string>",
+                  "description": "The platform to get messages for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c6c9ddf-8b53-4714-bf2c-31a5db91801e",
+              "name": "In-app messages for the user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inApp",
+                    "getMessages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "platform",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inAppMessages\": [\n    {\n      \"messageId\": \"string\",\n      \"campaignId\": 3790,\n      \"content\": {\n        \"html\": \"string\",\n        \"payload\": {\n          \"key_0\": false,\n          \"key_1\": 4353\n        }\n      }\n    },\n    {\n      \"messageId\": \"string\",\n      \"campaignId\": 8861,\n      \"content\": {\n        \"html\": \"string\",\n        \"payload\": {\n          \"key_0\": 7767.6327737152615,\n          \"key_1\": 3288.78165368928,\n          \"key_2\": 2747\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5fe074c-5f73-445b-bfae-50da07b1888c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inApp",
+                    "getMessages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "1"
+                    },
+                    {
+                      "key": "platform",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d478a69-ecaf-4e79-8b83-c63286d54dd3",
+    "name": "Iterable Export Campaigns InApp API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

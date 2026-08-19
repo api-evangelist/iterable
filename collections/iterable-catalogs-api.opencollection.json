@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Iterable Export Campaigns Catalogs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              }
+            ]
+          },
+          "docs": "Retrieves a catalog by name, including its field definitions and metadata."
+        },
+        {
+          "info": {
+            "name": "Delete a catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              }
+            ]
+          },
+          "docs": "Deletes a catalog and all its items from the Iterable project."
+        },
+        {
+          "info": {
+            "name": "List items in a catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName/items",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              }
+            ]
+          },
+          "docs": "Retrieves items from a catalog with support for pagination."
+        },
+        {
+          "info": {
+            "name": "Create or replace a catalog item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName/items/:itemId",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the catalog item"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new catalog item or replaces an existing one with the specified item ID and field values."
+        },
+        {
+          "info": {
+            "name": "Delete a catalog item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.iterable.com/api/catalogs/:catalogName/items/:itemId",
+            "params": [
+              {
+                "name": "catalogName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the catalog"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the catalog item"
+              }
+            ]
+          },
+          "docs": "Deletes a catalog item by its item ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

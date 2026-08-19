@@ -1,18 +1,86 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/iterable-export-api-openapi.yml, openapi/iterable-rest-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys,
+  https://support.iterable.com/hc/en-us/articles/360050801231-JWT-Enabled-API-Keys,
+  https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API,
+  and securityDefinitions in openapi/_original/iterable-api-openapi.json (harvested from
+  https://api.iterable.com/api-docs, 2026-08-13).
+docs: https://support.iterable.com/hc/en-us/articles/360043464871-API-Keys
+description: >-
+  Iterable authenticates with project-scoped API keys sent in an Api-Key header. There is no OAuth or
+  OpenID Connect surface. Keys carry permissions determined by their type, are bound to one project
+  and therefore to one data center, and client-side keys can additionally require a signed JWT that
+  ties each call to a specific user.
 summary:
   types:
   - apiKey
   api_key_in:
   - header
+  oauth2_flows: []
 schemes:
-- name: apiKeyAuth
+- name: api_key
   type: apiKey
   in: header
   parameter: Api-Key
-  description: Iterable API key passed in the Api-Key header. API keys can be created and managed
-    in the Iterable project settings.
+  alternate_parameter: Api_Key
+  description: >-
+    Project-scoped Iterable API key. Created and managed in Iterable project settings; each key is
+    bound to one project and its data center (USDC or EDC) and carries a fixed permission set.
   sources:
-  - openapi/iterable-export-api-openapi.yml
-  - openapi/iterable-rest-api-openapi.yml
+  - openapi/_original/iterable-api-openapi.json
+  - openapi/iterable-users-api-openapi.yml
+- name: jwt-enabled-key
+  type: apiKey
+  in: header
+  parameter: Api-Key
+  companion_header: Authorization (Bearer <JWT>)
+  description: >-
+    A JWT-enabled API key requires a signed JSON Web Token alongside the key. The JWT identifies the
+    user the call acts on, so a key exposed in browser or mobile code cannot act on arbitrary users.
+    Recommended for all client-side keys.
+  docs: https://support.iterable.com/hc/en-us/articles/360050801231-JWT-Enabled-API-Keys
+  errors: [InvalidJwtPayload, JwtUserIdentifiersMismatched]
+  revocation: POST /api/auth/jwts/invalidate invalidates all JWTs issued for a user.
+key_types:
+- name: server-side
+  use: Server applications only; highest level of read/write access.
+  caution: Using a server-side key in client-side code is treated as a security vulnerability.
+- name: client-side
+  use: Web and mobile SDKs; limited endpoint access.
+  settings:
+  - name: JWT authentication
+    effect: Requires a signed JWT per call (recommended).
+  - name: Event creation
+    effect: >-
+      Controls whether the key may create new custom event definitions. "Block event track calls"
+      ignores unknown event names; "Allow event track calls" permits new definitions for a limited
+      window (up to 14 days). Applies to organizations created on or after 2022-08-30.
+data_center_binding:
+  usdc:
+    base_url: https://api.iterable.com
+    docs: https://api.iterable.com/api/docs
+  edc:
+    base_url: https://api.eu.iterable.com
+    docs: https://api.eu.iterable.com/api/docs
+  note: A key created in a USDC project cannot call EDC endpoints, and vice versa.
+transport:
+  tls: Clients must support TLS 1.2.
+key_placement:
+  preferred: Api-Key request header
+  legacy: >-
+    Some legacy projects hold an exception allowing the key in the query string or request body.
+    Since 2025-11-10 those calls are subject to stricter rate limiting.
+attribution:
+  note: >-
+    Write operations are attributed to the user who created the project unless the request supplies
+    createdByUserId (snippets) or creatorUserId (templates).
+oauth:
+  supported: false
+  evidence: >-
+    No oauth2 securityScheme in the published contract; /.well-known/oauth-authorization-server and
+    /.well-known/openid-configuration both 404 (well-known/iterable-well-known.yml). No scopes/
+    artifact is emitted for this provider because there is no OAuth scope surface.
+related:
+  conventions: conventions/iterable-conventions.yml
+  errors: errors/iterable-error-codes.yml

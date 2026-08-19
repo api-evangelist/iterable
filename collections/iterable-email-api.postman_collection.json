@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "f2c43722-34aa-4556-af77-13fe43868b08",
+      "name": "Email",
+      "description": {
+        "content": "Send transactional emails and manage email-specific delivery settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe2e53c6-aeff-4bfc-ab95-eea7840fd035",
+          "name": "Send a transactional email",
+          "request": {
+            "name": "Send a transactional email",
+            "description": {
+              "content": "Sends a transactional email to a specific user using a template. Supports personalization via data fields and attachments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "email",
+                "target"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ee6db3f-436f-4fdb-a21a-e0c9dec30783",
+              "name": "Email sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email",
+                    "target"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": \"string\"\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"code\": \"string\",\n  \"params\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35c6f109-e5e3-4fcb-9ec5-88d8c98d4cda",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email",
+                    "target"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": \"string\"\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb71d2cd-850a-47d6-82f6-6fc783d4b9bc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "email",
+                    "target"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"recipientEmail\": \"<string>\",\n  \"dataFields\": {\n    \"key_0\": \"string\"\n  },\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mimeType\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.iterable.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "12ae50ad-4f73-41fb-bdaa-5a158b3795d8",
+    "name": "Iterable Export Campaigns Email API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.\n\nContact Support:\n Name: Iterable Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.iterable.com/hc/en-us/articles/39629320560148-API-Response-Codes
+description: >-
+  Iterable's named error-code registry. Every Iterable API error returns a JSON object with three
+  fields — msg, code and params — where code is one of the named values below. The HTTP status alone
+  is not enough to route an error: 400 covers fourteen distinct named codes and 500 covers three.
+  Captured verbatim from Iterable's API Response Codes reference.
+format: json-envelope
+envelope:
+  fields:
+    msg: Human-readable message describing the result or failure.
+    code: Named result code (Success on 2xx, or one of the error codes below).
+    params: Object carrying request context (endpoint, ip, apiKeyIdentifier, apiKeyType), or null.
+  example_success: |
+    {"msg": "User successfully created/updated.", "code": "Success", "params": null}
+  note: >-
+    Iterable does not implement RFC 9457 problem+json. Response bodies vary by endpoint and Iterable
+    states they are subject to change without prior notice, though documented fields are not renamed
+    or removed without prior communication.
+success_codes:
+- status: 200
+  meaning: Standard success. GET returns the resource (application/json, or text/csv on some export endpoints); POST/PUT return a result object.
+- status: 201
+  meaning: Resource created (for example POST /api/snippets returns the new snippetId).
+- status: 202
+  meaning: Request accepted for asynchronous processing; work is not complete.
+error_codes:
+- code: BadJsonBody
+  status: 400
+  meaning: The JSON request body is invalid.
+  action: Check for missing or extra commas and unclosed brackets; validate the body before sending.
+- code: BadParams
+  status: 400
+  meaning: Required parameters are missing, or supplied parameters are invalid.
+  action: Check the endpoint reference for required fields and formats.
+- code: BatchTooLarge
+  status: 400
+  meaning: The batch of items in the request exceeds the allowed limit.
+  action: Reduce the number of items in the batch and retry.
+- code: EmailAlreadyExists
+  status: 400
+  meaning: The email provided for user creation or migration already exists.
+- code: ForgottenUserError
+  status: 400
+  meaning: The user has been forgotten (anonymized or deleted) and the operation cannot be performed.
+  action: Recover the user first; see Iterable's Responding to GDPR Requests guidance.
+- code: InvalidEmailAddressError
+  status: 400
+  meaning: The email provided in the request is invalid.
+- code: InvalidJwtPayload
+  status: 400
+  meaning: The JWT payload is invalid or malformed.
+- code: InvalidUserIdError
+  status: 400
+  meaning: The userId provided is not an accepted value.
+- code: JwtUserIdentifiersMismatched
+  status: 400
+  meaning: The user identifiers in the JWT do not match the user identifiers in the request.
+- code: QueueEmailError
+  status: 400
+  meaning: The message could not be queued due to a client-side issue.
+- code: RequestFieldsTypesMismatched
+  status: 400
+  meaning: One or more field data types do not match the expected types.
+- code: UniqueFieldsLimitExceeded
+  status: 400
+  meaning: The request would exceed the project limit for unique fields.
+- code: UnknownEmailError
+  status: 400
+  meaning: The email provided does not correspond to an existing user.
+- code: UnknownUserIdError
+  status: 400
+  meaning: The userId provided does not correspond to an existing user.
+- code: UserIdAlreadyExists
+  status: 400
+  meaning: The userId provided for user creation already exists.
+- code: BadApiKey
+  status: 401
+  meaning: The API key is missing, disabled or lacks the required privileges.
+  action: Check the key and its permissions; params echoes ip, endpoint, apiKeyIdentifier and apiKeyType.
+- code: BadAuthorizationHeader
+  status: 401
+  meaning: The authorization header is missing or improperly formatted.
+- code: Unauthorized
+  status: 401
+  meaning: The request lacks valid authentication credentials (general case).
+- code: Forbidden
+  status: 403
+  meaning: The requested action is not allowed for this user or API key type.
+- code: ForbiddenParamsError
+  status: 403
+  meaning: The request contains parameters not allowed for the authenticated user or API key.
+- code: NotFound
+  status: 404
+  meaning: The requested resource could not be found.
+- code: ExternalKeyConflict
+  status: 409
+  meaning: A conflict with an external key, such as creating a user with an external ID already in use.
+- code: ForgottenUserError
+  status: 409
+  meaning: The operation cannot be performed because the user has been forgotten.
+- code: Conflict
+  status: 409
+  meaning: A general conflict, such as deleting a list still in use by a journey.
+- code: RateLimitExceeded
+  status: 429
+  meaning: The number of requests has exceeded the allowed rate limit.
+  action: Retry with an exponential backoff policy. Per-endpoint limits are in rate-limits/iterable-rate-limits.yml.
+- code: DatabaseError
+  status: 500
+  meaning: A database operation was unsuccessful.
+- code: GenericError
+  status: 500
+  meaning: A general server error, such as a failure to create a user or trigger a workflow with an invalid list.
+- code: QueueEmailError
+  status: 500
+  meaning: The message could not be queued due to a server-side problem.
+related:
+  problem_types: errors/iterable-problem-types.yml
+  conventions: conventions/iterable-conventions.yml
+  rate_limits: rate-limits/iterable-rate-limits.yml

@@ -1,0 +1,116 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Registry metadata read from registry.npmjs.org, repo1.maven.org, trunk.cocoapods.org and
+  api.github.com/repos/Iterable/* on 2026-08-13. Every package below is published by Iterable
+  (github.com/Iterable org, @iterable npm scope, com.iterable Maven group).
+description: >-
+  First-party Iterable client libraries and developer tooling. Iterable ships mobile and web SDKs
+  for its messaging surfaces (push, in-app, embedded messaging, Mobile Inbox) plus a newer
+  TypeScript API client, CLI and MCP server family published under the @iterable npm scope.
+packages:
+- language: javascript
+  registry: npm
+  name: "@iterable/web-sdk"
+  url: https://www.npmjs.com/package/@iterable/web-sdk
+  install: npm install @iterable/web-sdk
+  official: true
+  version: 2.3.0
+  published: '2026-07-21'
+  repository: https://github.com/Iterable/iterable-web-sdk
+  note: Web/JavaScript SDK for in-app messages, embedded messaging and web push.
+- language: javascript
+  registry: npm
+  name: "@iterable/react-native-sdk"
+  url: https://www.npmjs.com/package/@iterable/react-native-sdk
+  install: npm install @iterable/react-native-sdk
+  official: true
+  version: 3.1.0
+  published: '2026-07-21'
+  repository: https://github.com/Iterable/react-native-sdk
+- language: javascript
+  registry: npm
+  name: "@iterable/expo-plugin"
+  url: https://www.npmjs.com/package/@iterable/expo-plugin
+  install: npm install @iterable/expo-plugin
+  official: true
+  version: 1.1.0
+  published: '2026-07-01'
+  repository: https://github.com/Iterable/iterable-expo-plugin
+  note: Expo config plugin for @iterable/react-native-sdk.
+- language: typescript
+  registry: npm
+  name: "@iterable/api"
+  url: https://www.npmjs.com/package/@iterable/api
+  install: npm install @iterable/api
+  official: true
+  version: 0.12.0
+  published: '2026-07-09'
+  repository: https://github.com/Iterable/api-client
+  note: >-
+    TypeScript client for the Iterable REST API. The repo README calls it experimental and in
+    active development; it backs the Iterable MCP server in production.
+- language: typescript
+  registry: npm
+  name: "@iterable/cli"
+  url: https://www.npmjs.com/package/@iterable/cli
+  install: npm install -g @iterable/cli
+  official: true
+  version: 0.4.0
+  published: '2026-07-09'
+  repository: https://github.com/Iterable/cli
+  note: >-
+    Command surface catalogued in cli/iterable-cli.yml. README states it is an open-source
+    developer tool, not an officially supported Iterable product (MIT, no support guarantee).
+- language: typescript
+  registry: npm
+  name: "@iterable/mcp"
+  url: https://www.npmjs.com/package/@iterable/mcp
+  install: npx -y @iterable/mcp setup
+  official: true
+  version: 1.8.1
+  published: '2026-07-09'
+  repository: https://github.com/Iterable/mcp-server
+  note: Local stdio MCP server; see mcp/iterable-mcp.yml.
+- language: swift
+  registry: cocoapods
+  name: Iterable-iOS-SDK
+  url: https://cocoapods.org/pods/Iterable-iOS-SDK
+  install: "pod 'Iterable-iOS-SDK'"
+  official: true
+  version: 6.7.5
+  published: '2026-08-11'
+  repository: https://github.com/Iterable/iterable-swift-sdk
+  note: >-
+    Also distributed via Swift Package Manager and Carthage from the same repo (tag 6.7.5,
+    released 2026-08-11).
+- language: java
+  registry: maven
+  name: com.iterable:iterableapi
+  url: https://repo1.maven.org/maven2/com/iterable/iterableapi/
+  install: "implementation 'com.iterable:iterableapi:3.10.0'"
+  official: true
+  version: 3.10.0
+  published: '2026-07-21'
+  repository: https://github.com/Iterable/iterable-android-sdk
+  note: Android SDK; maven-metadata.xml lastUpdated 20260721150606.
+- language: brightscript
+  registry: github
+  name: iterable-roku-sdk
+  url: https://github.com/Iterable/iterable-roku-sdk
+  install: Vendored from the GitHub repository (no package registry).
+  official: true
+  version: v1.0.0
+  published: '2023-04-12'
+  note: >-
+    Roku SDK. Latest GitHub release is v1.0.0 from 2023-04-12 and the repo was last pushed
+    2025-02-04 — the least current of Iterable's first-party libraries.
+absent:
+- registry: pypi
+  note: No first-party Iterable Python client found on PyPI (2026-08-13 search of the Iterable GitHub org and npm scope found none).
+- registry: rubygems
+  note: No first-party Ruby client found.
+- registry: packagist
+  note: >-
+    Iterable/magento-extension (PHP) exists on GitHub but is unmaintained since 2016 and is not
+    published to Packagist.

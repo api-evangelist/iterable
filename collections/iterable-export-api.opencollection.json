@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Iterable Export API",
+    "name": "Iterable Campaigns Export API",
     "version": "1.0.0"
   },
   "request": {
@@ -141,39 +141,6 @@
             ]
           },
           "docs": "Exports all tracked events for a specific user identified by email address. Returns events in JSON format with support for pagination and filtering by event type."
-        }
-      ]
-    },
-    {
-      "info": {
-        "name": "ExperimentMetrics",
-        "type": "folder"
-      },
-      "items": [
-        {
-          "info": {
-            "name": "Export experiment metrics as CSV",
-            "type": "http"
-          },
-          "http": {
-            "method": "GET",
-            "url": "https://api.iterable.com/api/experiments/metrics",
-            "params": [
-              {
-                "name": "experimentId",
-                "value": "",
-                "type": "query",
-                "description": "One or more experiment IDs to export metrics for"
-              },
-              {
-                "name": "campaignId",
-                "value": "",
-                "type": "query",
-                "description": "One or more campaign IDs to export metrics for"
-              }
-            ]
-          },
-          "docs": "Exports experiment metrics for A/B tests as CSV. Supports multiple experiment IDs and campaign IDs as query parameters, up to 200 total per request. This endpoint returns data only for email experiments."
         }
       ]
     }

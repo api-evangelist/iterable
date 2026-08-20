@@ -231,6 +231,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -279,6 +281,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - In-App
+  tags_raw:
   - InApp
   properties:
   - type: OpenAPI
@@ -297,6 +301,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -313,6 +319,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - Message types
+  tags_raw:
   - MessageTypes
   properties:
   - type: OpenAPI
@@ -397,6 +405,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -413,6 +423,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - Web Push
+  tags_raw:
   - WebPush
   properties:
   - type: OpenAPI

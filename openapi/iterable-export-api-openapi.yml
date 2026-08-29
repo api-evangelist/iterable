@@ -1,262 +1,606 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Campaigns Export API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Export API
+  version: '1.8'
 servers:
-- url: https://api.iterable.com/api
-  description: US Data Center (USDC)
-- url: https://api.eu.iterable.com/api
-  description: European Data Center (EDC)
+- url: https://api.iterable.com/
 security:
-- apiKeyAuth: []
+- api_key: []
 tags:
-- name: Export
-  description: Endpoints for exporting data from Iterable projects in CSV and JSON formats. Supports exporting user events, message engagement data, and campaign metrics.
+- name: export
 paths:
-  /export/data.json:
+  /api/export/data.csv:
     get:
-      operationId: exportDataJson
-      summary: Export data as JSON
-      description: Exports event data from the Iterable project in JSON format. Supports filtering by date range and data type. The response is a stream of newline-delimited JSON objects, each representing a single event record.
-      tags:
-      - Export
-      parameters:
-      - $ref: '#/components/parameters/dataTypeName'
-      - $ref: '#/components/parameters/startDateTime'
-      - $ref: '#/components/parameters/endDateTime'
-      - $ref: '#/components/parameters/range'
-      - $ref: '#/components/parameters/omitFields'
-      - $ref: '#/components/parameters/onlyFields'
-      responses:
-        '200':
-          description: Newline-delimited JSON export of event data
-          content:
-            application/x-ndjson:
-              schema:
-                type: string
-                description: Stream of newline-delimited JSON objects
-        '400':
-          description: Bad request - invalid parameters
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          description: Unauthorized - invalid API key
-  /export/data.csv:
-    get:
+      description: 'Export campaign analytics data in CSV format. Use of either ''range'' or ''startDateTime'' and ''endDateTime'' is required.<br/><b>Rate limit</b>: 4 requests/minute, per project.'
       operationId: exportDataCsv
-      summary: Export data as CSV
-      description: Exports event data from the Iterable project in CSV format. Supports filtering by date range and data type. The response is a CSV file with headers in the first row.
-      tags:
-      - Export
       parameters:
-      - $ref: '#/components/parameters/dataTypeName'
-      - $ref: '#/components/parameters/startDateTime'
-      - $ref: '#/components/parameters/endDateTime'
-      - $ref: '#/components/parameters/range'
-      - $ref: '#/components/parameters/omitFields'
-      - $ref: '#/components/parameters/onlyFields'
+      - description: Data type name.
+        in: query
+        name: dataTypeName
+        required: true
+        schema:
+          type: string
+          enum:
+          - emailSend
+          - emailOpen
+          - emailClick
+          - hostedUnsubscribeClick
+          - emailComplaint
+          - emailBounce
+          - emailSendSkip
+          - pushSend
+          - pushOpen
+          - pushUninstall
+          - pushBounce
+          - pushSendSkip
+          - inAppSend
+          - inAppOpen
+          - inAppClick
+          - inAppClose
+          - inAppDelete
+          - inAppDelivery
+          - inAppSendSkip
+          - inAppRecall
+          - inboxSession
+          - inboxMessageImpression
+          - smsSend
+          - smsBounce
+          - smsClick
+          - smsReceived
+          - smsSendSkip
+          - webPushSend
+          - webPushClick
+          - webPushSendSkip
+          - emailSubscribe
+          - emailUnSubscribe
+          - purchase
+          - customEvent
+          - user
+          - smsUsageInfo
+          - embeddedSend
+          - embeddedSendSkip
+          - embeddedClick
+          - embeddedReceived
+          - embeddedImpression
+          - embeddedSession
+          - unknownSession
+          - journeyExit
+          - whatsAppBounce
+          - whatsAppClick
+          - whatsAppReceived
+          - whatsAppSeen
+          - whatsAppSend
+          - whatsAppSendSkip
+          - whatsAppUsageInfo
+      - description: date range, uses UTC time
+        in: query
+        name: range
+        required: false
+        schema:
+          type: string
+          enum:
+          - Today
+          - Yesterday
+          - BeforeToday
+          - All
+          default: Today
+      - description: CSV file delimiter
+        in: query
+        name: delimiter
+        required: false
+        schema:
+          type: string
+          default: ','
+      - description: Export starting from (>=) (yyyy-MM-dd HH:mm:ss [ZZ])
+        in: query
+        name: startDateTime
+        required: false
+        schema:
+          type: string
+      - description: Export ending at (<) (yyyy-MM-dd HH:mm:ss [ZZ])
+        in: query
+        name: endDateTime
+        required: false
+        schema:
+          type: string
+      - description: Fields to omit (comma separated)
+        in: query
+        name: omitFields
+        required: false
+        schema:
+          type: string
+      - description: Only export these fields (comma separated)
+        in: query
+        name: onlyFields
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Only export data from this campaign
+        in: query
+        name: campaignId
+        required: false
+        schema:
+          type: integer
+          format: int64
       responses:
         '200':
-          description: CSV export of event data
+          description: successful operation
           content:
             text/csv:
               schema:
                 type: string
-                description: CSV formatted export data with headers
         '400':
-          description: Bad request - invalid parameters
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid parameters
         '401':
-          description: Unauthorized - invalid API key
-  /export/userEvents:
-    get:
-      operationId: exportUserEvents
-      summary: Export events for a specific user
-      description: Exports all tracked events for a specific user identified by email address. Returns events in JSON format with support for pagination and filtering by event type.
+          description: Invalid API key
+        '429':
+          description: Rate limit exceeded
+      summary: Export data to CSV
       tags:
-      - Export
+      - export
+  /api/export/data.json:
+    get:
+      description: 'Export campaign analytics data in JSON format, one entry per line. Use of either ''range'' or ''startDateTime'' and ''endDateTime'' is required.<br/><b>Rate limit</b>: 4 requests/minute, per project.'
+      operationId: exportDataJson
       parameters:
-      - name: email
+      - description: Data type name.
         in: query
+        name: dataTypeName
         required: true
-        description: Email address of the user whose events to export
         schema:
           type: string
-          format: email
-      - name: includeCustomEvents
+          enum:
+          - emailSend
+          - emailOpen
+          - emailClick
+          - hostedUnsubscribeClick
+          - emailComplaint
+          - emailBounce
+          - emailSendSkip
+          - pushSend
+          - pushOpen
+          - pushUninstall
+          - pushBounce
+          - pushSendSkip
+          - inAppSend
+          - inAppOpen
+          - inAppClick
+          - inAppClose
+          - inAppDelete
+          - inAppDelivery
+          - inAppSendSkip
+          - inAppRecall
+          - inboxSession
+          - inboxMessageImpression
+          - smsSend
+          - smsBounce
+          - smsClick
+          - smsReceived
+          - smsSendSkip
+          - webPushSend
+          - webPushClick
+          - webPushSendSkip
+          - emailSubscribe
+          - emailUnSubscribe
+          - purchase
+          - customEvent
+          - user
+          - smsUsageInfo
+          - embeddedSend
+          - embeddedSendSkip
+          - embeddedClick
+          - embeddedReceived
+          - embeddedImpression
+          - embeddedSession
+          - unknownSession
+          - journeyExit
+          - whatsAppBounce
+          - whatsAppClick
+          - whatsAppReceived
+          - whatsAppSeen
+          - whatsAppSend
+          - whatsAppSendSkip
+          - whatsAppUsageInfo
+      - description: date range, uses UTC time
         in: query
-        description: Whether to include custom events in the export
+        name: range
+        required: false
         schema:
-          type: boolean
-          default: true
-      responses:
-        '200':
-          description: User events data
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  events:
-                    type: array
-                    description: Array of events tracked for the user
-                    items:
-                      $ref: '#/components/schemas/ExportedEvent'
-        '400':
-          description: Bad request
-        '401':
-          description: Unauthorized
-        '404':
-          description: User not found
-components:
-  schemas:
-    ExportedEvent:
-      type: object
-      description: An exported event record
-      properties:
-        email:
           type: string
-          format: email
-          description: Email address of the user
-        eventName:
+          enum:
+          - Today
+          - Yesterday
+          - BeforeToday
+          - All
+          default: Today
+      - description: Export starting from (>=) (yyyy-MM-dd HH:mm:ss [ZZ])
+        in: query
+        name: startDateTime
+        required: false
+        schema:
           type: string
-          description: Name of the event
-        createdAt:
+      - description: Export ending at (<) (yyyy-MM-dd HH:mm:ss [ZZ])
+        in: query
+        name: endDateTime
+        required: false
+        schema:
           type: string
-          format: date-time
-          description: Timestamp when the event was created
-        campaignId:
-          type: integer
-          description: Associated campaign ID if applicable
-        templateId:
-          type: integer
-          description: Associated template ID if applicable
-        messageId:
+      - description: Fields to omit (comma separated)
+        in: query
+        name: omitFields
+        required: false
+        schema:
           type: string
-          description: Unique message ID for sent messages
-        dataFields:
-          type: object
-          description: Additional event data fields
-          additionalProperties: true
-        contentId:
-          type: integer
-          description: Content ID for experiments
-        channelId:
-          type: integer
-          description: Channel ID for the message
-        messageTypeId:
-          type: integer
-          description: Message type ID
-        workflowId:
-          type: integer
-          description: Workflow ID if the event was triggered by a workflow
-        workflowName:
-          type: string
-          description: Name of the associated workflow
-        campaignName:
-          type: string
-          description: Name of the associated campaign
-        templateName:
-          type: string
-          description: Name of the associated template
-        labels:
+      - description: Only export these fields (comma separated)
+        in: query
+        name: onlyFields
+        required: false
+        style: form
+        explode: true
+        schema:
           type: array
-          description: Labels associated with the campaign
           items:
             type: string
-    ErrorResponse:
-      type: object
-      description: Error response returned when a request fails
+      - description: Only export data from this campaign
+        in: query
+        name: campaignId
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/x-json-stream:
+              schema:
+                type: string
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '429':
+          description: Rate limit exceeded
+      summary: Export data to JSON
+      tags:
+      - export
+  /api/export/jobs:
+    get:
+      description: Return a list of recent export jobs. Only includes jobs for the current project and not other projects.
+      operationId: getExportJobs
+      parameters:
+      - description: Filter results to only include jobs in the specified state
+        in: query
+        name: jobState
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsResponse'
+      summary: Get export jobs
+      tags:
+      - export
+  /api/export/start:
+    post:
+      description: 'Start a data export. The export processes as a background job. Use the "Get export files" endpoint to check export status by <code>jobId</code> and obtain file download links.<br/><br/><b>Rate limit</b>: 1 request/second, per organization. <br/><b>Concurrent request limit</b>: Up to 4 exports process at a time, per organization. Additional requests are queued.'
+      operationId: startExport
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartExportResponse'
+      summary: Start export
+      tags:
+      - export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartExportRequest'
+        description: Start export request
+        required: true
+  /api/export/userEvents:
+    get:
+      description: Export all events (in JSON) for the user specified by <code>email</code> or <code>userId</code>. One event per line.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: exportUserEvents
+      parameters:
+      - description: Export by user's email
+        in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      - description: Export by user's ID
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+      - description: Include Custom Events
+        in: query
+        name: includeCustomEvents
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/x-json-stream:
+              schema:
+                type: string
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '429':
+          description: Rate limit exceeded
+      summary: Export user events
+      tags:
+      - export
+  /api/export/{jobId}:
+    delete:
+      description: 'Cancel a queued or running export created with the "Start export" endpoint. <br/><b>Rate limit</b>: 1 request/second, per project.'
+      operationId: cancelExport
+      parameters:
+      - description: The ID of the export job. Use the jobId returned from the "Start export" endpoint.
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: successful operation
+      summary: Cancel export
+      tags:
+      - export
+  /api/export/{jobId}/files:
+    get:
+      description: 'Get the job status and files for an export started with the "Start export" endpoint. <br/><br/>Occasionally, a job status may change from running to enqueued because it had to restart. When this happens, the job maintains progress and begins where it previously stopped. Iterable uses exponential backoff for retries.<br/><br/>Files are added to the list as the export job is running. Paginate through the files by using the last file name in the response as the <code>startAfter</code> value for the next request.  Each file is up to 10MB. Exports are limited to 100GB in total size. <br/><br/><b>Rate limit</b>: 1 request/second, per organization. <br/><b>Concurrent request limit</b>: Up to 4 exports process at a time, per organization. Additional requests are queued.'
+      operationId: getExportFiles
+      parameters:
+      - description: The ID of the export job. Use the jobId returned from the "Start export" endpoint.
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: Skip file names up to and including this value. Use for paginating over the files in the export.
+        in: query
+        name: startAfter
+        required: false
+        x-example: file-1679086247925.csv
+        schema:
+          type: string
+          default: None
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportJobStatusAndFiles'
+      summary: Get export files
+      tags:
+      - export
+components:
+  schemas:
+    StartExportRequest:
       properties:
-        msg:
+        campaignId:
+          description: Only export data from this campaign
+          format: int64
+          type: integer
+        dataTypeName:
+          description: Data type name.
+          enum:
+          - emailSend
+          - emailOpen
+          - emailClick
+          - hostedUnsubscribeClick
+          - emailComplaint
+          - emailBounce
+          - emailSendSkip
+          - pushSend
+          - pushOpen
+          - pushUninstall
+          - pushBounce
+          - pushSendSkip
+          - inAppSend
+          - inAppOpen
+          - inAppClick
+          - inAppClose
+          - inAppDelete
+          - inAppDelivery
+          - inAppSendSkip
+          - inAppRecall
+          - inboxSession
+          - inboxMessageImpression
+          - smsSend
+          - smsBounce
+          - smsClick
+          - smsReceived
+          - smsSendSkip
+          - webPushSend
+          - webPushClick
+          - webPushSendSkip
+          - emailSubscribe
+          - emailUnSubscribe
+          - purchase
+          - customEvent
+          - user
+          - smsUsageInfo
+          - embeddedSend
+          - embeddedSendSkip
+          - embeddedClick
+          - embeddedReceived
+          - embeddedImpression
+          - embeddedSession
+          - unknownSession
+          - journeyExit
+          - whatsAppBounce
+          - whatsAppClick
+          - whatsAppReceived
+          - whatsAppSeen
+          - whatsAppSend
+          - whatsAppSendSkip
+          - whatsAppUsageInfo
           type: string
-          description: Error message describing what went wrong
-        code:
+        delimiter:
+          description: CSV file delimiter
+          example: ','
           type: string
-          description: Error code
-  parameters:
-    onlyFields:
-      name: onlyFields
-      in: query
-      description: Comma-separated list of fields to include in the export. When specified, only these fields are returned.
-      schema:
-        type: string
-    range:
-      name: range
-      in: query
-      description: Predefined date range to export. Use instead of startDateTime and endDateTime for convenience. Options include Today, Yesterday, BeforeToday, and All.
-      schema:
-        type: string
-        enum:
-        - Today
-        - Yesterday
-        - BeforeToday
-        - All
-    omitFields:
-      name: omitFields
-      in: query
-      description: Comma-separated list of fields to exclude from the export
-      schema:
-        type: string
-    endDateTime:
-      name: endDateTime
-      in: query
-      description: End of the export date range in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)
-      schema:
-        type: string
-        format: date-time
-    dataTypeName:
-      name: dataTypeName
-      in: query
-      required: true
-      description: The type of data to export. Supported types include emailSend, emailOpen, emailClick, emailUnSubscribe, emailBounce, emailComplaint, pushSend, pushBounce, pushOpen, smsSend, smsBounce, smsReceived, inAppSend, inAppOpen, inAppClick, webPushSend, purchase, customEvent, and hostedUnsubscribeClick.
-      schema:
-        type: string
-        enum:
-        - emailSend
-        - emailOpen
-        - emailClick
-        - emailUnSubscribe
-        - emailBounce
-        - emailComplaint
-        - pushSend
-        - pushBounce
-        - pushOpen
-        - smsSend
-        - smsBounce
-        - smsReceived
-        - inAppSend
-        - inAppOpen
-        - inAppClick
-        - webPushSend
-        - purchase
-        - customEvent
-        - hostedUnsubscribeClick
-        - userNew
-        - userUpdate
-    startDateTime:
-      name: startDateTime
-      in: query
-      description: Start of the export date range in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)
-      schema:
-        type: string
-        format: date-time
+        endDateTime:
+          description: Export events occurring or users updated before date and time exclusive (yyyy-MM-dd HH:mm:ss [ZZ])
+          type: string
+        omitFields:
+          description: Fields to omit from the export (comma separated)
+          type: string
+        onlyFields:
+          description: Only include these fields in the export (comma separated)
+          type: string
+        outputFormat:
+          description: Output format
+          enum:
+          - text/csv
+          - application/x-json-stream
+          type: string
+        startDateTime:
+          description: Export events occurring or users updated after date and time inclusive (yyyy-MM-dd HH:mm:ss [ZZ])
+          type: string
+      required:
+      - dataTypeName
+      - outputFormat
+      type: object
+    ClientDataType:
+      properties:
+        send:
+          type: boolean
+        updatable:
+          type: boolean
+      required:
+      - send
+      - updatable
+      type: object
+    ExportJobStatusAndFiles:
+      properties:
+        exportTruncated:
+          description: Whether the export was truncated because it exceeded the max allowed export size
+          type: boolean
+        files:
+          description: The current page of files
+          items:
+            $ref: '#/components/schemas/ExportFileAndUrl'
+          type: array
+        jobId:
+          description: The ID of the export job
+          example: 3562
+          format: int64
+          type: integer
+        jobState:
+          description: The state of the export job
+          enum:
+          - Enqueued
+          - Running
+          - Completed
+          - Failed
+          example: Running
+          type: string
+      required:
+      - exportTruncated
+      - files
+      - jobId
+      - jobState
+      type: object
+    JobsResponse:
+      properties:
+        jobs:
+          description: The list of jobs
+          items:
+            $ref: '#/components/schemas/JobModel'
+          type: array
+      type: object
+    JobState:
+      properties:
+        final:
+          type: boolean
+      required:
+      - final
+      type: object
+    JobModel:
+      properties:
+        bytesExported:
+          description: Number of bytes exported
+          example: 2453629
+          format: int64
+          type: integer
+        dataTypeName:
+          $ref: '#/components/schemas/ClientDataType'
+          description: Data type name.
+          example: user
+        endTime:
+          description: The time at which the job completed or failed
+          example: '2023-12-19T10:12:28.214-06:00'
+          format: date-time
+          type: string
+        id:
+          description: The ID of the job
+          example: 3562
+          format: int64
+          type: integer
+        jobState:
+          $ref: '#/components/schemas/JobState'
+          description: The state of the job
+          example: Running
+        scheduledStartTime:
+          description: The earliest time the job can start
+          example: '2023-12-19T10:12:27.732-06:00'
+          format: date-time
+          type: string
+      required:
+      - jobState
+      type: object
+    ExportFileAndUrl:
+      properties:
+        file:
+          description: The name of the file.
+          example: file-1679086247925.csv
+          type: string
+        url:
+          description: A URL that can be used to download the file. Expires after 30 minutes.
+          type: string
+      required:
+      - file
+      - url
+      type: object
+    StartExportResponse:
+      properties:
+        jobId:
+          description: The ID of the export job
+          example: 3562
+          format: int64
+          type: integer
+      required:
+      - jobId
+      type: object
   securitySchemes:
-    apiKeyAuth:
-      type: apiKey
+    api_key:
       in: header
       name: Api-Key
-      description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
-externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+      type: apiKey

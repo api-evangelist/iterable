@@ -1,0 +1,135 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Verify API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: Verify
+paths:
+  /api/verify/sms/begin:
+    post:
+      description: Sends an SMS verification code to <code>phoneNumber</code>, using the specified <code>verificationProfileId</code>. Verification codes are sent from a pool of sender IDs reserved for this use, not from your sender IDs. Because of this, you don't need to worry about competing message priority or throughput.<br/><br/>Call this endpoint only for projects that use Iterable SMS to send SMS messages. If you use your own Twilio or Telnyx account, call their verification endpoints directly.<br/><br/>To use this endpoint, first ask your Iterable customer success manager to add SMS phone verification to your project. To learn more, read <a href="https://support.iterable.com/hc/articles/11559421803796">SMS Phone Verification</a>.
+      operationId: beginSmsVerification
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Begin SMS Verification
+      tags:
+      - Verify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeginSmsVerificationRequest'
+        description: The number to authenticate
+        required: true
+  /api/verify/sms/check:
+    post:
+      description: Checks whether the <code>code</code> included in the request body matches the most recent, non-expired, not-yet-verified SMS verification code sent to <code>phoneNumber</code> by the specified <code>verificationProfileId</code>.<br/><br/>If <code>code</code> is correct, the endpoint returns a <code>200</code> response with a JSON body that has a <code>params</code> object with <code>status</code> set to <code>verified</code>.<br/><br/>If <code>code</code> is incorrect, the endpoint returns a <code>200</code> response with a JSON body that has a <code>params</code> object with <code>status</code> set to <code>rejected</code>.<br/><br/>Call this endpoint only for projects that use Iterable SMS to send SMS messages. If you use your own Twilio or Telnyx account, call their verification endpoints directly.<br/><br/>To use this endpoint, first ask your Iterable customer success manager to add SMS phone verification to your project. To learn more, read <a href="https://support.iterable.com/hc/articles/11559421803796">SMS Phone Verification</a>.
+      operationId: checkSmsVerification
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Check SMS Verification Code
+      tags:
+      - Verify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckSmsVerificationRequest'
+        description: The number to authenticate
+        required: true
+components:
+  schemas:
+    BeginSmsVerificationRequest:
+      properties:
+        phoneNumber:
+          type: string
+        verificationProfileId:
+          format: int64
+          type: integer
+      required:
+      - phoneNumber
+      - verificationProfileId
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    CheckSmsVerificationRequest:
+      properties:
+        code:
+          type: string
+        phoneNumber:
+          type: string
+        verificationProfileId:
+          format: int64
+          type: integer
+      required:
+      - code
+      - phoneNumber
+      - verificationProfileId
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

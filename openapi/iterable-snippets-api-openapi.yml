@@ -1,0 +1,298 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Snippets API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: snippets
+paths:
+  /api/snippets:
+    get:
+      description: Get all snippets for the current project.
+      operationId: getSnippets
+      responses:
+        '200':
+          description: Retrieved snippets successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSnippetsResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+      summary: Get all snippets
+      tags:
+      - snippets
+    post:
+      description: Create a new snippet.
+      operationId: createSnippet
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSnippetResponse'
+        '201':
+          description: Snippet created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSnippetResponse'
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+      summary: Create a snippet
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSnippetRequest'
+        description: Snippet to create
+        required: true
+  /api/snippets/{identifier}:
+    delete:
+      description: Delete a snippet by ID (numeric) or name (string). Numeric identifiers are treated as IDs, string identifiers as names.
+      operationId: deleteSnippet
+      parameters:
+      - description: Snippet ID (numeric) or name (string)
+        in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Snippet deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSnippetResponse'
+        '400':
+          description: Invalid snippet identifier
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Snippet not found
+        '500':
+          description: Internal server error
+      summary: Delete a snippet
+      tags:
+      - snippets
+    get:
+      description: Retrieve a snippet by its ID (numeric) or name (string). Numeric identifiers are treated as IDs, string identifiers as names.
+      operationId: getSnippet
+      parameters:
+      - description: Snippet ID (numeric) or name (string)
+        in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieved snippet successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSnippetResponse'
+        '400':
+          description: Invalid snippet identifier
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Snippet not found
+        '500':
+          description: Internal server error
+      summary: Get snippet by ID or name
+      tags:
+      - snippets
+    put:
+      description: Create or update a snippet by ID (numeric) or name (string). For names, creates the snippet if it doesn't exist. For IDs, only updates existing snippets. Numeric identifiers are treated as IDs, string identifiers as names.
+      operationId: updateSnippet
+      parameters:
+      - description: Snippet ID (numeric) or name (string). Numeric identifiers are treated as IDs, string identifiers as names. For name-based identifiers, creates the snippet if it doesn't exist.
+        in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Snippet updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSnippetResponse'
+        '201':
+          description: Snippet created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSnippetResponse'
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Snippet not found (for ID-based identifiers)
+        '500':
+          description: Internal server error
+      summary: Create or update a snippet
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSnippetRequest'
+        description: Snippet to create or update
+        required: true
+components:
+  schemas:
+    SnippetResponse:
+      description: Snippet response model
+      properties:
+        content:
+          description: Snippet content.
+          type: string
+        createdAt:
+          description: Creation timestamp in ISO-8601 format.
+          type: string
+        createdBy:
+          description: User who created the snippet.
+          type: string
+        description:
+          description: Snippet description.
+          type: string
+        id:
+          description: Snippet ID.
+          type: object
+        name:
+          description: Snippet name.
+          type: string
+        projectId:
+          description: Project ID.
+          format: int64
+          type: integer
+        updatedAt:
+          description: Last update timestamp in ISO-8601 format.
+          type: string
+        updatedBy:
+          description: User who last updated the snippet.
+          type: string
+        variables:
+          description: List of variable names used in the content with a Handlebars expression such as {{myField}}.
+          items:
+            type: string
+          type: array
+      type: object
+    CreateSnippetResponse:
+      description: Response model for creating a snippet
+      properties:
+        snippetId:
+          description: ID of the created snippet.
+          format: int64
+          type: integer
+      type: object
+    UpdateSnippetResponse:
+      description: Response model for updating a snippet
+      properties:
+        snippetId:
+          description: ID of the updated snippet.
+          format: int64
+          type: integer
+      type: object
+    UpdateSnippetRequest:
+      description: Request model for updating a snippet
+      properties:
+        content:
+          description: 'Content of the snippet. Handlebars must be valid. Disallowed content: script tags with JS sources or non-JSON content, inline JS event handlers (e.g., <code>onload=&quot;...&quot;</code>), and <code>javascript:</code> in <code>href</code> or <code>src</code> attributes (anchors and iframes).'
+          type: string
+        createdByUserId:
+          description: User ID (email) of the updater. If not provided, defaults to the project creator.
+          type: string
+        description:
+          description: Description of the snippet.
+          type: string
+        variables:
+          description: List of variable names used in the content with a Handlebars expression such as {{myField}}. Variable names are case-sensitive and should be simple identifiers (letters, numbers, underscores). To learn more about using Handlebars in Snippets, see <a href=\"https://support.iterable.com/hc/articles/4414796078868\">Customizing Snippets with Variables</a>.
+          items:
+            type: string
+          type: array
+      required:
+      - content
+      type: object
+    DeleteSnippetResponse:
+      description: Response model for deleting a snippet
+      properties:
+        snippetId:
+          description: ID of the deleted snippet.
+          format: int64
+          type: integer
+      type: object
+    GetSnippetsResponse:
+      description: Response model for getting all snippets
+      properties:
+        snippets:
+          description: List of snippets.
+          items:
+            $ref: '#/components/schemas/SnippetResponse'
+          type: array
+      type: object
+    CreateSnippetRequest:
+      description: Request model for creating a snippet
+      properties:
+        content:
+          description: 'Content of the snippet. Handlebars must be valid. Disallowed content: script tags with JS sources or non-JSON content, inline JS event handlers (e.g., <code>onload=&quot;...&quot;</code>), and <code>javascript:</code> in <code>href</code> or <code>src</code> attributes (anchors and iframes).'
+          type: string
+        createdByUserId:
+          description: User ID (email) of the creator. If not provided, defaults to the project creator.
+          type: string
+        description:
+          description: Description of the snippet.
+          type: string
+        name:
+          description: Name of the snippet. Must be unique within the project, up to 100 characters (a-z, A-Z, 0-9, hyphens (-), underscores (_), and spaces). Cannot be changed after snippet is created.
+          type: string
+        variables:
+          description: A list of variable names used in the content with a Handlebars expression such as <code>{{#if (eq myVariable "someValue")}}</code>. Variable names are case-sensitive and should be simple identifiers (letters, numbers, underscores). To learn more about using variables in Snippets, see <a href=\"https://support.iterable.com/hc/articles/4414796078868\">Customizing Snippets with Variables</a>.
+          items:
+            type: string
+          type: array
+      required:
+      - content
+      - name
+      type: object
+    GetSnippetResponse:
+      description: Response model for getting a snippet
+      properties:
+        snippet:
+          $ref: '#/components/schemas/SnippetResponse'
+          description: Details of the retrieved snippet.
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

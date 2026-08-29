@@ -1,30 +1,214 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns Metadata API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable Metadata API
+  version: '1.0'
+  description: 'Operations tagged metadata across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
-- name: Metadata
-  description: Store and retrieve key-value metadata tables for use in personalization and campaign logic.
+- name: metadata
 paths:
+  /api/metadata:
+    get:
+      description: ''
+      operationId: list tables
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMetadataTablesResponse'
+        '401':
+          description: Invalid API key
+      summary: List available tables
+      tags:
+      - metadata
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/metadata/{table}:
+    delete:
+      description: Asynchronous. Deletes the table. 200 response indicates a valid request that will be processed; table may not be deleted immediately. Use GET /api/metadata/{table} to verify completion.
+      operationId: delete
+      parameters:
+      - description: Table name [Alphanumeric, case insensitive]
+        in: path
+        name: table
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Delete a table
+      tags:
+      - metadata
+      security:
+      - api_key: []
+    get:
+      description: ''
+      operationId: list
+      parameters:
+      - description: Table name [Alphanumeric, case insensitive]
+        in: path
+        name: table
+        required: true
+        schema:
+          type: string
+      - description: next result set id; returned by previous search if more hits exist
+        in: query
+        name: nextMarker
+        required: false
+        schema:
+          type: string
+          default: None
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: List keys in a table
+      tags:
+      - metadata
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/metadata/{table}/{key}:
+    delete:
+      description: Asynchronous. Deletes the specified item from the table. 200 response indicates a valid request that will be processed; data may not be deleted immediately. Use GET /api/metadata/{table}/{key} to verify completion.
+      operationId: delete
+      parameters:
+      - description: Table name [Alphanumeric, case insensitive]
+        in: path
+        name: table
+        required: true
+        schema:
+          type: string
+      - description: Metadata key [Alphanumeric, case sensitive]
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Delete a single metadata key/value
+      tags:
+      - metadata
+      security:
+      - api_key: []
+    get:
+      description: ''
+      operationId: get
+      parameters:
+      - description: Table name [Alphanumeric, case insensitive]
+        in: path
+        name: table
+        required: true
+        schema:
+          type: string
+      - description: Metadata key [Alphanumeric, case sensitive]
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataWithProperties'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: No metadata at specified location
+      summary: Get the metadata value of a single key
+      tags:
+      - metadata
+      security:
+      - api_key: []
+    put:
+      description: Asynchronous. Creates or replaces the item associated with the specified key. 200 response indicates a valid request that will be processed; updates may not be made immediately. Use GET /api/metadata/{table}/{key} to verify completion.
+      operationId: put
+      parameters:
+      - description: Table name [Alphanumeric, case insensitive]
+        in: path
+        name: table
+        required: true
+        schema:
+          type: string
+      - description: Metadata key [Alphanumeric, case sensitive]
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Create or replace metadata
+      tags:
+      - metadata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutMetadataRequest'
+        description: Metadata properties
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /metadata/{table}:
     get:
       operationId: getMetadataTable
       summary: Get metadata table keys
       description: Retrieves all keys in a metadata table.
       tags:
-      - Metadata
+      - metadata
       parameters:
       - name: table
         in: path
@@ -54,12 +238,14 @@ paths:
           description: Unauthorized
         '404':
           description: Table not found
+      security:
+      - apiKeyAuth: []
     delete:
       operationId: deleteMetadataTable
       summary: Delete a metadata table
       description: Deletes a metadata table and all its entries.
       tags:
-      - Metadata
+      - metadata
       parameters:
       - name: table
         in: path
@@ -76,13 +262,20 @@ paths:
                 $ref: '#/components/schemas/IterableResponse'
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /metadata/{table}/{key}:
     get:
       operationId: getMetadataEntry
       summary: Get a metadata entry
       description: Retrieves a single metadata entry by table name and key.
       tags:
-      - Metadata
+      - metadata
       parameters:
       - name: table
         in: path
@@ -111,12 +304,14 @@ paths:
           description: Unauthorized
         '404':
           description: Entry not found
+      security:
+      - apiKeyAuth: []
     put:
       operationId: putMetadataEntry
       summary: Create or update a metadata entry
       description: Creates or updates a metadata entry for the specified table and key.
       tags:
-      - Metadata
+      - metadata
       parameters:
       - name: table
         in: path
@@ -154,12 +349,14 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
     delete:
       operationId: deleteMetadataEntry
       summary: Delete a metadata entry
       description: Deletes a metadata entry by table name and key.
       tags:
-      - Metadata
+      - metadata
       parameters:
       - name: table
         in: path
@@ -182,8 +379,130 @@ paths:
                 $ref: '#/components/schemas/IterableResponse'
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
   schemas:
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    ListMetadataTablesResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Table'
+          type: array
+      required:
+      - results
+      type: object
+    Table:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    MetadataProperties:
+      properties:
+        key:
+          type: string
+        lastModified:
+          format: int64
+          type: integer
+        size:
+          format: int64
+          type: integer
+        table:
+          type: string
+      required:
+      - key
+      - lastModified
+      - size
+      - table
+      type: object
+    MetadataWithProperties:
+      properties:
+        key:
+          type: string
+        lastModified:
+          format: int64
+          type: integer
+        size:
+          format: int64
+          type: integer
+        table:
+          type: string
+        value:
+          type: object
+      required:
+      - key
+      - lastModified
+      - size
+      - table
+      - value
+      type: object
+    PutMetadataRequest:
+      properties:
+        value:
+          description: The JSON metadata value.  Max size is is 30kb.
+          type: object
+      required:
+      - value
+      type: object
+    Listing:
+      properties:
+        nextMarker:
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/MetadataProperties'
+          type: array
+      required:
+      - results
+      type: object
     IterableResponse:
       type: object
       description: Standard Iterable API response indicating success or failure
@@ -199,11 +518,18 @@ components:
           description: Additional response parameters
           additionalProperties: true
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Embedded Messaging API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: Embedded Messaging
+paths:
+  /api/embedded-messaging/messages:
+    get:
+      description: This endpoint returns embedded messages for which the specified user is eligible, grouped by <code>placementId</code>.<br/><br/>By default, it returns data for all placements that have messages for the user. To constrain the response to specific placements, provide one or more <code>placementIds</code> query parameters.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: messages
+      parameters:
+      - description: User identifier. Provide an email or a userId, but not both.
+        in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      - description: User identifier. Provide a userId or an email, but not both.
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+      - description: 'The platform of the app for which to retrieve embedded messages: iOS, Android, or Web (case-sensitive).'
+        in: query
+        name: platform
+        required: false
+        schema:
+          type: string
+      - description: Iterable SDK version (e.g., 6.5.0).
+        in: query
+        name: sdkVersion
+        required: false
+        schema:
+          type: string
+          default: None
+      - description: The package name of the app for which to retrieve embedded messages.
+        in: query
+        name: packageName
+        required: false
+        schema:
+          type: string
+          default: None
+      - description: Placements to include in the response, even if they don't have embedded messages for the user. When no placementIds are specified, the response includes all embedded messages for which the user is eligible.
+        in: query
+        name: placementIds
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: object
+      - description: IDs of embedded messages already retrieved by the device making the request. If the user is no longer eligible for a specified message, that message will be omitted from the API response. Otherwise, it will be present, but without an elements field.
+        in: query
+        name: currentMessageIds
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedMessagesResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user's embedded messages
+      tags:
+      - Embedded Messaging
+components:
+  schemas:
+    ApiEmbeddedMessagingElements:
+      properties:
+        body:
+          description: Body text of the embedded message.
+          type: string
+        buttons:
+          description: Buttons to display with the embedded message.
+          items:
+            $ref: '#/components/schemas/Button'
+          type: array
+        defaultAction:
+          $ref: '#/components/schemas/Action'
+          description: Action to invoke when a user taps or clicks on the embedded message (but not on a button or link).
+        mediaUrl:
+          description: Image URL associated with the embedded message.
+          type: string
+        mediaUrlCaption:
+          description: Alt text for the image specified by <code>mediaUrl</code>.
+          type: string
+        text:
+          description: Text fields (other than title and body) to display with the embedded message.
+          items:
+            $ref: '#/components/schemas/Text'
+          type: array
+        title:
+          description: Title text of the embedded message.
+          type: string
+      type: object
+    Button:
+      properties:
+        action:
+          $ref: '#/components/schemas/Action'
+          description: Action to invoke when a user taps the button.
+        id:
+          description: ID of the button.
+          type: string
+        title:
+          description: Text to display on the button.
+          type: string
+      type: object
+    ApiEmbeddedMessagingMetadata:
+      properties:
+        campaignId:
+          description: ID of the Iterable campaign associated with the embedded message.
+          format: int32
+          type: integer
+        isProof:
+          description: Whether or not the campaign is a test message (proof).
+          type: boolean
+        messageId:
+          description: ID associated with the specific send of a specific campaign to a specific user.
+          type: string
+        placementId:
+          description: ID of the placement to which the embedded message belongs.
+          format: int64
+          type: integer
+        priorityOrder:
+          description: Numeric priority, as compared to other embedded campaigns in the same placement. Lower numbers mean higher priority. Highest priority is 1.
+          format: int64
+          type: integer
+      type: object
+    ApiEmbeddedPlacement:
+      properties:
+        embeddedMessages:
+          description: Array of embedded messages associated with <code>placementId</code>. The user specified in the request is eligible for all messages in this array.
+          items:
+            $ref: '#/components/schemas/ApiEmbeddedMessage'
+          type: array
+        placementId:
+          description: ID of a placement.
+          format: int64
+          type: integer
+      type: object
+    Action:
+      properties:
+        data:
+          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
+          type: string
+        type:
+          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
+          type: string
+      type: object
+    EmbeddedMessagesResponse:
+      properties:
+        placements:
+          description: Array of objects, each with a <code>placementId</code> and an associated list of embedded messages for which the specified user is eligible.
+          items:
+            $ref: '#/components/schemas/ApiEmbeddedPlacement'
+          type: array
+      type: object
+    ApiEmbeddedMessage:
+      properties:
+        elements:
+          $ref: '#/components/schemas/ApiEmbeddedMessagingElements'
+          description: Content to display in the message, and actions to invoke on click or tap.
+        metadata:
+          $ref: '#/components/schemas/ApiEmbeddedMessagingMetadata'
+          description: Identifying information about the embedded message.
+        payload:
+          description: Custom JSON data. Use to customize the message display or trigger custom behavior.
+          type: object
+      type: object
+    Text:
+      properties:
+        label:
+          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
+          type: string
+        text:
+          description: Text to display.
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

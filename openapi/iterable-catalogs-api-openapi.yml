@@ -1,30 +1,472 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns Catalogs API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable Catalogs API
+  version: '1.0'
+  description: 'Operations tagged catalogs across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
-- name: Catalogs
-  description: Manage product catalogs and catalog items used for personalization and recommendation in campaigns.
+- name: catalogs
 paths:
+  /api/catalogs:
+    get:
+      description: 'Get catalog names. <br/><br/><b>Rate limit</b>: 100 requests/second, per API key.'
+      operationId: listCatalogs
+      parameters:
+      - description: Page number to list (starting at 1).
+        in: query
+        name: page
+        required: false
+        x-example: 1
+        schema:
+          type: integer
+          format: int32
+      - description: Number of results to display per page (defaults to 10).
+        in: query
+        name: pageSize
+        required: false
+        x-example: 10
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: List of catalogs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCatalogsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get catalog names
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/catalogs/{catalogName}:
+    delete:
+      description: Delete the catalog with the specified name. Also deletes all collections that reference the specified catalog.
+      operationId: deleteCatalog
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Catalog deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Delete a catalog
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    post:
+      description: Create a catalog. Each catalog in a project must have a unique name. Catalog names can be no longer than 255 characters and must contain only alphanumeric characters and dashes.
+      operationId: createCatalog
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '201':
+          description: Catalog created
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '500':
+          description: Internal server error
+      summary: Create a catalog
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/catalogs/{catalogName}/fieldMappings:
+    get:
+      description: Field mappings (field to data types) and undefined fields of a catalog
+      operationId: getFieldMappings
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Field mappings for catalog.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogFieldMappingsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Catalog not found
+      summary: Get field mappings for a catalog
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    put:
+      description: 'Set a catalog''s field mappings (data types). After being set, a given field''s data type may not be changed. Valid types: boolean, date, geo_location, long, double, object, and string.'
+      operationId: updateFieldTypes
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Catalog field mappings updated
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Set a catalog's field mappings (data types)
+      tags:
+      - catalogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogMappingsUpdateRequest'
+        description: Catalog Field Types
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/catalogs/{catalogName}/items:
+    delete:
+      description: Asynchronous. Delete the specified catalog items from the catalog.
+      operationId: bulkDeleteCatalogItems
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Bulk delete catalog items request received.
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Bulk delete catalog items
+      tags:
+      - catalogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogBulkDeleteRequest'
+        description: Catalog bulk delete request
+        required: true
+      security:
+      - api_key: []
+    get:
+      description: 'Get the catalog items for a catalog. <br/><br/><b>Rate limit</b>: 100 requests/second, per API key.'
+      operationId: listCatalogItems
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      - description: Page number to list (starting at 1).
+        in: query
+        name: page
+        required: false
+        x-example: 1
+        schema:
+          type: integer
+          format: int32
+      - description: Number of results to display per page (defaults to 10).
+        in: query
+        name: pageSize
+        required: false
+        x-example: 10
+        schema:
+          type: integer
+          format: int32
+      - description: Field by which results should be ordered. To also use the sortAscending parameter, this field must have a defined type.
+        in: query
+        name: orderBy
+        required: false
+        x-example: myField
+        schema:
+          type: string
+      - description: Sort results by ascending (Defaults to false).
+        in: query
+        name: sortAscending
+        required: false
+        x-example: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Items in the catalog that satisfy the request restraints
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCatalogItemsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Catalog not found
+        '500':
+          description: Internal server error
+      summary: Get the catalog items for a catalog
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    post:
+      description: 'Asynchronous. Create up to 1000 catalog items with a single request. Each of a catalog''s items must have a unique ID that contains only alphanumeric characters and dashes and has a maximum length of 255 characters. If the catalog already contains an item with the same ID as one provided in the request body, the item in the catalog will be completely overwritten, unless replaceUploadedFieldsOnly is set to true. Do not use periods in field names.<br/><br/><b>Rate limit</b>: 100 requests/second, per API key.'
+      operationId: bulkUpdateCatalogItems
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Request to bulk upload items received
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Catalog not found
+        '500':
+          description: Internal server error
+      summary: Bulk create catalog items
+      tags:
+      - catalogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogBulkUploadRequest'
+        description: Catalog bulk update request
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/catalogs/{catalogName}/items/{itemId}:
+    delete:
+      description: Asynchronous. Deletes the specified item from the catalog. Data may not be deleted immediately.
+      operationId: deleteCatalogItem
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      - description: Catalog item id [Alphanumeric, dashes, case sensitive, 255 characters max]
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Received request to deleted item. Use GET /api/catalogs/{catalogName}/items/{itemId} to verify completion.
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Delete a catalog item
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    get:
+      description: Get a specific catalog item from the given catalog.
+      operationId: getCatalogItem
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      - description: Catalog item id [Alphanumeric, dashes, case sensitive, 255 characters max]
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Catalog Item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogItemWithProperties'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: No catalog item at specified location
+      summary: Get a specific catalog item
+      tags:
+      - catalogs
+      security:
+      - api_key: []
+    patch:
+      description: Asynchronous. Create or update the specified catalog item in the given catalog. A catalog item's ID must be unique, contain only alphanumeric characters and dashes, and have a maximum length of 255 characters. If the catalog item already exists, its fields will be updated with the values provided in the request body. Previously existing fields not included in the request body will remain as is. Do not use periods in field names.
+      operationId: partialUpdateCatalogItem
+      parameters:
+      - in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Catalog item update request received. Use GET /api/catalogs/{catalogName}/items/{itemId} to verify completion.
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Create or update a catalog item
+      tags:
+      - catalogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogUpdateItemRequest'
+        description: Catalog item contents
+        required: true
+      security:
+      - api_key: []
+    put:
+      description: 'Asynchronous. Create or replace the specified catalog item in the given catalog. A catalog item''s ID must be unique, contain only alphanumeric characters and dashes, and have a maximum length of 255 characters. If the catalog item already exists, it will be replaced by the value provided in the request body. Do not use periods in field names.<br/><br/><b>Rate limit</b>: 1000 requests/second, per API key.'
+      operationId: indexCatalogItem
+      parameters:
+      - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
+        in: path
+        name: catalogName
+        required: true
+        schema:
+          type: string
+      - description: Catalog item id [Alphanumeric, dashes, case sensitive, 255 characters max]
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Catalog item update request received. Use GET /api/catalogs/{catalogName}/items/{itemId} to verify completion.
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '500':
+          description: Internal server error
+      summary: Create or replace a catalog item
+      tags:
+      - catalogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogIndexItemRequest'
+        description: Catalog item value
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /catalogs/{catalogName}:
     get:
       operationId: getCatalog
       summary: Get a catalog
       description: Retrieves a catalog by name, including its field definitions and metadata.
       tags:
-      - Catalogs
+      - catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       responses:
@@ -47,12 +489,14 @@ paths:
           description: Unauthorized
         '404':
           description: Catalog not found
+      security:
+      - apiKeyAuth: []
     delete:
       operationId: deleteCatalog
       summary: Delete a catalog
       description: Deletes a catalog and all its items from the Iterable project.
       tags:
-      - Catalogs
+      - catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       responses:
@@ -66,13 +510,20 @@ paths:
           description: Unauthorized
         '404':
           description: Catalog not found
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /catalogs/{catalogName}/items:
     get:
       operationId: listCatalogItems
       summary: List items in a catalog
       description: Retrieves items from a catalog with support for pagination.
       tags:
-      - Catalogs
+      - catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       - name: page
@@ -107,13 +558,20 @@ paths:
           description: Unauthorized
         '404':
           description: Catalog not found
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /catalogs/{catalogName}/items/{itemId}:
     put:
       operationId: createOrReplaceCatalogItem
       summary: Create or replace a catalog item
       description: Creates a new catalog item or replaces an existing one with the specified item ID and field values.
       tags:
-      - Catalogs
+      - catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       - name: itemId
@@ -144,12 +602,14 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
     delete:
       operationId: deleteCatalogItem
       summary: Delete a catalog item
       description: Deletes a catalog item by its item ID.
       tags:
-      - Catalogs
+      - catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       - name: itemId
@@ -169,16 +629,204 @@ paths:
           description: Unauthorized
         '404':
           description: Catalog item not found
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
-  parameters:
-    catalogNamePath:
-      name: catalogName
-      in: path
-      required: true
-      description: The name of the catalog
-      schema:
-        type: string
   schemas:
+    CatalogIndexItemRequest:
+      properties:
+        value:
+          description: JSON representation of the catalog item. Max size is is 30kb.
+          type: object
+      required:
+      - value
+      type: object
+    CatalogFieldDefinitionSerializedModel:
+      properties:
+        children:
+          items:
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+          type: array
+        fieldName:
+          type: string
+        fieldType:
+          type: string
+      required:
+      - fieldName
+      - fieldType
+      type: object
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
+      type: object
+    CatalogName:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    CatalogMappingsUpdateRequest:
+      properties:
+        mappingsUpdates:
+          description: mappingsUpdates
+          items:
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+          type: array
+      required:
+      - mappingsUpdates
+      type: object
+    CatalogFieldMappingsResponse:
+      properties:
+        definedMappings:
+          additionalProperties:
+            type: string
+          type: object
+        undefinedFields:
+          items:
+            type: string
+          type: array
+      required:
+      - definedMappings
+      - undefinedFields
+      type: object
+    CatalogBulkDeleteRequest:
+      properties:
+        itemIds:
+          items:
+            type: string
+          type: array
+      required:
+      - itemIds
+      type: object
+    CatalogUpdateItemRequest:
+      properties:
+        update:
+          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
+          type: object
+      required:
+      - update
+      type: object
+    CatalogBulkUploadRequest:
+      properties:
+        documents:
+          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
+          type: object
+        replaceUploadedFieldsOnly:
+          description: Whether to replace only the upload fields within each document, not each entire document
+          type: boolean
+      required:
+      - documents
+      - replaceUploadedFieldsOnly
+      type: object
+    GetCatalogsResponse:
+      properties:
+        catalogNames:
+          items:
+            $ref: '#/components/schemas/CatalogName'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalCatalogsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogNames
+      - totalCatalogsCount
+      type: object
+    JsValue:
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    CatalogItemWithProperties:
+      properties:
+        catalogName:
+          type: string
+        itemId:
+          type: string
+        lastModified:
+          format: date-time
+          type: string
+        size:
+          format: int64
+          type: integer
+        value:
+          $ref: '#/components/schemas/JsObject'
+      required:
+      - catalogName
+      - itemId
+      - lastModified
+      - size
+      - value
+      type: object
+    GetCatalogItemsResponse:
+      properties:
+        catalogItemsWithProperties:
+          items:
+            $ref: '#/components/schemas/CatalogItemWithProperties'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalItemsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogItemsWithProperties
+      - totalItemsCount
+      type: object
     IterableResponse:
       type: object
       description: Standard Iterable API response indicating success or failure
@@ -193,12 +841,27 @@ components:
           type: object
           description: Additional response parameters
           additionalProperties: true
+  parameters:
+    catalogNamePath:
+      name: catalogName
+      in: path
+      required: true
+      description: The name of the catalog
+      schema:
+        type: string
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

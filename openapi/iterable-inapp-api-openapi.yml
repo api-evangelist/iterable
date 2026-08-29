@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns InApp API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+  title: Iterable REST In App API
+  description: The Iterable REST API provides programmatic access to the Iterable cross-channel marketing automation platform. It exposes endpoints for managing users, campaigns, lists, events, commerce tracking, catalogs, channels, templates, experiments, workflows, and message delivery across email, push, SMS, and in-app channels. The API uses standard HTTP methods, JSON request and response bodies, and supports authentication via API keys or JWT-enabled keys.
   version: 1.0.0
   contact:
     name: Iterable Support
@@ -86,5 +86,5 @@ components:
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs

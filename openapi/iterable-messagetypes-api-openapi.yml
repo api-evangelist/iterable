@@ -1,30 +1,44 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns MessageTypes API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable Message Types API
+  version: '1.0'
+  description: 'Operations tagged messageTypes across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
-- name: MessageTypes
-  description: Manage message types that categorize the kinds of messages sent through channels.
+- name: messageTypes
 paths:
+  /api/messageTypes:
+    get:
+      description: 'List all message types within a project. <b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: messageTypes
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageTypesResponse'
+        '401':
+          description: Invalid API key
+      summary: List message types
+      tags:
+      - messageTypes
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /messageTypes:
     get:
       operationId: listMessageTypes
       summary: List message types
       description: Retrieves all message types configured in the Iterable project. Message types categorize the kinds of messages sent through channels.
       tags:
-      - MessageTypes
+      - messageTypes
       responses:
         '200':
           description: List of message types
@@ -46,13 +60,89 @@ paths:
                           type: integer
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
+  schemas:
+    FrequencyCap:
+      properties:
+        days:
+          format: int32
+          type: integer
+        messages:
+          format: int32
+          type: integer
+      required:
+      - days
+      - messages
+      type: object
+    MessageTypeDetails:
+      properties:
+        channelId:
+          description: Channel that this message type belongs to
+          format: int64
+          type: integer
+        createdAt:
+          description: Creation timestamp as epoch time in milliseconds
+          format: int32
+          type: integer
+        frequencyCap:
+          $ref: '#/components/schemas/FrequencyCap'
+          description: The frequency cap configured for this message type, expressed as a period and max number of messages allowed in that period
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        rateLimitPerMinute:
+          description: Maximum number of message sends allowed on this message type, per minute
+          format: int32
+          type: integer
+        subscriptionPolicy:
+          description: Subscription policy for this message type
+          enum:
+          - OptIn
+          - OptOut
+          type: string
+        updatedAt:
+          description: Last update timestamp as epoch time in milliseconds
+          format: int32
+          type: integer
+      required:
+      - channelId
+      - createdAt
+      - id
+      - name
+      - subscriptionPolicy
+      - updatedAt
+      type: object
+    MessageTypesResponse:
+      properties:
+        messageTypes:
+          items:
+            $ref: '#/components/schemas/MessageTypeDetails'
+          type: array
+      required:
+      - messageTypes
+      type: object
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

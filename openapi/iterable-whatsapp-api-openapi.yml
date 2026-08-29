@@ -1,0 +1,148 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Whats App API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: WhatsApp
+paths:
+  /api/whatsApp/cancel:
+    post:
+      description: Cancels the sending of a scheduled WhatsApp message to a specific user.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: cancel
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Cancel a scheduled WhatsApp message
+      tags:
+      - WhatsApp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required'
+        description: Email and Campaign ID
+        required: true
+  /api/whatsApp/target:
+    post:
+      description: Send a WhatsApp message to a user. Request data fields will override user profile data fields. <br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: target
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Send a WhatsApp message to a user
+      tags:
+      - WhatsApp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetWhatsAppRequest'
+        description: Recipient and email id
+        required: true
+components:
+  schemas:
+    TargetWhatsAppRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          description: Campaign ID
+          format: int64
+          type: integer
+        dataFields:
+          description: Data fields that can be referenced in the template or campaign content
+          type: object
+        recipientEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        recipientUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sendAt:
+          description: Schedule the message for up to 365 days in the future. If set in the past, message is sent immediately. Format is <code>YYYY-MM-DD HH:MM:SS</code> (UTC).
+          type: string
+      required:
+      - campaignId
+      type: object
+    CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required:
+      properties:
+        campaignId:
+          description: The ID of the campaign associated with the scheduled message you'd like to cancel. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: number
+        email:
+          description: An email address that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        scheduledMessageId:
+          type: number
+        userId:
+          description: A user ID that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

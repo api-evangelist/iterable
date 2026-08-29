@@ -255,22 +255,6 @@ apis:
     url: https://api.iterable.com/api/docs
   - type: GraphQL
     url: graphql/iterable-graphql.md
-- aid: iterable:iterable-experimentmetrics-api
-  name: Iterable ExperimentMetrics API
-  description: Export experiment and A/B test metrics as CSV for analysis.
-  humanURL: https://api.iterable.com/api/docs
-  baseURL: https://api.iterable.com
-  tags:
-  - ExperimentMetrics
-  properties:
-  - type: OpenAPI
-    url: openapi/iterable-experimentmetrics-api-openapi.yml
-  - type: Overlay
-    url: overlays/iterable-experimentmetrics-api-overlay.yaml
-  - type: Documentation
-    url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-experiments-api
   name: Iterable Experiments API
   description: Retrieve experiment configurations and metrics for A/B tests running across campaigns.
@@ -463,7 +447,129 @@ apis:
     url: https://api.iterable.com/api/docs
   - type: GraphQL
     url: graphql/iterable-graphql.md
+- aid: iterable:iterable-embedded-messaging-api
+  name: Iterable Embedded Messaging API
+  description: The Embedded Messaging API from Iterable — 1 operation(s) for embedded messaging.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - Embedded Messaging
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-embedded-messaging-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-in-app-api
+  name: Iterable In App API
+  description: The In-app API from Iterable — 4 operation(s) for in-app.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - In-app
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-in-app-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-in-app-web-api
+  name: Iterable In App Web API
+  description: The In-app-web API from Iterable — 1 operation(s) for in-app-web.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - In-app-web
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-in-app-web-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-snippets-api
+  name: Iterable Snippets API
+  description: The snippets API from Iterable — 2 operation(s) for snippets.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - snippets
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-snippets-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-subscriptions-api
+  name: Iterable Subscriptions API
+  description: The subscriptions API from Iterable — 4 operation(s) for subscriptions.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-verify-api
+  name: Iterable Verify API
+  description: The Verify API from Iterable — 2 operation(s) for verify.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - Verify
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-verify-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-webhooks-api
+  name: Iterable Webhooks API
+  description: The webhooks API from Iterable — 1 operation(s) for webhooks.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-whatsapp-api
+  name: Iterable Whats App API
+  description: The WhatsApp API from Iterable — 2 operation(s) for whatsapp.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - WhatsApp
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-whatsapp-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
 common:
+- type: Overlay
+  url: overlays/iterable-experimentmetrics-api-overlay.yaml
 - type: OpenAPI
   name: Iterable API (harvested Swagger 2.0 source, 129 paths)
   url: openapi/_original/iterable-api-openapi.json

@@ -1,30 +1,44 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns Channels API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable Channels API
+  version: '1.0'
+  description: 'Operations tagged channels across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
-- name: Channels
-  description: Retrieve and manage messaging channels and message types used for organizing campaigns and templates.
+- name: channels
 paths:
+  /api/channels:
+    get:
+      description: 'Get all message channels within the project. <b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: channels
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelsResponse'
+        '401':
+          description: Invalid API key
+      summary: Get channels
+      tags:
+      - channels
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /channels:
     get:
       operationId: listChannels
       summary: List channels
       description: Retrieves all messaging channels configured in the Iterable project. Channels organize message types and are used to group campaign templates.
       tags:
-      - Channels
+      - channels
       responses:
         '200':
           description: List of channels
@@ -39,8 +53,50 @@ paths:
                       $ref: '#/components/schemas/Channel'
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
   schemas:
+    ChannelDetails:
+      properties:
+        channelType:
+          description: Channel type
+          enum:
+          - Marketing
+          - Transactional
+          type: string
+        id:
+          format: int64
+          type: integer
+        messageMedium:
+          description: Medium of this channel
+          enum:
+          - Email
+          - Push
+          - SMS
+          type: string
+        name:
+          type: string
+      required:
+      - channelType
+      - id
+      - messageMedium
+      - name
+      type: object
+    ChannelsResponse:
+      properties:
+        channels:
+          items:
+            $ref: '#/components/schemas/ChannelDetails'
+          type: array
+      required:
+      - channels
+      type: object
     Channel:
       type: object
       description: A messaging channel in Iterable
@@ -58,11 +114,18 @@ components:
           type: string
           description: Message medium for this channel
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

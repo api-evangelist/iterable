@@ -1,0 +1,505 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Subscriptions API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: subscriptions
+paths:
+  /api/subscriptions/subscribeToDoubleOptIn:
+    post:
+      description: 'This endpoint triggers a double opt-in subscription for a user. <br/><br/>Once the user responds to the subscription confirmation message, they will be subscribed to the message types specified in the request body. <br/><br/>This endpoint can only be used with SMS, double opt-in message types. To enable it, contact your customer success manager.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Response Format Notes:</b><ul><li>202 Accepted: Plain text (e.g., ''Request for double opt-in subscription accepted'')</li><li>204 No Content: Returned when user is already subscribed to all requested message types (no body)</li><li>400 Bad Request (JSON parsing error): JSON <code>{error, message, code, data}</code></li><li>400 Bad Request (validation error): Plain text (e.g., ''User not found for userId: X or email: Y'')</li><li>404 Not Found: JSON <code>{msg, code, params}</code> (returned when feature is not enabled)</li><li>500 Internal Server Error: Plain text</li></ul>'
+      operationId: subscribeSingleUserToDoubleOptIn
+      responses:
+        '202':
+          description: 'Request accepted (plain text: ''Request for double opt-in subscription accepted'')'
+        '204':
+          description: No content - user is already subscribed to all requested message types
+        '400':
+          description: 'Invalid parameters - returns EITHER JSON {error, message, code, data} for request parsing errors OR plain text for validation errors (e.g., ''User not found for userId: X or email: Y'')'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorHttpResponse'
+        '401':
+          description: 'Invalid API key (JSON: {msg, code, params})'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '404':
+          description: 'Endpoint not found (JSON: {msg, code, params})'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '500':
+          description: Internal server error (plain text)
+      summary: Trigger a double opt-in subscription flow
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoubleOptInSubscriptionsRequest'
+        description: Create a double opt-in subscription request
+        required: true
+  /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}:
+    put:
+      description: Subscribes or unsubscribes multiple users to the specified subscription group. In <code>users</code>, list <code>email</code> addresses. In <code>usersByUserId</code>, list <code>userId</code> values. A single request can include both <code>users</code> and <code>usersByUserId</code>. To enable this API, contact your customer success manager.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: Bulk subscription action
+      parameters:
+      - description: 'Subscription group (i.e.: emailList, messageType, messageChannel) [Alphanumeric, case insensitive]'
+        in: path
+        name: subscriptionGroup
+        required: true
+        schema:
+          type: string
+      - description: Subscription Group Id [Numeric]
+        in: path
+        name: subscriptionGroupId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: subscribe or unsubscribe
+        in: query
+        name: action
+        required: true
+        schema:
+          type: string
+          default: subscribe
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Accepted a request for bulk subscription actions
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Endpoint not found
+        '409':
+          description: Email/userId conflict
+      summary: Bulk subscription action on a list of users
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkSubscriptionActionRequest'
+        description: user email
+        required: true
+  /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/byUserId/{userId}:
+    delete:
+      description: Unsubscribes a user from the specified subscription group. To enable this API, contact your customer success manager.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: unsubscribeSingleUserByUserId
+      parameters:
+      - description: 'Subscription group (i.e.: emailList, messageType, messageChannel) [Alphanumeric, case insensitive]'
+        in: path
+        name: subscriptionGroup
+        required: true
+        schema:
+          type: string
+      - description: Subscription Group Id [Numeric]
+        in: path
+        name: subscriptionGroupId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: User's userId
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Accepted a request to unsubscribe
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Endpoint not found
+        '409':
+          description: Email/userId conflict
+      summary: Unsubscribe a single user by userId
+      tags:
+      - subscriptions
+    patch:
+      description: Subscribes a user to the specified subscription group. To enable this API, contact your customer success manager.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: subscribeSingleUserByUserId
+      parameters:
+      - description: 'Subscription group (i.e.: emailList, messageType, messageChannel) [Alphanumeric, case insensitive]'
+        in: path
+        name: subscriptionGroup
+        required: true
+        schema:
+          type: string
+      - description: Subscription Group Id [Numeric]
+        in: path
+        name: subscriptionGroupId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: User's userId
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Accepted a request to subscribe
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Endpoint not found
+        '409':
+          description: Email/userId conflict
+      summary: Subscribe a single user by their userId
+      tags:
+      - subscriptions
+  /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/user/{userEmail}:
+    delete:
+      description: Unsubscribes a user from the specified subscription group. To enable this API, contact your customer success manager.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: unsubscribeSingleUser
+      parameters:
+      - description: 'Subscription group (i.e.: emailList, messageType, messageChannel) [Alphanumeric, case insensitive]'
+        in: path
+        name: subscriptionGroup
+        required: true
+        schema:
+          type: string
+      - description: Subscription Group Id [Numeric]
+        in: path
+        name: subscriptionGroupId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: User's Email [Alphanumeric]
+        in: path
+        name: userEmail
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Accepted a request to unsubscribe
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Endpoint not found
+        '409':
+          description: Email/userId conflict
+      summary: Unsubscribe a single user
+      tags:
+      - subscriptions
+    patch:
+      description: Subscribes a user to the specified subscription group. To enable this API, contact your customer success manager.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: subscribeSingleUser
+      parameters:
+      - description: 'Subscription group (i.e.: emailList, messageType, messageChannel) [Alphanumeric, case insensitive]'
+        in: path
+        name: subscriptionGroup
+        required: true
+        schema:
+          type: string
+      - description: Subscription Group Id [Numeric]
+        in: path
+        name: subscriptionGroupId
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: User's Email [Alphanumeric]
+        in: path
+        name: userEmail
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '202':
+          description: Accepted a request to subscribe
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '404':
+          description: Endpoint not found
+        '409':
+          description: Email/userId conflict
+      summary: Subscribe a single user
+      tags:
+      - subscriptions
+components:
+  schemas:
+    ErrorHttpResponse:
+      properties:
+        code:
+          type: string
+        data:
+          $ref: '#/components/schemas/JsObject'
+        error:
+          $ref: '#/components/schemas/ErrorWithStatus'
+        message:
+          type: string
+      required:
+      - code
+      - data
+      - error
+      - message
+      type: object
+    ErrorWithStatus:
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - status
+      type: object
+    Cookie:
+      properties:
+        asJava:
+          $ref: '#/components/schemas/Cookie'
+        domain:
+          type: string
+        httpOnly:
+          type: boolean
+        maxAge:
+          type: object
+        name:
+          type: string
+        path:
+          type: string
+        sameSite:
+          $ref: '#/components/schemas/SameSite'
+        secure:
+          type: boolean
+        value:
+          type: string
+      required:
+      - asJava
+      - httpOnly
+      - name
+      - path
+      - secure
+      - value
+      type: object
+    Status:
+      properties:
+        attrs:
+          $ref: '#/components/schemas/TypedMap'
+        body:
+          $ref: '#/components/schemas/HttpEntity'
+        header:
+          $ref: '#/components/schemas/ResponseHeader'
+        newCookies:
+          items:
+            $ref: '#/components/schemas/Cookie'
+          type: array
+        newFlash:
+          $ref: '#/components/schemas/Flash'
+        newSession:
+          $ref: '#/components/schemas/Session'
+      required:
+      - attrs
+      - body
+      - header
+      - newCookies
+      type: object
+    Flash:
+      properties:
+        asJava:
+          $ref: '#/components/schemas/Flash'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        empty:
+          type: boolean
+      required:
+      - asJava
+      - data
+      - empty
+      type: object
+    Session:
+      properties:
+        asJava:
+          $ref: '#/components/schemas/Session'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        empty:
+          type: boolean
+      required:
+      - asJava
+      - data
+      - empty
+      type: object
+    BulkSubscriptionActionRequest:
+      properties:
+        users:
+          description: Users to subscribe/unsubscribe, identified by <code>email</code>.
+          items:
+            type: string
+          type: array
+        usersByUserId:
+          description: Users to subscribe/unsubscribe, identified by <code>userId</code>.
+          items:
+            type: string
+          type: array
+      type: object
+    DoubleOptInSubscriptionsRequest:
+      properties:
+        brandName:
+          description: 'To provide context, every double opt-in confirmation message includes a brand name. The value to use for this brand name is determined by (in priority order): the <code>brandName</code> included in the request body (if specified), the default brand name associated with the specified message types (if those message types all have the same default brand name), or a comma-separated, de-duplicated list of default brand names associated with the specified message types (if those message types have different default brand names).'
+          type: string
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageTypeIds:
+          description: List of SMS, double opt-in message type IDs to which the user should be subscribed.
+          items:
+            type: object
+          type: array
+        phoneNumber:
+          description: The <code>phoneNumber</code> to set on the specified user's profile.
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageTypeIds
+      type: object
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
+      type: object
+    SameSite:
+      properties:
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    ResponseHeader:
+      properties:
+        headers:
+          additionalProperties:
+            type: string
+          type: object
+        reasonPhrase:
+          type: string
+        status:
+          format: int32
+          type: integer
+      required:
+      - headers
+      - status
+      type: object
+    JsValue:
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    HttpEntity:
+      properties:
+        knownEmpty:
+          type: boolean
+      required:
+      - knownEmpty
+      type: object
+    TypedMap:
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

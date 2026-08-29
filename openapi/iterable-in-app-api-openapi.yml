@@ -1,0 +1,456 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable In App API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: In-app
+paths:
+  /api/inApp/cancel:
+    post:
+      description: Cancels the sending of a scheduled in-app message to a specific user.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: cancel
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Cancel a scheduled in-app message
+      tags:
+      - In-app
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required'
+        description: Email and Campaign ID
+        required: true
+  /api/inApp/getMessages:
+    get:
+      description: Get a user's in-app messages. This endpoint always returns the user's non-selective (not app-specific) in-app messages; to also fetch app-specific in-app messages, include a <code>packageName</code> and <code>platform</code> in the request. This endpoint returns new messages and messages that have already been saved to a mobile inbox, and each message has a <code>read</code> field to indicate whether or not it has already been seen.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: getMessages
+      parameters:
+      - description: The email address of the user for which to fetch in-app messages. Specify either an email or a userId.
+        in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      - description: The userId of the user for which to fetch in-app messages. Specify either an email or a userId.
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+      - description: The number of in-app messages to fetch.
+        in: query
+        name: count
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - description: 'The platform of the app for which to retrieve selective in-app messages: iOS, Android, Web, or OTT (case-sensitive).'
+        in: query
+        name: platform
+        required: false
+        schema:
+          type: string
+          enum:
+          - iOS
+          - Android
+          - Web
+          - OTT
+          default: None
+      - description: Iterable SDK version (e.g., 6.2.17)
+        in: query
+        name: SDKVersion
+        required: false
+        schema:
+          type: string
+          default: None
+      - description: The package name of the app for which to retrieve selective in-app messages.
+        in: query
+        name: packageName
+        required: false
+        schema:
+          type: string
+          default: None
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInAppMessagesResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user's in-app messages
+      tags:
+      - In-app
+  /api/inApp/getPriorityMessage:
+    get:
+      description: Get a user's most relevant in-app message.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: getPriorityMessage
+      parameters:
+      - description: The email address of the user for which to fetch in-app messages. Specify either an email or a userId.
+        in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      - description: The userId of the user for which to fetch in-app messages. Specify either an email or a userId.
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+      - description: 'The platform of the app for which to retrieve selective in-app messages: iOS, Android, Web, or OTT (case-sensitive).'
+        in: query
+        name: platform
+        required: false
+        schema:
+          type: string
+          enum:
+          - iOS
+          - Android
+          - Web
+          - OTT
+          default: None
+      - description: Iterable SDK version (e.g., 6.2.17)
+        in: query
+        name: SDKVersion
+        required: false
+        schema:
+          type: string
+          default: None
+      - description: The package name of the app for which to retrieve selective in-app messages.
+        in: query
+        name: packageName
+        required: false
+        schema:
+          type: string
+          default: None
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInAppMessagesResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user's most relevant in-app message
+      tags:
+      - In-app
+  /api/inApp/target:
+    post:
+      description: Send an in-app notification to a specific user. Request data fields will override user profile data fields. A reference to the user profile is provided via the <code>profile</code> field, to help resolve field collisions.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: target
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Send an in-app notification to a user
+      tags:
+      - In-app
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetInAppRequest'
+        description: Recipient and email id
+        required: true
+components:
+  schemas:
+    Value:
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    InAppType:
+      type: object
+    PositionOption:
+      type: object
+    BgColor:
+      properties:
+        alpha:
+          description: The opacity range of the background between 0-1
+          type: number
+        hex:
+          description: 'The hex color of the background. Format: #FFFFFF'
+          type: string
+      type: object
+    InAppTypeOfContent:
+      type: object
+    InboxMetadata:
+      properties:
+        icon:
+          description: The icon to display in the inbox
+          type: string
+        subtitle:
+          description: The subtitle to display in the inbox
+          type: string
+        title:
+          description: The title to display in the inbox
+          type: string
+      type: object
+    ApiInAppMessage:
+      properties:
+        campaignId:
+          description: Campaign ID
+          type: number
+        content:
+          $ref: '#/components/schemas/InAppContentApi'
+          description: The content for the in-app message
+        createdAt:
+          description: Time the In-app message was created
+          format: date-time
+          type: string
+        customPayload:
+          description: The custom payload for the in-app message
+          type: object
+        expiresAt:
+          description: Time the in-app message will expire
+          format: date-time
+          type: string
+        inboxMetadata:
+          $ref: '#/components/schemas/InboxMetadata'
+          description: An object containing inbox metadata associated with this in-app message
+        jsonOnly:
+          type: boolean
+        messageId:
+          description: Iterable-generated Message ID
+          type: string
+        messageType:
+          $ref: '#/components/schemas/InAppType'
+        ottPayload:
+          $ref: '#/components/schemas/RokuContent'
+          description: The custom Roku payload for the in-app message
+        priorityLevel:
+          description: The priority value of the in-app message
+          type: number
+        read:
+          description: Whether or not the message was read by user
+          type: boolean
+        saveToInbox:
+          description: Whether or not the message associated with the event was configured to use the inbox
+          type: boolean
+        trigger:
+          $ref: '#/components/schemas/InAppTrigger'
+          description: The trigger type for the in-app message
+        typeOfContent:
+          $ref: '#/components/schemas/InAppTypeOfContent'
+      required:
+      - jsonOnly
+      - messageType
+      - typeOfContent
+      type: object
+    InAppDisplaySettings:
+      properties:
+        bgColor:
+          $ref: '#/components/schemas/BgColor'
+          description: The background color values
+        bottom:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the bottom of the notification, or -1 to autoexpand
+        left:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the left of the notification, or -1 to autoexpand
+        right:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the right of the notification, or -1 to autoexpand
+        shouldAnimate:
+          description: Enables In App Animations
+          type: boolean
+        top:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the top of the notification, or -1 to autoexpand
+      type: object
+    InAppDisplaySetting:
+      type: object
+    TargetInAppRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          description: Campaign ID
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into email template
+          type: object
+        recipientEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        recipientUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sendAt:
+          description: Schedule the message for up to 365 days in the future. If set in the past, message is sent immediately. Format is YYYY-MM-DD HH:MM:SS in UTC
+          type: string
+      required:
+      - campaignId
+      type: object
+    CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required:
+      properties:
+        campaignId:
+          description: The ID of the campaign associated with the scheduled message you'd like to cancel. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: number
+        email:
+          description: An email address that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        scheduledMessageId:
+          type: number
+        userId:
+          description: A user ID that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    RokuButtonContent:
+      properties:
+        buttonBorderColor:
+          type: string
+        buttonColorFocused:
+          type: string
+        buttonColorUnFocused:
+          type: string
+        buttonDeeplink:
+          type: string
+        buttonText:
+          type: string
+        buttonTextColorFocused:
+          type: string
+        buttonTextColorUnFocused:
+          type: string
+      required:
+      - buttonBorderColor
+      - buttonColorFocused
+      - buttonColorUnFocused
+      - buttonDeeplink
+      - buttonText
+      - buttonTextColorFocused
+      - buttonTextColorUnFocused
+      type: object
+    InAppTrigger:
+      properties:
+        type:
+          $ref: '#/components/schemas/Value'
+          description: How the in-app message was triggered
+      type: object
+    WebInAppDisplaySettings:
+      properties:
+        position:
+          $ref: '#/components/schemas/PositionOption'
+          description: The position of the message on the screen
+      type: object
+    ApiInAppMessagesResponse:
+      properties:
+        inAppMessages:
+          items:
+            $ref: '#/components/schemas/ApiInAppMessage'
+          type: array
+      required:
+      - inAppMessages
+      type: object
+    RokuContent:
+      properties:
+        backgroundColor:
+          type: string
+        buttons:
+          items:
+            $ref: '#/components/schemas/RokuButtonContent'
+          type: array
+        dialogBodyFont:
+          type: string
+        dialogButtonFont:
+          type: string
+        dialogHeader:
+          type: string
+        dialogHeaderFont:
+          type: string
+        dialogText:
+          type: string
+        fhd_image:
+          type: string
+        textColor:
+          type: string
+      type: object
+    InAppContentApi:
+      properties:
+        html:
+          description: The html to be displayed
+          type: string
+        inAppDisplaySettings:
+          $ref: '#/components/schemas/InAppDisplaySettings'
+          description: The in-app message display settings
+        ottPayload:
+          $ref: '#/components/schemas/RokuContent'
+        webInAppDisplaySettings:
+          $ref: '#/components/schemas/WebInAppDisplaySettings'
+      required:
+      - webInAppDisplaySettings
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

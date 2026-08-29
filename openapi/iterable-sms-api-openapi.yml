@@ -1,23 +1,75 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns SMS API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable SMS API
+  version: '1.0'
+  description: 'Operations tagged SMS across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
 - name: SMS
-  description: Send SMS messages and manage SMS-specific delivery settings.
 paths:
+  /api/sms/cancel:
+    post:
+      description: Cancels an SMS to a specific user. Request must include a <code>campaignId</code> and an <code>email</code> or <code>userId</code>, or just a <code>scheduledMessageId</code>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: cancel
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Cancel an SMS to a user
+      tags:
+      - SMS
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required'
+        description: Email and Campaign ID
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/sms/target:
+    post:
+      description: Send an SMS notification to a specific user. Note that this API is typically used for transactional messaging. Request data fields will override user profile data fields. A reference to the user profile is provided via the <code>profile</code> field, to help resolve field collisions.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: target
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Send SMS notification to user
+      tags:
+      - SMS
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetSMSRequest'
+        description: Recipient and email ID
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /sms/target:
     post:
       operationId: sendSms
@@ -56,8 +108,94 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
   schemas:
+    CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required:
+      properties:
+        campaignId:
+          description: The ID of the campaign associated with the scheduled message you'd like to cancel. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: number
+        email:
+          description: An email address that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        scheduledMessageId:
+          type: number
+        userId:
+          description: A user ID that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    TargetSMSRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          description: Campaign ID
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into template
+          type: object
+        recipientEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        recipientUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sendAt:
+          description: Schedule the message for up to 365 days in the future. If set in the past, message is sent immediately. Format is YYYY-MM-DD HH:MM:SS in UTC
+          type: string
+      required:
+      - campaignId
+      type: object
     IterableResponse:
       type: object
       description: Standard Iterable API response indicating success or failure
@@ -73,11 +211,18 @@ components:
           description: Additional response parameters
           additionalProperties: true
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

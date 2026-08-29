@@ -1,30 +1,701 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns Users API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable Users API
+  version: '1.0'
+  description: 'Operations tagged users across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
-- name: Users
-  description: Manage user profiles, update user fields, bulk update users, get user data by email or userId, and delete users.
+- name: users
 paths:
+  /api/auth/jwts/invalidate:
+    post:
+      description: Invalidates all JWTs issued for a given user before the current time or a specified time.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: Invalidate JWT
+      responses:
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Invalidate all JWTs issued for a user
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvalidateJwtRequest'
+        description: Invalid JWT request
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/bulkUpdate:
+    post:
+      description: 'Bulk updates user data. This endpoint adds and overwrites user profile fields as needed. It does not modify top-level fields omitted from the request body. <br/><br/>If you''d like to merge (rather than overwrite) a user profile''s top-level objects with the values provided for them in the request body, set <code>mergeNestedObjects</code> to <code>true</code>.<br/><br/>When updating an existing field, you cannot change its data type (the new value must have the same data type as the old value).<br/><br/>When adding a new field, remember that each project has a soft limit of 1,000 unique user profile fields (across all its users, with a field''s uniqueness determined by its name and position on the user profile). <br/><br/>Iterable handles requests to this endpoint separately from requests to single-user endpoints (<code>update</code>, <code>updateEmail</code>, <code>updateSubscriptions</code>, etc.). For a given user, in a short period of time, only use single-user calls or bulk update calls. Otherwise, results may be inconsistent.<br/><br/>When updating the <code>emailListIds</code> field, this endpoint does not generate subscribe or unsubscribe events. The same is true for updates to <code>unsubscribedChannelIds</code> and <code>unsubscribedMessageTypeIds</code> (but these can only be updated by this endpoint in projects where the opt-in message types feature is not enabled).<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Max size of request body</b>: 4MB<br/><b>Rate limit</b>: 5 requests/second, per project'
+      operationId: bulkUpdateUser
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserBulkUpdateListResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '429':
+          description: Rate limit exceeded. Response includes <code>params</code> with:<br/><code>rateLimitLimit</code> — maximum token capacity (burst allowance)<br/><code>rateLimitRemaining</code> — tokens remaining after this request<br/><code>rateLimitReset</code> — seconds until enough tokens refill to retry
+      summary: Bulk update user data
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpdateUsersRequest'
+        description: Users to update
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/bulkUpdateSubscriptions:
+    post:
+      description: '<b>IMPORTANT</b>: This endpoint overwrites (does not merge) existing data for any non-<code>null</code> fields specified in the request.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.'
+      operationId: bulkUpdateSubscriptions
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUpdateSubscriptionsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '409':
+          description: Email/userId conflict
+      summary: Bulk update user subscriptions
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpdateSubscriptionsRequest'
+        description: Bulk subscriptions to update
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/byUserId:
+    get:
+      description: 'Get a user by userId (passed as a query parameter).<br/><br/>Returns the same data as <code>GET /api/users/byUserId/{userId}</code>. However, when making calls from Iterable''s API Documentation page, this endpoint provides better support for special characters.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: getUserById
+      parameters:
+      - in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user by userId (query parameter)
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/byUserId/{userId}:
+    delete:
+      description: 'Asynchronous. Deletes a specific user by <code>userId</code>. Does not prevent future data collection about the user. If multiple users share the same <code>userId</code>, they''ll all be deleted. This endpoint can be used to delete users from email-based projects, userID-based projects, and hybrid projects.<br/><br/>On Iterable''s API Documentation page, this endpoint does not work for <code>userId</code> values that contain a <code>/</code> character. In such cases, you can still call this endpoint with a tool like curl or Postman, or from your code. To learn how, read <a href="https://support.iterable.com/hc/articles/360043464871#using-api-keys">Using API keys</a>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: delete
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Delete user by userId
+      tags:
+      - users
+      security:
+      - api_key: []
+    get:
+      description: 'Get a user by <code>userId</code> (passed as a path parameter).<br/><br/>On Iterable''s API Documentation page, this endpoint does not work for <code>userId</code> values that contain a <code>/</code> character. In such cases, you can use <code>GET /api/users/byUserId</code>, or you can still call this endpoint with a tool like curl or Postman, or from your code. To learn how, read <a href="https://support.iterable.com/hc/articles/360043464871#using-api-keys">Using API keys</a>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: getUserById
+      parameters:
+      - description: userId
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user by userId (path parameter)
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/disableDevice:
+    post:
+      description: Disables push notifications to a given device.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: disableDevice
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Disable pushes to a mobile device
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisableDeviceRequest'
+        description: Request to disable device
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/forget:
+    post:
+      description: 'Deletes the specified user''s data from the Iterable project and prevents future data collection about them. In email-based projects, you must forget users by <code>email</code>. In userID-based projects, you must forget users by <code>userId</code>. In hybrid projects, you can forget users by either <code>email</code> or <code>userId</code>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 3 requests/second, per project.<br/><br/><b>Daily Cap</b>: 1000 requests per 24 hour period, per project.'
+      operationId: forget
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Forget a user in compliance with GDPR
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        description: user's email to be added to blacklist.
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/forgotten:
+    get:
+      description: 'Returns a hash for each <code>email</code> addresses currently forgotten by your project. Each forgotten <code>email</code> is lowercased, trimmed, and hashed using SHA-256. This endpoint only works for email-based and hybrid projects. For userID-based projects, it returns an error.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 3 requests/second, per project.'
+      operationId: exportProjectForgottenUsers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetForgottenUserEmailsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get hashed forgotten users in compliance with GDPR
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/forgottenUserIds:
+    get:
+      description: 'Returns a hash for each <code>userId</code> currently forgotten by your project. Each forgotten <code>userId</code> is lowercased, trimmed, and hashed using SHA-256. This endpoint only works for userID-based and hybrid projects. For email-based projects, it returns an error.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 3 requests/second, per project.'
+      operationId: exportProjectForgottenUserIds
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetForgottenUserIdsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get hashed forgotten userIds in compliance with GDPR
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/getByEmail:
+    get:
+      description: 'Get a user by email address (passed as a query parameter).<br/><br/>Returns the same data as <code>GET /api/users/{email}</code>. However, when making calls from Iterable''s API Documentation page, this endpoint provides better support for special characters.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: getUser
+      parameters:
+      - in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user by email (query parameter)
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/getFields:
+    get:
+      description: 'Get all user fields within a project.<br/><br/><b>Rate limit</b>: 3 requests/second, per project.'
+      operationId: getUserFields
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserFieldsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get all user fields
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/getSentMessages:
+    get:
+      description: 'Gets messages sent to a user, by <code>email</code> address or <code>userId</code>. Returns 10 by default, up to 1,000.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 3 requests/second, per project.'
+      operationId: getSentMessages
+      parameters:
+      - description: user's email, either email or userId must be specified
+        in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      - description: user's userId, either email or userId must be specified
+        in: query
+        name: userId
+        required: false
+        schema:
+          type: string
+      - description: 'max number of messages to return (default: 10, max limit: 1000)'
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - description: only include messages from these campaigns
+        in: query
+        name: campaignIds
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: object
+      - description: start date time (yyyy-MM-dd HH:mm:ss ZZ)
+        in: query
+        name: startDateTime
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: end date time (yyyy-MM-dd HH:mm:ss ZZ)
+        in: query
+        name: endDateTime
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - description: exclude results coming from blast campaigns (ignored if campaignId is set)
+        in: query
+        name: excludeBlastCampaigns
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - description: only include messages of this type
+        in: query
+        name: messageMedium
+        required: false
+        schema:
+          type: string
+          enum:
+          - Email
+          - Push
+          - InApp
+          - SMS
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSentMessagesResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get messages sent to a user
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/merge:
+    post:
+      description: 'Merge two users.<br/><br/>In the request body, specify <code>sourceEmail</code> or <code>sourceUserId</code> (but not both), and <code>destinationEmail</code> or <code>destinationUserId</code> (but not both).<br/><br/>Returns an error if source user does not exist in Iterable. Will update source user if destination user is not found.<br/><br/><b>Rate limit</b>: 50 requests/second, per API key.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.'
+      operationId: mergeUsers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '403':
+          description: Merging known user profiles is forbidden with specific API key type. Please use a server-side key.
+        '409':
+          description: Source or destination user forgotten
+      summary: Merge users
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeUsersRequest'
+        description: Merge users. All profile data and events will be migrated.
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/registerBrowserToken:
+    post:
+      description: 'Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Token limit</b>: Maximum of 500 browser tokens per user profile. Returns a 400 response code when this limit has been exceeded.'
+      operationId: registerBrowserToken
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '409':
+          description: Email/userId conflict
+      summary: Register a browser token for web push
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterBrowserTokenRequest'
+        description: Request to register browser
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/registerDeviceToken:
+    post:
+      description: 'Registers a device token for push. This will add the data if it doesn''t exist yet. It will also update data fields on the device. Data will be merged; missing fields are not deleted. Also, note that there is a soft limit on the number of unique fields a user can have (default is 1,000). Types of data fields must match the types sent in previous requests, across all data fields in the project.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Device limit</b>: Maximum of 500 devices per user profile. Endpoint returns a 400 response code when this limit has been exceeded.<br/><b>Rate limit</b>: 500 requests/second, per project.'
+      operationId: registerDeviceToken
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '409':
+          description: Email/userId conflict
+      summary: Register a device token for push
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDeviceTokenRequest'
+        description: Request to register device
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/unforget:
+    post:
+      description: 'Allows the Iterable project to resume collecting data about a previously forgotten user. Deleted data cannot be recovered. In email-based projects, you must unforget users by <code>email</code>. In userID-based projects, you must unforget users by <code>userId</code>. In hybrid projects and in projects that migrated from being email-based to being userID-based, you can unforget users by either <code>email</code> or <code>userId</code>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 3 requests/second, per project.<br/><br/><b>Daily Cap</b>: 1000 requests per 24 hour period, per project.'
+      operationId: unforget
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Unforget a user in compliance with GDPR
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        description: user's email to be removed from blacklist.
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/update:
+    post:
+      description: 'Updates user data or adds a user if none exists. Data is merged - missing fields are not deleted. Please note there is a soft limit (default: 1,000) on the number of unique fields users can have. Types of data fields must match the types sent in previous requests, across all data fields in the project.<br/>Processing time varies based on the current load for Iterable''s back-end services. To avoid race conditions, provide a buffer of at least 60 seconds between this request and subsequent dependent requests, such as <code>POST /api/email/target.</code><br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 500 requests/second, per project.'
+      operationId: updateUser
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '409':
+          description: Contact is GDPR forgotten<br/>Email/userId conflict
+        '429':
+          description: Rate limit exceeded. Response includes <code>params</code> with:<br/><code>rateLimitLimit</code> — maximum token capacity (burst allowance)<br/><code>rateLimitRemaining</code> — tokens remaining after this request<br/><code>rateLimitReset</code> — seconds until enough tokens refill to retry
+      summary: Update user data
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiUserUpdateRequest'
+        description: user object
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/updateEmail:
+    post:
+      description: Updates a user's <code>email</code>. <br/><br/>Use this endpoint with <a href="https://support.iterable.com/hc/articles/9216719179796">email-based projects.</a> To update an <code>email</code> in a userID-based or hybrid project, use <a href="#users_updateUser"><code>POST /api/users/update</code></a>. <br/><br/>In the request body, specify <code>currentEmail</code> or <code>currentUserId</code>, but not both. If you include both, <code>currentEmail</code> takes precedence.<br/><br/>Returns an error if the new email already exists in Iterable, or if the new email has been forgotten via a GDPR request.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: updateEmail
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '409':
+          description: Contact is GDPR forgotten<br/>Email/userId conflict
+      summary: Update user email
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmailRequest'
+        description: Update a user's email. All profile data and events will be migrated.
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/updateSubscriptions:
+    post:
+      description: 'Updates user subscriptions. <b>IMPORTANT</b>: This endpoint overwrites (does not merge) existing data for any non-<code>null</code> fields specified in the request.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.'
+      operationId: updateSubscriptions
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+        '409':
+          description: Email/userId conflict
+      summary: Update user subscriptions
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSubscriptionsRequest'
+        description: Subscriptions to update
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/users/{email}:
+    delete:
+      description: 'Asynchronous. Deletes a specific user by <code>email</code>. Does not prevent future data collection about the user. This endpoint can be used to delete users from email-based projects and hybrid projects, but not userID-based projects.<br/><br/>On Iterable''s API Documentation page, this endpoint does not work for <code>email</code> values that contain a <code>/</code> character. In such cases, you can still call this endpoint with a tool like curl or Postman, or from your code. To learn how, read <a href="https://support.iterable.com/hc/articles/360043464871#using-api-keys">Using API keys</a>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: delete
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Delete a user by email
+      tags:
+      - users
+      security:
+      - api_key: []
+    get:
+      description: 'Get a user by email address (passed as a path parameter).<br/><br/>On Iterable''s API Documentation page, this endpoint does not work for <code>email</code> values that contain a <code>/</code> character. In such cases, you can use <code>GET /api/users/getByEmail</code> instead, or you can still call this endpoint with a tool like curl or Postman, or from your code. To learn how, read <a href="https://support.iterable.com/hc/articles/360043464871#using-api-keys">Using API keys</a>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: getUser
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get a user by email (path parameter)
+      tags:
+      - users
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /users/update:
     post:
       operationId: updateUser
       summary: Update a user profile
       description: Updates an existing user profile or creates a new one if the user does not already exist. Accepts user fields, email, userId, and data fields to set or update on the user profile.
       tags:
-      - Users
+      - users
       requestBody:
         required: true
         content:
@@ -46,13 +717,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '401':
           description: Unauthorized - invalid API key
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /users/bulkUpdate:
     post:
       operationId: bulkUpdateUsers
       summary: Bulk update user profiles
       description: Updates multiple user profiles in a single request. Each user object in the array can include email, userId, and data fields to update.
       tags:
-      - Users
+      - users
       requestBody:
         required: true
         content:
@@ -78,13 +756,20 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /users/{email}:
     get:
       operationId: getUserByEmail
       summary: Get a user by email
       description: Retrieves the full user profile for a given email address, including all data fields and subscription preferences.
       tags:
-      - Users
+      - users
       parameters:
       - $ref: '#/components/parameters/emailPath'
       responses:
@@ -93,19 +778,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/UserResponse_2'
         '400':
           description: Bad request
         '401':
           description: Unauthorized
         '404':
           description: User not found
+      security:
+      - apiKeyAuth: []
     delete:
       operationId: deleteUserByEmail
       summary: Delete a user by email
       description: Deletes a user profile identified by email address from the Iterable project.
       tags:
-      - Users
+      - users
       parameters:
       - $ref: '#/components/parameters/emailPath'
       responses:
@@ -119,13 +806,20 @@ paths:
           description: Unauthorized
         '404':
           description: User not found
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /users/byUserId/{userId}:
     get:
       operationId: getUserByUserId
       summary: Get a user by userId
       description: Retrieves the full user profile for a given userId, including all data fields and subscription preferences.
       tags:
-      - Users
+      - users
       parameters:
       - $ref: '#/components/parameters/userIdPath'
       responses:
@@ -134,19 +828,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/UserResponse_2'
         '400':
           description: Bad request
         '401':
           description: Unauthorized
         '404':
           description: User not found
+      security:
+      - apiKeyAuth: []
     delete:
       operationId: deleteUserByUserId
       summary: Delete a user by userId
       description: Deletes a user profile identified by userId from the Iterable project.
       tags:
-      - Users
+      - users
       parameters:
       - $ref: '#/components/parameters/userIdPath'
       responses:
@@ -160,13 +856,20 @@ paths:
           description: Unauthorized
         '404':
           description: User not found
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /users/getFields:
     get:
       operationId: getUserFields
       summary: Get user fields
       description: Retrieves all user field names and their data types defined in the Iterable project.
       tags:
-      - Users
+      - users
       responses:
         '200':
           description: List of user fields
@@ -182,13 +885,20 @@ paths:
                       type: string
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /users/registerDeviceToken:
     post:
       operationId: registerDeviceToken
       summary: Register a device token
       description: Registers a device token (APNs or FCM) for a user to enable push notification delivery.
       tags:
-      - Users
+      - users
       requestBody:
         required: true
         content:
@@ -230,48 +940,495 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
   schemas:
-    UserResponse:
+    UserBulkUpdateListResponse:
+      properties:
+        createdFields:
+          description: Fields that were created because <code>createNewFields</code> was <code>true</code> or <code>createNewFields</code> was not set and the project is configured to add unrecognized user profile fields.
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        failCount:
+          description: Number of user profiles that could not be updated. See <code>failedUpdates</code> for more details.
+          format: int32
+          type: integer
+        failedUpdates:
+          $ref: '#/components/schemas/FailedUserUpdates'
+          description: Details about failed updates.
+        filteredOutFields:
+          description: Fields that were dropped because <code>createNewFields</code> was <code>false</code> or <code>createNewFields</code> was not set and the project is configured to drop unrecognized user profile fields.
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        invalidEmails:
+          description: <code>email</code> addresses of users that failed to update. This field is deprecated — use <code>failedUpdates</code> instead.
+          items:
+            type: string
+          type: array
+        invalidUserIds:
+          description: <code>userId</code> values of users that failed to update. This field is deprecated — use <code>failedUpdates</code> instead.
+          items:
+            type: string
+          type: array
+        successCount:
+          description: Number of user profiles that were updated in response to the request.
+          format: int32
+          type: integer
+      required:
+      - failCount
+      - successCount
       type: object
-      description: User profile response containing all user data
+    RegisterDeviceTokenRequest:
+      properties:
+        device:
+          $ref: '#/components/schemas/Device'
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        preferUserId:
+          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
+          example: false
+          type: boolean
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - device
+      type: object
+    InvalidateJwtRequest:
+      properties:
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        issuedBefore:
+          description: Timestamp to invalidate JWTs before as epoch time in milliseconds. Defaults to the current time.
+          format: int32
+          type: integer
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    DisableDeviceRequest:
+      properties:
+        email:
+          description: Specific email this device belongs to disable. Will disable device under all users with this device by default.
+          type: string
+        token:
+          description: The device token
+          type: string
+        userId:
+          description: Specific userId this device belongs to disable. Will disable device under all users with this device by default.
+          type: string
+      required:
+      - token
+      type: object
+    GetForgottenUserIdsResponse:
+      properties:
+        hashedUserIds:
+          items:
+            type: string
+          type: array
+      required:
+      - hashedUserIds
+      type: object
+    UpdateEmailRequest:
+      properties:
+        currentEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>currentEmail</code> or a <code>currentUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        currentUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>currentEmail</code> or a <code>currentUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        newEmail:
+          description: The new email address to assign to the specified user.
+          type: string
+      required:
+      - newEmail
+      type: object
+    ApiUserUpdateRequest:
+      properties:
+        createNewFields:
+          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields.
+          example: false
+          type: boolean
+        dataFields:
+          description: Data to store on the user profile identified by <code>userId</code> or <code>email</code>.
+          type: object
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        mergeNestedObjects:
+          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
+          example: false
+          type: boolean
+        preferUserId:
+          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
+          example: false
+          type: boolean
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    UpdateSubscriptionsRequest:
+      properties:
+        campaignId:
+          description: Campaign to attribute unsubscribes
+          format: int64
+          type: integer
+        email:
+          description: An email address that identifies a user profile in Iterable. For each user in your request, provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        emailListIds:
+          description: Lists that a user is subscribed to
+          items:
+            format: int64
+            type: integer
+          type: array
+        subscribedMessageTypeIds:
+          description: Individual message type IDs to subscribe (does not impact channel subscriptions). To set a value for this field, first have your CSM enable the opt-in message types feature. Otherwise, attempting to set this field causes an error.
+          items:
+            format: int64
+            type: integer
+          type: array
+        templateId:
+          description: Template to attribute unsubscribes
+          format: int64
+          type: integer
+        unsubscribedChannelIds:
+          description: Email channel ids to unsubscribe from
+          items:
+            format: int64
+            type: integer
+          type: array
+        unsubscribedMessageTypeIds:
+          description: Individual message type IDs to unsubscribe (does not impact channel subscriptions).
+          items:
+            format: int64
+            type: integer
+          type: array
+        userId:
+          description: A user ID that identifies a user profile in Iterable. For each user in your request, provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        validateChannelAlignment:
+          description: Defaults to <code>true</code> (validation enabled). When <code>false</code>, allows subscribing users to message types that belong to unsubscribed channels. By default, Iterable validates that subscribed message types belong to subscribed channels. Setting this to <code>false</code> bypasses this validation, allowing you to save message type preferences even when the parent channel is unsubscribed. Users won't receive messages from these types while the channel remains unsubscribed, but their preferences are preserved for when the channel becomes subscribed.
+          type: boolean
+      type: object
+    MergeUsersRequest:
+      properties:
+        arrayMerge:
+          description: An array of objects, each of which specifies an array field whose contents should be merged during the user merge operation. The objects in this <code>arrayMerge</code> array should only reference custom arrays, not Iterable-managed arrays such as <code>devices</code>.
+          items:
+            $ref: '#/components/schemas/ArrayMerge'
+          type: array
+        destinationEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>destinationEmail</code> or a <code>destinationUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        destinationUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>destinationEmail</code> or a <code>destinationUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sourceEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>sourceEmail</code> or a <code>sourceUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sourceUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>sourceEmail</code> or a <code>sourceUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    BulkUpdateUsersRequest:
+      properties:
+        createNewFields:
+          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields. Added fields will be included in the response's <code>createdFields</code>. Dropped fields will be included in <code>filteredOutFields</code> and not added to user profiles.
+          example: false
+          type: boolean
+        users:
+          items:
+            $ref: '#/components/schemas/OptionalApiUser'
+          type: array
+      required:
+      - users
+      type: object
+    GetSentMessagesResponse:
+      properties:
+        messages:
+          items:
+            $ref: '#/components/schemas/SentMessage'
+          type: array
+      required:
+      - messages
+      type: object
+    UserRequest:
+      properties:
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    GetUserFieldsResponse:
+      properties:
+        fields:
+          type: object
+      required:
+      - fields
+      type: object
+    BulkUpdateSubscriptionsResponse:
+      properties:
+        failCount:
+          description: Number of users that weren't updated (due to invalid email or internal error)
+          format: int64
+          type: integer
+        invalidEmails:
+          description: A list of emails that weren't updated because they are invalid
+          items:
+            type: string
+          type: array
+        invalidUserIds:
+          description: A list of userIds that weren't updated because they are invalid
+          items:
+            type: string
+          type: array
+        successCount:
+          description: Number of users successfully updated
+          format: int64
+          type: integer
+        validEmailFailures:
+          description: A list of emails that weren't updated due to internal error
+          items:
+            type: string
+          type: array
+        validUserIdFailures:
+          description: A list of userIds that weren't updated due to internal error
+          items:
+            type: string
+          type: array
+      required:
+      - failCount
+      - invalidEmails
+      - invalidUserIds
+      - successCount
+      - validEmailFailures
+      - validUserIdFailures
+      type: object
+    RegisterBrowserTokenRequest:
+      properties:
+        browserToken:
+          description: This is provided by Firebase Messaging javascript API.
+          type: string
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - browserToken
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    UserResponse:
       properties:
         user:
-          type: object
-          properties:
-            email:
-              type: string
-              format: email
-              description: Email address
-            userId:
-              type: string
-              description: User ID
-            dataFields:
-              type: object
-              description: Custom user data fields
-              additionalProperties: true
-            signupDate:
-              type: string
-              format: date-time
-              description: User signup date
-            profileUpdatedAt:
-              type: string
-              format: date-time
-              description: Last profile update timestamp
-    IterableResponse:
+          $ref: '#/components/schemas/ApiResponseUser'
       type: object
-      description: Standard Iterable API response indicating success or failure
+    GetForgottenUserEmailsResponse:
       properties:
-        msg:
-          type: string
-          description: Human-readable response message
-        code:
-          type: string
-          description: Response code indicating success or error type
-        params:
+        hashedEmails:
+          items:
+            type: string
+          type: array
+      required:
+      - hashedEmails
+      type: object
+    OptionalApiUser:
+      properties:
+        dataFields:
           type: object
-          description: Additional response parameters
-          additionalProperties: true
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        mergeNestedObjects:
+          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
+          example: false
+          type: boolean
+        preferUserId:
+          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
+          example: false
+          type: boolean
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    ApiResponseUser:
+      properties:
+        dataFields:
+          type: object
+        email:
+          type: string
+        userId:
+          type: string
+      required:
+      - email
+      type: object
+    ArrayMerge:
+      properties:
+        dedupeBy:
+          description: The name of a top-level field that exists on the objects in the array being merged. The merge operation uses this field for de-duplicating the array merge.<br/><br/>An object in the source array is discarded from the array merge if it contains the field specified by <code>dedupeBy</code>, and if the destination array has an object with the same field and value. (The merge operation considers arrays to be equal if they have the same items, in the same order. Objects are considered equal if they have the same fields and values. Other data types must simply have the same value.)<br/><br/>If you do not provide a <code>dedupeBy</code> field in a given <code>ArrayMerge</code> object, when merging that array Iterable discards source objects that have exact matches in the analogous destination array (same equivalence rules as described above).<br/><br/>Provide this field only when <code>field</code> references an array of objects. Including <code>dedupeBy</code> when merging an array of some other data type (for example, an array of strings), will cause the entire user merge operation to fail.
+          type: string
+        field:
+          description: The name of a top-level user profile field that contains an array. During the merge operation, the contents of this array on the source profile are merged with the contents of the same array on the destination profile. For details about de-duplicating array merges, see <code>dedupeBy</code>.<br/><br/>If you specify a <code>field</code> whose value is not an array (for example, a single number like <code>age</code>), the merge operation treats that field as an array with a single value. Because of this, after the merge, the value of that field on the destination user profile will be an array containing both of the original values (except if de-duplication affects the result).
+          type: string
+      type: object
+    Device:
+      properties:
+        applicationName:
+          description: The Iterable push integration to associate with the device token. Usually matches the package name (or bundle ID) of the relevant mobile app. To check, navigate to <strong>Settings > Mobile Apps</strong>, open the mobile app, look at the <strong>Push</strong> section and find the <strong>Name</strong> column for the relevant push integration.
+          type: string
+        dataFields:
+          type: object
+        platform:
+          description: The device platform
+          enum:
+          - APNS
+          - APNS_SANDBOX
+          - GCM
+          type: string
+        token:
+          type: string
+      required:
+      - applicationName
+      - platform
+      - token
+      type: object
+    SentMessage:
+      properties:
+        campaignId:
+          format: int64
+          type: integer
+        createdAt:
+          type: string
+        messageId:
+          type: string
+        templateId:
+          format: int64
+          type: integer
+      required:
+      - campaignId
+      - createdAt
+      - messageId
+      - templateId
+      type: object
+    FailedUserUpdates:
+      properties:
+        conflictEmails:
+          description: Existing <code>email</code> addresses that prevented identity updates for users in the request.
+          items:
+            type: string
+          type: array
+        conflictUserIds:
+          description: Existing <code>userId</code> values that prevented identity updates for users in the request.
+          items:
+            type: string
+          type: array
+        forgottenEmails:
+          description: <code>email</code> addresses of users that were not updated because they've been GDPR forgotten.
+          items:
+            type: string
+          type: array
+        forgottenUserIds:
+          description: <code>userId</code> values of users that were not updated because they've been GDPR forgotten.
+          items:
+            type: string
+          type: array
+        invalidDataEmails:
+          description: <code>email</code> addresses of users that were not updated because of invalid data in <code>dataFields</code> other than an invalid <code>email</code> or <code>userId</code>.
+          items:
+            type: string
+          type: array
+        invalidDataUserIds:
+          description: <code>userId</code> values of users that were not updated because of invalid data in <code>dataFields</code> other than an invalid <code>email</code> or <code>userId</code>.
+          items:
+            type: string
+          type: array
+        invalidEmails:
+          description: Malformed <code>email</code> addresses found either at the top level of a passed-in user object, or in <code>dataFields</code>.
+          items:
+            type: string
+          type: array
+        invalidUserIds:
+          description: 'Malformed <code>userId</code> values (e.g. empty, too long, or containing non-ASCII or non-printable characters or a trailing space) found either at the top level of a passed-in user object, or in <code>dataFields</code>. '
+          items:
+            type: string
+          type: array
+        notFoundEmails:
+          description: <code>email</code> addresses that were not found (for subscribe/unsubscribe only).
+          items:
+            type: string
+          type: array
+        notFoundUserIds:
+          description: <code>userId</code> values that were not found (for subscribe/unsubscribe only).
+          items:
+            type: string
+          type: array
+      type: object
+    BulkUpdateSubscriptionsRequest:
+      properties:
+        updateSubscriptionsRequests:
+          description: List of UpdateSubscriptionsRequests to process
+          items:
+            $ref: '#/components/schemas/UpdateSubscriptionsRequest'
+          type: array
+      required:
+      - updateSubscriptionsRequests
+      type: object
     UserUpdateRequest:
       type: object
       description: Request body for updating a user profile
@@ -307,6 +1464,46 @@ components:
           type: object
           description: Additional error details
           additionalProperties: true
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+    UserResponse_2:
+      type: object
+      description: User profile response containing all user data
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              description: Email address
+            userId:
+              type: string
+              description: User ID
+            dataFields:
+              type: object
+              description: Custom user data fields
+              additionalProperties: true
+            signupDate:
+              type: string
+              format: date-time
+              description: User signup date
+            profileUpdatedAt:
+              type: string
+              format: date-time
+              description: Last profile update timestamp
   parameters:
     emailPath:
       name: email
@@ -324,11 +1521,18 @@ components:
       schema:
         type: string
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

@@ -1,0 +1,155 @@
+openapi: 3.2.0
+info:
+  termsOfService: https://iterable.com/terms/
+  title: Iterable Webhooks API
+  version: '1.8'
+servers:
+- url: https://api.iterable.com/
+security:
+- api_key: []
+tags:
+- name: webhooks
+paths:
+  /api/webhooks:
+    get:
+      description: Get webhooks for a project.
+      operationId: getWebhooks
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWebhooksResponse'
+        '401':
+          description: Invalid API key
+      summary: Get webhooks
+      tags:
+      - webhooks
+    post:
+      description: ''
+      operationId: updateWebhook
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiWebhookResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Update webhook
+      tags:
+      - webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiWebhookModel'
+        description: Only the specified fields will be updated
+        required: true
+components:
+  schemas:
+    LinkParam:
+      properties:
+        key:
+          description: Link parameter key
+          type: string
+        value:
+          description: Link parameter value
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    ApiWebhookModel:
+      properties:
+        authToken:
+          description: Auth token
+          type: string
+        authType:
+          description: The type of authentication Iterable uses when calling this webhook
+          enum:
+          - NoAuth
+          - Basic
+          - OAuth2
+          type: string
+        blastSendEnabled:
+          description: Whether or not Iterable calls this webhook for blast campaigns
+          type: boolean
+        enabled:
+          description: Whether or not Iterable will call the webhook when sending campaigns
+          type: boolean
+        endpoint:
+          description: The URL associated with the webhook
+          type: string
+        headers:
+          description: Headers
+          items:
+            $ref: '#/components/schemas/LinkParam'
+          type: array
+        id:
+          description: The ID of the webhook in Iterable
+          format: int64
+          type: integer
+        triggeredSendEnabled:
+          description: Whether or not Iterable calls this webhook for triggered campaigns
+          type: boolean
+      required:
+      - id
+      type: object
+    GetWebhooksResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/ApiWebhookResponse'
+          type: array
+      required:
+      - webhooks
+      type: object
+    ApiWebhookResponse:
+      properties:
+        authType:
+          description: Auth type
+          type: string
+        blastSendEnabled:
+          description: Blast Send Enabled
+          type: boolean
+        channelIds:
+          description: Channel IDs
+          items:
+            type: object
+          type: array
+        enabled:
+          description: Enabled
+          type: boolean
+        endpoint:
+          description: Endpoint
+          type: string
+        id:
+          description: Webhook ID
+          format: int64
+          type: integer
+        messageTypeIds:
+          description: Message Type IDs
+          items:
+            type: object
+          type: array
+        triggeredSendEnabled:
+          description: Triggered Send Enabled
+          type: boolean
+      required:
+      - authType
+      - blastSendEnabled
+      - enabled
+      - endpoint
+      - id
+      - triggeredSendEnabled
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey

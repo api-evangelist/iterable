@@ -1,30 +1,432 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Iterable Export Campaigns Events API
-  description: The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides export endpoints that allow retrieval of user data, event data, campaign metrics, and message engagement information in CSV and JSON formats. The export endpoints support filtering by date ranges and event types, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
-  version: 1.0.0
-  contact:
-    name: Iterable Support
-    url: https://support.iterable.com
-  termsOfService: https://iterable.com/trust/terms-of-service
+  title: Iterable Events API
+  version: '1.0'
+  description: 'Operations tagged events across 2 of this provider''s published API definitions: iterable-api-openapi.json, iterable-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.iterable.com/
 - url: https://api.iterable.com/api
   description: US Data Center (USDC)
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
-security:
-- apiKeyAuth: []
 tags:
-- name: Events
-  description: Track custom events, retrieve event data for users, and manage event metadata used for segmentation and campaign triggering.
+- name: events
 paths:
+  /api/embedded-messaging/events/click:
+    post:
+      description: This endpoint tracks a click on an embedded message. It creates an <code>embeddedClick</code> event.<br/><br/>For test messages (proofs), no events are created.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: embedded-track-click
+      responses:
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track an embedded message click
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddedClickRequest'
+        description: Track an embedded message click
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/embedded-messaging/events/received:
+    post:
+      description: This endpoint tracks that a given embedded message was received on a device. It creates an <code>embeddedReceived</code> event in Iterable. <br/><br/>An <code>embeddedReceived</code> event indicates that a device has retrieved a message. It does not mean that the message has been displayed.<br/><br/>Iterable's SDKs automatically call this endpoint for each embedded message they retrieve. If you're not using an SDK, call this endpoint once per embedded message you retrieve from Iterable's API.<br/><br/>For test messages (proofs), no events are created.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: embedded-track-received
+      responses:
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track an embedded message received event
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddedReceivedRequest'
+        description: Track an embedded message received event
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/embedded-messaging/events/session:
+    post:
+      description: This endpoint tracks a single <code>embeddedSession</code> event, and one <code>embeddedImpression</code> event for each of the session's impressions. <br/><br/>An <code>embeddedSession</code> event represents a period of time when a user is viewing a page or a screen where embedded messages can be displayed (in one or many placements).<br/><br/>An <code>embeddedImpression</code> event represents the number of times a given embedded message was visible during the session, and the total amount of time the message was visible (in seconds) across all those appearances.<br/><br/>This endpoint does not create events for test messages (proofs).<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: embedded-track-impression
+      responses:
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track an embedded message session and related impressions
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddedSessionRequest'
+        description: Track an embedded message session and related impressions
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/byUserId/{userId}:
+    get:
+      description: 'Get events for a specific user, by <code>userId</code>.<br/><br/>On Iterable''s API Documentation page, this endpoint does not work for <code>userId</code> values that contain a <code>/</code> character. In such cases, you can still call this endpoint with a tool like curl or Postman, or from your code. To learn how, read <a href="https://support.iterable.com/hc/articles/360043464871#using-api-keys">Using API keys</a>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: User events by userId
+      parameters:
+      - description: UserId of the user whose events you are retrieving.
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - description: The number of events to retrieve.  (Max is 200)
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 30
+          maximum: 200
+          minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get user events by userId
+      tags:
+      - events
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/inAppConsume:
+    post:
+      description: Consumes or deletes an in-app message from the server. Use this API if your app does not use one of Iterable’s mobile SDKs, since they call it automatically. If an incoming in-app message is not configured to use the mobile inbox, use this API to "consume" it from the server queue after the user sees it. Otherwise, call this API when the user explicitly deletes an inbox-enabled message (by clicking a delete button in its content, swiping it in the inbox, etc.). If you pass a deleteAction value to this endpoint, Iterable generates an inAppDelete event; otherwise, it does not.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: inAppConsume
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Consume or delete an in-app message
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InAppConsumeRequest'
+        description: In-app notification to consume
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/track:
+    post:
+      description: 'Events are created asynchronously and <b>processed separately from single event (non-bulk) endpoint</b>. To make sure events are tracked in order, send them all to the same endpoint (either bulk or non-bulk). <br/><br/>There is a soft limit (default is 8,000) on the number of unique fields a custom event can have. For events of the same name, identically named data fields must be of the same type.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 2000 requests/second, per project.<br/><br/>'
+      operationId: track
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track an event
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackRequest'
+        description: Event to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackBulk:
+    post:
+      description: 'Events are created asynchronously and <b>processed separately from single event (non-bulk) endpoint</b>. To make sure events are tracked in order, send them all to the same endpoint (either bulk or non-bulk). <br/><br/>There is a soft limit (default is 8,000) on the number of unique fields a custom event can have. For events of the same name, identically named data fields must be of the same type.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 10 requests/second, per project.'
+      operationId: trackBulk
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkTrackResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Bulk track events
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkTrackRequest'
+        description: Events to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackInAppClick:
+    post:
+      description: Creates an inAppClick event for the specified user, message, and URL. When not using one of Iterable’s mobile SDKs, call this endpoint when a user taps on a button or link in an in-app message.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: trackInAppClick
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track an in-app message click
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InAppClickRequest'
+        description: In-app click to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackInAppClose:
+    post:
+      description: Creates an inAppClose event for a specific user and in-app message. When not using Iterable's mobile SDKs, call this endpoint to indicate that the user tapped a close button, link or back button to close a particular in app-message.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: trackInAppClose
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track the closing of an in-app message
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InAppCloseRequest'
+        description: In-app close to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackInAppDelivery:
+    post:
+      description: Creates an inAppDelivery event for a specific user, device, and message. When not using Iterable's mobile SDKs, call this endpoint to indicate that a particular message has been delivered to a particular device for a particular user. Take care not to call this endpoint multiple times for the same message/device/user combination.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: trackInAppDelivery
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track the delivery of an in-app message
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InAppDeliveryRequest'
+        description: In-app delivery to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackInAppOpen:
+    post:
+      description: Creates an inAppOpen event for the specified user and message, and marks the message as having been read. When not using one of Iterable’s mobile SDKs, call this endpoint when a mobile app displays an in-app message to a user.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: trackInAppOpen
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track an in-app message open
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InAppOpenRequest'
+        description: In-app open to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackPushOpen:
+    post:
+      description: Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: trackPushOpen
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track a mobile push open
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackPushOpenRequest'
+        description: Push open to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/trackWebPushClick:
+    post:
+      description: Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      operationId: trackWebPushClick
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterableApiResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Track a web push click
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPushClickEventRequest'
+        description: Web Push click to track
+        required: true
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
+  /api/events/{email}:
+    get:
+      description: 'Get events for a specific user, by <code>email</code>.<br/><br/>On Iterable''s API Documentation page, this endpoint does not work for <code>email</code> values that contain a <code>/</code> character. In such cases, you can still call this endpoint with a tool like curl or Postman, or from your code. To learn how, read <a href="https://support.iterable.com/hc/articles/360043464871#using-api-keys">Using API keys</a>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.<br/><br/><b>Rate limit</b>: 100 requests/second, per project.'
+      operationId: User events
+      parameters:
+      - description: Email of the user whose events you are retrieving.
+        in: path
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: The number of events to retrieve.  (Max is 200)
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 30
+          maximum: 200
+          minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEventsResponse'
+        '400':
+          description: Invalid parameters
+        '401':
+          description: Invalid API key
+      summary: Get user events
+      tags:
+      - events
+      security:
+      - api_key: []
+    servers:
+    - url: https://api.iterable.com/
   /events/track:
     post:
       operationId: trackEvent
       summary: Track a custom event
       description: Tracks a custom event for a user. Events can be used to trigger campaigns, segment users, and track user behavior within the Iterable platform.
       tags:
-      - Events
+      - events
       requestBody:
         required: true
         content:
@@ -42,13 +444,20 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /events/trackBulk:
     post:
       operationId: trackBulkEvents
       summary: Track multiple events in bulk
       description: Tracks multiple custom events in a single request. Each event in the array includes the user identifier, event name, and associated data fields.
       tags:
-      - Events
+      - events
       requestBody:
         required: true
         content:
@@ -74,13 +483,20 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
   /events/{email}:
     get:
       operationId: getEventsByEmail
       summary: Get events for a user by email
       description: Retrieves events tracked for a user identified by email address. Supports pagination and filtering by event type.
       tags:
-      - Events
+      - events
       parameters:
       - $ref: '#/components/parameters/emailPath'
       - name: limit
@@ -105,22 +521,540 @@ paths:
           description: Unauthorized
         '404':
           description: User not found
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://api.iterable.com/api
+      description: US Data Center (USDC)
+    - url: https://api.eu.iterable.com/api
+      description: European Data Center (EDC)
 components:
   schemas:
-    IterableResponse:
-      type: object
-      description: Standard Iterable API response indicating success or failure
+    InAppDeliveryRequest:
       properties:
-        msg:
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the event
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
           type: string
-          description: Human-readable response message
-        code:
+        messageContext:
+          $ref: '#/components/schemas/MessageContext'
+          description: An object containing various fields that describe the message associated with the event
+        messageId:
+          description: The ID of the message associated with the event
           type: string
-          description: Response code indicating success or error type
-        params:
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    TrackPushOpenRequest:
+      properties:
+        campaignId:
+          description: Campaign tied to open
+          format: int64
+          type: integer
+        createdAt:
+          description: Timestamp of the open event. If unspecified, set to the time event was received  Expects a unix timestamp.
+          format: int64
+          type: integer
+        dataFields:
+          description: Additional data associated with event
           type: object
-          description: Additional response parameters
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageId:
+          description: Iterable-generated Message ID
+          type: string
+        templateId:
+          description: Used in AB testing attribution
+          format: int64
+          type: integer
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - campaignId
+      - messageId
+      type: object
+    EmbeddedReceivedRequest:
+      properties:
+        createdAt:
+          description: The time of the event's occurrence (Unix timestamp). If unspecified, gets set to the time Iterable received the event.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the message receipt.
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageId:
+          description: ID of the message that was retrieved by a device.
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    BulkTrackResponse:
+      properties:
+        createdFields:
+          description: Fields that were created because <code>createNewFields</code> was <code>true</code> or <code>createNewFields</code> was not set and the project is configured to add unrecognized event fields.
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        disallowedEventNames:
+          items:
+            type: string
+          type: array
+        failCount:
+          description: Number of events that could not be updated. See <code>failedUpdates</code> for more details.
+          format: int32
+          type: integer
+        failedUpdates:
+          $ref: '#/components/schemas/FailedEventUpdates'
+          description: Details about failed event updates.
+        filteredOutFields:
+          description: Fields that were dropped because <code>createNewFields</code> was <code>false</code> or <code>createNewFields</code> was not set and the project is configured to drop unrecognized event fields.
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        invalidEmails:
+          description: Malformed <code>email</code> addresses. This field is deprecated — use <code>failedUpdates</code> instead.
+          items:
+            type: string
+          type: array
+        invalidUserIds:
+          description: <code>userId</code> values that were not found. This field is deprecated — use <code>failedUpdates</code> instead.
+          items:
+            type: string
+          type: array
+        successCount:
+          description: Number of events that were updated in response to the request.
+          format: int32
+          type: integer
+      required:
+      - failCount
+      - successCount
+      type: object
+    EmbeddedClickRequest:
+      properties:
+        buttonIdentifier:
+          description: ID of the button that was clicked (button IDs are defined in Iterable, as part of the template / campaign).
+          type: string
+        createdAt:
+          description: The time of the click's occurrence (Unix timestamp). If unspecified, gets set to the time Iterable received the event.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the click.
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageId:
+          description: ID of the message on which the click occurred.
+          type: string
+        targetUrl:
+          description: URL associated with the click.
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    BulkTrackRequest:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/TrackRequest'
+          type: array
+      required:
+      - events
+      type: object
+    EmbeddedSessionRequest:
+      properties:
+        createdAt:
+          description: The time of the event's occurrence (Unix timestamp). If unspecified, gets set to the time Iterable received the event.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the session.
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        impressions:
+          description: Impressions associated with the session.
+          items:
+            $ref: '#/components/schemas/Impression'
+          type: array
+        session:
+          $ref: '#/components/schemas/EmbeddedSession'
+          description: Information about the session (period of time when a user was viewing a screen or page that displays embedded messages, in one or many placements).
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    InAppCloseRequest:
+      properties:
+        clickedUrl:
+          description: url used to close the in-app
+          type: string
+        closeAction:
+          description: The type of action that initiated the close (for example, <code>link</code>, <code>back</code>, or a custom value).
+          type: string
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the event.
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        inboxSessionId:
+          description: Inbox SessionId
+          type: string
+        messageContext:
+          $ref: '#/components/schemas/InboxMessageContext'
+          description: An object containing various fields that describe the message associated with the event.
+        messageId:
+          description: The ID of the message associated with the event
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    InAppConsumeRequest:
+      properties:
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        deleteAction:
+          description: How the message was deleted (for example, <code>inbox-swipe</code>, <code>delete-action</code>, or a custom value).
+          type: string
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the event.
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageContext:
+          $ref: '#/components/schemas/InboxMessageContext'
+          description: An object containing various fields that describe the message associated with the event.
+        messageId:
+          description: The ID of the message associated with the event
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    EmbeddedSession:
+      properties:
+        end:
+          description: Session end time (Unix timestamp).
+          format: int64
+          type: integer
+        id:
+          description: Unique identifier (such as a UUID) to associate with the session.
+          type: string
+        start:
+          description: Session start time (Unix timestamp).
+          format: int64
+          type: integer
+      type: object
+    TrackRequest:
+      properties:
+        campaignId:
+          description: Campaign tied to conversion
+          format: int64
+          type: integer
+        createNewFields:
+          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields.
+          example: false
+          type: boolean
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a unix timestamp.
+          format: int64
+          type: integer
+        dataFields:
+          description: Additional data associated with event (i.e. item amount, item quantity). For events of the same name, identically named data fields must be of the same type.
+          type: object
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        eventName:
+          description: Name of event
+          type: string
+        id:
+          description: Optional event id. If an event exists with that id, the event will be updated. If none is specified, a new id will automatically be generated and returned. Note that this ID cannot be longer than 512 bytes.
+          type: string
+        templateId:
+          description: Template id
+          format: int64
+          type: integer
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - eventName
+      type: object
+    GetEventsResponse:
+      properties:
+        events:
+          items:
+            type: object
+          type: array
+      required:
+      - events
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    InAppClickRequest:
+      properties:
+        clickedUrl:
+          description: The URL of the clicked link/button
+          type: string
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the event
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageContext:
+          $ref: '#/components/schemas/InboxMessageContext'
+          description: An object containing various fields that describe the message associated with the event
+        messageId:
+          description: The ID of the message associated with the event
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    Impression:
+      properties:
+        displayCount:
+          description: Total number of times the message identified by <code>messageId</code> was visible during the session.
+          format: int32
+          type: integer
+        displayDuration:
+          description: Total amount of time (in seconds) the message identified by <code>messageId</code> was visible during the session, across all its appearances.
+          format: double
+          type: number
+        messageId:
+          description: ID of a message that appeared during the session.
+          type: string
+        placementId:
+          description: ID of the placement where the impression took place.
+          format: int32
+          type: integer
+      type: object
+    MessageContext:
+      properties:
+        saveToInbox:
+          description: Whether or not the message associated with the event was configured to use the inbox
+          type: boolean
+        silentInbox:
+          description: Whether or not the message associated with the event was configured to send directly to the inbox
+          type: boolean
+      type: object
+    FailedEventUpdates:
+      properties:
+        forgottenEmails:
+          description: <code>email</code> addresses of users that were not updated because they've been GDPR forgotten.
+          items:
+            type: string
+          type: array
+        forgottenUserIds:
+          description: <code>userId</code> values of users that were not updated because they've been GDPR forgotten.
+          items:
+            type: string
+          type: array
+        invalidEmails:
+          description: Malformed <code>email</code> addresses.
+          items:
+            type: string
+          type: array
+        invalidUserIds:
+          description: Malformed <code>userId</code> values (e.g. empty, too long, or containing non-ASCII or non-printable characters or a trailing space).
+          items:
+            type: string
+          type: array
+        notFoundEmails:
+          description: <code>email</code> addresses that were not found.
+          items:
+            type: string
+          type: array
+        notFoundUserIds:
+          description: <code>userId</code> values that were not found.
+          items:
+            type: string
+          type: array
+      type: object
+    DeviceInfo:
+      properties:
+        appPackageName:
+          description: Package name of the app.
+          type: string
+        deviceId:
+          description: Device unique identifier.
+          type: string
+        platform:
+          description: Device platform (case-sensitive).
+          enum:
+          - iOS
+          - Android
+          - Web
+          type: string
+      required:
+      - appPackageName
+      - deviceId
+      - platform
+      type: object
+    WebPushClickEventRequest:
+      properties:
+        campaignId:
+          format: int64
+          type: integer
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageId:
+          type: string
+        templateId:
+          format: int64
+          type: integer
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    InAppOpenRequest:
+      properties:
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+          description: An object containing various fields that describe the device and app associated with the event
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageContext:
+          $ref: '#/components/schemas/InboxMessageContext'
+          description: An object containing various fields that describe the message associated with the event
+        messageId:
+          description: The ID of the message associated with the event
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageId
+      type: object
+    InboxMessageContext:
+      properties:
+        location:
+          description: 'Where the event occurred: <code>in-app</code>, <code>inbox</code>, or a custom value (string).'
+          type: string
+        saveToInbox:
+          description: Whether or not the message associated with the event was configured to be stored in the inbox
+          type: boolean
+        silentInbox:
+          description: Whether or not the message associated with the event was configured to send directly to the inbox
+          type: boolean
+      type: object
+    Event:
+      type: object
+      description: An event tracked for a user
+      properties:
+        eventName:
+          type: string
+          description: Name of the event
+        createdAt:
+          type: string
+          format: date-time
+          description: When the event was created
+        dataFields:
+          type: object
+          description: Event data fields
           additionalProperties: true
+        campaignId:
+          type: integer
+          description: Associated campaign ID
+        templateId:
+          type: integer
+          description: Associated template ID
     TrackEventRequest:
       type: object
       description: Request body for tracking a custom event
@@ -151,27 +1085,20 @@ components:
         templateId:
           type: integer
           description: Template ID to attribute the event to
-    Event:
+    IterableResponse:
       type: object
-      description: An event tracked for a user
+      description: Standard Iterable API response indicating success or failure
       properties:
-        eventName:
+        msg:
           type: string
-          description: Name of the event
-        createdAt:
+          description: Human-readable response message
+        code:
           type: string
-          format: date-time
-          description: When the event was created
-        dataFields:
+          description: Response code indicating success or error type
+        params:
           type: object
-          description: Event data fields
+          description: Additional response parameters
           additionalProperties: true
-        campaignId:
-          type: integer
-          description: Associated campaign ID
-        templateId:
-          type: integer
-          description: Associated template ID
   parameters:
     emailPath:
       name: email
@@ -182,11 +1109,18 @@ components:
         type: string
         format: email
   securitySchemes:
+    api_key:
+      in: header
+      name: Api-Key
+      type: apiKey
     apiKeyAuth:
       type: apiKey
       in: header
       name: Api-Key
       description: Iterable API key passed in the Api-Key header. API keys can be created and managed in the Iterable project settings.
 externalDocs:
-  description: Iterable API Endpoints and Sample Payloads
-  url: https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  description: Iterable API Documentation
+  url: https://api.iterable.com/api/docs
+x-refined-from:
+- iterable-api-openapi.json
+- iterable-rest-api-openapi.yml

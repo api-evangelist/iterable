@@ -1,0 +1,128 @@
+slug: iterable
+provider: Iterable
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: email
+  spec_file: iterable-email-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /api/email/target target Send an email to an email address; POST /email/target sendTransactionalEmail
+    Send a transactional email
+  reason: Operations send and cancel emails to users from a marketing engagement platform — email channel
+    execution, i.e. digital marketing automation. Some ambiguity as transactional email can also serve
+    customer notification.
+- tag: push
+  spec_file: iterable-push-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /api/push/target target Send push notification to user; POST /push/target sendPushNotification
+    Send a push notification
+  reason: Sending and cancelling mobile push notifications from a cross-channel marketing engagement platform
+    is digital marketing channel execution.
+- tag: users
+  spec_file: iterable-users-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.8
+  evidence: POST /api/users/bulkUpdate  Bulk update user data; MergeUsersRequest; POST /api/users/forget  Forget
+    a user in compliance with GDPR
+  reason: Operations maintain contact/customer profile records, fields, merges and deletions in the engagement
+    platform — customer data / golden-record management.
+- tag: templates
+  spec_file: iterable-templates-api-openapi.yml
+  capability_id: BC-400.70
+  capability_id_l1: BC-400
+  capability_name: Content Marketing Management
+  confidence: 0.75
+  evidence: POST /api/templates/email/upsert  Create email template; POST /api/templates/email/preview  Preview
+    email template with custom data
+  reason: Authoring, previewing and versioning of email/in-app/push message templates is marketing content
+    production and distribution.
+- tag: webPush
+  spec_file: iterable-webpush-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /api/webPush/target  Send web push notification to user
+  reason: Sending and cancelling targeted web push notifications to users is outbound digital marketing
+    message delivery.
+- tag: In-app
+  spec_file: iterable-in-app-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /api/inApp/target  target  Send an in-app notification to a user; POST /api/inApp/cancel  Cancel
+    a scheduled in-app message
+  reason: 'Sends, schedules, cancels and retrieves in-app marketing notifications for users — marketing
+    automation delivery on the in-app channel, i.e. Digital Marketing Management. Not customer service:
+    messages are campaign-driven outbound.'
+- tag: SMS
+  spec_file: iterable-sms-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /api/sms/target  target  Send SMS notification to user; schema TargetSMSRequest
+  reason: Outbound SMS sending and cancellation within a cross-channel marketing engagement platform —
+    marketing automation on the SMS channel. This is not telecom messaging network operation; the operations
+    target marketing recipients.
+- tag: WhatsApp
+  spec_file: iterable-whatsapp-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /api/whatsApp/target  target  Send a WhatsApp message to a user; POST /api/whatsApp/cancel  Cancel
+    a scheduled WhatsApp message
+  reason: Send and cancel scheduled WhatsApp messages to users as part of Iterable's cross-channel engagement
+    platform — marketing automation delivery, i.e. Digital Marketing Management.
+- tag: campaigns
+  spec_file: iterable-campaigns-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.7
+  evidence: POST /api/campaigns/create  create campaign; POST /api/campaigns/{campaignId}/schedule  Schedule
+    existing campaign to be sent; GET /api/campaigns/metrics  Get metrics for campaigns
+  reason: Full lifecycle of marketing campaigns — create, trigger, schedule, send, archive, and measure
+    metrics. This is demand generation / lifecycle marketing campaign management. Some ambiguity between
+    Demand Generation and Digital Marketing Management sub-capabilities, hence 0.7.
+- tag: subscriptions
+  spec_file: iterable-subscriptions-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /api/subscriptions/subscribeToDoubleOptIn  Trigger a double opt-in subscription flow;
+    "Subscribe a single user by their userId"
+  reason: Manages marketing subscription groups / opt-in and unsubscribe for message channels — marketing
+    automation consent management, not a commercial subscription lifecycle. Mapped to Digital Marketing
+    Management with moderate confidence.
+- tag: workflows
+  spec_file: iterable-workflows-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.7
+  evidence: GET /api/journeys  Get journeys (workflows); POST /api/workflows/triggerWorkflow  Trigger
+    a journey (workflow)
+  reason: Customer journey/workflow triggering in a marketing engagement platform is lifecycle marketing
+    automation (demand generation / lifecycle campaigns).

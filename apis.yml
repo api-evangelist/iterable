@@ -568,6 +568,9 @@ apis:
   - type: GraphQL
     url: graphql/iterable-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/iterable-capability-edges.yml
+  name: Iterable Business Capability Map
 - type: Overlay
   url: overlays/iterable-experimentmetrics-api-overlay.yaml
 - type: OpenAPI

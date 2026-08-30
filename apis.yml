@@ -277,7 +277,7 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
-  - In-App
+  - InApp
   tags_raw:
   - InApp
   properties:
@@ -315,7 +315,7 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
-  - Message types
+  - MessageTypes
   tags_raw:
   - MessageTypes
   properties:
@@ -419,7 +419,7 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
-  - Web Push
+  - WebPush
   tags_raw:
   - WebPush
   properties:
@@ -469,6 +469,8 @@ apis:
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
+  - In-App
+  tags_raw:
   - In-app
   properties:
   - type: OpenAPI
@@ -499,6 +501,8 @@ apis:
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
+  - Snippets
+  tags_raw:
   - snippets
   properties:
   - type: OpenAPI
@@ -514,6 +518,8 @@ apis:
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
+  - Subscription
+  tags_raw:
   - subscriptions
   properties:
   - type: OpenAPI
@@ -544,6 +550,8 @@ apis:
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI

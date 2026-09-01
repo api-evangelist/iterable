@@ -277,7 +277,7 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
-  - InApp
+  - In-App
   tags_raw:
   - InApp
   properties:
@@ -315,7 +315,7 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
-  - MessageTypes
+  - Message types
   tags_raw:
   - MessageTypes
   properties:
@@ -419,7 +419,7 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
-  - WebPush
+  - Web Push
   tags_raw:
   - WebPush
   properties:

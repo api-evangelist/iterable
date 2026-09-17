@@ -273,24 +273,6 @@ apis:
     url: https://api.iterable.com/api/docs
   - type: GraphQL
     url: graphql/iterable-graphql.md
-- aid: iterable:iterable-inapp-api
-  name: Iterable InApp API
-  description: Manage in-app messages and retrieve in-app message content for mobile and web clients.
-  humanURL: https://api.iterable.com/api/docs
-  baseURL: https://api.iterable.com
-  tags:
-  - In-App
-  tags_raw:
-  - InApp
-  properties:
-  - type: OpenAPI
-    url: openapi/iterable-inapp-api-openapi.yml
-  - type: Overlay
-    url: overlays/iterable-inapp-api-overlay.yaml
-  - type: Documentation
-    url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-lists-api
   name: Iterable Lists API
   description: >-
@@ -307,24 +289,6 @@ apis:
     url: openapi/iterable-lists-api-openapi.yml
   - type: Overlay
     url: overlays/iterable-lists-api-overlay.yaml
-  - type: Documentation
-    url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
-- aid: iterable:iterable-messagetypes-api
-  name: Iterable MessageTypes API
-  description: Manage message types that categorize the kinds of messages sent through channels.
-  humanURL: https://api.iterable.com/api/docs
-  baseURL: https://api.iterable.com
-  tags:
-  - Message types
-  tags_raw:
-  - MessageTypes
-  properties:
-  - type: OpenAPI
-    url: openapi/iterable-messagetypes-api-openapi.yml
-  - type: Overlay
-    url: overlays/iterable-messagetypes-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -411,24 +375,6 @@ apis:
     url: openapi/iterable-users-api-openapi.yml
   - type: Overlay
     url: overlays/iterable-users-api-overlay.yaml
-  - type: Documentation
-    url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
-- aid: iterable:iterable-webpush-api
-  name: Iterable WebPush API
-  description: Send web push notifications and manage web push subscription tokens.
-  humanURL: https://api.iterable.com/api/docs
-  baseURL: https://api.iterable.com
-  tags:
-  - Web Push
-  tags_raw:
-  - WebPush
-  properties:
-  - type: OpenAPI
-    url: openapi/iterable-webpush-api-openapi.yml
-  - type: Overlay
-    url: overlays/iterable-webpush-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
@@ -562,22 +508,58 @@ apis:
     url: https://api.iterable.com/api/docs
   - type: GraphQL
     url: graphql/iterable-graphql.md
-- aid: iterable:iterable-whatsapp-api
-  name: Iterable Whats App API
-  description: The WhatsApp API from Iterable — 2 operation(s) for whatsapp.
+- aid: iterable:iterable-message-types-api
+  name: Iterable Message types API
+  description: The Message types API from Iterable — 2 operation(s) for message types.
   humanURL: >-
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
-  - WhatsApp
+  - Message types
   properties:
   - type: OpenAPI
-    url: openapi/iterable-whatsapp-api-openapi.yml
+    url: openapi/iterable-message-types-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-web-push-api
+  name: Iterable Web Push API
+  description: The Web Push API from Iterable — 3 operation(s) for web push.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - Web Push
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-web-push-api-openapi.yml
+  - type: Documentation
+    url: https://api.iterable.com/api/docs
+  - type: GraphQL
+    url: graphql/iterable-graphql.md
+- aid: iterable:iterable-whats-app-api
+  name: Iterable Whats App API
+  description: The Whats App API from Iterable — 2 operation(s) for whats app.
+  humanURL: >-
+    https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
+  baseURL: https://api.iterable.com
+  tags:
+  - Whats App
+  properties:
+  - type: OpenAPI
+    url: openapi/iterable-whats-app-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
   - type: GraphQL
     url: graphql/iterable-graphql.md
 common:
+- type: Overlay
+  url: overlays/iterable-inapp-api-overlay.yaml
+- type: Overlay
+  url: overlays/iterable-messagetypes-api-overlay.yaml
+- type: Overlay
+  url: overlays/iterable-webpush-api-overlay.yaml
 - type: CapabilityMap
   url: capabilities/iterable-capability-edges.yml
   name: Iterable Business Capability Map

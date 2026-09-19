@@ -177,6 +177,8 @@ apis:
   humanURL: https://api.iterable.com/api/docs
   baseURL: https://api.iterable.com
   tags:
+  - Catalog
+  tags_raw:
   - Catalogs
   properties:
   - type: OpenAPI
@@ -545,6 +547,8 @@ apis:
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
+  - WhatsApp
+  tags_raw:
   - Whats App
   properties:
   - type: OpenAPI

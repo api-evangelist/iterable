@@ -55,7 +55,8 @@ edges:
   reason: Authoring, previewing and versioning of email/in-app/push message templates is marketing content
     production and distribution.
 - tag: webPush
-  spec_file: iterable-webpush-api-openapi.yml
+  spec_file: iterable-web-push-api-openapi.yml
+  reanchored_from: iterable-webpush-api-openapi.yml
   capability_id: BC-400.60
   capability_id_l1: BC-400
   capability_name: Digital Marketing Management
@@ -85,7 +86,8 @@ edges:
     marketing automation on the SMS channel. This is not telecom messaging network operation; the operations
     target marketing recipients.
 - tag: WhatsApp
-  spec_file: iterable-whatsapp-api-openapi.yml
+  spec_file: iterable-whats-app-api-openapi.yml
+  reanchored_from: iterable-whatsapp-api-openapi.yml
   capability_id: BC-400.60
   capability_id_l1: BC-400
   capability_name: Digital Marketing Management

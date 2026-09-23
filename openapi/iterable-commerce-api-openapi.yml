@@ -10,11 +10,14 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: commerce
+- name: Commerce
 paths:
   /api/commerce/trackPurchase:
     post:
-      description: Track purchase events. <code>shoppingCartItems</code> field on the user profile is cleared. User profile is also updated if it already exists (created otherwise) using the user request field. Also, note that there is a soft limit on the number of unique fields a user can have (default is 1,000). Types of data fields must match the types sent in previous requests, across all data fields in the project.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Track purchase events. shoppingCartItems field on the user profile is cleared. User profile is also updated if it already exists (created otherwise) using the user request field. Also, note that there is a soft limit on the number of unique fields a user can have (default is 1,000). Types of data fields must match the types sent in previous requests, across all data fields in the project.
+
+
+        Learn about identifying users by userId and email.'
       operationId: trackPurchase
       responses:
         '200':
@@ -31,7 +34,7 @@ paths:
           description: Email/userId conflict
       summary: Track a purchase
       tags:
-      - commerce
+      - Commerce
       requestBody:
         content:
           application/json:
@@ -45,7 +48,10 @@ paths:
     - url: https://api.iterable.com/
   /api/commerce/updateCart:
     post:
-      description: Update the <code>shoppingCartItems</code> field on the user profile with shopping cart items. User profile is updated if it already exists (created otherwise) via the user field. Types of data fields must match the types sent in previous requests, across all data fields in the project.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Update the shoppingCartItems field on the user profile with shopping cart items. User profile is updated if it already exists (created otherwise) via the user field. Types of data fields must match the types sent in previous requests, across all data fields in the project.
+
+
+        Learn about identifying users by userId and email.'
       operationId: updateCart
       responses:
         '200':
@@ -62,7 +68,7 @@ paths:
           description: Email/userId conflict
       summary: Update a user's shopping cart items
       tags:
-      - commerce
+      - Commerce
       requestBody:
         content:
           application/json:
@@ -80,7 +86,7 @@ paths:
       summary: Track a purchase event
       description: Tracks a purchase event for a user, including the items purchased, total value, and associated properties. Purchase data is used for revenue attribution and campaign triggering.
       tags:
-      - commerce
+      - Commerce
       requestBody:
         required: true
         content:
@@ -111,7 +117,7 @@ paths:
       summary: Update a user's shopping cart
       description: Updates the shopping cart contents for a user. Cart data can be used for abandoned cart campaigns and personalization.
       tags:
-      - commerce
+      - Commerce
       requestBody:
         required: true
         content:
@@ -153,79 +159,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    CommerceItem:
-      properties:
-        categories:
-          description: Categories this product belongs to. It can belong to multiple categories. Each category is a breadcrumb in list form.
-          items:
-            type: string
-          type: array
-        dataFields:
-          description: Additional item properties
-          type: object
-        description:
-          type: string
-        id:
-          description: Unique product identifier
-          type: string
-        imageUrl:
-          description: URL to an image of the item.
-          type: string
-        name:
-          type: string
-        price:
-          format: double
-          type: number
-        quantity:
-          format: int64
-          type: integer
-        sku:
-          type: string
-        url:
-          description: URL to the item.
-          type: string
-      required:
-      - id
-      - name
-      - price
-      - quantity
-      type: object
-    UpdateCartRequest:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/CommerceItem'
-          type: array
-        user:
-          $ref: '#/components/schemas/ApiUserUpdateRequest'
-      required:
-      - items
-      - user
-      type: object
-    ApiUserUpdateRequest:
-      properties:
-        createNewFields:
-          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields.
-          example: false
-          type: boolean
-        dataFields:
-          description: Data to store on the user profile identified by <code>userId</code> or <code>email</code>.
-          type: object
-        email:
-          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        mergeNestedObjects:
-          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
-          example: false
-          type: boolean
-        preferUserId:
-          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
-          example: false
-          type: boolean
-        userId:
-          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-      type: object
     TrackPurchaseRequest:
       properties:
         campaignId:
@@ -258,6 +191,18 @@ components:
       required:
       - items
       - total
+      - user
+      type: object
+    UpdateCartRequest:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+          type: array
+        user:
+          $ref: '#/components/schemas/ApiUserUpdateRequest'
+      required:
+      - items
       - user
       type: object
     IterableApiResponse:
@@ -300,6 +245,67 @@ components:
       required:
       - code
       - msg
+      type: object
+    ApiUserUpdateRequest:
+      properties:
+        createNewFields:
+          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields.
+          example: false
+          type: boolean
+        dataFields:
+          description: Data to store on the user profile identified by <code>userId</code> or <code>email</code>.
+          type: object
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        mergeNestedObjects:
+          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
+          example: false
+          type: boolean
+        preferUserId:
+          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
+          example: false
+          type: boolean
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    CommerceItem:
+      properties:
+        categories:
+          description: Categories this product belongs to. It can belong to multiple categories. Each category is a breadcrumb in list form.
+          items:
+            type: string
+          type: array
+        dataFields:
+          description: Additional item properties
+          type: object
+        description:
+          type: string
+        id:
+          description: Unique product identifier
+          type: string
+        imageUrl:
+          description: URL to an image of the item.
+          type: string
+        name:
+          type: string
+        price:
+          format: double
+          type: number
+        quantity:
+          format: int64
+          type: integer
+        sku:
+          type: string
+        url:
+          description: URL to the item.
+          type: string
+      required:
+      - id
+      - name
+      - price
+      - quantity
       type: object
     PurchaseRequest:
       type: object
@@ -345,6 +351,20 @@ components:
         templateId:
           type: integer
           description: Template ID to attribute the purchase to
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
     CommerceItem_2:
       type: object
       description: A commerce item in a purchase or cart
@@ -388,20 +408,6 @@ components:
         dataFields:
           type: object
           description: Additional item data fields
-          additionalProperties: true
-    IterableResponse:
-      type: object
-      description: Standard Iterable API response indicating success or failure
-      properties:
-        msg:
-          type: string
-          description: Human-readable response message
-        code:
-          type: string
-          description: Response code indicating success or error type
-        params:
-          type: object
-          description: Additional response parameters
           additionalProperties: true
   securitySchemes:
     api_key:

@@ -8,11 +8,13 @@ servers:
 security:
 - api_key: []
 tags:
-- name: export
+- name: Export
 paths:
   /api/export/data.csv:
     get:
-      description: 'Export campaign analytics data in CSV format. Use of either ''range'' or ''startDateTime'' and ''endDateTime'' is required.<br/><b>Rate limit</b>: 4 requests/minute, per project.'
+      description: 'Export campaign analytics data in CSV format. Use of either ''range'' or ''startDateTime'' and ''endDateTime'' is required.
+
+        Rate limit: 4 requests/minute, per project.'
       operationId: exportDataCsv
       parameters:
       - description: Data type name.
@@ -142,10 +144,12 @@ paths:
           description: Rate limit exceeded
       summary: Export data to CSV
       tags:
-      - export
+      - Export
   /api/export/data.json:
     get:
-      description: 'Export campaign analytics data in JSON format, one entry per line. Use of either ''range'' or ''startDateTime'' and ''endDateTime'' is required.<br/><b>Rate limit</b>: 4 requests/minute, per project.'
+      description: 'Export campaign analytics data in JSON format, one entry per line. Use of either ''range'' or ''startDateTime'' and ''endDateTime'' is required.
+
+        Rate limit: 4 requests/minute, per project.'
       operationId: exportDataJson
       parameters:
       - description: Data type name.
@@ -268,7 +272,7 @@ paths:
           description: Rate limit exceeded
       summary: Export data to JSON
       tags:
-      - export
+      - Export
   /api/export/jobs:
     get:
       description: Return a list of recent export jobs. Only includes jobs for the current project and not other projects.
@@ -289,10 +293,15 @@ paths:
                 $ref: '#/components/schemas/JobsResponse'
       summary: Get export jobs
       tags:
-      - export
+      - Export
   /api/export/start:
     post:
-      description: 'Start a data export. The export processes as a background job. Use the "Get export files" endpoint to check export status by <code>jobId</code> and obtain file download links.<br/><br/><b>Rate limit</b>: 1 request/second, per organization. <br/><b>Concurrent request limit</b>: Up to 4 exports process at a time, per organization. Additional requests are queued.'
+      description: 'Start a data export. The export processes as a background job. Use the "Get export files" endpoint to check export status by jobId and obtain file download links.
+
+
+        Rate limit: 1 request/second, per organization.
+
+        Concurrent request limit: Up to 4 exports process at a time, per organization. Additional requests are queued.'
       operationId: startExport
       responses:
         '200':
@@ -303,7 +312,7 @@ paths:
                 $ref: '#/components/schemas/StartExportResponse'
       summary: Start export
       tags:
-      - export
+      - Export
       requestBody:
         content:
           application/json:
@@ -313,7 +322,10 @@ paths:
         required: true
   /api/export/userEvents:
     get:
-      description: Export all events (in JSON) for the user specified by <code>email</code> or <code>userId</code>. One event per line.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Export all events (in JSON) for the user specified by email or userId. One event per line.
+
+
+        Learn about identifying users by userId and email.'
       operationId: exportUserEvents
       parameters:
       - description: Export by user's email
@@ -350,10 +362,12 @@ paths:
           description: Rate limit exceeded
       summary: Export user events
       tags:
-      - export
+      - Export
   /api/export/{jobId}:
     delete:
-      description: 'Cancel a queued or running export created with the "Start export" endpoint. <br/><b>Rate limit</b>: 1 request/second, per project.'
+      description: 'Cancel a queued or running export created with the "Start export" endpoint.
+
+        Rate limit: 1 request/second, per project.'
       operationId: cancelExport
       parameters:
       - description: The ID of the export job. Use the jobId returned from the "Start export" endpoint.
@@ -368,10 +382,21 @@ paths:
           description: successful operation
       summary: Cancel export
       tags:
-      - export
+      - Export
   /api/export/{jobId}/files:
     get:
-      description: 'Get the job status and files for an export started with the "Start export" endpoint. <br/><br/>Occasionally, a job status may change from running to enqueued because it had to restart. When this happens, the job maintains progress and begins where it previously stopped. Iterable uses exponential backoff for retries.<br/><br/>Files are added to the list as the export job is running. Paginate through the files by using the last file name in the response as the <code>startAfter</code> value for the next request.  Each file is up to 10MB. Exports are limited to 100GB in total size. <br/><br/><b>Rate limit</b>: 1 request/second, per organization. <br/><b>Concurrent request limit</b>: Up to 4 exports process at a time, per organization. Additional requests are queued.'
+      description: 'Get the job status and files for an export started with the "Start export" endpoint.
+
+
+        Occasionally, a job status may change from running to enqueued because it had to restart. When this happens, the job maintains progress and begins where it previously stopped. Iterable uses exponential backoff for retries.
+
+
+        Files are added to the list as the export job is running. Paginate through the files by using the last file name in the response as the startAfter value for the next request. Each file is up to 10MB. Exports are limited to 100GB in total size.
+
+
+        Rate limit: 1 request/second, per organization.
+
+        Concurrent request limit: Up to 4 exports process at a time, per organization. Additional requests are queued.'
       operationId: getExportFiles
       parameters:
       - description: The ID of the export job. Use the jobId returned from the "Start export" endpoint.
@@ -398,9 +423,50 @@ paths:
                 $ref: '#/components/schemas/ExportJobStatusAndFiles'
       summary: Get export files
       tags:
-      - export
+      - Export
 components:
   schemas:
+    StartExportResponse:
+      properties:
+        jobId:
+          description: The ID of the export job
+          example: 3562
+          format: int64
+          type: integer
+      required:
+      - jobId
+      type: object
+    JobsResponse:
+      properties:
+        jobs:
+          description: The list of jobs
+          items:
+            $ref: '#/components/schemas/JobModel'
+          type: array
+      type: object
+    ExportFileAndUrl:
+      properties:
+        file:
+          description: The name of the file.
+          example: file-1679086247925.csv
+          type: string
+        url:
+          description: A URL that can be used to download the file. Expires after 30 minutes.
+          type: string
+      required:
+      - file
+      - url
+      type: object
+    ClientDataType:
+      properties:
+        send:
+          type: boolean
+        updatable:
+          type: boolean
+      required:
+      - send
+      - updatable
+      type: object
     StartExportRequest:
       properties:
         campaignId:
@@ -488,61 +554,6 @@ components:
       - dataTypeName
       - outputFormat
       type: object
-    ClientDataType:
-      properties:
-        send:
-          type: boolean
-        updatable:
-          type: boolean
-      required:
-      - send
-      - updatable
-      type: object
-    ExportJobStatusAndFiles:
-      properties:
-        exportTruncated:
-          description: Whether the export was truncated because it exceeded the max allowed export size
-          type: boolean
-        files:
-          description: The current page of files
-          items:
-            $ref: '#/components/schemas/ExportFileAndUrl'
-          type: array
-        jobId:
-          description: The ID of the export job
-          example: 3562
-          format: int64
-          type: integer
-        jobState:
-          description: The state of the export job
-          enum:
-          - Enqueued
-          - Running
-          - Completed
-          - Failed
-          example: Running
-          type: string
-      required:
-      - exportTruncated
-      - files
-      - jobId
-      - jobState
-      type: object
-    JobsResponse:
-      properties:
-        jobs:
-          description: The list of jobs
-          items:
-            $ref: '#/components/schemas/JobModel'
-          type: array
-      type: object
-    JobState:
-      properties:
-        final:
-          type: boolean
-      required:
-      - final
-      type: object
     JobModel:
       properties:
         bytesExported:
@@ -576,28 +587,42 @@ components:
       required:
       - jobState
       type: object
-    ExportFileAndUrl:
+    JobState:
       properties:
-        file:
-          description: The name of the file.
-          example: file-1679086247925.csv
-          type: string
-        url:
-          description: A URL that can be used to download the file. Expires after 30 minutes.
-          type: string
+        final:
+          type: boolean
       required:
-      - file
-      - url
+      - final
       type: object
-    StartExportResponse:
+    ExportJobStatusAndFiles:
       properties:
+        exportTruncated:
+          description: Whether the export was truncated because it exceeded the max allowed export size
+          type: boolean
+        files:
+          description: The current page of files
+          items:
+            $ref: '#/components/schemas/ExportFileAndUrl'
+          type: array
         jobId:
           description: The ID of the export job
           example: 3562
           format: int64
           type: integer
+        jobState:
+          description: The state of the export job
+          enum:
+          - Enqueued
+          - Running
+          - Completed
+          - Failed
+          example: Running
+          type: string
       required:
+      - exportTruncated
+      - files
       - jobId
+      - jobState
       type: object
   securitySchemes:
     api_key:

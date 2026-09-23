@@ -10,7 +10,7 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: workflows
+- name: Workflows
 paths:
   /api/journeys:
     get:
@@ -65,14 +65,17 @@ paths:
           description: Invalid API key.
       summary: Get journeys (workflows)
       tags:
-      - workflows
+      - Workflows
       security:
       - api_key: []
     servers:
     - url: https://api.iterable.com/
   /api/workflows/triggerWorkflow:
     post:
-      description: Triggers a journey (formerly known as workflow). Triggering with a list is asynchronous. If a list trigger is in progress, it must finish before the same list can be triggered again for a particular journey. The journey stats may take several minutes to update if other journeys are running. If the journey's start tile has a suppression list, that will apply.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Triggers a journey (formerly known as workflow). Triggering with a list is asynchronous. If a list trigger is in progress, it must finish before the same list can be triggered again for a particular journey. The journey stats may take several minutes to update if other journeys are running. If the journey''s start tile has a suppression list, that will apply.
+
+
+        Learn about identifying users by userId and email.'
       operationId: triggerWorkflow
       responses:
         '200':
@@ -87,7 +90,7 @@ paths:
           description: Invalid API key
       summary: Trigger a journey (workflow)
       tags:
-      - workflows
+      - Workflows
       requestBody:
         content:
           application/json:
@@ -105,7 +108,7 @@ paths:
       summary: Trigger a workflow
       description: Triggers a workflow enrollment for one or more users. The workflow must already be created and activated in the Iterable project.
       tags:
-      - workflows
+      - Workflows
       requestBody:
         required: true
         content:
@@ -148,90 +151,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    GetJourneysResponse:
-      properties:
-        journeys:
-          description: The current page of journeys.
-          items:
-            $ref: '#/components/schemas/JourneyDetails'
-          type: array
-        nextPageUrl:
-          description: The URL to the next page of journeys, if applicable.
-          type: string
-        previousPageUrl:
-          description: The URL to the previous page of journeys, if applicable.
-          type: string
-        totalJourneysCount:
-          description: The total count of journeys across all pages for the supplied query.
-          format: int64
-          type: integer
-      required:
-      - journeys
-      - totalJourneysCount
-      type: object
-    TriggerWorkflowRequest:
-      properties:
-        dataFields:
-          description: Additional data associated triggering event
-          type: object
-        email:
-          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        listId:
-          description: (Optional) Trigger the journey for all users in a list (standard or dynamic)
-          format: int32
-          type: integer
-        userId:
-          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        workflowId:
-          description: ID of journey (workflow) to trigger
-          format: int64
-          type: integer
-      required:
-      - workflowId
-      type: object
-    IterableApiResponse:
-      properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
-          type: object
-      required:
-      - code
-      - msg
-      type: object
     JourneyDraftDetails:
       properties:
         createdAt:
@@ -257,6 +176,27 @@ components:
       - id
       - name
       - updatedAt
+      type: object
+    GetJourneysResponse:
+      properties:
+        journeys:
+          description: The current page of journeys.
+          items:
+            $ref: '#/components/schemas/JourneyDetails'
+          type: array
+        nextPageUrl:
+          description: The URL to the next page of journeys, if applicable.
+          type: string
+        previousPageUrl:
+          description: The URL to the previous page of journeys, if applicable.
+          type: string
+        totalJourneysCount:
+          description: The total count of journeys across all pages for the supplied query.
+          format: int64
+          type: integer
+      required:
+      - journeys
+      - totalJourneysCount
       type: object
     JourneyDetails:
       properties:
@@ -308,6 +248,69 @@ components:
           description: Last update timestamp as epoch time in milliseconds.
           format: int32
           type: integer
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    TriggerWorkflowRequest:
+      properties:
+        dataFields:
+          description: Additional data associated triggering event
+          type: object
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        listId:
+          description: (Optional) Trigger the journey for all users in a list (standard or dynamic)
+          format: int32
+          type: integer
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        workflowId:
+          description: ID of journey (workflow) to trigger
+          format: int64
+          type: integer
+      required:
+      - workflowId
       type: object
     IterableResponse:
       type: object

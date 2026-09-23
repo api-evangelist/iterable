@@ -10,11 +10,11 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: messageTypes
+- name: Message types
 paths:
   /api/messageTypes:
     get:
-      description: 'List all message types within a project. <b>Rate limit</b>: 100 requests/second, per project.'
+      description: 'List all message types within a project. Rate limit: 100 requests/second, per project.'
       operationId: messageTypes
       responses:
         '200':
@@ -27,7 +27,7 @@ paths:
           description: Invalid API key
       summary: List message types
       tags:
-      - messageTypes
+      - Message types
       security:
       - api_key: []
     servers:
@@ -38,7 +38,7 @@ paths:
       summary: List message types
       description: Retrieves all message types configured in the Iterable project. Message types categorize the kinds of messages sent through channels.
       tags:
-      - messageTypes
+      - Message types
       responses:
         '200':
           description: List of message types
@@ -69,18 +69,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    FrequencyCap:
-      properties:
-        days:
-          format: int32
-          type: integer
-        messages:
-          format: int32
-          type: integer
-      required:
-      - days
-      - messages
-      type: object
     MessageTypeDetails:
       properties:
         channelId:
@@ -120,6 +108,18 @@ components:
       - name
       - subscriptionPolicy
       - updatedAt
+      type: object
+    FrequencyCap:
+      properties:
+        days:
+          format: int32
+          type: integer
+        messages:
+          format: int32
+          type: integer
+      required:
+      - days
+      - messages
       type: object
     MessageTypesResponse:
       properties:

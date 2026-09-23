@@ -32,7 +32,9 @@
     "iterable-workflows-api-openapi.yml",
     "iterable-inapp-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 3 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -54,7 +56,9 @@
     "tag 'templates' spans 2 source specs (iterable-api-openapi.json, iterable-rest-api-openapi.yml): per-path servers applied",
     "tag 'users' spans 2 source specs (iterable-api-openapi.json, iterable-rest-api-openapi.yml): per-path servers applied",
     "tag 'webPush' spans 2 source specs (iterable-api-openapi.json, iterable-rest-api-openapi.yml): per-path servers applied",
-    "tag 'workflows' spans 2 source specs (iterable-api-openapi.json, iterable-rest-api-openapi.yml): per-path servers applied"
+    "tag 'workflows' spans 2 source specs (iterable-api-openapi.json, iterable-rest-api-openapi.yml): per-path servers applied",
+    "superseded outputs removed: iterable-message-types-api-openapi.yml, iterable-web-push-api-openapi.yml, iterable-whats-app-api-openapi.yml",
+    "apis.yml register: written (+4 apis, 30 total)"
   ],
   "skipped": [
     "iterable-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -62,19 +66,25 @@
     "iterable-channels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-commerce-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-email-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-embedded-messaging-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "iterable-experimentmetrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-experiments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-export-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "iterable-inapp-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-in-app-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-in-app-web-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "iterable-messagetypes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-message-types-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-push-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-sms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-snippets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "iterable-webpush-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-verify-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-web-push-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "iterable-whats-app-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "iterable-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

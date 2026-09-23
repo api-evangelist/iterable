@@ -10,7 +10,7 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: metadata
+- name: Metadata
 paths:
   /api/metadata:
     get:
@@ -27,7 +27,7 @@ paths:
           description: Invalid API key
       summary: List available tables
       tags:
-      - metadata
+      - Metadata
       security:
       - api_key: []
     servers:
@@ -56,7 +56,7 @@ paths:
           description: Invalid API key
       summary: Delete a table
       tags:
-      - metadata
+      - Metadata
       security:
       - api_key: []
     get:
@@ -89,7 +89,7 @@ paths:
           description: Invalid API key
       summary: List keys in a table
       tags:
-      - metadata
+      - Metadata
       security:
       - api_key: []
     servers:
@@ -124,7 +124,7 @@ paths:
           description: Invalid API key
       summary: Delete a single metadata key/value
       tags:
-      - metadata
+      - Metadata
       security:
       - api_key: []
     get:
@@ -158,7 +158,7 @@ paths:
           description: No metadata at specified location
       summary: Get the metadata value of a single key
       tags:
-      - metadata
+      - Metadata
       security:
       - api_key: []
     put:
@@ -190,7 +190,7 @@ paths:
           description: Invalid API key
       summary: Create or replace metadata
       tags:
-      - metadata
+      - Metadata
       requestBody:
         content:
           application/json:
@@ -208,7 +208,7 @@ paths:
       summary: Get metadata table keys
       description: Retrieves all keys in a metadata table.
       tags:
-      - metadata
+      - Metadata
       parameters:
       - name: table
         in: path
@@ -245,7 +245,7 @@ paths:
       summary: Delete a metadata table
       description: Deletes a metadata table and all its entries.
       tags:
-      - metadata
+      - Metadata
       parameters:
       - name: table
         in: path
@@ -275,7 +275,7 @@ paths:
       summary: Get a metadata entry
       description: Retrieves a single metadata entry by table name and key.
       tags:
-      - metadata
+      - Metadata
       parameters:
       - name: table
         in: path
@@ -311,7 +311,7 @@ paths:
       summary: Create or update a metadata entry
       description: Creates or updates a metadata entry for the specified table and key.
       tags:
-      - metadata
+      - Metadata
       parameters:
       - name: table
         in: path
@@ -356,7 +356,7 @@ paths:
       summary: Delete a metadata entry
       description: Deletes a metadata entry by table name and key.
       tags:
-      - metadata
+      - Metadata
       parameters:
       - name: table
         in: path
@@ -388,55 +388,13 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    IterableApiResponse:
+    PutMetadataRequest:
       properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
+        value:
+          description: The JSON metadata value.  Max size is is 30kb.
           type: object
       required:
-      - code
-      - msg
-      type: object
-    ListMetadataTablesResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Table'
-          type: array
-      required:
-      - results
+      - value
       type: object
     Table:
       properties:
@@ -484,13 +442,55 @@ components:
       - table
       - value
       type: object
-    PutMetadataRequest:
+    ListMetadataTablesResponse:
       properties:
-        value:
-          description: The JSON metadata value.  Max size is is 30kb.
+        results:
+          items:
+            $ref: '#/components/schemas/Table'
+          type: array
+      required:
+      - results
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
           type: object
       required:
-      - value
+      - code
+      - msg
       type: object
     Listing:
       properties:

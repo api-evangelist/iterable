@@ -10,11 +10,11 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: lists
+- name: Lists
 paths:
   /api/lists:
     get:
-      description: 'Get all lists within a project. <b>Rate limit</b>: 100 requests/second, per project.'
+      description: 'Get all lists within a project. Rate limit: 100 requests/second, per project.'
       operationId: getLists
       responses:
         '200':
@@ -29,7 +29,7 @@ paths:
           description: Invalid API key
       summary: Get lists
       tags:
-      - lists
+      - Lists
       security:
       - api_key: []
     post:
@@ -48,7 +48,7 @@ paths:
           description: Invalid API key
       summary: Create a static list
       tags:
-      - lists
+      - Lists
       requestBody:
         content:
           application/json:
@@ -62,7 +62,7 @@ paths:
     - url: https://api.iterable.com/
   /api/lists/getUsers:
     get:
-      description: 'Get all users within a list. <b>Rate limit</b>: 5 requests/minute, per project.'
+      description: 'Get all users within a list. Rate limit: 5 requests/minute, per project.'
       operationId: getUsers
       parameters:
       - description: list id
@@ -94,14 +94,14 @@ paths:
           description: Request timeout.  Try again later.
       summary: Get users in a list
       tags:
-      - lists
+      - Lists
       security:
       - api_key: []
     servers:
     - url: https://api.iterable.com/
   /api/lists/previewUsers:
     get:
-      description: 'Get a random sample of up to 5000 users within a list. <b>Rate limit</b>: 5 requests/minute, per project.'
+      description: 'Get a random sample of up to 5000 users within a list. Rate limit: 5 requests/minute, per project.'
       operationId: getUsersPreview
       parameters:
       - description: list id
@@ -140,14 +140,17 @@ paths:
           description: Request timeout.  Try again later.
       summary: Preview users in a list
       tags:
-      - lists
+      - Lists
       security:
       - api_key: []
     servers:
     - url: https://api.iterable.com/
   /api/lists/subscribe:
     post:
-      description: Add specific subscribers to a list.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Add specific subscribers to a list.
+
+
+        Learn about identifying users by userId and email.'
       operationId: subscribe
       responses:
         '200':
@@ -162,7 +165,7 @@ paths:
           description: Invalid API key
       summary: Add subscribers to list
       tags:
-      - lists
+      - Lists
       requestBody:
         content:
           application/json:
@@ -176,7 +179,10 @@ paths:
     - url: https://api.iterable.com/
   /api/lists/unsubscribe:
     post:
-      description: Remove specific users from a list.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Remove specific users from a list.
+
+
+        Learn about identifying users by userId and email.'
       operationId: unsubscribe
       responses:
         '200':
@@ -191,7 +197,7 @@ paths:
           description: Invalid API key
       summary: Remove users from a list
       tags:
-      - lists
+      - Lists
       requestBody:
         content:
           application/json:
@@ -230,14 +236,14 @@ paths:
           description: List is in use
       summary: Delete a list
       tags:
-      - lists
+      - Lists
       security:
       - api_key: []
     servers:
     - url: https://api.iterable.com/
   /api/lists/{listId}/size:
     get:
-      description: 'Get the number of users within a list. <b>Rate limit</b>: 5 requests/minute, per project.'
+      description: 'Get the number of users within a list. Rate limit: 5 requests/minute, per project.'
       operationId: getListCount
       parameters:
       - description: list id
@@ -262,7 +268,7 @@ paths:
           description: Request timeout.  Try again later.
       summary: Get count of users in list
       tags:
-      - lists
+      - Lists
       security:
       - api_key: []
     servers:
@@ -273,7 +279,7 @@ paths:
       summary: Get all lists
       description: Retrieves all subscriber lists in the Iterable project, including list ID, name, creation date, and size.
       tags:
-      - lists
+      - Lists
       responses:
         '200':
           description: List of subscriber lists
@@ -295,7 +301,7 @@ paths:
       summary: Create a list
       description: Creates a new subscriber list in the Iterable project.
       tags:
-      - lists
+      - Lists
       requestBody:
         required: true
         content:
@@ -336,7 +342,7 @@ paths:
       summary: Subscribe users to a list
       description: Adds one or more users to a subscriber list. Users are identified by email address.
       tags:
-      - lists
+      - Lists
       requestBody:
         required: true
         content:
@@ -399,7 +405,7 @@ paths:
       summary: Unsubscribe users from a list
       description: Removes one or more users from a subscriber list. Users are identified by email address.
       tags:
-      - lists
+      - Lists
       requestBody:
         required: true
         content:
@@ -447,104 +453,13 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    IterableApiResponse:
+    CreateListResponse:
       properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
-          type: object
-      required:
-      - code
-      - msg
-      type: object
-    UserBulkUpdateListResponse:
-      properties:
-        createdFields:
-          description: Fields that were created because <code>createNewFields</code> was <code>true</code> or <code>createNewFields</code> was not set and the project is configured to add unrecognized user profile fields.
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        failCount:
-          description: Number of user profiles that could not be updated. See <code>failedUpdates</code> for more details.
-          format: int32
-          type: integer
-        failedUpdates:
-          $ref: '#/components/schemas/FailedUserUpdates'
-          description: Details about failed updates.
-        filteredOutFields:
-          description: Fields that were dropped because <code>createNewFields</code> was <code>false</code> or <code>createNewFields</code> was not set and the project is configured to drop unrecognized user profile fields.
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        invalidEmails:
-          description: <code>email</code> addresses of users that failed to update. This field is deprecated — use <code>failedUpdates</code> instead.
-          items:
-            type: string
-          type: array
-        invalidUserIds:
-          description: <code>userId</code> values of users that failed to update. This field is deprecated — use <code>failedUpdates</code> instead.
-          items:
-            type: string
-          type: array
-        successCount:
-          description: Number of user profiles that were updated in response to the request.
-          format: int32
+        listId:
+          format: int64
           type: integer
       required:
-      - failCount
-      - successCount
-      type: object
-    OptionalApiUser:
-      properties:
-        dataFields:
-          type: object
-        email:
-          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        mergeNestedObjects:
-          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
-          example: false
-          type: boolean
-        preferUserId:
-          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
-          example: false
-          type: boolean
-        userId:
-          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
+      - listId
       type: object
     UnsubscribeRequest:
       properties:
@@ -566,15 +481,6 @@ components:
       - listId
       - subscribers
       type: object
-    GetListsResponse:
-      properties:
-        lists:
-          items:
-            $ref: '#/components/schemas/ListDetails'
-          type: array
-      required:
-      - lists
-      type: object
     Unsubscriber:
       properties:
         email:
@@ -583,6 +489,15 @@ components:
         userId:
           description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
           type: string
+      type: object
+    GetListsResponse:
+      properties:
+        lists:
+          items:
+            $ref: '#/components/schemas/ListDetails'
+          type: array
+      required:
+      - lists
       type: object
     FailedUserUpdates:
       properties:
@@ -637,14 +552,6 @@ components:
             type: string
           type: array
       type: object
-    CreateListResponse:
-      properties:
-        listId:
-          format: int64
-          type: integer
-      required:
-      - listId
-      type: object
     CreateListRequest:
       properties:
         description:
@@ -683,6 +590,64 @@ components:
       - listType
       - name
       type: object
+    OptionalApiUser:
+      properties:
+        dataFields:
+          type: object
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        mergeNestedObjects:
+          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
+          example: false
+          type: boolean
+        preferUserId:
+          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
+          example: false
+          type: boolean
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    UserBulkUpdateListResponse:
+      properties:
+        createdFields:
+          description: Fields that were created because <code>createNewFields</code> was <code>true</code> or <code>createNewFields</code> was not set and the project is configured to add unrecognized user profile fields.
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        failCount:
+          description: Number of user profiles that could not be updated. See <code>failedUpdates</code> for more details.
+          format: int32
+          type: integer
+        failedUpdates:
+          $ref: '#/components/schemas/FailedUserUpdates'
+          description: Details about failed updates.
+        filteredOutFields:
+          description: Fields that were dropped because <code>createNewFields</code> was <code>false</code> or <code>createNewFields</code> was not set and the project is configured to drop unrecognized user profile fields.
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        invalidEmails:
+          description: <code>email</code> addresses of users that failed to update. This field is deprecated — use <code>failedUpdates</code> instead.
+          items:
+            type: string
+          type: array
+        invalidUserIds:
+          description: <code>userId</code> values of users that failed to update. This field is deprecated — use <code>failedUpdates</code> instead.
+          items:
+            type: string
+          type: array
+        successCount:
+          description: Number of user profiles that were updated in response to the request.
+          format: int32
+          type: integer
+      required:
+      - failCount
+      - successCount
+      type: object
     SubscribeRequest:
       properties:
         listId:
@@ -699,6 +664,47 @@ components:
       required:
       - listId
       - subscribers
+      type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
       type: object
     List:
       type: object

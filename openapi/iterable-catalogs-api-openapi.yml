@@ -10,11 +10,14 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: catalogs
+- name: Catalogs
 paths:
   /api/catalogs:
     get:
-      description: 'Get catalog names. <br/><br/><b>Rate limit</b>: 100 requests/second, per API key.'
+      description: 'Get catalog names.
+
+
+        Rate limit: 100 requests/second, per API key.'
       operationId: listCatalogs
       parameters:
       - description: Page number to list (starting at 1).
@@ -46,7 +49,7 @@ paths:
           description: Invalid API key
       summary: Get catalog names
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     servers:
@@ -75,7 +78,7 @@ paths:
           description: Invalid API key
       summary: Delete a catalog
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     post:
@@ -105,7 +108,7 @@ paths:
           description: Internal server error
       summary: Create a catalog
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     servers:
@@ -136,7 +139,7 @@ paths:
           description: Catalog not found
       summary: Get field mappings for a catalog
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     put:
@@ -158,7 +161,7 @@ paths:
           description: Invalid API key
       summary: Set a catalog's field mappings (data types)
       tags:
-      - catalogs
+      - Catalogs
       requestBody:
         content:
           application/json:
@@ -196,7 +199,7 @@ paths:
           description: Invalid API key
       summary: Bulk delete catalog items
       tags:
-      - catalogs
+      - Catalogs
       requestBody:
         content:
           application/json:
@@ -207,7 +210,10 @@ paths:
       security:
       - api_key: []
     get:
-      description: 'Get the catalog items for a catalog. <br/><br/><b>Rate limit</b>: 100 requests/second, per API key.'
+      description: 'Get the catalog items for a catalog.
+
+
+        Rate limit: 100 requests/second, per API key.'
       operationId: listCatalogItems
       parameters:
       - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
@@ -263,11 +269,14 @@ paths:
           description: Internal server error
       summary: Get the catalog items for a catalog
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     post:
-      description: 'Asynchronous. Create up to 1000 catalog items with a single request. Each of a catalog''s items must have a unique ID that contains only alphanumeric characters and dashes and has a maximum length of 255 characters. If the catalog already contains an item with the same ID as one provided in the request body, the item in the catalog will be completely overwritten, unless replaceUploadedFieldsOnly is set to true. Do not use periods in field names.<br/><br/><b>Rate limit</b>: 100 requests/second, per API key.'
+      description: 'Asynchronous. Create up to 1000 catalog items with a single request. Each of a catalog''s items must have a unique ID that contains only alphanumeric characters and dashes and has a maximum length of 255 characters. If the catalog already contains an item with the same ID as one provided in the request body, the item in the catalog will be completely overwritten, unless replaceUploadedFieldsOnly is set to true. Do not use periods in field names.
+
+
+        Rate limit: 100 requests/second, per API key.'
       operationId: bulkUpdateCatalogItems
       parameters:
       - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
@@ -295,7 +304,7 @@ paths:
           description: Internal server error
       summary: Bulk create catalog items
       tags:
-      - catalogs
+      - Catalogs
       requestBody:
         content:
           application/json:
@@ -339,7 +348,7 @@ paths:
           description: Invalid API key
       summary: Delete a catalog item
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     get:
@@ -373,7 +382,7 @@ paths:
           description: No catalog item at specified location
       summary: Get a specific catalog item
       tags:
-      - catalogs
+      - Catalogs
       security:
       - api_key: []
     patch:
@@ -405,7 +414,7 @@ paths:
           description: Invalid API key
       summary: Create or update a catalog item
       tags:
-      - catalogs
+      - Catalogs
       requestBody:
         content:
           application/json:
@@ -416,7 +425,10 @@ paths:
       security:
       - api_key: []
     put:
-      description: 'Asynchronous. Create or replace the specified catalog item in the given catalog. A catalog item''s ID must be unique, contain only alphanumeric characters and dashes, and have a maximum length of 255 characters. If the catalog item already exists, it will be replaced by the value provided in the request body. Do not use periods in field names.<br/><br/><b>Rate limit</b>: 1000 requests/second, per API key.'
+      description: 'Asynchronous. Create or replace the specified catalog item in the given catalog. A catalog item''s ID must be unique, contain only alphanumeric characters and dashes, and have a maximum length of 255 characters. If the catalog item already exists, it will be replaced by the value provided in the request body. Do not use periods in field names.
+
+
+        Rate limit: 1000 requests/second, per API key.'
       operationId: indexCatalogItem
       parameters:
       - description: Catalog name [Alphanumeric, dashes, case insensitive, 255 characters max]
@@ -448,7 +460,7 @@ paths:
           description: Internal server error
       summary: Create or replace a catalog item
       tags:
-      - catalogs
+      - Catalogs
       requestBody:
         content:
           application/json:
@@ -466,7 +478,7 @@ paths:
       summary: Get a catalog
       description: Retrieves a catalog by name, including its field definitions and metadata.
       tags:
-      - catalogs
+      - Catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       responses:
@@ -496,7 +508,7 @@ paths:
       summary: Delete a catalog
       description: Deletes a catalog and all its items from the Iterable project.
       tags:
-      - catalogs
+      - Catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       responses:
@@ -523,7 +535,7 @@ paths:
       summary: List items in a catalog
       description: Retrieves items from a catalog with support for pagination.
       tags:
-      - catalogs
+      - Catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       - name: page
@@ -571,7 +583,7 @@ paths:
       summary: Create or replace a catalog item
       description: Creates a new catalog item or replaces an existing one with the specified item ID and field values.
       tags:
-      - catalogs
+      - Catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       - name: itemId
@@ -609,7 +621,7 @@ paths:
       summary: Delete a catalog item
       description: Deletes a catalog item by its item ID.
       tags:
-      - catalogs
+      - Catalogs
       parameters:
       - $ref: '#/components/parameters/catalogNamePath'
       - name: itemId
@@ -638,13 +650,51 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    CatalogIndexItemRequest:
+    CatalogUpdateItemRequest:
       properties:
-        value:
-          description: JSON representation of the catalog item. Max size is is 30kb.
+        update:
+          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
           type: object
       required:
-      - value
+      - update
+      type: object
+    JsValue:
+      type: object
+    CatalogMappingsUpdateRequest:
+      properties:
+        mappingsUpdates:
+          description: mappingsUpdates
+          items:
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+          type: array
+      required:
+      - mappingsUpdates
+      type: object
+    GetCatalogItemsResponse:
+      properties:
+        catalogItemsWithProperties:
+          items:
+            $ref: '#/components/schemas/CatalogItemWithProperties'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalItemsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogItemsWithProperties
+      - totalItemsCount
+      type: object
+    CatalogBulkDeleteRequest:
+      properties:
+        itemIds:
+          items:
+            type: string
+          type: array
+      required:
+      - itemIds
       type: object
     CatalogFieldDefinitionSerializedModel:
       properties:
@@ -660,15 +710,6 @@ components:
       - fieldName
       - fieldType
       type: object
-    JsObject:
-      properties:
-        underlying:
-          additionalProperties:
-            $ref: '#/components/schemas/JsValue'
-          type: object
-      required:
-      - underlying
-      type: object
     CatalogName:
       properties:
         name:
@@ -676,15 +717,17 @@ components:
       required:
       - name
       type: object
-    CatalogMappingsUpdateRequest:
+    CatalogBulkUploadRequest:
       properties:
-        mappingsUpdates:
-          description: mappingsUpdates
-          items:
-            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
-          type: array
+        documents:
+          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
+          type: object
+        replaceUploadedFieldsOnly:
+          description: Whether to replace only the upload fields within each document, not each entire document
+          type: boolean
       required:
-      - mappingsUpdates
+      - documents
+      - replaceUploadedFieldsOnly
       type: object
     CatalogFieldMappingsResponse:
       properties:
@@ -700,34 +743,13 @@ components:
       - definedMappings
       - undefinedFields
       type: object
-    CatalogBulkDeleteRequest:
+    CatalogIndexItemRequest:
       properties:
-        itemIds:
-          items:
-            type: string
-          type: array
-      required:
-      - itemIds
-      type: object
-    CatalogUpdateItemRequest:
-      properties:
-        update:
-          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
+        value:
+          description: JSON representation of the catalog item. Max size is is 30kb.
           type: object
       required:
-      - update
-      type: object
-    CatalogBulkUploadRequest:
-      properties:
-        documents:
-          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
-          type: object
-        replaceUploadedFieldsOnly:
-          description: Whether to replace only the upload fields within each document, not each entire document
-          type: boolean
-      required:
-      - documents
-      - replaceUploadedFieldsOnly
+      - value
       type: object
     GetCatalogsResponse:
       properties:
@@ -746,7 +768,35 @@ components:
       - catalogNames
       - totalCatalogsCount
       type: object
-    JsValue:
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
+      type: object
+    CatalogItemWithProperties:
+      properties:
+        catalogName:
+          type: string
+        itemId:
+          type: string
+        lastModified:
+          format: date-time
+          type: string
+        size:
+          format: int64
+          type: integer
+        value:
+          $ref: '#/components/schemas/JsObject'
+      required:
+      - catalogName
+      - itemId
+      - lastModified
+      - size
+      - value
       type: object
     IterableApiResponse:
       properties:
@@ -788,44 +838,6 @@ components:
       required:
       - code
       - msg
-      type: object
-    CatalogItemWithProperties:
-      properties:
-        catalogName:
-          type: string
-        itemId:
-          type: string
-        lastModified:
-          format: date-time
-          type: string
-        size:
-          format: int64
-          type: integer
-        value:
-          $ref: '#/components/schemas/JsObject'
-      required:
-      - catalogName
-      - itemId
-      - lastModified
-      - size
-      - value
-      type: object
-    GetCatalogItemsResponse:
-      properties:
-        catalogItemsWithProperties:
-          items:
-            $ref: '#/components/schemas/CatalogItemWithProperties'
-          type: array
-        nextPageUrl:
-          type: string
-        previousPageUrl:
-          type: string
-        totalItemsCount:
-          format: int64
-          type: integer
-      required:
-      - catalogItemsWithProperties
-      - totalItemsCount
       type: object
     IterableResponse:
       type: object

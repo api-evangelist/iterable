@@ -12,7 +12,13 @@ tags:
 paths:
   /api/embedded-messaging/messages:
     get:
-      description: This endpoint returns embedded messages for which the specified user is eligible, grouped by <code>placementId</code>.<br/><br/>By default, it returns data for all placements that have messages for the user. To constrain the response to specific placements, provide one or more <code>placementIds</code> query parameters.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'This endpoint returns embedded messages for which the specified user is eligible, grouped by placementId.
+
+
+        By default, it returns data for all placements that have messages for the user. To constrain the response to specific placements, provide one or more placementIds query parameters.
+
+
+        Learn about identifying users by userId and email.'
       operationId: messages
       parameters:
       - description: User identifier. Provide an email or a userId, but not both.
@@ -83,6 +89,18 @@ paths:
       - Embedded Messaging
 components:
   schemas:
+    Button:
+      properties:
+        action:
+          $ref: '#/components/schemas/Action'
+          description: Action to invoke when a user taps the button.
+        id:
+          description: ID of the button.
+          type: string
+        title:
+          description: Text to display on the button.
+          type: string
+      type: object
     ApiEmbeddedMessagingElements:
       properties:
         body:
@@ -111,16 +129,21 @@ components:
           description: Title text of the embedded message.
           type: string
       type: object
-    Button:
+    EmbeddedMessagesResponse:
       properties:
-        action:
-          $ref: '#/components/schemas/Action'
-          description: Action to invoke when a user taps the button.
-        id:
-          description: ID of the button.
+        placements:
+          description: Array of objects, each with a <code>placementId</code> and an associated list of embedded messages for which the specified user is eligible.
+          items:
+            $ref: '#/components/schemas/ApiEmbeddedPlacement'
+          type: array
+      type: object
+    Action:
+      properties:
+        data:
+          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
           type: string
-        title:
-          description: Text to display on the button.
+        type:
+          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
           type: string
       type: object
     ApiEmbeddedMessagingMetadata:
@@ -144,35 +167,6 @@ components:
           format: int64
           type: integer
       type: object
-    ApiEmbeddedPlacement:
-      properties:
-        embeddedMessages:
-          description: Array of embedded messages associated with <code>placementId</code>. The user specified in the request is eligible for all messages in this array.
-          items:
-            $ref: '#/components/schemas/ApiEmbeddedMessage'
-          type: array
-        placementId:
-          description: ID of a placement.
-          format: int64
-          type: integer
-      type: object
-    Action:
-      properties:
-        data:
-          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
-          type: string
-        type:
-          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
-          type: string
-      type: object
-    EmbeddedMessagesResponse:
-      properties:
-        placements:
-          description: Array of objects, each with a <code>placementId</code> and an associated list of embedded messages for which the specified user is eligible.
-          items:
-            $ref: '#/components/schemas/ApiEmbeddedPlacement'
-          type: array
-      type: object
     ApiEmbeddedMessage:
       properties:
         elements:
@@ -193,6 +187,18 @@ components:
         text:
           description: Text to display.
           type: string
+      type: object
+    ApiEmbeddedPlacement:
+      properties:
+        embeddedMessages:
+          description: Array of embedded messages associated with <code>placementId</code>. The user specified in the request is eligible for all messages in this array.
+          items:
+            $ref: '#/components/schemas/ApiEmbeddedMessage'
+          type: array
+        placementId:
+          description: ID of a placement.
+          format: int64
+          type: integer
       type: object
   securitySchemes:
     api_key:

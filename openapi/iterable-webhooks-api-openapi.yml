@@ -8,7 +8,7 @@ servers:
 security:
 - api_key: []
 tags:
-- name: webhooks
+- name: Webhooks
 paths:
   /api/webhooks:
     get:
@@ -25,7 +25,7 @@ paths:
           description: Invalid API key
       summary: Get webhooks
       tags:
-      - webhooks
+      - Webhooks
     post:
       description: ''
       operationId: updateWebhook
@@ -42,7 +42,7 @@ paths:
           description: Invalid API key
       summary: Update webhook
       tags:
-      - webhooks
+      - Webhooks
       requestBody:
         content:
           application/json:
@@ -63,6 +63,45 @@ components:
       required:
       - key
       - value
+      type: object
+    ApiWebhookResponse:
+      properties:
+        authType:
+          description: Auth type
+          type: string
+        blastSendEnabled:
+          description: Blast Send Enabled
+          type: boolean
+        channelIds:
+          description: Channel IDs
+          items:
+            type: object
+          type: array
+        enabled:
+          description: Enabled
+          type: boolean
+        endpoint:
+          description: Endpoint
+          type: string
+        id:
+          description: Webhook ID
+          format: int64
+          type: integer
+        messageTypeIds:
+          description: Message Type IDs
+          items:
+            type: object
+          type: array
+        triggeredSendEnabled:
+          description: Triggered Send Enabled
+          type: boolean
+      required:
+      - authType
+      - blastSendEnabled
+      - enabled
+      - endpoint
+      - id
+      - triggeredSendEnabled
       type: object
     ApiWebhookModel:
       properties:
@@ -108,45 +147,6 @@ components:
           type: array
       required:
       - webhooks
-      type: object
-    ApiWebhookResponse:
-      properties:
-        authType:
-          description: Auth type
-          type: string
-        blastSendEnabled:
-          description: Blast Send Enabled
-          type: boolean
-        channelIds:
-          description: Channel IDs
-          items:
-            type: object
-          type: array
-        enabled:
-          description: Enabled
-          type: boolean
-        endpoint:
-          description: Endpoint
-          type: string
-        id:
-          description: Webhook ID
-          format: int64
-          type: integer
-        messageTypeIds:
-          description: Message Type IDs
-          items:
-            type: object
-          type: array
-        triggeredSendEnabled:
-          description: Triggered Send Enabled
-          type: boolean
-      required:
-      - authType
-      - blastSendEnabled
-      - enabled
-      - endpoint
-      - id
-      - triggeredSendEnabled
       type: object
   securitySchemes:
     api_key:

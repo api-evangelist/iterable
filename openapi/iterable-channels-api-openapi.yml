@@ -10,11 +10,11 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: channels
+- name: Channels
 paths:
   /api/channels:
     get:
-      description: 'Get all message channels within the project. <b>Rate limit</b>: 100 requests/second, per project.'
+      description: 'Get all message channels within the project. Rate limit: 100 requests/second, per project.'
       operationId: channels
       responses:
         '200':
@@ -27,7 +27,7 @@ paths:
           description: Invalid API key
       summary: Get channels
       tags:
-      - channels
+      - Channels
       security:
       - api_key: []
     servers:
@@ -38,7 +38,7 @@ paths:
       summary: List channels
       description: Retrieves all messaging channels configured in the Iterable project. Channels organize message types and are used to group campaign templates.
       tags:
-      - channels
+      - Channels
       responses:
         '200':
           description: List of channels

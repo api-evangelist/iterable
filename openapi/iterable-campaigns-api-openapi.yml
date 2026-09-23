@@ -10,11 +10,11 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: campaigns
+- name: Campaigns
 paths:
   /api/campaigns:
     get:
-      description: 'Get metadata about campaigns in a project. Use <code>page</code> and <code>pageSize</code> parameters to paginate results. If the unpaginated campaigns API is allowed for your project, then all campaigns are returned if no pagination parameters are provided. The unpaginated behavior is deprecated and may be removed in the future. <b>Rate limit</b>: 100 requests/second, per project.'
+      description: 'Get metadata about campaigns in a project. Use page and pageSize parameters to paginate results. If the unpaginated campaigns API is allowed for your project, then all campaigns are returned if no pagination parameters are provided. The unpaginated behavior is deprecated and may be removed in the future. Rate limit: 100 requests/second, per project.'
       operationId: campaigns
       parameters:
       - description: Page number (starting at 1).
@@ -62,7 +62,7 @@ paths:
           description: Invalid API key
       summary: List campaign metadata
       tags:
-      - campaigns
+      - Campaigns
       security:
       - api_key: []
     servers:
@@ -84,7 +84,7 @@ paths:
           description: Invalid API key
       summary: Abort a campaign
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -115,7 +115,7 @@ paths:
           description: API triggered campaign activation is not enabled for your project
       summary: Activate a triggered campaign
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -129,7 +129,7 @@ paths:
     - url: https://api.iterable.com/
   /api/campaigns/archive:
     post:
-      description: 'Archives one or more campaigns. This endpoint behaves the same as the archive feature in the UI. Scheduled or recurring campaigns will be cancelled, and running campaigns will be aborted.Archived campaigns will be hidden from the Campaigns page, but can still be viewed in the Archived tab.<b>Rate limit</b>: 5 requests/second, per API key.'
+      description: 'Archives one or more campaigns. This endpoint behaves the same as the archive feature in the UI. Scheduled or recurring campaigns will be cancelled, and running campaigns will be aborted.Archived campaigns will be hidden from the Campaigns page, but can still be viewed in the Archived tab.Rate limit: 5 requests/second, per API key.'
       operationId: archive campaigns
       responses:
         '200':
@@ -144,7 +144,7 @@ paths:
           description: Internal server error
       summary: Archive campaigns
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -173,7 +173,7 @@ paths:
           description: Invalid API key
       summary: Cancel a scheduled or recurring campaign
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -187,7 +187,7 @@ paths:
     - url: https://api.iterable.com/
   /api/campaigns/create:
     post:
-      description: 'Creates a new blast or triggered campaign from an existing template. This endpoint can create email, push notification, web push notification, SMS, in-app message, and embedded message campaigns. <strong>Important note</strong>: Global suppression lists are <strong>not</strong> automatically added to campaigns created from this endpoint. To include a global suppression list, include it in the <code>suppressionListIds</code> request parameter. To learn more about creating a campaign with this API, see our <a href="https://support.iterable.com/hc/articles/204780579#post-api-campaigns-create">API Overview</a>.'
+      description: 'Creates a new blast or triggered campaign from an existing template. This endpoint can create email, push notification, web push notification, SMS, in-app message, and embedded message campaigns. Important note: Global suppression lists are not automatically added to campaigns created from this endpoint. To include a global suppression list, include it in the suppressionListIds request parameter. To learn more about creating a campaign with this API, see our API Overview.'
       operationId: create campaign
       responses:
         '200':
@@ -202,7 +202,7 @@ paths:
           description: Invalid API key
       summary: Create a campaign
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -233,7 +233,7 @@ paths:
           description: API triggered campaign deactivation is not enabled for your project
       summary: Deactivate a triggered campaign
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -247,7 +247,7 @@ paths:
     - url: https://api.iterable.com/
   /api/campaigns/metrics:
     get:
-      description: 'Get metrics for a single campaign or multiple campaigns. <b>Rate limit</b>: 10 requests/minute, per project.'
+      description: 'Get metrics for a single campaign or multiple campaigns. Rate limit: 10 requests/minute, per project.'
       operationId: metrics
       parameters:
       - description: Campaign(s) to export
@@ -291,14 +291,14 @@ paths:
           description: Invalid API key
       summary: Get metrics for campaigns
       tags:
-      - campaigns
+      - Campaigns
       security:
       - api_key: []
     servers:
     - url: https://api.iterable.com/
   /api/campaigns/recurring/{id}/childCampaigns:
     get:
-      description: 'Get child campaigns generated by a recurring campaign. Use <code>page</code> and <code>pageSize</code> parameters to paginate results. If the unpaginated campaigns API is allowed for your project, then all child campaigns are returned if no pagination parameters are provided. The unpaginated behavior is deprecated and may be removed in the future. <b>Rate limit</b>: 100 requests/second, per project.'
+      description: 'Get child campaigns generated by a recurring campaign. Use page and pageSize parameters to paginate results. If the unpaginated campaigns API is allowed for your project, then all child campaigns are returned if no pagination parameters are provided. The unpaginated behavior is deprecated and may be removed in the future. Rate limit: 100 requests/second, per project.'
       operationId: child campaigns
       parameters:
       - in: path
@@ -354,7 +354,7 @@ paths:
           description: Invalid API key
       summary: Get child campaigns of a recurring campaign
       tags:
-      - campaigns
+      - Campaigns
       security:
       - api_key: []
     servers:
@@ -378,7 +378,7 @@ paths:
           description: Rate limit exceeded
       summary: Trigger a campaign
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -416,7 +416,7 @@ paths:
           description: API scheduling campaigns is not enabled for your project
       summary: Schedule existing campaign to be sent
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         content:
           application/json:
@@ -452,14 +452,14 @@ paths:
           description: Invalid API key
       summary: Send existing campaign now
       tags:
-      - campaigns
+      - Campaigns
       security:
       - api_key: []
     servers:
     - url: https://api.iterable.com/
   /api/campaigns/{id}:
     get:
-      description: 'Get a campaign by ID. <b>Rate limit</b>: 100 requests/second, per project.'
+      description: 'Get a campaign by ID. Rate limit: 100 requests/second, per project.'
       operationId: getCampaign
       parameters:
       - description: Campaign ID
@@ -484,7 +484,7 @@ paths:
           description: Campaign not found
       summary: Get a campaign
       tags:
-      - campaigns
+      - Campaigns
       security:
       - api_key: []
     servers:
@@ -495,7 +495,7 @@ paths:
       summary: List campaigns
       description: Retrieves metadata for all campaigns in the project associated with the API key. Returns campaign id, name, type, status, template information, and creation dates.
       tags:
-      - campaigns
+      - Campaigns
       responses:
         '200':
           description: List of campaigns
@@ -523,7 +523,7 @@ paths:
       summary: Create a campaign
       description: Creates a new campaign in the Iterable project with the specified name, template, list, and configuration options.
       tags:
-      - campaigns
+      - Campaigns
       requestBody:
         required: true
         content:
@@ -565,7 +565,7 @@ paths:
       summary: Get campaign metrics
       description: Retrieves engagement metrics for one or more campaigns, including sends, opens, clicks, unsubscribes, bounces, and complaints.
       tags:
-      - campaigns
+      - Campaigns
       parameters:
       - name: campaignId
         in: query
@@ -606,6 +606,53 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
+    RecipientTimeZoneRequest:
+      properties:
+        defaultTimeZone:
+          description: The fallback time zone if the recipient does not have time zone set in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
+          type: string
+        startTimeZone:
+          description: The starting time zone in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
+          type: string
+      required:
+      - defaultTimeZone
+      - startTimeZone
+      type: object
+    CampaignIdRequest:
+      properties:
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
+    CreateCampaignResponse:
+      properties:
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
+    ScheduleCampaignRequest:
+      properties:
+        recipientTimeZone:
+          $ref: '#/components/schemas/RecipientTimeZoneRequest'
+          description: If provided, send campaign based on recipient time zone. If not, default to the project time zone.
+        sendAt:
+          description: When to send up to 7 days in the future. ISO-8601 date time format (e.g. 2007-12-03T10:15:30.00Z)
+          type: string
+      required:
+      - sendAt
+      type: object
+    BulkArchiveCampaignRequest:
+      properties:
+        campaignIds:
+          description: Campaign IDs to archive
+          items:
+            type: number
+          type: array
+      required:
+      - campaignIds
+      type: object
     CreateCampaignRequest:
       properties:
         campaignDataFields:
@@ -661,114 +708,6 @@ components:
       - listIds
       - name
       - templateId
-      type: object
-    IterableApiResponse:
-      properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
-          type: object
-      required:
-      - code
-      - msg
-      type: object
-    RecipientTimeZoneRequest:
-      properties:
-        defaultTimeZone:
-          description: The fallback time zone if the recipient does not have time zone set in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
-          type: string
-        startTimeZone:
-          description: The starting time zone in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
-          type: string
-      required:
-      - defaultTimeZone
-      - startTimeZone
-      type: object
-    TriggerCampaignRequest:
-      properties:
-        allowRepeatMarketingSends:
-          description: Allow repeat marketing sends? Defaults to true.
-          type: boolean
-        campaignId:
-          format: int64
-          type: integer
-        dataFields:
-          description: Fields to merge into handlebars context
-          type: object
-        listIds:
-          description: A non-empty array of list IDs to send to
-          items:
-            format: int64
-            type: integer
-          type: array
-        suppressionListIds:
-          description: Lists to suppress
-          items:
-            format: int64
-            type: integer
-          type: array
-      required:
-      - campaignId
-      - listIds
-      type: object
-    CampaignsResponse:
-      properties:
-        campaigns:
-          items:
-            $ref: '#/components/schemas/CampaignDetails'
-          type: array
-        nextPageUrl:
-          description: The URL to the next page of campaigns, if applicable.
-          type: string
-        previousPageUrl:
-          description: The URL to the previous page of campaigns, if applicable.
-          type: string
-        totalCampaignsCount:
-          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
-          type: object
-      required:
-      - campaigns
-      type: object
-    BulkArchiveCampaignRequest:
-      properties:
-        campaignIds:
-          description: Campaign IDs to archive
-          items:
-            type: number
-          type: array
-      required:
-      - campaignIds
       type: object
     CampaignDetails:
       properties:
@@ -854,31 +793,124 @@ components:
       - type
       - updatedAt
       type: object
-    ScheduleCampaignRequest:
+    CampaignsResponse:
       properties:
-        recipientTimeZone:
-          $ref: '#/components/schemas/RecipientTimeZoneRequest'
-          description: If provided, send campaign based on recipient time zone. If not, default to the project time zone.
-        sendAt:
-          description: When to send up to 7 days in the future. ISO-8601 date time format (e.g. 2007-12-03T10:15:30.00Z)
+        campaigns:
+          items:
+            $ref: '#/components/schemas/CampaignDetails'
+          type: array
+        nextPageUrl:
+          description: The URL to the next page of campaigns, if applicable.
           type: string
+        previousPageUrl:
+          description: The URL to the previous page of campaigns, if applicable.
+          type: string
+        totalCampaignsCount:
+          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
+          type: object
       required:
-      - sendAt
+      - campaigns
       type: object
-    CreateCampaignResponse:
+    IterableApiResponse:
       properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    TriggerCampaignRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
         campaignId:
-          type: number
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into handlebars context
+          type: object
+        listIds:
+          description: A non-empty array of list IDs to send to
+          items:
+            format: int64
+            type: integer
+          type: array
+        suppressionListIds:
+          description: Lists to suppress
+          items:
+            format: int64
+            type: integer
+          type: array
       required:
       - campaignId
+      - listIds
       type: object
-    CampaignIdRequest:
-      properties:
-        campaignId:
-          type: number
+    CampaignCreateRequest:
+      type: object
+      description: Request body for creating a new campaign
       required:
-      - campaignId
-      type: object
+      - name
+      - listIds
+      - templateId
+      properties:
+        name:
+          type: string
+          description: Campaign name
+        listIds:
+          type: array
+          description: List IDs to target
+          items:
+            type: integer
+        templateId:
+          type: integer
+          description: Template ID to use
+        suppressionListIds:
+          type: array
+          description: List IDs for suppression
+          items:
+            type: integer
+        sendAt:
+          type: string
+          format: date-time
+          description: Scheduled send time in ISO 8601 format
+        dataFields:
+          type: object
+          description: Additional data fields for personalization
+          additionalProperties: true
     Campaign:
       type: object
       description: A marketing campaign in Iterable
@@ -930,38 +962,6 @@ components:
           description: Labels applied to the campaign
           items:
             type: string
-    CampaignCreateRequest:
-      type: object
-      description: Request body for creating a new campaign
-      required:
-      - name
-      - listIds
-      - templateId
-      properties:
-        name:
-          type: string
-          description: Campaign name
-        listIds:
-          type: array
-          description: List IDs to target
-          items:
-            type: integer
-        templateId:
-          type: integer
-          description: Template ID to use
-        suppressionListIds:
-          type: array
-          description: List IDs for suppression
-          items:
-            type: integer
-        sendAt:
-          type: string
-          format: date-time
-          description: Scheduled send time in ISO 8601 format
-        dataFields:
-          type: object
-          description: Additional data fields for personalization
-          additionalProperties: true
   securitySchemes:
     api_key:
       in: header

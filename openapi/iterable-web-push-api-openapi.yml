@@ -10,11 +10,14 @@ servers:
 - url: https://api.eu.iterable.com/api
   description: European Data Center (EDC)
 tags:
-- name: webPush
+- name: Web Push
 paths:
   /api/webPush/cancel:
     post:
-      description: Cancels a web push notification to a specific user. Request must include a <code>campaignId</code> and an <code>email</code> or <code>userId</code>, or just a <code>scheduledMessageId</code>.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Cancels a web push notification to a specific user. Request must include a campaignId and an email or userId, or just a scheduledMessageId.
+
+
+        Learn about identifying users by userId and email.'
       operationId: cancel
       responses:
         '200':
@@ -29,7 +32,7 @@ paths:
           description: Invalid API key
       summary: Cancel a web push notification to a user
       tags:
-      - webPush
+      - Web Push
       requestBody:
         content:
           application/json:
@@ -43,7 +46,10 @@ paths:
     - url: https://api.iterable.com/
   /api/webPush/target:
     post:
-      description: Sends a web push notification to a specific user. Request data fields override user profile data fields. A reference to the user profile is provided via the <code>profile</code> field, to help resolve field collisions.<br/><br/>Learn about <a href="https://support.iterable.com/hc/articles/29156459027348">identifying users by <code>userId</code> and <code>email</code></a>.
+      description: 'Sends a web push notification to a specific user. Request data fields override user profile data fields. A reference to the user profile is provided via the profile field, to help resolve field collisions.
+
+
+        Learn about identifying users by userId and email.'
       operationId: target
       responses:
         '200':
@@ -58,7 +64,7 @@ paths:
           description: Invalid API key
       summary: Send web push notification to user
       tags:
-      - webPush
+      - Web Push
       requestBody:
         content:
           application/json:
@@ -76,7 +82,7 @@ paths:
       summary: Send a web push notification
       description: Sends a web push notification to a specific user using a template.
       tags:
-      - webPush
+      - Web Push
       requestBody:
         required: true
         content:

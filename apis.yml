@@ -168,8 +168,6 @@ apis:
     url: overlays/iterable-campaigns-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-catalogs-api
   name: Iterable Catalogs API
   description: >-
@@ -187,8 +185,6 @@ apis:
     url: overlays/iterable-catalogs-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-channels-api
   name: Iterable Channels API
   description: >-
@@ -204,8 +200,6 @@ apis:
     url: overlays/iterable-channels-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-commerce-api
   name: Iterable Commerce API
   description: >-
@@ -221,8 +215,6 @@ apis:
     url: overlays/iterable-commerce-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-email-api
   name: Iterable Email API
   description: Send transactional emails and manage email-specific delivery settings.
@@ -237,8 +229,6 @@ apis:
     url: overlays/iterable-email-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-events-api
   name: Iterable Events API
   description: >-
@@ -257,8 +247,6 @@ apis:
     url: overlays/iterable-events-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-experiments-api
   name: Iterable Experiments API
   description: Retrieve experiment configurations and metrics for A/B tests running across campaigns.
@@ -273,8 +261,6 @@ apis:
     url: overlays/iterable-experiments-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-lists-api
   name: Iterable Lists API
   description: >-
@@ -293,8 +279,6 @@ apis:
     url: overlays/iterable-lists-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-metadata-api
   name: Iterable Metadata API
   description: >-
@@ -310,8 +294,6 @@ apis:
     url: overlays/iterable-metadata-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-push-api
   name: Iterable Push API
   description: Send push notifications and manage push notification delivery settings and tokens.
@@ -326,8 +308,6 @@ apis:
     url: overlays/iterable-push-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-sms-api
   name: Iterable SMS API
   description: Send SMS messages and manage SMS-specific delivery settings.
@@ -342,8 +322,6 @@ apis:
     url: overlays/iterable-sms-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-templates-api
   name: Iterable Templates API
   description: >-
@@ -359,8 +337,6 @@ apis:
     url: overlays/iterable-templates-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-users-api
   name: Iterable Users API
   description: >-
@@ -379,8 +355,6 @@ apis:
     url: overlays/iterable-users-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-workflows-api
   name: Iterable Workflows API
   description: Trigger workflow enrollments and manage journey-based automation workflows.
@@ -395,8 +369,6 @@ apis:
     url: overlays/iterable-workflows-api-overlay.yaml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-embedded-messaging-api
   name: Iterable Embedded Messaging API
   description: The Embedded Messaging API from Iterable — 1 operation(s) for embedded messaging.
@@ -410,8 +382,6 @@ apis:
     url: openapi/iterable-embedded-messaging-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-in-app-api
   name: Iterable In App API
   description: The In-app API from Iterable — 4 operation(s) for in-app.
@@ -427,8 +397,6 @@ apis:
     url: openapi/iterable-in-app-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-in-app-web-api
   name: Iterable In App Web API
   description: The In-app-web API from Iterable — 1 operation(s) for in-app-web.
@@ -442,8 +410,6 @@ apis:
     url: openapi/iterable-in-app-web-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-snippets-api
   name: Iterable Snippets API
   description: The snippets API from Iterable — 2 operation(s) for snippets.
@@ -459,8 +425,6 @@ apis:
     url: openapi/iterable-snippets-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-subscriptions-api
   name: Iterable Subscriptions API
   description: The subscriptions API from Iterable — 4 operation(s) for subscriptions.
@@ -476,8 +440,6 @@ apis:
     url: openapi/iterable-subscriptions-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-verify-api
   name: Iterable Verify API
   description: The Verify API from Iterable — 2 operation(s) for verify.
@@ -491,8 +453,6 @@ apis:
     url: openapi/iterable-verify-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-webhooks-api
   name: Iterable Webhooks API
   description: The webhooks API from Iterable — 1 operation(s) for webhooks.
@@ -508,8 +468,6 @@ apis:
     url: openapi/iterable-webhooks-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-message-types-api
   name: Iterable Message types API
   description: The Message types API from Iterable — 2 operation(s) for message types.
@@ -523,8 +481,6 @@ apis:
     url: openapi/iterable-message-types-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-web-push-api
   name: Iterable Web Push API
   description: The Web Push API from Iterable — 3 operation(s) for web push.
@@ -538,8 +494,6 @@ apis:
     url: openapi/iterable-web-push-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 - aid: iterable:iterable-whats-app-api
   name: Iterable Whats App API
   description: The Whats App API from Iterable — 2 operation(s) for whats app.
@@ -555,8 +509,6 @@ apis:
     url: openapi/iterable-whats-app-api-openapi.yml
   - type: Documentation
     url: https://api.iterable.com/api/docs
-  - type: GraphQL
-    url: graphql/iterable-graphql.md
 common:
 - type: Overlay
   url: overlays/iterable-inapp-api-overlay.yaml

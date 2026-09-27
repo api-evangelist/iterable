@@ -121,17 +121,6 @@ components:
       - code
       - msg
       type: object
-    BeginSmsVerificationRequest:
-      properties:
-        phoneNumber:
-          type: string
-        verificationProfileId:
-          format: int64
-          type: integer
-      required:
-      - phoneNumber
-      - verificationProfileId
-      type: object
     CheckSmsVerificationRequest:
       properties:
         code:
@@ -143,6 +132,17 @@ components:
           type: integer
       required:
       - code
+      - phoneNumber
+      - verificationProfileId
+      type: object
+    BeginSmsVerificationRequest:
+      properties:
+        phoneNumber:
+          type: string
+        verificationProfileId:
+          format: int64
+          type: integer
+      required:
       - phoneNumber
       - verificationProfileId
       type: object

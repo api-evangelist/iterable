@@ -102,7 +102,7 @@ paths:
   /api/templates/bulkDelete:
     post:
       description: This endpoint deletes one or more base templates. Templates which are associated with a campaign will not be deleted.
-      operationId: bulk delete templates
+      operationId: bulkDeleteTemplates
       responses:
         '200':
           description: Templates deleted successfully
@@ -126,6 +126,8 @@ paths:
         required: true
       security:
       - api_key: []
+      x-operation-id-source: normalized
+      x-operation-id-original: bulk delete templates
     servers:
     - url: https://api.iterable.com/
   /api/templates/email/get:
@@ -869,7 +871,7 @@ paths:
     - url: https://api.iterable.com/
   /templates/email/get:
     get:
-      operationId: getEmailTemplate
+      operationId: getTemplatesEmailGet
       summary: Get an email template
       description: Retrieves the content and metadata of an email template by its template ID.
       tags:
@@ -894,6 +896,8 @@ paths:
           description: Template not found
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getEmailTemplate
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -901,7 +905,7 @@ paths:
       description: European Data Center (EDC)
   /templates/email/update:
     post:
-      operationId: updateEmailTemplate
+      operationId: postTemplatesEmailUpdate
       summary: Update an email template
       description: Updates the content and metadata of an existing email template.
       tags:
@@ -925,6 +929,8 @@ paths:
           description: Unauthorized
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateEmailTemplate
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -932,7 +938,7 @@ paths:
       description: European Data Center (EDC)
   /templates/push/get:
     get:
-      operationId: getPushTemplate
+      operationId: getTemplatesPushGet
       summary: Get a push notification template
       description: Retrieves the content and metadata of a push notification template by its template ID.
       tags:
@@ -968,6 +974,8 @@ paths:
           description: Template not found
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getPushTemplate
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -1014,7 +1022,7 @@ paths:
       description: European Data Center (EDC)
   /templates/inApp/get:
     get:
-      operationId: getInAppTemplate
+      operationId: getTemplatesInAppGet
       summary: Get an in-app message template
       description: Retrieves the content and metadata of an in-app message template by its template ID.
       tags:
@@ -1046,6 +1054,8 @@ paths:
           description: Template not found
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getInAppTemplate
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -1053,55 +1063,141 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    ApiEmailTemplateModel:
+    IterableApiResponse:
       properties:
-        bccEmails:
-          description: BCC emails
-          items:
-            type: string
-          type: array
-        cacheDataFeed:
-          description: Cache data feed lookups for 1 hour
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
           type: object
-        campaignDataFields:
-          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
-          type: object
-        ccEmails:
-          description: CC emails
-          items:
-            type: string
-          type: array
+      required:
+      - code
+      - msg
+      type: object
+    InAppDisplaySettings:
+      properties:
+        bgColor:
+          $ref: '#/components/schemas/BgColor'
+          description: The background color values
+        bottom:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the bottom of the notification, or -1 to autoexpand
+        left:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the left of the notification, or -1 to autoexpand
+        right:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the right of the notification, or -1 to autoexpand
+        shouldAnimate:
+          description: Enables In App Animations
+          type: boolean
+        top:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the top of the notification, or -1 to autoexpand
+      type: object
+    ApiTemplateResponse:
+      properties:
+        campaignId:
+          description: Campaign ID
+          format: int32
+          type: integer
         clientTemplateId:
           description: Client template ID. Used as a secondary key to reference the template
           type: string
+        createdAt:
+          description: Date created
+          format: date-time
+          type: string
         creatorUserId:
-          description: Creator User Id
+          description: Creator email
           type: string
-        dataFeedId:
-          description: '[Deprecated - use dataFeedIds instead] Id for data feed used in template rendering'
-          type: number
-        dataFeedIds:
-          description: Ids for data feeds used in template rendering
-          items:
-            type: number
-          type: array
-        fromEmail:
-          description: From email (must be an authorized sender)
+        messageTypeId:
+          description: Message type ID
+          format: int64
+          type: integer
+        name:
+          description: Name of the template
           type: string
-        fromName:
-          description: From name
+        templateId:
+          description: Template ID
+          format: int64
+          type: integer
+        updatedAt:
+          description: Date last updated
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - creatorUserId
+      - messageTypeId
+      - name
+      - templateId
+      - updatedAt
+      type: object
+    TemplatePreviewRequest:
+      properties:
+        dataFeed:
+          description: 'Data feed content for template rendering. Provide key-value pairs for any data feed fields that your template references. Note: Data feed fields are accessible as <code>[[fieldName]]</code> when template''s <code>mergeDataFeedContext=false</code>, or as <code>{{fieldName}}</code> when <code>mergeDataFeedContext=true</code>. The <code>mergeDataFeedContext</code> setting is configured when creating/updating templates. If <code>fetchDataFeeds</code> is true, this will be merged with (or overridden by) the fetched data feed data.'
+          type: object
+        dataFields:
+          description: 'Data fields for template rendering. Provide key-value pairs for any user profile, event, or custom fields that your template references. Note: Fields are accessible as <code>{{fieldName}}</code> in templates.'
+          type: object
+        fetchDataFeeds:
+          description: Whether to fetch and use actual data feeds configured in the template. If true, the data feeds associated with the template will be fetched and used for rendering. Data from <code>dataFields</code> will be used to render dynamic URLs in the data feed configuration. If <code>dataFeed</code> is also provided, it will be merged with (or override) the fetched data feed data. Defaults to false.
+          type: boolean
+      type: object
+    UpsertSMSTemplateModel:
+      properties:
+        campaignDataFields:
+          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
+          type: object
+        clientTemplateId:
+          description: ID used by the client to identify a template. If multiple templates exist with the ID, all will be updated
+          type: string
+        creatorUserId:
+          description: Specify a specific creator user id (email). The email must be an existing member of the project. Defaults to the organization creator.
           type: string
         googleAnalyticsCampaignName:
           description: Google analytics utm_campaign value
           type: string
-        html:
-          description: HTML contents
+        imageUrl:
+          description: Image Url
           type: string
         isDefaultLocale:
           description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
 
 
-            Identifies if the locale associated with the response is the template’s default. If empty or flexible default locales are not enabled for the project, the project’s default locale is assigned.'
+            Sets the locale associated with the request content as the template’s default. If empty or flexible default locales are not enabled for the project, the project’s default locale is assigned.'
           type: boolean
         linkParams:
           description: Parameters to append to each URL in html contents
@@ -1111,45 +1207,36 @@ components:
         locale:
           description: The locale for the content in this request. Leave empty for default locale. Iterable will automatically send the content with locale that matches a 'locale' field in the user profile.
           type: string
-        mergeDataFeedContext:
-          description: Merge data feed contents into user context, so fields be referenced by {{field}} instead of [[field]]
-          type: object
+        message:
+          description: SMS message
+          type: string
         messageTypeId:
           description: Message Type Id
-          type: number
-        metadata:
-          $ref: '#/components/schemas/ApiTemplateResponse'
-          description: Metadata
+          format: int32
+          type: integer
         name:
           description: Name of the template
           type: string
-        plainText:
-          description: Plain text contents
-          type: string
-        preheaderText:
-          description: Preheader text
-          type: string
-        replyToEmail:
-          description: Reply to email
-          type: string
-        subject:
-          description: Subject
-          type: string
+      required:
+      - clientTemplateId
+      type: object
+    ApiTemplateEntry:
+      properties:
+        campaignId:
+          description: ID of campaign using this template
+          format: int64
+          type: integer
+        locales:
+          description: Locales with content for this template
+          items:
+            $ref: '#/components/schemas/string'
+          type: array
         templateId:
-          description: Email Template ID
+          description: Template ID
           format: int64
           type: integer
       required:
       - templateId
-      type: object
-    Action:
-      properties:
-        data:
-          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
-          type: string
-        type:
-          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
-          type: string
       type: object
     BgColor:
       properties:
@@ -1160,25 +1247,7 @@ components:
           description: 'The hex color of the background. Format: #FFFFFF'
           type: string
       type: object
-    ClientTemplateIdResponse:
-      properties:
-        templates:
-          description: Templates that match client template id
-          items:
-            $ref: '#/components/schemas/ApiTemplateEntry'
-          type: array
-      required:
-      - templates
-      type: object
-    BulkDeleteTemplatesRequest:
-      properties:
-        ids:
-          description: IDs of templates to be deleted.
-          items:
-            type: number
-          type: array
-      required:
-      - ids
+    JsValue:
       type: object
     ApiPushTemplateModel:
       properties:
@@ -1277,121 +1346,6 @@ components:
       required:
       - templateId
       type: object
-    Elements:
-      properties:
-        buttons:
-          description: Buttons to display with the embedded message. Each template may have up to two buttons with associated open URLs or custom actions.
-          items:
-            $ref: '#/components/schemas/Button'
-          type: array
-        defaultAction:
-          $ref: '#/components/schemas/Action'
-          description: The open action that occurs when a user clicks on the embedded message itself.
-        mediaUrl:
-          description: URL for image or video content to display in the embedded message.
-          type: string
-        mediaUrlCaption:
-          description: Alt text for the media specified by <code>mediaUrl</code>.
-          type: string
-        text:
-          description: Custom text fields for the template. Each custom text field has a <code>label</code> key that is predefined by the template's associated placement, and a configurable <code>text</code> value.
-          items:
-            $ref: '#/components/schemas/Text'
-          type: array
-      type: object
-    ApiTemplateEntry:
-      properties:
-        campaignId:
-          description: ID of campaign using this template
-          format: int64
-          type: integer
-        locales:
-          description: Locales with content for this template
-          items:
-            $ref: '#/components/schemas/string'
-          type: array
-        templateId:
-          description: Template ID
-          format: int64
-          type: integer
-      required:
-      - templateId
-      type: object
-    TemplateProofRequest:
-      description: Template proof request
-      properties:
-        dataFields:
-          description: Fields to merge into template for proof
-          type: object
-        locale:
-          description: Locale for the proof message. If provided, must be a valid locale for the project. If not provided, falls back to the user's locale, then to the project's default locale.
-          type: string
-        recipientEmail:
-          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        recipientUserId:
-          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        templateId:
-          description: Template ID to send proof for
-          format: int64
-          type: integer
-      required:
-      - templateId
-      type: object
-    RichMediaURL:
-      properties:
-        android:
-          type: string
-        ios:
-          type: string
-      type: object
-    InAppDisplaySetting:
-      type: object
-    UpsertSMSTemplateModel:
-      properties:
-        campaignDataFields:
-          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
-          type: object
-        clientTemplateId:
-          description: ID used by the client to identify a template. If multiple templates exist with the ID, all will be updated
-          type: string
-        creatorUserId:
-          description: Specify a specific creator user id (email). The email must be an existing member of the project. Defaults to the organization creator.
-          type: string
-        googleAnalyticsCampaignName:
-          description: Google analytics utm_campaign value
-          type: string
-        imageUrl:
-          description: Image Url
-          type: string
-        isDefaultLocale:
-          description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
-
-
-            Sets the locale associated with the request content as the template’s default. If empty or flexible default locales are not enabled for the project, the project’s default locale is assigned.'
-          type: boolean
-        linkParams:
-          description: Parameters to append to each URL in html contents
-          items:
-            $ref: '#/components/schemas/LinkParam'
-          type: array
-        locale:
-          description: The locale for the content in this request. Leave empty for default locale. Iterable will automatically send the content with locale that matches a 'locale' field in the user profile.
-          type: string
-        message:
-          description: SMS message
-          type: string
-        messageTypeId:
-          description: Message Type Id
-          format: int32
-          type: integer
-        name:
-          description: Name of the template
-          type: string
-      required:
-      - clientTemplateId
-      type: object
     ApiSMSTemplateModel:
       properties:
         campaignDataFields:
@@ -1451,142 +1405,6 @@ components:
       required:
       - templateId
       type: object
-    LinkParam:
-      properties:
-        key:
-          description: Link parameter key
-          type: string
-        value:
-          description: Link parameter value
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    PushActionButton:
-      properties:
-        action:
-          $ref: '#/components/schemas/PushAction'
-          description: Action to execute on button push
-        actionIcon:
-          $ref: '#/components/schemas/ActionIcon'
-        buttonType:
-          description: Type of button
-          enum:
-          - default
-          - destructive
-          - textInput
-          type: string
-        identifier:
-          description: Used to identify the button for event tracking
-          type: string
-        inputPlaceholder:
-          description: The input placeholder in the text box if this is a Text Input button
-          type: string
-        inputTitle:
-          description: The submit button text for the text box if this is a Text Input button
-          type: string
-        openApp:
-          description: Open the app if the button uses a customAction
-          type: boolean
-        requiresUnlock:
-          description: Whether the button requires the phone to be unlocked
-          type: boolean
-        title:
-          description: Title that will appear on the button
-          type: string
-      required:
-      - identifier
-      - openApp
-      - title
-      type: object
-    InAppDisplaySettings:
-      properties:
-        bgColor:
-          $ref: '#/components/schemas/BgColor'
-          description: The background color values
-        bottom:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the bottom of the notification, or -1 to autoexpand
-        left:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the left of the notification, or -1 to autoexpand
-        right:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the right of the notification, or -1 to autoexpand
-        shouldAnimate:
-          description: Enables In App Animations
-          type: boolean
-        top:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the top of the notification, or -1 to autoexpand
-      type: object
-    JsObject:
-      properties:
-        underlying:
-          additionalProperties:
-            $ref: '#/components/schemas/JsValue'
-          type: object
-      required:
-      - underlying
-      type: object
-    Text:
-      properties:
-        label:
-          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
-          type: string
-        text:
-          description: Text to display.
-          type: string
-      type: object
-    PushAction:
-      properties:
-        data:
-          description: The URL to open if the type is 'openUrl'
-          type: string
-        type:
-          description: The type of action. Leave empty to open the app, use 'openUrl' to open the url specified in the 'data' field, or enter a custom action handler defined in your app
-          type: string
-      type: object
-    ApiTemplateResponse:
-      properties:
-        campaignId:
-          description: Campaign ID
-          format: int32
-          type: integer
-        clientTemplateId:
-          description: Client template ID. Used as a secondary key to reference the template
-          type: string
-        createdAt:
-          description: Date created
-          format: date-time
-          type: string
-        creatorUserId:
-          description: Creator email
-          type: string
-        messageTypeId:
-          description: Message type ID
-          format: int64
-          type: integer
-        name:
-          description: Name of the template
-          type: string
-        templateId:
-          description: Template ID
-          format: int64
-          type: integer
-        updatedAt:
-          description: Date last updated
-          format: date-time
-          type: string
-      required:
-      - createdAt
-      - creatorUserId
-      - messageTypeId
-      - name
-      - templateId
-      - updatedAt
-      type: object
     ApiEmbeddedTemplateModel:
       properties:
         body:
@@ -1636,67 +1454,6 @@ components:
           type: string
       required:
       - templateId
-      type: object
-    UpsertInAppTemplateModel:
-      properties:
-        campaignDataFields:
-          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
-          type: object
-        clientTemplateId:
-          description: ID used by the client to identify a template. If multiple templates exist with the ID, all will be updated
-          type: string
-        creatorUserId:
-          description: Specify a specific creator user id (email). The email must be an existing member of the project. Defaults to the organization creator.
-          type: string
-        expirationDateTime:
-          description: Absolute expiration of message
-          format: date-time
-          type: string
-        expirationDuration:
-          description: Relative expiration of message
-          type: string
-        html:
-          description: Html of the in-app notification
-          type: string
-        inAppDisplaySettings:
-          $ref: '#/components/schemas/InAppDisplaySettings'
-          description: Display settings
-        inboxMetadata:
-          $ref: '#/components/schemas/InboxMetadata'
-          description: Title, subtitle, and thumbnail
-        isDefaultLocale:
-          description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
-
-
-            Sets the locale associated with the request content as the template’s default. If empty or flexible default locales are not enabled for the project, the project’s default locale is assigned.'
-          type: boolean
-        locale:
-          description: The locale for the content in this request. Leave empty for default locale. Iterable will automatically send the content with locale that matches a 'locale' field in the user profile.
-          type: string
-        messageTypeId:
-          description: Message Type Id
-          format: int32
-          type: integer
-        name:
-          description: Name of the template
-          type: string
-        payload:
-          $ref: '#/components/schemas/JsObject'
-          description: Payload
-        webInAppDisplaySettings:
-          $ref: '#/components/schemas/WebInAppDisplaySettings'
-          description: Web In-app display settings
-      required:
-      - clientTemplateId
-      type: object
-    JsValue:
-      type: object
-    DeeplinkURI:
-      properties:
-        android:
-          type: string
-        ios:
-          type: string
       type: object
     UpsertEmailTemplateModel:
       properties:
@@ -1782,11 +1539,252 @@ components:
       required:
       - clientTemplateId
       type: object
-    UpsertEmbeddedTemplateModel:
+    Button:
       properties:
-        body:
-          description: Body text of the embedded message
+        action:
+          $ref: '#/components/schemas/Action'
+          description: Action to invoke when a user taps the button.
+        id:
+          description: ID of the button.
           type: string
+        title:
+          description: Text to display on the button.
+          type: string
+      type: object
+    InAppDisplaySetting:
+      type: object
+    ApiInAppTemplateModel:
+      properties:
+        campaignDataFields:
+          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
+          type: object
+        campaignId:
+          description: Campaign ID
+          format: int32
+          type: integer
+        clientTemplateId:
+          description: Client template ID. Used as a secondary key to reference the template
+          type: string
+        expirationDateTime:
+          description: The in-app message's absolute expiration time. If set to a time before the campaign sends, contacts will never see the message. Format is <code>YYYY-MM-DD HH:MM:SS</code> (UTC timestamp, time zones not allowed). Default expiration is 90 days after send time. For more information, read <a href="https://support.iterable.com/hc/articles/360044425951">Creating In-App Templates</a>.
+          format: date-time
+          type: string
+        expirationDuration:
+          description: The in-app message's expiration time, relative to its send time. Should be an expression such as <code>now+90d</code>. Default expiration is 90 days after send time. For more information, read <a href="https://support.iterable.com/hc/articles/360044425951">Creating In-App Templates</a>.
+          type: string
+        html:
+          description: Html of the in-app notification
+          type: string
+        inAppDisplaySettings:
+          $ref: '#/components/schemas/InAppDisplaySettings'
+          description: Display settings
+        inboxMetadata:
+          $ref: '#/components/schemas/InboxMetadata'
+          description: Title, subtitle, and thumbnail
+        isDefaultLocale:
+          description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
+
+
+            Identifies if the locale associated with the response is the template''s default. If empty or flexible default locales are not enabled for the project, the project''s default locale is assigned.'
+          type: boolean
+        locale:
+          description: The locale for the content in this request. Leave empty for default locale. Iterable automatically sends the content with a locale that matches a user profile's <code>locale</code> field.
+          type: string
+        messageTypeId:
+          description: Message Type Id
+          format: int32
+          type: integer
+        name:
+          description: Name of the template
+          type: string
+        payload:
+          description: Payload
+          type: object
+        templateId:
+          description: In-app template ID
+          format: int64
+          type: integer
+        webInAppDisplaySettings:
+          $ref: '#/components/schemas/WebInAppDisplaySettings'
+          description: Web In-app Display settings
+      required:
+      - templateId
+      type: object
+    Elements:
+      properties:
+        buttons:
+          description: Buttons to display with the embedded message. Each template may have up to two buttons with associated open URLs or custom actions.
+          items:
+            $ref: '#/components/schemas/Button'
+          type: array
+        defaultAction:
+          $ref: '#/components/schemas/Action'
+          description: The open action that occurs when a user clicks on the embedded message itself.
+        mediaUrl:
+          description: URL for image or video content to display in the embedded message.
+          type: string
+        mediaUrlCaption:
+          description: Alt text for the media specified by <code>mediaUrl</code>.
+          type: string
+        text:
+          description: Custom text fields for the template. Each custom text field has a <code>label</code> key that is predefined by the template's associated placement, and a configurable <code>text</code> value.
+          items:
+            $ref: '#/components/schemas/Text'
+          type: array
+      type: object
+    TemplateProofRequest:
+      description: Template proof request
+      properties:
+        dataFields:
+          description: Fields to merge into template for proof
+          type: object
+        locale:
+          description: Locale for the proof message. If provided, must be a valid locale for the project. If not provided, falls back to the user's locale, then to the project's default locale.
+          type: string
+        recipientEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        recipientUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        templateId:
+          description: Template ID to send proof for
+          format: int64
+          type: integer
+      required:
+      - templateId
+      type: object
+    GetTemplatesResponse:
+      properties:
+        nextPageUrl:
+          description: The URL to the next page of templates, if applicable.
+          type: string
+        previousPageUrl:
+          description: The URL to the previous page of templates, if applicable.
+          type: string
+        templates:
+          items:
+            $ref: '#/components/schemas/ApiTemplateResponse'
+          type: array
+        totalTemplatesCount:
+          description: The total count of templates across all pages for the supplied query. Only present when using pagination.
+          type: object
+      required:
+      - templates
+      type: object
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
+      type: object
+    PositionOption:
+      type: object
+    Action:
+      properties:
+        data:
+          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
+          type: string
+        type:
+          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
+          type: string
+      type: object
+    ApiEmailTemplateModel:
+      properties:
+        bccEmails:
+          description: BCC emails
+          items:
+            type: string
+          type: array
+        cacheDataFeed:
+          description: Cache data feed lookups for 1 hour
+          type: object
+        campaignDataFields:
+          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
+          type: object
+        ccEmails:
+          description: CC emails
+          items:
+            type: string
+          type: array
+        clientTemplateId:
+          description: Client template ID. Used as a secondary key to reference the template
+          type: string
+        creatorUserId:
+          description: Creator User Id
+          type: string
+        dataFeedId:
+          description: '[Deprecated - use dataFeedIds instead] Id for data feed used in template rendering'
+          type: number
+        dataFeedIds:
+          description: Ids for data feeds used in template rendering
+          items:
+            type: number
+          type: array
+        fromEmail:
+          description: From email (must be an authorized sender)
+          type: string
+        fromName:
+          description: From name
+          type: string
+        googleAnalyticsCampaignName:
+          description: Google analytics utm_campaign value
+          type: string
+        html:
+          description: HTML contents
+          type: string
+        isDefaultLocale:
+          description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
+
+
+            Identifies if the locale associated with the response is the template’s default. If empty or flexible default locales are not enabled for the project, the project’s default locale is assigned.'
+          type: boolean
+        linkParams:
+          description: Parameters to append to each URL in html contents
+          items:
+            $ref: '#/components/schemas/LinkParam'
+          type: array
+        locale:
+          description: The locale for the content in this request. Leave empty for default locale. Iterable will automatically send the content with locale that matches a 'locale' field in the user profile.
+          type: string
+        mergeDataFeedContext:
+          description: Merge data feed contents into user context, so fields be referenced by {{field}} instead of [[field]]
+          type: object
+        messageTypeId:
+          description: Message Type Id
+          type: number
+        metadata:
+          $ref: '#/components/schemas/ApiTemplateResponse'
+          description: Metadata
+        name:
+          description: Name of the template
+          type: string
+        plainText:
+          description: Plain text contents
+          type: string
+        preheaderText:
+          description: Preheader text
+          type: string
+        replyToEmail:
+          description: Reply to email
+          type: string
+        subject:
+          description: Subject
+          type: string
+        templateId:
+          description: Email Template ID
+          format: int64
+          type: integer
+      required:
+      - templateId
+      type: object
+    ActionIconType:
+      type: object
+    UpsertInAppTemplateModel:
+      properties:
         campaignDataFields:
           description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
           type: object
@@ -1794,22 +1792,35 @@ components:
           description: ID used by the client to identify a template. If multiple templates exist with the ID, all will be updated
           type: string
         creatorUserId:
-          description: Specify a specific creator user ID (email). The email must be an existing member of the project. Defaults to the organization creator.
+          description: Specify a specific creator user id (email). The email must be an existing member of the project. Defaults to the organization creator.
           type: string
-        elements:
-          $ref: '#/components/schemas/Elements'
-          description: Elements (buttons, media, text fields) for the embedded message
+        expirationDateTime:
+          description: Absolute expiration of message
+          format: date-time
+          type: string
+        expirationDuration:
+          description: Relative expiration of message
+          type: string
+        html:
+          description: Html of the in-app notification
+          type: string
+        inAppDisplaySettings:
+          $ref: '#/components/schemas/InAppDisplaySettings'
+          description: Display settings
+        inboxMetadata:
+          $ref: '#/components/schemas/InboxMetadata'
+          description: Title, subtitle, and thumbnail
         isDefaultLocale:
           description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
 
 
-            Sets the locale associated with the request content as the template''s default. If empty or flexible default locales are not enabled for the project, the project''s default locale is assigned.'
+            Sets the locale associated with the request content as the template’s default. If empty or flexible default locales are not enabled for the project, the project’s default locale is assigned.'
           type: boolean
         locale:
           description: The locale for the content in this request. Leave empty for default locale. Iterable will automatically send the content with locale that matches a 'locale' field in the user profile.
           type: string
         messageTypeId:
-          description: Message type ID
+          description: Message Type Id
           format: int32
           type: integer
         name:
@@ -1818,14 +1829,65 @@ components:
         payload:
           $ref: '#/components/schemas/JsObject'
           description: Payload
-        placementId:
-          description: Placement ID that this template is associated with
-          type: object
-        title:
-          description: Title of the embedded message
-          type: string
+        webInAppDisplaySettings:
+          $ref: '#/components/schemas/WebInAppDisplaySettings'
+          description: Web In-app display settings
       required:
       - clientTemplateId
+      type: object
+    string:
+      properties:
+        displayLanguage:
+          type: string
+        languageTag:
+          type: string
+      required:
+      - displayLanguage
+      - languageTag
+      type: object
+    ClientTemplateIdResponse:
+      properties:
+        templates:
+          description: Templates that match client template id
+          items:
+            $ref: '#/components/schemas/ApiTemplateEntry'
+          type: array
+      required:
+      - templates
+      type: object
+    Text:
+      properties:
+        label:
+          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
+          type: string
+        text:
+          description: Text to display.
+          type: string
+      type: object
+    PushAction:
+      properties:
+        data:
+          description: The URL to open if the type is 'openUrl'
+          type: string
+        type:
+          description: The type of action. Leave empty to open the app, use 'openUrl' to open the url specified in the 'data' field, or enter a custom action handler defined in your app
+          type: string
+      type: object
+    WebInAppDisplaySettings:
+      properties:
+        position:
+          $ref: '#/components/schemas/PositionOption'
+          description: The position of the message on the screen
+      type: object
+    BulkDeleteTemplatesRequest:
+      properties:
+        ids:
+          description: IDs of templates to be deleted.
+          items:
+            type: number
+          type: array
+      required:
+      - ids
       type: object
     UpsertPushTemplateModel:
       properties:
@@ -1912,47 +1974,6 @@ components:
       required:
       - clientTemplateId
       type: object
-    IterableApiResponse:
-      properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
-          type: object
-      required:
-      - code
-      - msg
-      type: object
     ActionIcon:
       properties:
         iconType:
@@ -1963,16 +1984,100 @@ components:
       - iconType
       - imageName
       type: object
-    Button:
+    DeeplinkURI:
+      properties:
+        android:
+          type: string
+        ios:
+          type: string
+      type: object
+    UpsertEmbeddedTemplateModel:
+      properties:
+        body:
+          description: Body text of the embedded message
+          type: string
+        campaignDataFields:
+          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
+          type: object
+        clientTemplateId:
+          description: ID used by the client to identify a template. If multiple templates exist with the ID, all will be updated
+          type: string
+        creatorUserId:
+          description: Specify a specific creator user ID (email). The email must be an existing member of the project. Defaults to the organization creator.
+          type: string
+        elements:
+          $ref: '#/components/schemas/Elements'
+          description: Elements (buttons, media, text fields) for the embedded message
+        isDefaultLocale:
+          description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
+
+
+            Sets the locale associated with the request content as the template''s default. If empty or flexible default locales are not enabled for the project, the project''s default locale is assigned.'
+          type: boolean
+        locale:
+          description: The locale for the content in this request. Leave empty for default locale. Iterable will automatically send the content with locale that matches a 'locale' field in the user profile.
+          type: string
+        messageTypeId:
+          description: Message type ID
+          format: int32
+          type: integer
+        name:
+          description: Name of the template
+          type: string
+        payload:
+          $ref: '#/components/schemas/JsObject'
+          description: Payload
+        placementId:
+          description: Placement ID that this template is associated with
+          type: object
+        title:
+          description: Title of the embedded message
+          type: string
+      required:
+      - clientTemplateId
+      type: object
+    PushActionButton:
       properties:
         action:
-          $ref: '#/components/schemas/Action'
-          description: Action to invoke when a user taps the button.
-        id:
-          description: ID of the button.
+          $ref: '#/components/schemas/PushAction'
+          description: Action to execute on button push
+        actionIcon:
+          $ref: '#/components/schemas/ActionIcon'
+        buttonType:
+          description: Type of button
+          enum:
+          - default
+          - destructive
+          - textInput
           type: string
+        identifier:
+          description: Used to identify the button for event tracking
+          type: string
+        inputPlaceholder:
+          description: The input placeholder in the text box if this is a Text Input button
+          type: string
+        inputTitle:
+          description: The submit button text for the text box if this is a Text Input button
+          type: string
+        openApp:
+          description: Open the app if the button uses a customAction
+          type: boolean
+        requiresUnlock:
+          description: Whether the button requires the phone to be unlocked
+          type: boolean
         title:
-          description: Text to display on the button.
+          description: Title that will appear on the button
+          type: string
+      required:
+      - identifier
+      - openApp
+      - title
+      type: object
+    RichMediaURL:
+      properties:
+        android:
+          type: string
+        ios:
           type: string
       type: object
     InboxMetadata:
@@ -1987,112 +2092,17 @@ components:
           description: The title to display in the inbox
           type: string
       type: object
-    GetTemplatesResponse:
+    LinkParam:
       properties:
-        nextPageUrl:
-          description: The URL to the next page of templates, if applicable.
+        key:
+          description: Link parameter key
           type: string
-        previousPageUrl:
-          description: The URL to the previous page of templates, if applicable.
-          type: string
-        templates:
-          items:
-            $ref: '#/components/schemas/ApiTemplateResponse'
-          type: array
-        totalTemplatesCount:
-          description: The total count of templates across all pages for the supplied query. Only present when using pagination.
-          type: object
-      required:
-      - templates
-      type: object
-    PositionOption:
-      type: object
-    WebInAppDisplaySettings:
-      properties:
-        position:
-          $ref: '#/components/schemas/PositionOption'
-          description: The position of the message on the screen
-      type: object
-    ActionIconType:
-      type: object
-    ApiInAppTemplateModel:
-      properties:
-        campaignDataFields:
-          description: Campaign-level data fields available as {{field}} merge parameters during message rendering. These fields are overridden by user and event data fields of the same name.
-          type: object
-        campaignId:
-          description: Campaign ID
-          format: int32
-          type: integer
-        clientTemplateId:
-          description: Client template ID. Used as a secondary key to reference the template
-          type: string
-        expirationDateTime:
-          description: The in-app message's absolute expiration time. If set to a time before the campaign sends, contacts will never see the message. Format is <code>YYYY-MM-DD HH:MM:SS</code> (UTC timestamp, time zones not allowed). Default expiration is 90 days after send time. For more information, read <a href="https://support.iterable.com/hc/articles/360044425951">Creating In-App Templates</a>.
-          format: date-time
-          type: string
-        expirationDuration:
-          description: The in-app message's expiration time, relative to its send time. Should be an expression such as <code>now+90d</code>. Default expiration is 90 days after send time. For more information, read <a href="https://support.iterable.com/hc/articles/360044425951">Creating In-App Templates</a>.
-          type: string
-        html:
-          description: Html of the in-app notification
-          type: string
-        inAppDisplaySettings:
-          $ref: '#/components/schemas/InAppDisplaySettings'
-          description: Display settings
-        inboxMetadata:
-          $ref: '#/components/schemas/InboxMetadata'
-          description: Title, subtitle, and thumbnail
-        isDefaultLocale:
-          description: 'Ask your Iterable CSM to enroll you in the beta for this feature.
-
-
-            Identifies if the locale associated with the response is the template''s default. If empty or flexible default locales are not enabled for the project, the project''s default locale is assigned.'
-          type: boolean
-        locale:
-          description: The locale for the content in this request. Leave empty for default locale. Iterable automatically sends the content with a locale that matches a user profile's <code>locale</code> field.
-          type: string
-        messageTypeId:
-          description: Message Type Id
-          format: int32
-          type: integer
-        name:
-          description: Name of the template
-          type: string
-        payload:
-          description: Payload
-          type: object
-        templateId:
-          description: In-app template ID
-          format: int64
-          type: integer
-        webInAppDisplaySettings:
-          $ref: '#/components/schemas/WebInAppDisplaySettings'
-          description: Web In-app Display settings
-      required:
-      - templateId
-      type: object
-    TemplatePreviewRequest:
-      properties:
-        dataFeed:
-          description: 'Data feed content for template rendering. Provide key-value pairs for any data feed fields that your template references. Note: Data feed fields are accessible as <code>[[fieldName]]</code> when template''s <code>mergeDataFeedContext=false</code>, or as <code>{{fieldName}}</code> when <code>mergeDataFeedContext=true</code>. The <code>mergeDataFeedContext</code> setting is configured when creating/updating templates. If <code>fetchDataFeeds</code> is true, this will be merged with (or overridden by) the fetched data feed data.'
-          type: object
-        dataFields:
-          description: 'Data fields for template rendering. Provide key-value pairs for any user profile, event, or custom fields that your template references. Note: Fields are accessible as <code>{{fieldName}}</code> in templates.'
-          type: object
-        fetchDataFeeds:
-          description: Whether to fetch and use actual data feeds configured in the template. If true, the data feeds associated with the template will be fetched and used for rendering. Data from <code>dataFields</code> will be used to render dynamic URLs in the data feed configuration. If <code>dataFeed</code> is also provided, it will be merged with (or override) the fetched data feed data. Defaults to false.
-          type: boolean
-      type: object
-    string:
-      properties:
-        displayLanguage:
-          type: string
-        languageTag:
+        value:
+          description: Link parameter value
           type: string
       required:
-      - displayLanguage
-      - languageTag
+      - key
+      - value
       type: object
     IterableResponse:
       type: object
@@ -2108,6 +2118,37 @@ components:
           type: object
           description: Additional response parameters
           additionalProperties: true
+    EmailTemplateUpdate:
+      type: object
+      description: Request body for updating an email template
+      required:
+      - templateId
+      properties:
+        templateId:
+          type: integer
+          description: Template ID to update
+        name:
+          type: string
+          description: Updated template name
+        subject:
+          type: string
+          description: Updated email subject line
+        preheaderText:
+          type: string
+          description: Updated preheader text
+        html:
+          type: string
+          description: Updated HTML content
+        plainText:
+          type: string
+          description: Updated plain text content
+        fromName:
+          type: string
+          description: Updated from name
+        fromEmail:
+          type: string
+          format: email
+          description: Updated from email address
     EmailTemplate:
       type: object
       description: An email template
@@ -2149,37 +2190,6 @@ components:
           type: string
           format: date-time
           description: Template last update date
-    EmailTemplateUpdate:
-      type: object
-      description: Request body for updating an email template
-      required:
-      - templateId
-      properties:
-        templateId:
-          type: integer
-          description: Template ID to update
-        name:
-          type: string
-          description: Updated template name
-        subject:
-          type: string
-          description: Updated email subject line
-        preheaderText:
-          type: string
-          description: Updated preheader text
-        html:
-          type: string
-          description: Updated HTML content
-        plainText:
-          type: string
-          description: Updated plain text content
-        fromName:
-          type: string
-          description: Updated from name
-        fromEmail:
-          type: string
-          format: email
-          description: Updated from email address
   securitySchemes:
     api_key:
       in: header

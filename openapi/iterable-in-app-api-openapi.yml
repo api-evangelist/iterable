@@ -255,62 +255,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    InboxMetadata:
-      properties:
-        icon:
-          description: The icon to display in the inbox
-          type: string
-        subtitle:
-          description: The subtitle to display in the inbox
-          type: string
-        title:
-          description: The title to display in the inbox
-          type: string
-      type: object
-    Value:
-      type: object
-    InAppTrigger:
-      properties:
-        type:
-          $ref: '#/components/schemas/Value'
-          description: How the in-app message was triggered
-      type: object
-    RokuButtonContent:
-      properties:
-        buttonBorderColor:
-          type: string
-        buttonColorFocused:
-          type: string
-        buttonColorUnFocused:
-          type: string
-        buttonDeeplink:
-          type: string
-        buttonText:
-          type: string
-        buttonTextColorFocused:
-          type: string
-        buttonTextColorUnFocused:
-          type: string
-      required:
-      - buttonBorderColor
-      - buttonColorFocused
-      - buttonColorUnFocused
-      - buttonDeeplink
-      - buttonText
-      - buttonTextColorFocused
-      - buttonTextColorUnFocused
-      type: object
-    InAppDisplaySetting:
-      type: object
-    ApiInAppMessagesResponse:
-      properties:
-        inAppMessages:
-          items:
-            $ref: '#/components/schemas/ApiInAppMessage'
-          type: array
-      required:
-      - inAppMessages
-      type: object
     IterableApiResponse:
       properties:
         code:
@@ -352,57 +296,6 @@ components:
       - code
       - msg
       type: object
-    InAppTypeOfContent:
-      type: object
-    InAppContentApi:
-      properties:
-        html:
-          description: The html to be displayed
-          type: string
-        inAppDisplaySettings:
-          $ref: '#/components/schemas/InAppDisplaySettings'
-          description: The in-app message display settings
-        ottPayload:
-          $ref: '#/components/schemas/RokuContent'
-        webInAppDisplaySettings:
-          $ref: '#/components/schemas/WebInAppDisplaySettings'
-      required:
-      - webInAppDisplaySettings
-      type: object
-    RokuContent:
-      properties:
-        backgroundColor:
-          type: string
-        buttons:
-          items:
-            $ref: '#/components/schemas/RokuButtonContent'
-          type: array
-        dialogBodyFont:
-          type: string
-        dialogButtonFont:
-          type: string
-        dialogHeader:
-          type: string
-        dialogHeaderFont:
-          type: string
-        dialogText:
-          type: string
-        fhd_image:
-          type: string
-        textColor:
-          type: string
-      type: object
-    InAppType:
-      type: object
-    BgColor:
-      properties:
-        alpha:
-          description: The opacity range of the background between 0-1
-          type: number
-        hex:
-          description: 'The hex color of the background. Format: #FFFFFF'
-          type: string
-      type: object
     InAppDisplaySettings:
       properties:
         bgColor:
@@ -424,51 +317,45 @@ components:
           $ref: '#/components/schemas/InAppDisplaySetting'
           description: Padding percentage for the top of the notification, or -1 to autoexpand
       type: object
-    PositionOption:
-      type: object
-    CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required:
+    ApiInAppMessagesResponse:
       properties:
-        campaignId:
-          description: The ID of the campaign associated with the scheduled message you'd like to cancel. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: number
-        email:
-          description: An email address that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        scheduledMessageId:
-          type: number
-        userId:
-          description: A user ID that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
+        inAppMessages:
+          items:
+            $ref: '#/components/schemas/ApiInAppMessage'
+          type: array
+      required:
+      - inAppMessages
       type: object
-    WebInAppDisplaySettings:
+    RokuButtonContent:
       properties:
-        position:
-          $ref: '#/components/schemas/PositionOption'
-          description: The position of the message on the screen
-      type: object
-    TargetInAppRequest:
-      properties:
-        allowRepeatMarketingSends:
-          description: Allow repeat marketing sends? Defaults to true.
-          type: boolean
-        campaignId:
-          description: Campaign ID
-          format: int64
-          type: integer
-        dataFields:
-          description: Fields to merge into email template
-          type: object
-        recipientEmail:
-          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+        buttonBorderColor:
           type: string
-        recipientUserId:
-          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+        buttonColorFocused:
           type: string
-        sendAt:
-          description: Schedule the message for up to 365 days in the future. If set in the past, message is sent immediately. Format is YYYY-MM-DD HH:MM:SS in UTC
+        buttonColorUnFocused:
+          type: string
+        buttonDeeplink:
+          type: string
+        buttonText:
+          type: string
+        buttonTextColorFocused:
+          type: string
+        buttonTextColorUnFocused:
           type: string
       required:
-      - campaignId
+      - buttonBorderColor
+      - buttonColorFocused
+      - buttonColorUnFocused
+      - buttonDeeplink
+      - buttonText
+      - buttonTextColorFocused
+      - buttonTextColorUnFocused
+      type: object
+    InAppTrigger:
+      properties:
+        type:
+          $ref: '#/components/schemas/Value'
+          description: How the in-app message was triggered
       type: object
     ApiInAppMessage:
       properties:
@@ -520,6 +407,119 @@ components:
       - jsonOnly
       - messageType
       - typeOfContent
+      type: object
+    InAppContentApi:
+      properties:
+        html:
+          description: The html to be displayed
+          type: string
+        inAppDisplaySettings:
+          $ref: '#/components/schemas/InAppDisplaySettings'
+          description: The in-app message display settings
+        ottPayload:
+          $ref: '#/components/schemas/RokuContent'
+        webInAppDisplaySettings:
+          $ref: '#/components/schemas/WebInAppDisplaySettings'
+      required:
+      - webInAppDisplaySettings
+      type: object
+    WebInAppDisplaySettings:
+      properties:
+        position:
+          $ref: '#/components/schemas/PositionOption'
+          description: The position of the message on the screen
+      type: object
+    PositionOption:
+      type: object
+    InAppDisplaySetting:
+      type: object
+    Value:
+      type: object
+    InAppType:
+      type: object
+    CancelScheduledMessageRequest_-_campaignId_OR_scheduledMessageId_are_required:
+      properties:
+        campaignId:
+          description: The ID of the campaign associated with the scheduled message you'd like to cancel. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: number
+        email:
+          description: An email address that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        scheduledMessageId:
+          type: number
+        userId:
+          description: A user ID that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    BgColor:
+      properties:
+        alpha:
+          description: The opacity range of the background between 0-1
+          type: number
+        hex:
+          description: 'The hex color of the background. Format: #FFFFFF'
+          type: string
+      type: object
+    RokuContent:
+      properties:
+        backgroundColor:
+          type: string
+        buttons:
+          items:
+            $ref: '#/components/schemas/RokuButtonContent'
+          type: array
+        dialogBodyFont:
+          type: string
+        dialogButtonFont:
+          type: string
+        dialogHeader:
+          type: string
+        dialogHeaderFont:
+          type: string
+        dialogText:
+          type: string
+        fhd_image:
+          type: string
+        textColor:
+          type: string
+      type: object
+    TargetInAppRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          description: Campaign ID
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into email template
+          type: object
+        recipientEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        recipientUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sendAt:
+          description: Schedule the message for up to 365 days in the future. If set in the past, message is sent immediately. Format is YYYY-MM-DD HH:MM:SS in UTC
+          type: string
+      required:
+      - campaignId
+      type: object
+    InboxMetadata:
+      properties:
+        icon:
+          description: The icon to display in the inbox
+          type: string
+        subtitle:
+          description: The subtitle to display in the inbox
+          type: string
+        title:
+          description: The title to display in the inbox
+          type: string
+      type: object
+    InAppTypeOfContent:
       type: object
   securitySchemes:
     api_key:

@@ -504,7 +504,7 @@ paths:
       security:
       - apiKeyAuth: []
     delete:
-      operationId: deleteCatalog
+      operationId: deleteCatalogsByCatalogName
       summary: Delete a catalog
       description: Deletes a catalog and all its items from the Iterable project.
       tags:
@@ -524,6 +524,8 @@ paths:
           description: Catalog not found
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteCatalog
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -531,7 +533,7 @@ paths:
       description: European Data Center (EDC)
   /catalogs/{catalogName}/items:
     get:
-      operationId: listCatalogItems
+      operationId: getCatalogsByCatalogNameItems
       summary: List items in a catalog
       description: Retrieves items from a catalog with support for pagination.
       tags:
@@ -572,6 +574,8 @@ paths:
           description: Catalog not found
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: listCatalogItems
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -617,7 +621,7 @@ paths:
       security:
       - apiKeyAuth: []
     delete:
-      operationId: deleteCatalogItem
+      operationId: deleteCatalogsByCatalogNameItemsByItemId
       summary: Delete a catalog item
       description: Deletes a catalog item by its item ID.
       tags:
@@ -643,6 +647,8 @@ paths:
           description: Catalog item not found
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteCatalogItem
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -650,154 +656,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    CatalogUpdateItemRequest:
-      properties:
-        update:
-          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
-          type: object
-      required:
-      - update
-      type: object
-    JsValue:
-      type: object
-    CatalogMappingsUpdateRequest:
-      properties:
-        mappingsUpdates:
-          description: mappingsUpdates
-          items:
-            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
-          type: array
-      required:
-      - mappingsUpdates
-      type: object
-    GetCatalogItemsResponse:
-      properties:
-        catalogItemsWithProperties:
-          items:
-            $ref: '#/components/schemas/CatalogItemWithProperties'
-          type: array
-        nextPageUrl:
-          type: string
-        previousPageUrl:
-          type: string
-        totalItemsCount:
-          format: int64
-          type: integer
-      required:
-      - catalogItemsWithProperties
-      - totalItemsCount
-      type: object
-    CatalogBulkDeleteRequest:
-      properties:
-        itemIds:
-          items:
-            type: string
-          type: array
-      required:
-      - itemIds
-      type: object
-    CatalogFieldDefinitionSerializedModel:
-      properties:
-        children:
-          items:
-            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
-          type: array
-        fieldName:
-          type: string
-        fieldType:
-          type: string
-      required:
-      - fieldName
-      - fieldType
-      type: object
-    CatalogName:
-      properties:
-        name:
-          type: string
-      required:
-      - name
-      type: object
-    CatalogBulkUploadRequest:
-      properties:
-        documents:
-          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
-          type: object
-        replaceUploadedFieldsOnly:
-          description: Whether to replace only the upload fields within each document, not each entire document
-          type: boolean
-      required:
-      - documents
-      - replaceUploadedFieldsOnly
-      type: object
-    CatalogFieldMappingsResponse:
-      properties:
-        definedMappings:
-          additionalProperties:
-            type: string
-          type: object
-        undefinedFields:
-          items:
-            type: string
-          type: array
-      required:
-      - definedMappings
-      - undefinedFields
-      type: object
-    CatalogIndexItemRequest:
-      properties:
-        value:
-          description: JSON representation of the catalog item. Max size is is 30kb.
-          type: object
-      required:
-      - value
-      type: object
-    GetCatalogsResponse:
-      properties:
-        catalogNames:
-          items:
-            $ref: '#/components/schemas/CatalogName'
-          type: array
-        nextPageUrl:
-          type: string
-        previousPageUrl:
-          type: string
-        totalCatalogsCount:
-          format: int64
-          type: integer
-      required:
-      - catalogNames
-      - totalCatalogsCount
-      type: object
-    JsObject:
-      properties:
-        underlying:
-          additionalProperties:
-            $ref: '#/components/schemas/JsValue'
-          type: object
-      required:
-      - underlying
-      type: object
-    CatalogItemWithProperties:
-      properties:
-        catalogName:
-          type: string
-        itemId:
-          type: string
-        lastModified:
-          format: date-time
-          type: string
-        size:
-          format: int64
-          type: integer
-        value:
-          $ref: '#/components/schemas/JsObject'
-      required:
-      - catalogName
-      - itemId
-      - lastModified
-      - size
-      - value
-      type: object
     IterableApiResponse:
       properties:
         code:
@@ -838,6 +696,154 @@ components:
       required:
       - code
       - msg
+      type: object
+    CatalogFieldDefinitionSerializedModel:
+      properties:
+        children:
+          items:
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+          type: array
+        fieldName:
+          type: string
+        fieldType:
+          type: string
+      required:
+      - fieldName
+      - fieldType
+      type: object
+    CatalogItemWithProperties:
+      properties:
+        catalogName:
+          type: string
+        itemId:
+          type: string
+        lastModified:
+          format: date-time
+          type: string
+        size:
+          format: int64
+          type: integer
+        value:
+          $ref: '#/components/schemas/JsObject'
+      required:
+      - catalogName
+      - itemId
+      - lastModified
+      - size
+      - value
+      type: object
+    GetCatalogsResponse:
+      properties:
+        catalogNames:
+          items:
+            $ref: '#/components/schemas/CatalogName'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalCatalogsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogNames
+      - totalCatalogsCount
+      type: object
+    GetCatalogItemsResponse:
+      properties:
+        catalogItemsWithProperties:
+          items:
+            $ref: '#/components/schemas/CatalogItemWithProperties'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalItemsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogItemsWithProperties
+      - totalItemsCount
+      type: object
+    CatalogMappingsUpdateRequest:
+      properties:
+        mappingsUpdates:
+          description: mappingsUpdates
+          items:
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+          type: array
+      required:
+      - mappingsUpdates
+      type: object
+    CatalogUpdateItemRequest:
+      properties:
+        update:
+          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
+          type: object
+      required:
+      - update
+      type: object
+    CatalogBulkDeleteRequest:
+      properties:
+        itemIds:
+          items:
+            type: string
+          type: array
+      required:
+      - itemIds
+      type: object
+    CatalogFieldMappingsResponse:
+      properties:
+        definedMappings:
+          additionalProperties:
+            type: string
+          type: object
+        undefinedFields:
+          items:
+            type: string
+          type: array
+      required:
+      - definedMappings
+      - undefinedFields
+      type: object
+    CatalogName:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    JsValue:
+      type: object
+    CatalogIndexItemRequest:
+      properties:
+        value:
+          description: JSON representation of the catalog item. Max size is is 30kb.
+          type: object
+      required:
+      - value
+      type: object
+    CatalogBulkUploadRequest:
+      properties:
+        documents:
+          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
+          type: object
+        replaceUploadedFieldsOnly:
+          description: Whether to replace only the upload fields within each document, not each entire document
+          type: boolean
+      required:
+      - documents
+      - replaceUploadedFieldsOnly
+      type: object
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
       type: object
     IterableResponse:
       type: object

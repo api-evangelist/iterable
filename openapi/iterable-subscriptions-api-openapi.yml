@@ -85,7 +85,7 @@ paths:
 
 
         Learn about identifying users by userId and email.'
-      operationId: Bulk subscription action
+      operationId: BulkSubscriptionAction
       parameters:
       - description: 'Subscription group (i.e.: emailList, messageType, messageChannel) [Alphanumeric, case insensitive]'
         in: path
@@ -134,6 +134,8 @@ paths:
               $ref: '#/components/schemas/BulkSubscriptionActionRequest'
         description: user email
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Bulk subscription action
   /api/subscriptions/{subscriptionGroup}/{subscriptionGroupId}/byUserId/{userId}:
     delete:
       description: 'Unsubscribes a user from the specified subscription group. To enable this API, contact your customer success manager.
@@ -322,77 +324,10 @@ paths:
       - Subscriptions
 components:
   schemas:
-    ResponseHeader:
-      properties:
-        headers:
-          additionalProperties:
-            type: string
-          type: object
-        reasonPhrase:
-          type: string
-        status:
-          format: int32
-          type: integer
-      required:
-      - headers
-      - status
-      type: object
-    JsValue:
-      type: object
-    Cookie:
+    Flash:
       properties:
         asJava:
-          $ref: '#/components/schemas/Cookie'
-        domain:
-          type: string
-        httpOnly:
-          type: boolean
-        maxAge:
-          type: object
-        name:
-          type: string
-        path:
-          type: string
-        sameSite:
-          $ref: '#/components/schemas/SameSite'
-        secure:
-          type: boolean
-        value:
-          type: string
-      required:
-      - asJava
-      - httpOnly
-      - name
-      - path
-      - secure
-      - value
-      type: object
-    DoubleOptInSubscriptionsRequest:
-      properties:
-        brandName:
-          description: 'To provide context, every double opt-in confirmation message includes a brand name. The value to use for this brand name is determined by (in priority order): the <code>brandName</code> included in the request body (if specified), the default brand name associated with the specified message types (if those message types all have the same default brand name), or a comma-separated, de-duplicated list of default brand names associated with the specified message types (if those message types have different default brand names).'
-          type: string
-        email:
-          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        messageTypeIds:
-          description: List of SMS, double opt-in message type IDs to which the user should be subscribed.
-          items:
-            type: object
-          type: array
-        phoneNumber:
-          description: The <code>phoneNumber</code> to set on the specified user's profile.
-          type: string
-        userId:
-          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-      required:
-      - messageTypeIds
-      type: object
-    Session:
-      properties:
-        asJava:
-          $ref: '#/components/schemas/Session'
+          $ref: '#/components/schemas/Flash'
         data:
           additionalProperties:
             type: string
@@ -403,51 +338,6 @@ components:
       - asJava
       - data
       - empty
-      type: object
-    ErrorHttpResponse:
-      properties:
-        code:
-          type: string
-        data:
-          $ref: '#/components/schemas/JsObject'
-        error:
-          $ref: '#/components/schemas/ErrorWithStatus'
-        message:
-          type: string
-      required:
-      - code
-      - data
-      - error
-      - message
-      type: object
-    Status:
-      properties:
-        attrs:
-          $ref: '#/components/schemas/TypedMap'
-        body:
-          $ref: '#/components/schemas/HttpEntity'
-        header:
-          $ref: '#/components/schemas/ResponseHeader'
-        newCookies:
-          items:
-            $ref: '#/components/schemas/Cookie'
-          type: array
-        newFlash:
-          $ref: '#/components/schemas/Flash'
-        newSession:
-          $ref: '#/components/schemas/Session'
-      required:
-      - attrs
-      - body
-      - header
-      - newCookies
-      type: object
-    ErrorWithStatus:
-      properties:
-        status:
-          $ref: '#/components/schemas/Status'
-      required:
-      - status
       type: object
     IterableApiResponse:
       properties:
@@ -490,22 +380,56 @@ components:
       - code
       - msg
       type: object
-    Flash:
+    HttpEntity:
       properties:
-        asJava:
-          $ref: '#/components/schemas/Flash'
-        data:
-          additionalProperties:
-            type: string
-          type: object
-        empty:
+        knownEmpty:
           type: boolean
       required:
-      - asJava
-      - data
-      - empty
+      - knownEmpty
       type: object
-    TypedMap:
+    DoubleOptInSubscriptionsRequest:
+      properties:
+        brandName:
+          description: 'To provide context, every double opt-in confirmation message includes a brand name. The value to use for this brand name is determined by (in priority order): the <code>brandName</code> included in the request body (if specified), the default brand name associated with the specified message types (if those message types all have the same default brand name), or a comma-separated, de-duplicated list of default brand names associated with the specified message types (if those message types have different default brand names).'
+          type: string
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        messageTypeIds:
+          description: List of SMS, double opt-in message type IDs to which the user should be subscribed.
+          items:
+            type: object
+          type: array
+        phoneNumber:
+          description: The <code>phoneNumber</code> to set on the specified user's profile.
+          type: string
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      required:
+      - messageTypeIds
+      type: object
+    Status:
+      properties:
+        attrs:
+          $ref: '#/components/schemas/TypedMap'
+        body:
+          $ref: '#/components/schemas/HttpEntity'
+        header:
+          $ref: '#/components/schemas/ResponseHeader'
+        newCookies:
+          items:
+            $ref: '#/components/schemas/Cookie'
+          type: array
+        newFlash:
+          $ref: '#/components/schemas/Flash'
+        newSession:
+          $ref: '#/components/schemas/Session'
+      required:
+      - attrs
+      - body
+      - header
+      - newCookies
       type: object
     BulkSubscriptionActionRequest:
       properties:
@@ -520,14 +444,64 @@ components:
             type: string
           type: array
       type: object
-    JsObject:
+    ErrorHttpResponse:
       properties:
-        underlying:
-          additionalProperties:
-            $ref: '#/components/schemas/JsValue'
-          type: object
+        code:
+          type: string
+        data:
+          $ref: '#/components/schemas/JsObject'
+        error:
+          $ref: '#/components/schemas/ErrorWithStatus'
+        message:
+          type: string
       required:
-      - underlying
+      - code
+      - data
+      - error
+      - message
+      type: object
+    ResponseHeader:
+      properties:
+        headers:
+          additionalProperties:
+            type: string
+          type: object
+        reasonPhrase:
+          type: string
+        status:
+          format: int32
+          type: integer
+      required:
+      - headers
+      - status
+      type: object
+    Cookie:
+      properties:
+        asJava:
+          $ref: '#/components/schemas/Cookie'
+        domain:
+          type: string
+        httpOnly:
+          type: boolean
+        maxAge:
+          type: object
+        name:
+          type: string
+        path:
+          type: string
+        sameSite:
+          $ref: '#/components/schemas/SameSite'
+        secure:
+          type: boolean
+        value:
+          type: string
+      required:
+      - asJava
+      - httpOnly
+      - name
+      - path
+      - secure
+      - value
       type: object
     SameSite:
       properties:
@@ -536,12 +510,40 @@ components:
       required:
       - value
       type: object
-    HttpEntity:
+    JsValue:
+      type: object
+    TypedMap:
+      type: object
+    Session:
       properties:
-        knownEmpty:
+        asJava:
+          $ref: '#/components/schemas/Session'
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        empty:
           type: boolean
       required:
-      - knownEmpty
+      - asJava
+      - data
+      - empty
+      type: object
+    ErrorWithStatus:
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - status
+      type: object
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
       type: object
   securitySchemes:
     api_key:

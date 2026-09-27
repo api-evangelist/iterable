@@ -52,6 +52,42 @@ paths:
         required: true
 components:
   schemas:
+    ApiWebhookModel:
+      properties:
+        authToken:
+          description: Auth token
+          type: string
+        authType:
+          description: The type of authentication Iterable uses when calling this webhook
+          enum:
+          - NoAuth
+          - Basic
+          - OAuth2
+          type: string
+        blastSendEnabled:
+          description: Whether or not Iterable calls this webhook for blast campaigns
+          type: boolean
+        enabled:
+          description: Whether or not Iterable will call the webhook when sending campaigns
+          type: boolean
+        endpoint:
+          description: The URL associated with the webhook
+          type: string
+        headers:
+          description: Headers
+          items:
+            $ref: '#/components/schemas/LinkParam'
+          type: array
+        id:
+          description: The ID of the webhook in Iterable
+          format: int64
+          type: integer
+        triggeredSendEnabled:
+          description: Whether or not Iterable calls this webhook for triggered campaigns
+          type: boolean
+      required:
+      - id
+      type: object
     LinkParam:
       properties:
         key:
@@ -102,42 +138,6 @@ components:
       - endpoint
       - id
       - triggeredSendEnabled
-      type: object
-    ApiWebhookModel:
-      properties:
-        authToken:
-          description: Auth token
-          type: string
-        authType:
-          description: The type of authentication Iterable uses when calling this webhook
-          enum:
-          - NoAuth
-          - Basic
-          - OAuth2
-          type: string
-        blastSendEnabled:
-          description: Whether or not Iterable calls this webhook for blast campaigns
-          type: boolean
-        enabled:
-          description: Whether or not Iterable will call the webhook when sending campaigns
-          type: boolean
-        endpoint:
-          description: The URL associated with the webhook
-          type: string
-        headers:
-          description: Headers
-          items:
-            $ref: '#/components/schemas/LinkParam'
-          type: array
-        id:
-          description: The ID of the webhook in Iterable
-          format: int64
-          type: integer
-        triggeredSendEnabled:
-          description: Whether or not Iterable calls this webhook for triggered campaigns
-          type: boolean
-      required:
-      - id
       type: object
     GetWebhooksResponse:
       properties:

@@ -15,7 +15,7 @@ paths:
   /api/metadata:
     get:
       description: ''
-      operationId: list tables
+      operationId: listTables
       responses:
         '200':
           description: successful operation
@@ -30,6 +30,8 @@ paths:
       - Metadata
       security:
       - api_key: []
+      x-operation-id-source: normalized
+      x-operation-id-original: list tables
     servers:
     - url: https://api.iterable.com/
   /api/metadata/{table}:
@@ -97,7 +99,7 @@ paths:
   /api/metadata/{table}/{key}:
     delete:
       description: Asynchronous. Deletes the specified item from the table. 200 response indicates a valid request that will be processed; data may not be deleted immediately. Use GET /api/metadata/{table}/{key} to verify completion.
-      operationId: delete
+      operationId: deleteApiMetadataByTableByKey
       parameters:
       - description: Table name [Alphanumeric, case insensitive]
         in: path
@@ -127,6 +129,8 @@ paths:
       - Metadata
       security:
       - api_key: []
+      x-operation-id-source: normalized
+      x-operation-id-original: delete
     get:
       description: ''
       operationId: get
@@ -388,20 +392,46 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    PutMetadataRequest:
+    IterableApiResponse:
       properties:
-        value:
-          description: The JSON metadata value.  Max size is is 30kb.
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
           type: object
       required:
-      - value
-      type: object
-    Table:
-      properties:
-        name:
-          type: string
-      required:
-      - name
+      - code
+      - msg
       type: object
     MetadataProperties:
       properties:
@@ -451,47 +481,6 @@ components:
       required:
       - results
       type: object
-    IterableApiResponse:
-      properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
-          type: object
-      required:
-      - code
-      - msg
-      type: object
     Listing:
       properties:
         nextMarker:
@@ -502,6 +491,21 @@ components:
           type: array
       required:
       - results
+      type: object
+    Table:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    PutMetadataRequest:
+      properties:
+        value:
+          description: The JSON metadata value.  Max size is is 30kb.
+          type: object
+      required:
+      - value
       type: object
     IterableResponse:
       type: object

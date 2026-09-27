@@ -82,7 +82,7 @@ paths:
     - url: https://api.iterable.com/
   /commerce/trackPurchase:
     post:
-      operationId: trackPurchase
+      operationId: postCommerceTrackPurchase
       summary: Track a purchase event
       description: Tracks a purchase event for a user, including the items purchased, total value, and associated properties. Purchase data is used for revenue attribution and campaign triggering.
       tags:
@@ -106,6 +106,8 @@ paths:
           description: Unauthorized
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: trackPurchase
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -113,7 +115,7 @@ paths:
       description: European Data Center (EDC)
   /commerce/updateCart:
     post:
-      operationId: updateCart
+      operationId: postCommerceUpdateCart
       summary: Update a user's shopping cart
       description: Updates the shopping cart contents for a user. Cart data can be used for abandoned cart campaigns and personalization.
       tags:
@@ -152,6 +154,8 @@ paths:
           description: Unauthorized
       security:
       - apiKeyAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateCart
     servers:
     - url: https://api.iterable.com/api
       description: US Data Center (USDC)
@@ -159,52 +163,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    TrackPurchaseRequest:
-      properties:
-        campaignId:
-          format: int32
-          type: integer
-        createdAt:
-          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
-          format: int64
-          type: integer
-        dataFields:
-          description: Additional fields to be tracked.
-          type: object
-        id:
-          description: Optional purchase id. If a purchase exists with that id, the purchase will be updated. If none is specified, a new id will automatically be generated and returned. Note that this ID cannot be longer than 512 bytes.
-          type: string
-        items:
-          items:
-            $ref: '#/components/schemas/CommerceItem'
-          type: array
-        templateId:
-          description: Used in AB testing attribution
-          format: int32
-          type: integer
-        total:
-          description: Total order dollar amount
-          format: double
-          type: number
-        user:
-          $ref: '#/components/schemas/ApiUserUpdateRequest'
-      required:
-      - items
-      - total
-      - user
-      type: object
-    UpdateCartRequest:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/CommerceItem'
-          type: array
-        user:
-          $ref: '#/components/schemas/ApiUserUpdateRequest'
-      required:
-      - items
-      - user
-      type: object
     IterableApiResponse:
       properties:
         code:
@@ -246,30 +204,6 @@ components:
       - code
       - msg
       type: object
-    ApiUserUpdateRequest:
-      properties:
-        createNewFields:
-          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields.
-          example: false
-          type: boolean
-        dataFields:
-          description: Data to store on the user profile identified by <code>userId</code> or <code>email</code>.
-          type: object
-        email:
-          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        mergeNestedObjects:
-          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
-          example: false
-          type: boolean
-        preferUserId:
-          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
-          example: false
-          type: boolean
-        userId:
-          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-      type: object
     CommerceItem:
       properties:
         categories:
@@ -307,64 +241,76 @@ components:
       - price
       - quantity
       type: object
-    PurchaseRequest:
-      type: object
-      description: Request body for tracking a purchase event
+    TrackPurchaseRequest:
+      properties:
+        campaignId:
+          format: int32
+          type: integer
+        createdAt:
+          description: Time event happened. Set to the time event was received if unspecified. Expects a Unix timestamp.
+          format: int64
+          type: integer
+        dataFields:
+          description: Additional fields to be tracked.
+          type: object
+        id:
+          description: Optional purchase id. If a purchase exists with that id, the purchase will be updated. If none is specified, a new id will automatically be generated and returned. Note that this ID cannot be longer than 512 bytes.
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+          type: array
+        templateId:
+          description: Used in AB testing attribution
+          format: int32
+          type: integer
+        total:
+          description: Total order dollar amount
+          format: double
+          type: number
+        user:
+          $ref: '#/components/schemas/ApiUserUpdateRequest'
       required:
-      - user
       - items
       - total
-      properties:
-        user:
-          type: object
-          description: The user who made the purchase
-          properties:
-            email:
-              type: string
-              format: email
-              description: Email address of the user
-            userId:
-              type: string
-              description: UserId of the user
-            dataFields:
-              type: object
-              description: Additional user data fields to update
-              additionalProperties: true
-        items:
-          type: array
-          description: Array of items purchased
-          items:
-            $ref: '#/components/schemas/CommerceItem_2'
-        total:
-          type: number
-          description: Total value of the purchase
-        createdAt:
-          type: integer
-          description: Unix timestamp of the purchase
-        dataFields:
-          type: object
-          description: Additional purchase data fields
-          additionalProperties: true
-        campaignId:
-          type: integer
-          description: Campaign ID to attribute the purchase to
-        templateId:
-          type: integer
-          description: Template ID to attribute the purchase to
-    IterableResponse:
+      - user
       type: object
-      description: Standard Iterable API response indicating success or failure
+    ApiUserUpdateRequest:
       properties:
-        msg:
-          type: string
-          description: Human-readable response message
-        code:
-          type: string
-          description: Response code indicating success or error type
-        params:
+        createNewFields:
+          description: Whether new fields should be ingested and added to the schema. Defaults to project's setting to allow or drop unrecognized fields.
+          example: false
+          type: boolean
+        dataFields:
+          description: Data to store on the user profile identified by <code>userId</code> or <code>email</code>.
           type: object
-          description: Additional response parameters
-          additionalProperties: true
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        mergeNestedObjects:
+          description: Merge top-level objects instead of overwriting them. Defaults to <code>false</code>. For example, if a user profile has data <code>{"mySettings":{"mobile":true}}</code> and the request has data <code>{"mySettings":{"email":true}}</code>, merging results in <code>{"mySettings":{"mobile":true,"email":true}}</code>.
+          example: false
+          type: boolean
+        preferUserId:
+          description: Whether or not a new user should be created if the request includes a <code>userId</code> that doesn't yet exist in the Iterable project. Defaults to <code>false</code>. Only respected in API calls for <a href="https://support.iterable.com/hc/articles/29156459027348">email-based projects</a>.
+          example: false
+          type: boolean
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+      type: object
+    UpdateCartRequest:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+          type: array
+        user:
+          $ref: '#/components/schemas/ApiUserUpdateRequest'
+      required:
+      - items
+      - user
+      type: object
     CommerceItem_2:
       type: object
       description: A commerce item in a purchase or cart
@@ -409,6 +355,64 @@ components:
           type: object
           description: Additional item data fields
           additionalProperties: true
+    IterableResponse:
+      type: object
+      description: Standard Iterable API response indicating success or failure
+      properties:
+        msg:
+          type: string
+          description: Human-readable response message
+        code:
+          type: string
+          description: Response code indicating success or error type
+        params:
+          type: object
+          description: Additional response parameters
+          additionalProperties: true
+    PurchaseRequest:
+      type: object
+      description: Request body for tracking a purchase event
+      required:
+      - user
+      - items
+      - total
+      properties:
+        user:
+          type: object
+          description: The user who made the purchase
+          properties:
+            email:
+              type: string
+              format: email
+              description: Email address of the user
+            userId:
+              type: string
+              description: UserId of the user
+            dataFields:
+              type: object
+              description: Additional user data fields to update
+              additionalProperties: true
+        items:
+          type: array
+          description: Array of items purchased
+          items:
+            $ref: '#/components/schemas/CommerceItem_2'
+        total:
+          type: number
+          description: Total value of the purchase
+        createdAt:
+          type: integer
+          description: Unix timestamp of the purchase
+        dataFields:
+          type: object
+          description: Additional purchase data fields
+          additionalProperties: true
+        campaignId:
+          type: integer
+          description: Campaign ID to attribute the purchase to
+        templateId:
+          type: integer
+          description: Template ID to attribute the purchase to
   securitySchemes:
     api_key:
       in: header

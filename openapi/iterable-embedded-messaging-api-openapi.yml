@@ -89,6 +89,27 @@ paths:
       - Embedded Messaging
 components:
   schemas:
+    ApiEmbeddedMessagingMetadata:
+      properties:
+        campaignId:
+          description: ID of the Iterable campaign associated with the embedded message.
+          format: int32
+          type: integer
+        isProof:
+          description: Whether or not the campaign is a test message (proof).
+          type: boolean
+        messageId:
+          description: ID associated with the specific send of a specific campaign to a specific user.
+          type: string
+        placementId:
+          description: ID of the placement to which the embedded message belongs.
+          format: int64
+          type: integer
+        priorityOrder:
+          description: Numeric priority, as compared to other embedded campaigns in the same placement. Lower numbers mean higher priority. Highest priority is 1.
+          format: int64
+          type: integer
+      type: object
     Button:
       properties:
         action:
@@ -99,6 +120,44 @@ components:
           type: string
         title:
           description: Text to display on the button.
+          type: string
+      type: object
+    EmbeddedMessagesResponse:
+      properties:
+        placements:
+          description: Array of objects, each with a <code>placementId</code> and an associated list of embedded messages for which the specified user is eligible.
+          items:
+            $ref: '#/components/schemas/ApiEmbeddedPlacement'
+          type: array
+      type: object
+    Action:
+      properties:
+        data:
+          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
+          type: string
+        type:
+          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
+          type: string
+      type: object
+    ApiEmbeddedMessage:
+      properties:
+        elements:
+          $ref: '#/components/schemas/ApiEmbeddedMessagingElements'
+          description: Content to display in the message, and actions to invoke on click or tap.
+        metadata:
+          $ref: '#/components/schemas/ApiEmbeddedMessagingMetadata'
+          description: Identifying information about the embedded message.
+        payload:
+          description: Custom JSON data. Use to customize the message display or trigger custom behavior.
+          type: object
+      type: object
+    Text:
+      properties:
+        label:
+          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
+          type: string
+        text:
+          description: Text to display.
           type: string
       type: object
     ApiEmbeddedMessagingElements:
@@ -127,65 +186,6 @@ components:
           type: array
         title:
           description: Title text of the embedded message.
-          type: string
-      type: object
-    EmbeddedMessagesResponse:
-      properties:
-        placements:
-          description: Array of objects, each with a <code>placementId</code> and an associated list of embedded messages for which the specified user is eligible.
-          items:
-            $ref: '#/components/schemas/ApiEmbeddedPlacement'
-          type: array
-      type: object
-    Action:
-      properties:
-        data:
-          description: For URL actions, this field is a full URL. For custom actions, it's an empty string.
-          type: string
-        type:
-          description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
-          type: string
-      type: object
-    ApiEmbeddedMessagingMetadata:
-      properties:
-        campaignId:
-          description: ID of the Iterable campaign associated with the embedded message.
-          format: int32
-          type: integer
-        isProof:
-          description: Whether or not the campaign is a test message (proof).
-          type: boolean
-        messageId:
-          description: ID associated with the specific send of a specific campaign to a specific user.
-          type: string
-        placementId:
-          description: ID of the placement to which the embedded message belongs.
-          format: int64
-          type: integer
-        priorityOrder:
-          description: Numeric priority, as compared to other embedded campaigns in the same placement. Lower numbers mean higher priority. Highest priority is 1.
-          format: int64
-          type: integer
-      type: object
-    ApiEmbeddedMessage:
-      properties:
-        elements:
-          $ref: '#/components/schemas/ApiEmbeddedMessagingElements'
-          description: Content to display in the message, and actions to invoke on click or tap.
-        metadata:
-          $ref: '#/components/schemas/ApiEmbeddedMessagingMetadata'
-          description: Identifying information about the embedded message.
-        payload:
-          description: Custom JSON data. Use to customize the message display or trigger custom behavior.
-          type: object
-      type: object
-    Text:
-      properties:
-        label:
-          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
-          type: string
-        text:
-          description: Text to display.
           type: string
       type: object
     ApiEmbeddedPlacement:

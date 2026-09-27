@@ -247,15 +247,21 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    ExperimentMetricsResponse:
+    ExperimentVariantsResponse:
+      description: Response for experiment variants with content
       properties:
-        headers:
-          type: string
-        rows:
-          description: Rows of the report.
+        experimentId:
+          description: Experiment ID
+          format: int64
+          type: integer
+        variants:
+          description: List of variants with content
           items:
-            type: string
+            $ref: '#/components/schemas/VariantContentResponse'
           type: array
+      required:
+      - experimentId
+      - variants
       type: object
     PaginationResponse:
       description: Pagination information for list responses
@@ -277,6 +283,19 @@ components:
       - offset
       - total
       type: object
+    ExperimentConstraints:
+      description: Experiment constraints/targeting
+      properties:
+        suppressionListIds:
+          description: List IDs to suppress
+          items:
+            format: int64
+            type: integer
+          type: array
+        targetSegment:
+          description: Target segment description
+          type: string
+      type: object
     ExperimentVariantValue:
       description: Typed variant value payload. Only present fields are serialized.
       properties:
@@ -291,17 +310,20 @@ components:
           format: int64
           type: integer
       type: object
-    ExperimentConstraints:
-      description: Experiment constraints/targeting
+    TemplateContentResponse:
+      description: Template content for a variant
       properties:
-        suppressionListIds:
-          description: List IDs to suppress
-          items:
-            format: int64
-            type: integer
-          type: array
-        targetSegment:
-          description: Target segment description
+        htmlSource:
+          description: HTML source of the template
+          type: string
+        plainText:
+          description: Plain text version of the template
+          type: string
+        preheader:
+          description: Email preheader text
+          type: string
+        subject:
+          description: Email subject line
           type: string
       type: object
     ExperimentResponse:
@@ -371,6 +393,52 @@ components:
       - status
       - variants
       type: object
+    ExperimentListItem:
+      description: Summary of an experiment for list responses
+      properties:
+        author:
+          description: Email of the experiment creator
+          type: string
+        channelType:
+          description: Channel type for this experiment.
+          type: string
+          enum:
+          - email
+          - push
+          - sms
+          - in_app
+          - web_push
+        finishDate:
+          description: Finish date of the experiment
+          format: date-time
+          type: string
+        id:
+          description: Experiment ID
+          format: int64
+          type: integer
+        name:
+          description: Experiment name
+          type: string
+        startDate:
+          description: Start date of the experiment
+          format: date-time
+          type: string
+        status:
+          description: Experiment status
+          type: string
+          enum:
+          - draft
+          - ready
+          - running
+          - finished
+          - winner_found
+      required:
+      - author
+      - channelType
+      - id
+      - name
+      - status
+      type: object
     ExperimentVariantSummary:
       description: Variant summary for experiment response
       properties:
@@ -401,22 +469,6 @@ components:
       - isWinner
       - name
       - value
-      type: object
-    TemplateContentResponse:
-      description: Template content for a variant
-      properties:
-        htmlSource:
-          description: HTML source of the template
-          type: string
-        plainText:
-          description: Plain text version of the template
-          type: string
-        preheader:
-          description: Email preheader text
-          type: string
-        subject:
-          description: Email subject line
-          type: string
       type: object
     ExperimentListResponse:
       description: Response for listing experiments
@@ -487,52 +539,6 @@ components:
       - value
       - variantId
       type: object
-    ExperimentListItem:
-      description: Summary of an experiment for list responses
-      properties:
-        author:
-          description: Email of the experiment creator
-          type: string
-        channelType:
-          description: Channel type for this experiment.
-          type: string
-          enum:
-          - email
-          - push
-          - sms
-          - in_app
-          - web_push
-        finishDate:
-          description: Finish date of the experiment
-          format: date-time
-          type: string
-        id:
-          description: Experiment ID
-          format: int64
-          type: integer
-        name:
-          description: Experiment name
-          type: string
-        startDate:
-          description: Start date of the experiment
-          format: date-time
-          type: string
-        status:
-          description: Experiment status
-          type: string
-          enum:
-          - draft
-          - ready
-          - running
-          - finished
-          - winner_found
-      required:
-      - author
-      - channelType
-      - id
-      - name
-      - status
-      type: object
     ExperimentMeta:
       description: Experiment metadata
       properties:
@@ -562,21 +568,15 @@ components:
       - orgId
       - projectId
       type: object
-    ExperimentVariantsResponse:
-      description: Response for experiment variants with content
+    ExperimentMetricsResponse:
       properties:
-        experimentId:
-          description: Experiment ID
-          format: int64
-          type: integer
-        variants:
-          description: List of variants with content
+        headers:
+          type: string
+        rows:
+          description: Rows of the report.
           items:
-            $ref: '#/components/schemas/VariantContentResponse'
+            type: string
           type: array
-      required:
-      - experimentId
-      - variants
       type: object
   securitySchemes:
     api_key:

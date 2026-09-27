@@ -62,6 +62,15 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
+    ChannelsResponse:
+      properties:
+        channels:
+          items:
+            $ref: '#/components/schemas/ChannelDetails'
+          type: array
+      required:
+      - channels
+      type: object
     ChannelDetails:
       properties:
         channelType:
@@ -87,15 +96,6 @@ components:
       - id
       - messageMedium
       - name
-      type: object
-    ChannelsResponse:
-      properties:
-        channels:
-          items:
-            $ref: '#/components/schemas/ChannelDetails'
-          type: array
-      required:
-      - channels
       type: object
     Channel:
       type: object

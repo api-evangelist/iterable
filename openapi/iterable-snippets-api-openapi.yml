@@ -170,6 +170,14 @@ paths:
         required: true
 components:
   schemas:
+    UpdateSnippetResponse:
+      description: Response model for updating a snippet
+      properties:
+        snippetId:
+          description: ID of the updated snippet.
+          format: int64
+          type: integer
+      type: object
     GetSnippetsResponse:
       description: Response model for getting all snippets
       properties:
@@ -178,50 +186,6 @@ components:
           items:
             $ref: '#/components/schemas/SnippetResponse'
           type: array
-      type: object
-    CreateSnippetResponse:
-      description: Response model for creating a snippet
-      properties:
-        snippetId:
-          description: ID of the created snippet.
-          format: int64
-          type: integer
-      type: object
-    DeleteSnippetResponse:
-      description: Response model for deleting a snippet
-      properties:
-        snippetId:
-          description: ID of the deleted snippet.
-          format: int64
-          type: integer
-      type: object
-    UpdateSnippetRequest:
-      description: Request model for updating a snippet
-      properties:
-        content:
-          description: 'Content of the snippet. Handlebars must be valid. Disallowed content: script tags with JS sources or non-JSON content, inline JS event handlers (e.g., <code>onload=&quot;...&quot;</code>), and <code>javascript:</code> in <code>href</code> or <code>src</code> attributes (anchors and iframes).'
-          type: string
-        createdByUserId:
-          description: User ID (email) of the updater. If not provided, defaults to the project creator.
-          type: string
-        description:
-          description: Description of the snippet.
-          type: string
-        variables:
-          description: List of variable names used in the content with a Handlebars expression such as {{myField}}. Variable names are case-sensitive and should be simple identifiers (letters, numbers, underscores). To learn more about using Handlebars in Snippets, see <a href=\"https://support.iterable.com/hc/articles/4414796078868\">Customizing Snippets with Variables</a>.
-          items:
-            type: string
-          type: array
-      required:
-      - content
-      type: object
-    UpdateSnippetResponse:
-      description: Response model for updating a snippet
-      properties:
-        snippetId:
-          description: ID of the updated snippet.
-          format: int64
-          type: integer
       type: object
     SnippetResponse:
       description: Snippet response model
@@ -260,6 +224,13 @@ components:
             type: string
           type: array
       type: object
+    GetSnippetResponse:
+      description: Response model for getting a snippet
+      properties:
+        snippet:
+          $ref: '#/components/schemas/SnippetResponse'
+          description: Details of the retrieved snippet.
+      type: object
     CreateSnippetRequest:
       description: Request model for creating a snippet
       properties:
@@ -284,12 +255,41 @@ components:
       - content
       - name
       type: object
-    GetSnippetResponse:
-      description: Response model for getting a snippet
+    DeleteSnippetResponse:
+      description: Response model for deleting a snippet
       properties:
-        snippet:
-          $ref: '#/components/schemas/SnippetResponse'
-          description: Details of the retrieved snippet.
+        snippetId:
+          description: ID of the deleted snippet.
+          format: int64
+          type: integer
+      type: object
+    CreateSnippetResponse:
+      description: Response model for creating a snippet
+      properties:
+        snippetId:
+          description: ID of the created snippet.
+          format: int64
+          type: integer
+      type: object
+    UpdateSnippetRequest:
+      description: Request model for updating a snippet
+      properties:
+        content:
+          description: 'Content of the snippet. Handlebars must be valid. Disallowed content: script tags with JS sources or non-JSON content, inline JS event handlers (e.g., <code>onload=&quot;...&quot;</code>), and <code>javascript:</code> in <code>href</code> or <code>src</code> attributes (anchors and iframes).'
+          type: string
+        createdByUserId:
+          description: User ID (email) of the updater. If not provided, defaults to the project creator.
+          type: string
+        description:
+          description: Description of the snippet.
+          type: string
+        variables:
+          description: List of variable names used in the content with a Handlebars expression such as {{myField}}. Variable names are case-sensitive and should be simple identifiers (letters, numbers, underscores). To learn more about using Handlebars in Snippets, see <a href=\"https://support.iterable.com/hc/articles/4414796078868\">Customizing Snippets with Variables</a>.
+          items:
+            type: string
+          type: array
+      required:
+      - content
       type: object
   securitySchemes:
     api_key:

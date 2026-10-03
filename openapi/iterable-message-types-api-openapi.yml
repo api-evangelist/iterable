@@ -78,18 +78,6 @@ components:
       required:
       - messageTypes
       type: object
-    FrequencyCap:
-      properties:
-        days:
-          format: int32
-          type: integer
-        messages:
-          format: int32
-          type: integer
-      required:
-      - days
-      - messages
-      type: object
     MessageTypeDetails:
       properties:
         channelId:
@@ -129,6 +117,18 @@ components:
       - name
       - subscriptionPolicy
       - updatedAt
+      type: object
+    FrequencyCap:
+      properties:
+        days:
+          format: int32
+          type: integer
+        messages:
+          format: int32
+          type: integer
+      required:
+      - days
+      - messages
       type: object
   securitySchemes:
     api_key:

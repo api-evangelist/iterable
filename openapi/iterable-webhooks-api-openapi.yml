@@ -88,17 +88,14 @@ components:
       required:
       - id
       type: object
-    LinkParam:
+    GetWebhooksResponse:
       properties:
-        key:
-          description: Link parameter key
-          type: string
-        value:
-          description: Link parameter value
-          type: string
+        webhooks:
+          items:
+            $ref: '#/components/schemas/ApiWebhookResponse'
+          type: array
       required:
-      - key
-      - value
+      - webhooks
       type: object
     ApiWebhookResponse:
       properties:
@@ -139,14 +136,17 @@ components:
       - id
       - triggeredSendEnabled
       type: object
-    GetWebhooksResponse:
+    LinkParam:
       properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/ApiWebhookResponse'
-          type: array
+        key:
+          description: Link parameter key
+          type: string
+        value:
+          description: Link parameter value
+          type: string
       required:
-      - webhooks
+      - key
+      - value
       type: object
   securitySchemes:
     api_key:

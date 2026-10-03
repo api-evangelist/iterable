@@ -392,6 +392,80 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
+    ListMetadataTablesResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Table'
+          type: array
+      required:
+      - results
+      type: object
+    PutMetadataRequest:
+      properties:
+        value:
+          description: The JSON metadata value.  Max size is is 30kb.
+          type: object
+      required:
+      - value
+      type: object
+    MetadataWithProperties:
+      properties:
+        key:
+          type: string
+        lastModified:
+          format: int64
+          type: integer
+        size:
+          format: int64
+          type: integer
+        table:
+          type: string
+        value:
+          type: object
+      required:
+      - key
+      - lastModified
+      - size
+      - table
+      - value
+      type: object
+    Table:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    Listing:
+      properties:
+        nextMarker:
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/MetadataProperties'
+          type: array
+      required:
+      - results
+      type: object
+    MetadataProperties:
+      properties:
+        key:
+          type: string
+        lastModified:
+          format: int64
+          type: integer
+        size:
+          format: int64
+          type: integer
+        table:
+          type: string
+      required:
+      - key
+      - lastModified
+      - size
+      - table
+      type: object
     IterableApiResponse:
       properties:
         code:
@@ -432,80 +506,6 @@ components:
       required:
       - code
       - msg
-      type: object
-    MetadataProperties:
-      properties:
-        key:
-          type: string
-        lastModified:
-          format: int64
-          type: integer
-        size:
-          format: int64
-          type: integer
-        table:
-          type: string
-      required:
-      - key
-      - lastModified
-      - size
-      - table
-      type: object
-    MetadataWithProperties:
-      properties:
-        key:
-          type: string
-        lastModified:
-          format: int64
-          type: integer
-        size:
-          format: int64
-          type: integer
-        table:
-          type: string
-        value:
-          type: object
-      required:
-      - key
-      - lastModified
-      - size
-      - table
-      - value
-      type: object
-    ListMetadataTablesResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Table'
-          type: array
-      required:
-      - results
-      type: object
-    Listing:
-      properties:
-        nextMarker:
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/MetadataProperties'
-          type: array
-      required:
-      - results
-      type: object
-    Table:
-      properties:
-        name:
-          type: string
-      required:
-      - name
-      type: object
-    PutMetadataRequest:
-      properties:
-        value:
-          description: The JSON metadata value.  Max size is is 30kb.
-          type: object
-      required:
-      - value
       type: object
     IterableResponse:
       type: object

@@ -628,174 +628,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    IterableApiResponse:
-      properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
-          type: object
-      required:
-      - code
-      - msg
-      type: object
-    CampaignsResponse:
-      properties:
-        campaigns:
-          items:
-            $ref: '#/components/schemas/CampaignDetails'
-          type: array
-        nextPageUrl:
-          description: The URL to the next page of campaigns, if applicable.
-          type: string
-        previousPageUrl:
-          description: The URL to the previous page of campaigns, if applicable.
-          type: string
-        totalCampaignsCount:
-          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
-          type: object
-      required:
-      - campaigns
-      type: object
-    CampaignDetails:
-      properties:
-        campaignState:
-          enum:
-          - Draft
-          - Ready
-          - Scheduled
-          - Running
-          - Finished
-          - Starting
-          - Aborted
-          - Recurring
-          - Archived
-          type: string
-        createdAt:
-          description: Creation timestamp as epoch time in milliseconds
-          format: int32
-          type: integer
-        createdByUserId:
-          type: string
-        endedAt:
-          description: Ended timestamp as epoch time in milliseconds
-          format: int32
-          type: integer
-        id:
-          type: number
-        labelIds:
-          description: Label IDs associated with this campaign.
-          items:
-            format: int64
-            type: integer
-          type: array
-        labels:
-          description: Label names associated with this campaign.
-          items:
-            type: string
-          type: array
-        listIds:
-          items:
-            format: int64
-            type: integer
-          type: array
-        messageMedium:
-          type: string
-        name:
-          type: string
-        recurringCampaignId:
-          type: number
-        sendSize:
-          type: number
-        startAt:
-          description: Start timestamp as epoch time in milliseconds
-          format: int32
-          type: integer
-        suppressionListIds:
-          items:
-            format: int64
-            type: integer
-          type: array
-        templateId:
-          type: number
-        type:
-          enum:
-          - Blast
-          - Triggered
-          type: string
-        updatedAt:
-          description: Last update timestamp as epoch time in milliseconds
-          format: int32
-          type: integer
-        updatedByUserId:
-          type: string
-        workflowId:
-          type: number
-      required:
-      - campaignState
-      - createdAt
-      - createdByUserId
-      - id
-      - messageMedium
-      - name
-      - type
-      - updatedAt
-      type: object
-    CampaignIdRequest:
-      properties:
-        campaignId:
-          type: number
-      required:
-      - campaignId
-      type: object
-    ScheduleCampaignRequest:
-      properties:
-        recipientTimeZone:
-          $ref: '#/components/schemas/RecipientTimeZoneRequest'
-          description: If provided, send campaign based on recipient time zone. If not, default to the project time zone.
-        sendAt:
-          description: When to send up to 7 days in the future. ISO-8601 date time format (e.g. 2007-12-03T10:15:30.00Z)
-          type: string
-      required:
-      - sendAt
-      type: object
-    CreateCampaignResponse:
-      properties:
-        campaignId:
-          type: number
-      required:
-      - campaignId
-      type: object
     TriggerCampaignRequest:
       properties:
         allowRepeatMarketingSends:
@@ -891,6 +723,49 @@ components:
       - name
       - templateId
       type: object
+    ScheduleCampaignRequest:
+      properties:
+        recipientTimeZone:
+          $ref: '#/components/schemas/RecipientTimeZoneRequest'
+          description: If provided, send campaign based on recipient time zone. If not, default to the project time zone.
+        sendAt:
+          description: When to send up to 7 days in the future. ISO-8601 date time format (e.g. 2007-12-03T10:15:30.00Z)
+          type: string
+      required:
+      - sendAt
+      type: object
+    CampaignsResponse:
+      properties:
+        campaigns:
+          items:
+            $ref: '#/components/schemas/CampaignDetails'
+          type: array
+        nextPageUrl:
+          description: The URL to the next page of campaigns, if applicable.
+          type: string
+        previousPageUrl:
+          description: The URL to the previous page of campaigns, if applicable.
+          type: string
+        totalCampaignsCount:
+          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
+          type: object
+      required:
+      - campaigns
+      type: object
+    CampaignIdRequest:
+      properties:
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
+    CreateCampaignResponse:
+      properties:
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
     BulkArchiveCampaignRequest:
       properties:
         campaignIds:
@@ -901,6 +776,163 @@ components:
       required:
       - campaignIds
       type: object
+    IterableApiResponse:
+      properties:
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
+          type: string
+        msg:
+          description: Response description
+          type: string
+        params:
+          description: Additional info
+          type: object
+      required:
+      - code
+      - msg
+      type: object
+    CampaignDetails:
+      properties:
+        campaignState:
+          enum:
+          - Draft
+          - Ready
+          - Scheduled
+          - Running
+          - Finished
+          - Starting
+          - Aborted
+          - Recurring
+          - Archived
+          type: string
+        createdAt:
+          description: Creation timestamp as epoch time in milliseconds
+          format: int32
+          type: integer
+        createdByUserId:
+          type: string
+        endedAt:
+          description: Ended timestamp as epoch time in milliseconds
+          format: int32
+          type: integer
+        id:
+          type: number
+        labelIds:
+          description: Label IDs associated with this campaign.
+          items:
+            format: int64
+            type: integer
+          type: array
+        labels:
+          description: Label names associated with this campaign.
+          items:
+            type: string
+          type: array
+        listIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        messageMedium:
+          type: string
+        name:
+          type: string
+        recurringCampaignId:
+          type: number
+        sendSize:
+          type: number
+        startAt:
+          description: Start timestamp as epoch time in milliseconds
+          format: int32
+          type: integer
+        suppressionListIds:
+          items:
+            format: int64
+            type: integer
+          type: array
+        templateId:
+          type: number
+        type:
+          enum:
+          - Blast
+          - Triggered
+          type: string
+        updatedAt:
+          description: Last update timestamp as epoch time in milliseconds
+          format: int32
+          type: integer
+        updatedByUserId:
+          type: string
+        workflowId:
+          type: number
+      required:
+      - campaignState
+      - createdAt
+      - createdByUserId
+      - id
+      - messageMedium
+      - name
+      - type
+      - updatedAt
+      type: object
+    CampaignCreateRequest:
+      type: object
+      description: Request body for creating a new campaign
+      required:
+      - name
+      - listIds
+      - templateId
+      properties:
+        name:
+          type: string
+          description: Campaign name
+        listIds:
+          type: array
+          description: List IDs to target
+          items:
+            type: integer
+        templateId:
+          type: integer
+          description: Template ID to use
+        suppressionListIds:
+          type: array
+          description: List IDs for suppression
+          items:
+            type: integer
+        sendAt:
+          type: string
+          format: date-time
+          description: Scheduled send time in ISO 8601 format
+        dataFields:
+          type: object
+          description: Additional data fields for personalization
+          additionalProperties: true
     Campaign:
       type: object
       description: A marketing campaign in Iterable
@@ -952,38 +984,6 @@ components:
           description: Labels applied to the campaign
           items:
             type: string
-    CampaignCreateRequest:
-      type: object
-      description: Request body for creating a new campaign
-      required:
-      - name
-      - listIds
-      - templateId
-      properties:
-        name:
-          type: string
-          description: Campaign name
-        listIds:
-          type: array
-          description: List IDs to target
-          items:
-            type: integer
-        templateId:
-          type: integer
-          description: Template ID to use
-        suppressionListIds:
-          type: array
-          description: List IDs for suppression
-          items:
-            type: integer
-        sendAt:
-          type: string
-          format: date-time
-          description: Scheduled send time in ISO 8601 format
-        dataFields:
-          type: object
-          description: Additional data fields for personalization
-          additionalProperties: true
   securitySchemes:
     api_key:
       in: header

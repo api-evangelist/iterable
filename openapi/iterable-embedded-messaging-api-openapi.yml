@@ -89,6 +89,30 @@ paths:
       - Embedded Messaging
 components:
   schemas:
+    ApiEmbeddedMessage:
+      properties:
+        elements:
+          $ref: '#/components/schemas/ApiEmbeddedMessagingElements'
+          description: Content to display in the message, and actions to invoke on click or tap.
+        metadata:
+          $ref: '#/components/schemas/ApiEmbeddedMessagingMetadata'
+          description: Identifying information about the embedded message.
+        payload:
+          description: Custom JSON data. Use to customize the message display or trigger custom behavior.
+          type: object
+      type: object
+    Button:
+      properties:
+        action:
+          $ref: '#/components/schemas/Action'
+          description: Action to invoke when a user taps the button.
+        id:
+          description: ID of the button.
+          type: string
+        title:
+          description: Text to display on the button.
+          type: string
+      type: object
     ApiEmbeddedMessagingMetadata:
       properties:
         campaignId:
@@ -110,18 +134,6 @@ components:
           format: int64
           type: integer
       type: object
-    Button:
-      properties:
-        action:
-          $ref: '#/components/schemas/Action'
-          description: Action to invoke when a user taps the button.
-        id:
-          description: ID of the button.
-          type: string
-        title:
-          description: Text to display on the button.
-          type: string
-      type: object
     EmbeddedMessagesResponse:
       properties:
         placements:
@@ -139,26 +151,17 @@ components:
           description: For URL actions, this field is <code>openUrl</code>. For custom actions, it's the full URL of the custom action.
           type: string
       type: object
-    ApiEmbeddedMessage:
+    ApiEmbeddedPlacement:
       properties:
-        elements:
-          $ref: '#/components/schemas/ApiEmbeddedMessagingElements'
-          description: Content to display in the message, and actions to invoke on click or tap.
-        metadata:
-          $ref: '#/components/schemas/ApiEmbeddedMessagingMetadata'
-          description: Identifying information about the embedded message.
-        payload:
-          description: Custom JSON data. Use to customize the message display or trigger custom behavior.
-          type: object
-      type: object
-    Text:
-      properties:
-        label:
-          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
-          type: string
-        text:
-          description: Text to display.
-          type: string
+        embeddedMessages:
+          description: Array of embedded messages associated with <code>placementId</code>. The user specified in the request is eligible for all messages in this array.
+          items:
+            $ref: '#/components/schemas/ApiEmbeddedMessage'
+          type: array
+        placementId:
+          description: ID of a placement.
+          format: int64
+          type: integer
       type: object
     ApiEmbeddedMessagingElements:
       properties:
@@ -188,17 +191,14 @@ components:
           description: Title text of the embedded message.
           type: string
       type: object
-    ApiEmbeddedPlacement:
+    Text:
       properties:
-        embeddedMessages:
-          description: Array of embedded messages associated with <code>placementId</code>. The user specified in the request is eligible for all messages in this array.
-          items:
-            $ref: '#/components/schemas/ApiEmbeddedMessage'
-          type: array
-        placementId:
-          description: ID of a placement.
-          format: int64
-          type: integer
+        label:
+          description: Identifier for the text field, specified by the user who created its associated placement. This field is a key, not content. Do not display it.
+          type: string
+        text:
+          description: Text to display.
+          type: string
       type: object
   securitySchemes:
     api_key:

@@ -426,6 +426,59 @@ paths:
       - Export
 components:
   schemas:
+    ExportJobStatusAndFiles:
+      properties:
+        exportTruncated:
+          description: Whether the export was truncated because it exceeded the max allowed export size
+          type: boolean
+        files:
+          description: The current page of files
+          items:
+            $ref: '#/components/schemas/ExportFileAndUrl'
+          type: array
+        jobId:
+          description: The ID of the export job
+          example: 3562
+          format: int64
+          type: integer
+        jobState:
+          description: The state of the export job
+          enum:
+          - Enqueued
+          - Running
+          - Completed
+          - Failed
+          example: Running
+          type: string
+      required:
+      - exportTruncated
+      - files
+      - jobId
+      - jobState
+      type: object
+    ExportFileAndUrl:
+      properties:
+        file:
+          description: The name of the file.
+          example: file-1679086247925.csv
+          type: string
+        url:
+          description: A URL that can be used to download the file. Expires after 30 minutes.
+          type: string
+      required:
+      - file
+      - url
+      type: object
+    ClientDataType:
+      properties:
+        send:
+          type: boolean
+        updatable:
+          type: boolean
+      required:
+      - send
+      - updatable
+      type: object
     JobsResponse:
       properties:
         jobs:
@@ -466,6 +519,16 @@ components:
           type: string
       required:
       - jobState
+      type: object
+    StartExportResponse:
+      properties:
+        jobId:
+          description: The ID of the export job
+          example: 3562
+          format: int64
+          type: integer
+      required:
+      - jobId
       type: object
     StartExportRequest:
       properties:
@@ -554,75 +617,12 @@ components:
       - dataTypeName
       - outputFormat
       type: object
-    ExportJobStatusAndFiles:
-      properties:
-        exportTruncated:
-          description: Whether the export was truncated because it exceeded the max allowed export size
-          type: boolean
-        files:
-          description: The current page of files
-          items:
-            $ref: '#/components/schemas/ExportFileAndUrl'
-          type: array
-        jobId:
-          description: The ID of the export job
-          example: 3562
-          format: int64
-          type: integer
-        jobState:
-          description: The state of the export job
-          enum:
-          - Enqueued
-          - Running
-          - Completed
-          - Failed
-          example: Running
-          type: string
-      required:
-      - exportTruncated
-      - files
-      - jobId
-      - jobState
-      type: object
-    ClientDataType:
-      properties:
-        send:
-          type: boolean
-        updatable:
-          type: boolean
-      required:
-      - send
-      - updatable
-      type: object
     JobState:
       properties:
         final:
           type: boolean
       required:
       - final
-      type: object
-    ExportFileAndUrl:
-      properties:
-        file:
-          description: The name of the file.
-          example: file-1679086247925.csv
-          type: string
-        url:
-          description: A URL that can be used to download the file. Expires after 30 minutes.
-          type: string
-      required:
-      - file
-      - url
-      type: object
-    StartExportResponse:
-      properties:
-        jobId:
-          description: The ID of the export job
-          example: 3562
-          format: int64
-          type: integer
-      required:
-      - jobId
       type: object
   securitySchemes:
     api_key:

@@ -34,6 +34,9 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/iterable.png
+x-docs-platform: swagger-ui
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Cross-Channel Messaging
 - Customer Engagement
@@ -501,6 +504,8 @@ apis:
     https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads
   baseURL: https://api.iterable.com
   tags:
+  - WhatsApp
+  tags_raw:
   - Whats App
   properties:
   - type: OpenAPI

@@ -67,88 +67,6 @@ paths:
       - In-app-web
 components:
   schemas:
-    InAppTrigger:
-      properties:
-        type:
-          $ref: '#/components/schemas/Value'
-          description: How the in-app message was triggered
-      type: object
-    RokuButtonContent:
-      properties:
-        buttonBorderColor:
-          type: string
-        buttonColorFocused:
-          type: string
-        buttonColorUnFocused:
-          type: string
-        buttonDeeplink:
-          type: string
-        buttonText:
-          type: string
-        buttonTextColorFocused:
-          type: string
-        buttonTextColorUnFocused:
-          type: string
-      required:
-      - buttonBorderColor
-      - buttonColorFocused
-      - buttonColorUnFocused
-      - buttonDeeplink
-      - buttonText
-      - buttonTextColorFocused
-      - buttonTextColorUnFocused
-      type: object
-    InAppDisplaySettings:
-      properties:
-        bgColor:
-          $ref: '#/components/schemas/BgColor'
-          description: The background color values
-        bottom:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the bottom of the notification, or -1 to autoexpand
-        left:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the left of the notification, or -1 to autoexpand
-        right:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the right of the notification, or -1 to autoexpand
-        shouldAnimate:
-          description: Enables In App Animations
-          type: boolean
-        top:
-          $ref: '#/components/schemas/InAppDisplaySetting'
-          description: Padding percentage for the top of the notification, or -1 to autoexpand
-      type: object
-    PositionOption:
-      type: object
-    InAppType:
-      type: object
-    Value:
-      type: object
-    ApiInAppMessagesResponse:
-      properties:
-        inAppMessages:
-          items:
-            $ref: '#/components/schemas/ApiInAppMessage'
-          type: array
-      required:
-      - inAppMessages
-      type: object
-    InAppContentApi:
-      properties:
-        html:
-          description: The html to be displayed
-          type: string
-        inAppDisplaySettings:
-          $ref: '#/components/schemas/InAppDisplaySettings'
-          description: The in-app message display settings
-        ottPayload:
-          $ref: '#/components/schemas/RokuContent'
-        webInAppDisplaySettings:
-          $ref: '#/components/schemas/WebInAppDisplaySettings'
-      required:
-      - webInAppDisplaySettings
-      type: object
     ApiInAppMessage:
       properties:
         campaignId:
@@ -200,6 +118,77 @@ components:
       - messageType
       - typeOfContent
       type: object
+    WebInAppDisplaySettings:
+      properties:
+        position:
+          $ref: '#/components/schemas/PositionOption'
+          description: The position of the message on the screen
+      type: object
+    InAppTrigger:
+      properties:
+        type:
+          $ref: '#/components/schemas/Value'
+          description: How the in-app message was triggered
+      type: object
+    InAppTypeOfContent:
+      type: object
+    ApiInAppMessagesResponse:
+      properties:
+        inAppMessages:
+          items:
+            $ref: '#/components/schemas/ApiInAppMessage'
+          type: array
+      required:
+      - inAppMessages
+      type: object
+    InboxMetadata:
+      properties:
+        icon:
+          description: The icon to display in the inbox
+          type: string
+        subtitle:
+          description: The subtitle to display in the inbox
+          type: string
+        title:
+          description: The title to display in the inbox
+          type: string
+      type: object
+    BgColor:
+      properties:
+        alpha:
+          description: The opacity range of the background between 0-1
+          type: number
+        hex:
+          description: 'The hex color of the background. Format: #FFFFFF'
+          type: string
+      type: object
+    InAppDisplaySetting:
+      type: object
+    InAppType:
+      type: object
+    Value:
+      type: object
+    InAppDisplaySettings:
+      properties:
+        bgColor:
+          $ref: '#/components/schemas/BgColor'
+          description: The background color values
+        bottom:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the bottom of the notification, or -1 to autoexpand
+        left:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the left of the notification, or -1 to autoexpand
+        right:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the right of the notification, or -1 to autoexpand
+        shouldAnimate:
+          description: Enables In App Animations
+          type: boolean
+        top:
+          $ref: '#/components/schemas/InAppDisplaySetting'
+          description: Padding percentage for the top of the notification, or -1 to autoexpand
+      type: object
     RokuContent:
       properties:
         backgroundColor:
@@ -223,36 +212,47 @@ components:
         textColor:
           type: string
       type: object
-    BgColor:
+    RokuButtonContent:
       properties:
-        alpha:
-          description: The opacity range of the background between 0-1
-          type: number
-        hex:
-          description: 'The hex color of the background. Format: #FFFFFF'
+        buttonBorderColor:
           type: string
+        buttonColorFocused:
+          type: string
+        buttonColorUnFocused:
+          type: string
+        buttonDeeplink:
+          type: string
+        buttonText:
+          type: string
+        buttonTextColorFocused:
+          type: string
+        buttonTextColorUnFocused:
+          type: string
+      required:
+      - buttonBorderColor
+      - buttonColorFocused
+      - buttonColorUnFocused
+      - buttonDeeplink
+      - buttonText
+      - buttonTextColorFocused
+      - buttonTextColorUnFocused
       type: object
-    WebInAppDisplaySettings:
+    PositionOption:
+      type: object
+    InAppContentApi:
       properties:
-        position:
-          $ref: '#/components/schemas/PositionOption'
-          description: The position of the message on the screen
-      type: object
-    InAppDisplaySetting:
-      type: object
-    InboxMetadata:
-      properties:
-        icon:
-          description: The icon to display in the inbox
+        html:
+          description: The html to be displayed
           type: string
-        subtitle:
-          description: The subtitle to display in the inbox
-          type: string
-        title:
-          description: The title to display in the inbox
-          type: string
-      type: object
-    InAppTypeOfContent:
+        inAppDisplaySettings:
+          $ref: '#/components/schemas/InAppDisplaySettings'
+          description: The in-app message display settings
+        ottPayload:
+          $ref: '#/components/schemas/RokuContent'
+        webInAppDisplaySettings:
+          $ref: '#/components/schemas/WebInAppDisplaySettings'
+      required:
+      - webInAppDisplaySettings
       type: object
   securitySchemes:
     api_key:

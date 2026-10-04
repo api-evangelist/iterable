@@ -628,45 +628,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    TriggerCampaignRequest:
-      properties:
-        allowRepeatMarketingSends:
-          description: Allow repeat marketing sends? Defaults to true.
-          type: boolean
-        campaignId:
-          format: int64
-          type: integer
-        dataFields:
-          description: Fields to merge into handlebars context
-          type: object
-        listIds:
-          description: A non-empty array of list IDs to send to
-          items:
-            format: int64
-            type: integer
-          type: array
-        suppressionListIds:
-          description: Lists to suppress
-          items:
-            format: int64
-            type: integer
-          type: array
-      required:
-      - campaignId
-      - listIds
-      type: object
-    RecipientTimeZoneRequest:
-      properties:
-        defaultTimeZone:
-          description: The fallback time zone if the recipient does not have time zone set in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
-          type: string
-        startTimeZone:
-          description: The starting time zone in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
-          type: string
-      required:
-      - defaultTimeZone
-      - startTimeZone
-      type: object
     CreateCampaignRequest:
       properties:
         campaignDataFields:
@@ -723,59 +684,6 @@ components:
       - name
       - templateId
       type: object
-    ScheduleCampaignRequest:
-      properties:
-        recipientTimeZone:
-          $ref: '#/components/schemas/RecipientTimeZoneRequest'
-          description: If provided, send campaign based on recipient time zone. If not, default to the project time zone.
-        sendAt:
-          description: When to send up to 7 days in the future. ISO-8601 date time format (e.g. 2007-12-03T10:15:30.00Z)
-          type: string
-      required:
-      - sendAt
-      type: object
-    CampaignsResponse:
-      properties:
-        campaigns:
-          items:
-            $ref: '#/components/schemas/CampaignDetails'
-          type: array
-        nextPageUrl:
-          description: The URL to the next page of campaigns, if applicable.
-          type: string
-        previousPageUrl:
-          description: The URL to the previous page of campaigns, if applicable.
-          type: string
-        totalCampaignsCount:
-          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
-          type: object
-      required:
-      - campaigns
-      type: object
-    CampaignIdRequest:
-      properties:
-        campaignId:
-          type: number
-      required:
-      - campaignId
-      type: object
-    CreateCampaignResponse:
-      properties:
-        campaignId:
-          type: number
-      required:
-      - campaignId
-      type: object
-    BulkArchiveCampaignRequest:
-      properties:
-        campaignIds:
-          description: Campaign IDs to archive
-          items:
-            type: number
-          type: array
-      required:
-      - campaignIds
-      type: object
     IterableApiResponse:
       properties:
         code:
@@ -816,6 +724,27 @@ components:
       required:
       - code
       - msg
+      type: object
+    BulkArchiveCampaignRequest:
+      properties:
+        campaignIds:
+          description: Campaign IDs to archive
+          items:
+            type: number
+          type: array
+      required:
+      - campaignIds
+      type: object
+    ScheduleCampaignRequest:
+      properties:
+        recipientTimeZone:
+          $ref: '#/components/schemas/RecipientTimeZoneRequest'
+          description: If provided, send campaign based on recipient time zone. If not, default to the project time zone.
+        sendAt:
+          description: When to send up to 7 days in the future. ISO-8601 date time format (e.g. 2007-12-03T10:15:30.00Z)
+          type: string
+      required:
+      - sendAt
       type: object
     CampaignDetails:
       properties:
@@ -900,6 +829,77 @@ components:
       - name
       - type
       - updatedAt
+      type: object
+    TriggerCampaignRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into handlebars context
+          type: object
+        listIds:
+          description: A non-empty array of list IDs to send to
+          items:
+            format: int64
+            type: integer
+          type: array
+        suppressionListIds:
+          description: Lists to suppress
+          items:
+            format: int64
+            type: integer
+          type: array
+      required:
+      - campaignId
+      - listIds
+      type: object
+    CreateCampaignResponse:
+      properties:
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
+    CampaignIdRequest:
+      properties:
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
+    CampaignsResponse:
+      properties:
+        campaigns:
+          items:
+            $ref: '#/components/schemas/CampaignDetails'
+          type: array
+        nextPageUrl:
+          description: The URL to the next page of campaigns, if applicable.
+          type: string
+        previousPageUrl:
+          description: The URL to the previous page of campaigns, if applicable.
+          type: string
+        totalCampaignsCount:
+          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
+          type: object
+      required:
+      - campaigns
+      type: object
+    RecipientTimeZoneRequest:
+      properties:
+        defaultTimeZone:
+          description: The fallback time zone if the recipient does not have time zone set in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
+          type: string
+        startTimeZone:
+          description: The starting time zone in IANA timezone format (e.g. America/New_York, America/Los_Angeles, etc)
+          type: string
+      required:
+      - defaultTimeZone
+      - startTimeZone
       type: object
     CampaignCreateRequest:
       type: object

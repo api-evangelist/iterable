@@ -200,6 +200,33 @@ components:
           description: A user ID that identifies a user profile in Iterable. If you provide a <code>campaignId</code>, you must also provide an <code>email</code> or a <code>userId</code>, depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
           type: string
       type: object
+    TargetEmailRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          description: Campaign ID
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into email template
+          type: object
+        metadata:
+          description: Metadata to pass back via webhooks. Not used for rendering
+          type: object
+        recipientEmail:
+          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        recipientUserId:
+          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        sendAt:
+          description: Schedule the message for up to 365 days in the future. If set in the past, email is sent immediately. Format is <code>YYYY-MM-DD HH:MM:SS</code> in UTC
+          type: string
+      required:
+      - campaignId
+      type: object
     IterableApiResponse:
       properties:
         code:
@@ -240,33 +267,6 @@ components:
       required:
       - code
       - msg
-      type: object
-    TargetEmailRequest:
-      properties:
-        allowRepeatMarketingSends:
-          description: Allow repeat marketing sends? Defaults to true.
-          type: boolean
-        campaignId:
-          description: Campaign ID
-          format: int64
-          type: integer
-        dataFields:
-          description: Fields to merge into email template
-          type: object
-        metadata:
-          description: Metadata to pass back via webhooks. Not used for rendering
-          type: object
-        recipientEmail:
-          description: An email address that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        recipientUserId:
-          description: A user ID that identifies a user profile in Iterable. Provide a <code>recipientEmail</code> or a <code>recipientUserId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        sendAt:
-          description: Schedule the message for up to 365 days in the future. If set in the past, email is sent immediately. Format is <code>YYYY-MM-DD HH:MM:SS</code> in UTC
-          type: string
-      required:
-      - campaignId
       type: object
     IterableResponse:
       type: object

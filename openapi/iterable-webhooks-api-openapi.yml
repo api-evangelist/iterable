@@ -52,6 +52,15 @@ paths:
         required: true
 components:
   schemas:
+    GetWebhooksResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/ApiWebhookResponse'
+          type: array
+      required:
+      - webhooks
+      type: object
     ApiWebhookModel:
       properties:
         authToken:
@@ -88,14 +97,17 @@ components:
       required:
       - id
       type: object
-    GetWebhooksResponse:
+    LinkParam:
       properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/ApiWebhookResponse'
-          type: array
+        key:
+          description: Link parameter key
+          type: string
+        value:
+          description: Link parameter value
+          type: string
       required:
-      - webhooks
+      - key
+      - value
       type: object
     ApiWebhookResponse:
       properties:
@@ -135,18 +147,6 @@ components:
       - endpoint
       - id
       - triggeredSendEnabled
-      type: object
-    LinkParam:
-      properties:
-        key:
-          description: Link parameter key
-          type: string
-        value:
-          description: Link parameter value
-          type: string
-      required:
-      - key
-      - value
       type: object
   securitySchemes:
     api_key:

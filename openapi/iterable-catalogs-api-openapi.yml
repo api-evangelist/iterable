@@ -656,45 +656,6 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    CatalogItemWithProperties:
-      properties:
-        catalogName:
-          type: string
-        itemId:
-          type: string
-        lastModified:
-          format: date-time
-          type: string
-        size:
-          format: int64
-          type: integer
-        value:
-          $ref: '#/components/schemas/JsObject'
-      required:
-      - catalogName
-      - itemId
-      - lastModified
-      - size
-      - value
-      type: object
-    CatalogBulkDeleteRequest:
-      properties:
-        itemIds:
-          items:
-            type: string
-          type: array
-      required:
-      - itemIds
-      type: object
-    JsObject:
-      properties:
-        underlying:
-          additionalProperties:
-            $ref: '#/components/schemas/JsValue'
-          type: object
-      required:
-      - underlying
-      type: object
     CatalogFieldDefinitionSerializedModel:
       properties:
         children:
@@ -709,61 +670,12 @@ components:
       - fieldName
       - fieldType
       type: object
-    JsValue:
-      type: object
-    CatalogIndexItemRequest:
+    CatalogName:
       properties:
-        value:
-          description: JSON representation of the catalog item. Max size is is 30kb.
-          type: object
-      required:
-      - value
-      type: object
-    GetCatalogsResponse:
-      properties:
-        catalogNames:
-          items:
-            $ref: '#/components/schemas/CatalogName'
-          type: array
-        nextPageUrl:
+        name:
           type: string
-        previousPageUrl:
-          type: string
-        totalCatalogsCount:
-          format: int64
-          type: integer
       required:
-      - catalogNames
-      - totalCatalogsCount
-      type: object
-    GetCatalogItemsResponse:
-      properties:
-        catalogItemsWithProperties:
-          items:
-            $ref: '#/components/schemas/CatalogItemWithProperties'
-          type: array
-        nextPageUrl:
-          type: string
-        previousPageUrl:
-          type: string
-        totalItemsCount:
-          format: int64
-          type: integer
-      required:
-      - catalogItemsWithProperties
-      - totalItemsCount
-      type: object
-    CatalogBulkUploadRequest:
-      properties:
-        documents:
-          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
-          type: object
-        replaceUploadedFieldsOnly:
-          description: Whether to replace only the upload fields within each document, not each entire document
-          type: boolean
-      required:
-      - documents
-      - replaceUploadedFieldsOnly
+      - name
       type: object
     IterableApiResponse:
       properties:
@@ -814,6 +726,73 @@ components:
       required:
       - update
       type: object
+    GetCatalogsResponse:
+      properties:
+        catalogNames:
+          items:
+            $ref: '#/components/schemas/CatalogName'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalCatalogsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogNames
+      - totalCatalogsCount
+      type: object
+    CatalogItemWithProperties:
+      properties:
+        catalogName:
+          type: string
+        itemId:
+          type: string
+        lastModified:
+          format: date-time
+          type: string
+        size:
+          format: int64
+          type: integer
+        value:
+          $ref: '#/components/schemas/JsObject'
+      required:
+      - catalogName
+      - itemId
+      - lastModified
+      - size
+      - value
+      type: object
+    CatalogMappingsUpdateRequest:
+      properties:
+        mappingsUpdates:
+          description: mappingsUpdates
+          items:
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+          type: array
+      required:
+      - mappingsUpdates
+      type: object
+    CatalogIndexItemRequest:
+      properties:
+        value:
+          description: JSON representation of the catalog item. Max size is is 30kb.
+          type: object
+      required:
+      - value
+      type: object
+    JsValue:
+      type: object
+    JsObject:
+      properties:
+        underlying:
+          additionalProperties:
+            $ref: '#/components/schemas/JsValue'
+          type: object
+      required:
+      - underlying
+      type: object
     CatalogFieldMappingsResponse:
       properties:
         definedMappings:
@@ -828,22 +807,43 @@ components:
       - definedMappings
       - undefinedFields
       type: object
-    CatalogName:
+    CatalogBulkDeleteRequest:
       properties:
-        name:
-          type: string
-      required:
-      - name
-      type: object
-    CatalogMappingsUpdateRequest:
-      properties:
-        mappingsUpdates:
-          description: mappingsUpdates
+        itemIds:
           items:
-            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
+            type: string
           type: array
       required:
-      - mappingsUpdates
+      - itemIds
+      type: object
+    CatalogBulkUploadRequest:
+      properties:
+        documents:
+          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
+          type: object
+        replaceUploadedFieldsOnly:
+          description: Whether to replace only the upload fields within each document, not each entire document
+          type: boolean
+      required:
+      - documents
+      - replaceUploadedFieldsOnly
+      type: object
+    GetCatalogItemsResponse:
+      properties:
+        catalogItemsWithProperties:
+          items:
+            $ref: '#/components/schemas/CatalogItemWithProperties'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalItemsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogItemsWithProperties
+      - totalItemsCount
       type: object
     IterableResponse:
       type: object

@@ -153,74 +153,46 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    JourneyDraftDetails:
+    IterableApiResponse:
       properties:
-        createdAt:
-          description: Creation timestamp as epoch time in milliseconds.
-          format: int32
-          type: integer
-        creatorUserId:
-          description: The email address of the user who created the draft journey.
+        code:
+          enum:
+          - Success
+          - BadApiKey
+          - BadAuthorizationHeader
+          - BadJsonBody
+          - BadParams
+          - BatchTooLarge
+          - DatabaseError
+          - EmailAlreadyExists
+          - ExternalKeyConflict
+          - Forbidden
+          - ForbiddenParamsError
+          - ForgottenUserError
+          - GenericError
+          - InvalidEmailAddressError
+          - InvalidJwtPayload
+          - InvalidUserIdError
+          - JwtUserIdentifiersMismatched
+          - NotFound
+          - QueueEmailError
+          - RateLimitExceeded
+          - RequestFieldsTypesMismatched
+          - Unauthorized
+          - UniqueFieldsLimitExceeded
+          - UnknownEmailError
+          - UnknownUserIdError
+          - UserIdAlreadyExists
           type: string
-        id:
-          description: The unique identifier for the draft journey.
-          type: number
-        name:
-          description: The name of the draft journey.
+        msg:
+          description: Response description
           type: string
-        updatedAt:
-          description: Last update timestamp as epoch time in milliseconds.
-          format: int32
-          type: integer
-      required:
-      - createdAt
-      - creatorUserId
-      - id
-      - name
-      - updatedAt
-      type: object
-    GetJourneysResponse:
-      properties:
-        journeys:
-          description: The current page of journeys.
-          items:
-            $ref: '#/components/schemas/JourneyDetails'
-          type: array
-        nextPageUrl:
-          description: The URL to the next page of journeys, if applicable.
-          type: string
-        previousPageUrl:
-          description: The URL to the previous page of journeys, if applicable.
-          type: string
-        totalJourneysCount:
-          description: The total count of journeys across all pages for the supplied query.
-          format: int64
-          type: integer
-      required:
-      - journeys
-      - totalJourneysCount
-      type: object
-    TriggerWorkflowRequest:
-      properties:
-        dataFields:
-          description: Additional data associated triggering event
+        params:
+          description: Additional info
           type: object
-        email:
-          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        listId:
-          description: (Optional) Trigger the journey for all users in a list (standard or dynamic)
-          format: int32
-          type: integer
-        userId:
-          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
-          type: string
-        workflowId:
-          description: ID of journey (workflow) to trigger
-          format: int64
-          type: integer
       required:
-      - workflowId
+      - code
+      - msg
       type: object
     JourneyDetails:
       properties:
@@ -273,46 +245,74 @@ components:
           format: int32
           type: integer
       type: object
-    IterableApiResponse:
+    TriggerWorkflowRequest:
       properties:
-        code:
-          enum:
-          - Success
-          - BadApiKey
-          - BadAuthorizationHeader
-          - BadJsonBody
-          - BadParams
-          - BatchTooLarge
-          - DatabaseError
-          - EmailAlreadyExists
-          - ExternalKeyConflict
-          - Forbidden
-          - ForbiddenParamsError
-          - ForgottenUserError
-          - GenericError
-          - InvalidEmailAddressError
-          - InvalidJwtPayload
-          - InvalidUserIdError
-          - JwtUserIdentifiersMismatched
-          - NotFound
-          - QueueEmailError
-          - RateLimitExceeded
-          - RequestFieldsTypesMismatched
-          - Unauthorized
-          - UniqueFieldsLimitExceeded
-          - UnknownEmailError
-          - UnknownUserIdError
-          - UserIdAlreadyExists
-          type: string
-        msg:
-          description: Response description
-          type: string
-        params:
-          description: Additional info
+        dataFields:
+          description: Additional data associated triggering event
           type: object
+        email:
+          description: An email address that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        listId:
+          description: (Optional) Trigger the journey for all users in a list (standard or dynamic)
+          format: int32
+          type: integer
+        userId:
+          description: A user ID that identifies a user profile in Iterable. Provide an <code>email</code> or a <code>userId</code> (but not both), depending on <a href="https://support.iterable.com/hc/articles/29156459027348">how your project identifies users</a>.
+          type: string
+        workflowId:
+          description: ID of journey (workflow) to trigger
+          format: int64
+          type: integer
       required:
-      - code
-      - msg
+      - workflowId
+      type: object
+    JourneyDraftDetails:
+      properties:
+        createdAt:
+          description: Creation timestamp as epoch time in milliseconds.
+          format: int32
+          type: integer
+        creatorUserId:
+          description: The email address of the user who created the draft journey.
+          type: string
+        id:
+          description: The unique identifier for the draft journey.
+          type: number
+        name:
+          description: The name of the draft journey.
+          type: string
+        updatedAt:
+          description: Last update timestamp as epoch time in milliseconds.
+          format: int32
+          type: integer
+      required:
+      - createdAt
+      - creatorUserId
+      - id
+      - name
+      - updatedAt
+      type: object
+    GetJourneysResponse:
+      properties:
+        journeys:
+          description: The current page of journeys.
+          items:
+            $ref: '#/components/schemas/JourneyDetails'
+          type: array
+        nextPageUrl:
+          description: The URL to the next page of journeys, if applicable.
+          type: string
+        previousPageUrl:
+          description: The URL to the previous page of journeys, if applicable.
+          type: string
+        totalJourneysCount:
+          description: The total count of journeys across all pages for the supplied query.
+          format: int64
+          type: integer
+      required:
+      - journeys
+      - totalJourneysCount
       type: object
     IterableResponse:
       type: object

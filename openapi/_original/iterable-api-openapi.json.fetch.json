@@ -1,0 +1,12 @@
+{
+ "url": "https://api.iterable.com/api-docs",
+ "requested_url": "https://api.iterable.com/api-docs",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 308389,
+ "sha256": "cca837e6271573efccef1c8e10a8fbcb2d0f2c2808e79a9ece8109cbab4fae1c",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.931), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

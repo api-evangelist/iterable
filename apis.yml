@@ -511,6 +511,10 @@ apis:
   - type: Documentation
     url: https://api.iterable.com/api/docs
 common:
+- type: Plans
+  url: plans/iterable-plans-pricing.yml
+- type: FinOps
+  url: finops/iterable-finops.yml
 - type: Overlay
   url: overlays/iterable-inapp-api-overlay.yaml
 - type: Overlay

@@ -6,8 +6,13 @@ source:
 - https://composio.dev/toolkits/iterable
 checked:
 - https://composio.dev/toolkits/iterable
+- https://docs.mparticle.com/integrations/iterable/audience/
+- https://fivetran.com/docs/activations/destinations/available-destinations/iterable
+- https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/iterable
+- https://hightouch.com/docs/destinations/iterable
 - https://monid.ai/tools/iterable
 - https://n8n.io/integrations/iterable/
+- https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-iterable
 - https://zapier.com/apps/iterable/integrations
 summary: null
 marketplace_apps:
@@ -914,6 +919,150 @@ edges:
   direction: third-party
   category: Event Management
   partner_url: http://www.bizzabo.com/
+- partner_name: Twilio Segment
+  partner: segment
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-iterable
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - actions-iterable
+      - iterable
+      status: PUBLIC
+      partner_owned: true
+      accepted_methods:
+      - Identify
+      - Page
+      - Track
+      component_owners:
+      - SEGMENT
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: RudderStack
+  partner: rudderstack
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/iterable
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - iterable
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - alias
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      audience: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: mParticle
+  partner: mparticle
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://docs.mparticle.com/integrations/iterable/audience/
+  coverage_role:
+  - destination
+  - source
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - iterable
+      integration_types:
+      - audience
+      - event
+    source:
+      catalog_entries:
+      - iterable
+      integration_types:
+      - feed
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/iterable
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - iterable
+      status: released
+      sync_types:
+      - Catalog items
+      - Events
+      - Merge users
+      - Other user actions
+      - Register device tokens
+      - Static list
+      - Subscriptions
+      - Trigger SMS
+      - Trigger email
+      - Trigger in-app
+      - Trigger journey (formerly workflow)
+      - Trigger push
+      - Update email address
+      - User shopping cart items
+      - Users
+      sync_modes:
+      - --
+      - add
+      - insert
+      - remove
+      - update
+      - upsert
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Census
+  partner: getcensus
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://fivetran.com/docs/activations/destinations/available-destinations/iterable
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - iterable
+      sync_behaviours:
+      - delete
+      - mirror
+      - update only
+      - update or create
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 templates:
 - title: Create new Iterable users from new Jotform submissions
   url: https://zapier.com/apps/iterable/integrations/jotform/1711879/create-new-iterable-users-from-new-jotform-submissions

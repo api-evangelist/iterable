@@ -14,6 +14,7 @@ checked:
 - https://n8n.io/integrations/iterable/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-iterable
 - https://zapier.com/apps/iterable/integrations
+- shopify/integrations/shopify-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -1063,6 +1064,24 @@ edges:
       - update or create
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: Shopify (own)
+  partner: shopify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.shopify.com/iterable
+  mirror_of: shopify/integrations/shopify-integration-edges.yml
+  apps:
+  - Iterable
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  publisher_verified:
+  - Built for Shopify
 templates:
 - title: Create new Iterable users from new Jotform submissions
   url: https://zapier.com/apps/iterable/integrations/jotform/1711879/create-new-iterable-users-from-new-jotform-submissions

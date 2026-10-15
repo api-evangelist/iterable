@@ -463,7 +463,7 @@
     app_slug: iterable
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: iterable-n8n
   label: n8n
@@ -488,5 +488,5 @@
     node_path: Iterable
     trigger: false
     builder: n8n (built-in node)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null

@@ -628,6 +628,51 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
+    TriggerCampaignRequest:
+      properties:
+        allowRepeatMarketingSends:
+          description: Allow repeat marketing sends? Defaults to true.
+          type: boolean
+        campaignId:
+          format: int64
+          type: integer
+        dataFields:
+          description: Fields to merge into handlebars context
+          type: object
+        listIds:
+          description: A non-empty array of list IDs to send to
+          items:
+            format: int64
+            type: integer
+          type: array
+        suppressionListIds:
+          description: Lists to suppress
+          items:
+            format: int64
+            type: integer
+          type: array
+      required:
+      - campaignId
+      - listIds
+      type: object
+    CampaignsResponse:
+      properties:
+        campaigns:
+          items:
+            $ref: '#/components/schemas/CampaignDetails'
+          type: array
+        nextPageUrl:
+          description: The URL to the next page of campaigns, if applicable.
+          type: string
+        previousPageUrl:
+          description: The URL to the previous page of campaigns, if applicable.
+          type: string
+        totalCampaignsCount:
+          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
+          type: object
+      required:
+      - campaigns
+      type: object
     CreateCampaignRequest:
       properties:
         campaignDataFields:
@@ -725,16 +770,6 @@ components:
       - code
       - msg
       type: object
-    BulkArchiveCampaignRequest:
-      properties:
-        campaignIds:
-          description: Campaign IDs to archive
-          items:
-            type: number
-          type: array
-      required:
-      - campaignIds
-      type: object
     ScheduleCampaignRequest:
       properties:
         recipientTimeZone:
@@ -830,39 +865,15 @@ components:
       - type
       - updatedAt
       type: object
-    TriggerCampaignRequest:
+    BulkArchiveCampaignRequest:
       properties:
-        allowRepeatMarketingSends:
-          description: Allow repeat marketing sends? Defaults to true.
-          type: boolean
-        campaignId:
-          format: int64
-          type: integer
-        dataFields:
-          description: Fields to merge into handlebars context
-          type: object
-        listIds:
-          description: A non-empty array of list IDs to send to
+        campaignIds:
+          description: Campaign IDs to archive
           items:
-            format: int64
-            type: integer
-          type: array
-        suppressionListIds:
-          description: Lists to suppress
-          items:
-            format: int64
-            type: integer
+            type: number
           type: array
       required:
-      - campaignId
-      - listIds
-      type: object
-    CreateCampaignResponse:
-      properties:
-        campaignId:
-          type: number
-      required:
-      - campaignId
+      - campaignIds
       type: object
     CampaignIdRequest:
       properties:
@@ -870,24 +881,6 @@ components:
           type: number
       required:
       - campaignId
-      type: object
-    CampaignsResponse:
-      properties:
-        campaigns:
-          items:
-            $ref: '#/components/schemas/CampaignDetails'
-          type: array
-        nextPageUrl:
-          description: The URL to the next page of campaigns, if applicable.
-          type: string
-        previousPageUrl:
-          description: The URL to the previous page of campaigns, if applicable.
-          type: string
-        totalCampaignsCount:
-          description: The total count of campaigns across all pages for the supplied query. Only present when using pagination.
-          type: object
-      required:
-      - campaigns
       type: object
     RecipientTimeZoneRequest:
       properties:
@@ -901,38 +894,13 @@ components:
       - defaultTimeZone
       - startTimeZone
       type: object
-    CampaignCreateRequest:
-      type: object
-      description: Request body for creating a new campaign
-      required:
-      - name
-      - listIds
-      - templateId
+    CreateCampaignResponse:
       properties:
-        name:
-          type: string
-          description: Campaign name
-        listIds:
-          type: array
-          description: List IDs to target
-          items:
-            type: integer
-        templateId:
-          type: integer
-          description: Template ID to use
-        suppressionListIds:
-          type: array
-          description: List IDs for suppression
-          items:
-            type: integer
-        sendAt:
-          type: string
-          format: date-time
-          description: Scheduled send time in ISO 8601 format
-        dataFields:
-          type: object
-          description: Additional data fields for personalization
-          additionalProperties: true
+        campaignId:
+          type: number
+      required:
+      - campaignId
+      type: object
     Campaign:
       type: object
       description: A marketing campaign in Iterable
@@ -984,6 +952,38 @@ components:
           description: Labels applied to the campaign
           items:
             type: string
+    CampaignCreateRequest:
+      type: object
+      description: Request body for creating a new campaign
+      required:
+      - name
+      - listIds
+      - templateId
+      properties:
+        name:
+          type: string
+          description: Campaign name
+        listIds:
+          type: array
+          description: List IDs to target
+          items:
+            type: integer
+        templateId:
+          type: integer
+          description: Template ID to use
+        suppressionListIds:
+          type: array
+          description: List IDs for suppression
+          items:
+            type: integer
+        sendAt:
+          type: string
+          format: date-time
+          description: Scheduled send time in ISO 8601 format
+        dataFields:
+          type: object
+          description: Additional data fields for personalization
+          additionalProperties: true
   securitySchemes:
     api_key:
       in: header

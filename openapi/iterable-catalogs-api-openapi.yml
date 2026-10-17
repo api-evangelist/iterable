@@ -656,19 +656,17 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
-    CatalogFieldDefinitionSerializedModel:
+    CatalogBulkUploadRequest:
       properties:
-        children:
-          items:
-            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
-          type: array
-        fieldName:
-          type: string
-        fieldType:
-          type: string
+        documents:
+          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
+          type: object
+        replaceUploadedFieldsOnly:
+          description: Whether to replace only the upload fields within each document, not each entire document
+          type: boolean
       required:
-      - fieldName
-      - fieldType
+      - documents
+      - replaceUploadedFieldsOnly
       type: object
     CatalogName:
       properties:
@@ -676,6 +674,14 @@ components:
           type: string
       required:
       - name
+      type: object
+    CatalogIndexItemRequest:
+      properties:
+        value:
+          description: JSON representation of the catalog item. Max size is is 30kb.
+          type: object
+      required:
+      - value
       type: object
     IterableApiResponse:
       properties:
@@ -718,14 +724,6 @@ components:
       - code
       - msg
       type: object
-    CatalogUpdateItemRequest:
-      properties:
-        update:
-          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
-          type: object
-      required:
-      - update
-      type: object
     GetCatalogsResponse:
       properties:
         catalogNames:
@@ -764,23 +762,53 @@ components:
       - size
       - value
       type: object
-    CatalogMappingsUpdateRequest:
+    CatalogBulkDeleteRequest:
       properties:
-        mappingsUpdates:
-          description: mappingsUpdates
+        itemIds:
+          items:
+            type: string
+          type: array
+      required:
+      - itemIds
+      type: object
+    GetCatalogItemsResponse:
+      properties:
+        catalogItemsWithProperties:
+          items:
+            $ref: '#/components/schemas/CatalogItemWithProperties'
+          type: array
+        nextPageUrl:
+          type: string
+        previousPageUrl:
+          type: string
+        totalItemsCount:
+          format: int64
+          type: integer
+      required:
+      - catalogItemsWithProperties
+      - totalItemsCount
+      type: object
+    CatalogUpdateItemRequest:
+      properties:
+        update:
+          description: JSON representation of the catalog item fields to update.  Max size is is 30kb.
+          type: object
+      required:
+      - update
+      type: object
+    CatalogFieldDefinitionSerializedModel:
+      properties:
+        children:
           items:
             $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
           type: array
+        fieldName:
+          type: string
+        fieldType:
+          type: string
       required:
-      - mappingsUpdates
-      type: object
-    CatalogIndexItemRequest:
-      properties:
-        value:
-          description: JSON representation of the catalog item. Max size is is 30kb.
-          type: object
-      required:
-      - value
+      - fieldName
+      - fieldType
       type: object
     JsValue:
       type: object
@@ -807,43 +835,15 @@ components:
       - definedMappings
       - undefinedFields
       type: object
-    CatalogBulkDeleteRequest:
+    CatalogMappingsUpdateRequest:
       properties:
-        itemIds:
+        mappingsUpdates:
+          description: mappingsUpdates
           items:
-            type: string
+            $ref: '#/components/schemas/CatalogFieldDefinitionSerializedModel'
           type: array
       required:
-      - itemIds
-      type: object
-    CatalogBulkUploadRequest:
-      properties:
-        documents:
-          description: Json map of id to values. Max number of pairs in list is 1000. Max size of each json value is is 30kb.
-          type: object
-        replaceUploadedFieldsOnly:
-          description: Whether to replace only the upload fields within each document, not each entire document
-          type: boolean
-      required:
-      - documents
-      - replaceUploadedFieldsOnly
-      type: object
-    GetCatalogItemsResponse:
-      properties:
-        catalogItemsWithProperties:
-          items:
-            $ref: '#/components/schemas/CatalogItemWithProperties'
-          type: array
-        nextPageUrl:
-          type: string
-        previousPageUrl:
-          type: string
-        totalItemsCount:
-          format: int64
-          type: integer
-      required:
-      - catalogItemsWithProperties
-      - totalItemsCount
+      - mappingsUpdates
       type: object
     IterableResponse:
       type: object

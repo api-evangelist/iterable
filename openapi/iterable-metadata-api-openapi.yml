@@ -392,6 +392,38 @@ paths:
       description: European Data Center (EDC)
 components:
   schemas:
+    MetadataWithProperties:
+      properties:
+        key:
+          type: string
+        lastModified:
+          format: int64
+          type: integer
+        size:
+          format: int64
+          type: integer
+        table:
+          type: string
+        value:
+          type: object
+      required:
+      - key
+      - lastModified
+      - size
+      - table
+      - value
+      type: object
+    Listing:
+      properties:
+        nextMarker:
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/MetadataProperties'
+          type: array
+      required:
+      - results
+      type: object
     IterableApiResponse:
       properties:
         code:
@@ -433,54 +465,6 @@ components:
       - code
       - msg
       type: object
-    Listing:
-      properties:
-        nextMarker:
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/MetadataProperties'
-          type: array
-      required:
-      - results
-      type: object
-    Table:
-      properties:
-        name:
-          type: string
-      required:
-      - name
-      type: object
-    MetadataWithProperties:
-      properties:
-        key:
-          type: string
-        lastModified:
-          format: int64
-          type: integer
-        size:
-          format: int64
-          type: integer
-        table:
-          type: string
-        value:
-          type: object
-      required:
-      - key
-      - lastModified
-      - size
-      - table
-      - value
-      type: object
-    ListMetadataTablesResponse:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Table'
-          type: array
-      required:
-      - results
-      type: object
     PutMetadataRequest:
       properties:
         value:
@@ -506,6 +490,22 @@ components:
       - lastModified
       - size
       - table
+      type: object
+    ListMetadataTablesResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Table'
+          type: array
+      required:
+      - results
+      type: object
+    Table:
+      properties:
+        name:
+          type: string
+      required:
+      - name
       type: object
     IterableResponse:
       type: object

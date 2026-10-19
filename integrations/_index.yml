@@ -577,3 +577,101 @@
     builder: 'community (Meltano Hub variant maintainers: airbyte, lambtron)'
   status: not-a-workflow
   arazzo: null
+- slug: iterable-maven-central
+  label: Maven Central
+  partner: maven-central
+  partner_name: Maven Central
+  category: official SDK (Java/JVM)
+  type: register
+  channel: package-registry
+  evidence: https://central.sonatype.com/artifact/com.iterable/iterableapi
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Maven Central (public registry JSON)
+    spec_file: null
+    language: Java/JVM
+    packages:
+    - name: com.iterable:iterableapi
+      version: 3.11.0
+      released: '2026-09-23'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.iterable/iterableapi
+      repo_leg: github-org:iterable
+      publisher_leg: groupId:iterable.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: iterable-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@iterable/api
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@iterable/api'
+      version: 0.13.0
+      released: '2026-09-30'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/api
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/cli'
+      version: 0.4.0
+      released: '2026-07-28'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/cli
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/expo-plugin'
+      version: 1.1.0
+      released: '2026-07-28'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/expo-plugin
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/react-native-sdk'
+      version: 3.2.1
+      released: '2026-10-09'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/react-native-sdk
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/web-sdk'
+      version: 2.3.3
+      released: '2026-09-28'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/web-sdk
+      repo_leg: domain:iterable.com
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null

@@ -5,9 +5,11 @@ source:
 - https://n8n.io/integrations/iterable/
 - https://composio.dev/toolkits/iterable
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/iterable
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
+- https://crates.io/api/v1
 - https://docs.mparticle.com/integrations/iterable/audience/
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/activations/destinations/available-destinations/iterable
@@ -18,6 +20,11 @@ checked:
 - https://hightouch.com/docs/destinations/iterable
 - https://monid.ai/tools/iterable
 - https://n8n.io/integrations/iterable/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-iterable
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/iterable/integrations
@@ -1225,6 +1232,102 @@ edges:
     - silver
     builder: 'community (Meltano Hub variant maintainers: airbyte, lambtron)'
   detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+- partner_name: Maven Central
+  partner: maven-central
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Java/JVM)
+  evidence: https://central.sonatype.com/artifact/com.iterable/iterableapi
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Maven Central (public registry JSON)
+    spec_file: null
+    language: Java/JVM
+    packages:
+    - name: com.iterable:iterableapi
+      version: 3.11.0
+      released: '2026-09-23'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.iterable/iterableapi
+      repo_leg: github-org:iterable
+      publisher_leg: groupId:iterable.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@iterable/api
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@iterable/api'
+      version: 0.13.0
+      released: '2026-09-30'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/api
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/cli'
+      version: 0.4.0
+      released: '2026-07-28'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/cli
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/expo-plugin'
+      version: 1.1.0
+      released: '2026-07-28'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/expo-plugin
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/react-native-sdk'
+      version: 3.2.1
+      released: '2026-10-09'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/react-native-sdk
+      repo_leg: github-org:iterable
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    - name: '@iterable/web-sdk'
+      version: 2.3.3
+      released: '2026-09-28'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@iterable/web-sdk
+      repo_leg: domain:iterable.com
+      publisher_leg: email:iterable.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
 templates:
 - title: Create new Iterable users from new Jotform submissions

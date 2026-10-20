@@ -15,6 +15,7 @@
   evidence: https://zapier.com/apps/iterable/integrations/jotform/1711879/create-new-iterable-users-from-new-jotform-submissions
   template: https://zapier.com/apps/iterable/integrations/jotform/1711879/create-new-iterable-users-from-new-jotform-submissions
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: iterable-create-a-user-in-iterable-from-a-new-lead-in-facebook-lead-ads
@@ -29,6 +30,7 @@
   evidence: https://zapier.com/apps/facebook-lead-ads/integrations/iterable/1162782/create-a-user-in-iterable-from-a-new-lead-in-facebook-lead-ads
   template: https://zapier.com/apps/facebook-lead-ads/integrations/iterable/1162782/create-a-user-in-iterable-from-a-new-lead-in-facebook-lead-ads
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: iterable-create-events-in-iterable-for-new-typeform-submissions
@@ -43,6 +45,7 @@
   evidence: https://zapier.com/apps/iterable/integrations/typeform/63203/create-events-in-iterable-for-new-typeform-submissions
   template: https://zapier.com/apps/iterable/integrations/typeform/63203/create-events-in-iterable-for-new-typeform-submissions
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: iterable-create-events-in-iterable-for-new-instapage-form-submissions
@@ -57,6 +60,7 @@
   evidence: https://zapier.com/apps/instapage/integrations/iterable/63206/create-events-in-iterable-for-new-instapage-form-submissions
   template: https://zapier.com/apps/instapage/integrations/iterable/63206/create-events-in-iterable-for-new-instapage-form-submissions
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: iterable-create-events-in-iterable-for-new-gravity-forms-submissions
@@ -71,6 +75,7 @@
   evidence: https://zapier.com/apps/gravity-forms/integrations/iterable/63207/create-events-in-iterable-for-new-gravity-forms-submissions
   template: https://zapier.com/apps/gravity-forms/integrations/iterable/63207/create-events-in-iterable-for-new-gravity-forms-submissions
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: iterable-create-events-in-iterable-for-new-unbounce-submissions
@@ -85,288 +90,8 @@
   evidence: https://zapier.com/apps/iterable/integrations/unbounce/63210/create-events-in-iterable-for-new-unbounce-submissions
   template: https://zapier.com/apps/iterable/integrations/unbounce/63210/create-events-in-iterable-for-new-unbounce-submissions
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
-  arazzo: null
-- slug: iterable-teachable
-  label: Teachable
-  partner: teachable
-  partner_name: Teachable
-  category: Online Courses
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/teachable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-hubspot
-  label: HubSpot
-  partner: hubspot
-  partner_name: HubSpot
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/hubspot
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-eventbrite
-  label: Eventbrite
-  partner: eventbrite
-  partner_name: Eventbrite
-  category: Event Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/eventbrite
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-google-sheets
-  label: Google Sheets
-  partner: google-sheets
-  partner_name: Google Sheets
-  category: Google
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/google-sheets
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-jotform-enterprise
-  label: Jotform Enterprise
-  partner: jotform
-  partner_name: Jotform Enterprise
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/jotform-enterprise
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-zoom
-  label: Zoom
-  partner: zoom
-  partner_name: Zoom
-  category: Video Conferencing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/zoom
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/airtable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-paperform
-  label: Paperform
-  partner: paperform
-  partner_name: Paperform
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/paperform
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-speak4
-  label: Speak4
-  partner_name: Speak4
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/speak4
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-wisepops
-  label: Wisepops
-  partner_name: Wisepops
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/wisepops
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-workable
-  label: Workable
-  partner: workable
-  partner_name: Workable
-  category: HR Talent & Recruitment
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/workable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-google-ads
-  label: Google Ads
-  partner: google-ads
-  partner_name: Google Ads
-  category: Ads & Conversion
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/google-ads
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-optinmonster
-  label: OptinMonster
-  partner: optinmonster
-  partner_name: OptinMonster
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/optinmonster
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-facebook-lead-ads-for-business-admins
-  label: Facebook Lead Ads (for Business admins)
-  partner_name: Facebook Lead Ads (for Business admins)
-  category: Ads & Conversion
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/facebook-lead-ads-beta
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-webflow
-  label: Webflow
-  partner: webflow
-  partner_name: Webflow
-  category: Website Builders
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/webflow
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-feathery
-  label: Feathery
-  partner: feathery
-  partner_name: Feathery
-  category: AI Assistants
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/feathery
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-calendly
-  label: Calendly
-  partner: calendly
-  partner_name: Calendly
-  category: Scheduling & Booking
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/calendly
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-mangoapps
-  label: MangoApps
-  partner_name: MangoApps
-  category: Team Collaboration
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/mangoapps
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-waiverforever
-  label: WaiverForever
-  partner_name: WaiverForever
-  category: Documents
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/waiverforever
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-salesforce
-  label: Salesforce
-  partner: salesforce
-  partner_name: Salesforce
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/salesforce
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-flow-app
-  label: Flow App
-  partner_name: Flow App
-  category: Video Conferencing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/flow-app
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-stripe
-  label: Stripe
-  partner: stripe
-  partner_name: Stripe
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/stripe
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: iterable-google-forms-legacy
-  label: Google Forms (Legacy)
-  partner_name: Google Forms (Legacy)
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/google-forms-legacy
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: iterable-bizzabo
-  label: Bizzabo
-  partner: bizzabo
-  partner_name: Bizzabo
-  category: Event Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/iterable/integrations/bizzabo
-  source: edge
-  status: pending-partner-spec
   arazzo: null
 - slug: iterable-shopify-own
   label: Shopify (own)
@@ -674,4 +399,311 @@
     trigger: false
     builder: n8n (built-in node)
   status: not-a-workflow
+  arazzo: null
+- slug: iterable-teachable
+  label: Teachable
+  partner: teachable
+  partner_name: Teachable
+  category: Online Courses
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/teachable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-hubspot
+  label: HubSpot
+  partner: hubspot
+  partner_name: HubSpot
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/hubspot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-google-sheets
+  label: Google Sheets
+  partner: google-sheets
+  partner_name: Google Sheets
+  category: Google
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/google-sheets
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-eventbrite
+  label: Eventbrite
+  partner: eventbrite
+  partner_name: Eventbrite
+  category: Event Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/eventbrite
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-jotform-enterprise
+  label: Jotform Enterprise
+  partner: jotform
+  partner_name: Jotform Enterprise
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/jotform-enterprise
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-zoom
+  label: Zoom
+  partner: zoom
+  partner_name: Zoom
+  category: Video Conferencing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/zoom
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/airtable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-paperform
+  label: Paperform
+  partner: paperform
+  partner_name: Paperform
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/paperform
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-speak4
+  label: Speak4
+  partner_name: Speak4
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/speak4
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: iterable-wisepops
+  label: Wisepops
+  partner_name: Wisepops
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/wisepops
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: iterable-workable
+  label: Workable
+  partner: workable
+  partner_name: Workable
+  category: HR Talent & Recruitment
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/workable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-google-ads
+  label: Google Ads
+  partner: google-ads
+  partner_name: Google Ads
+  category: Ads & Conversion
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/google-ads
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-optinmonster
+  label: OptinMonster
+  partner: optinmonster
+  partner_name: OptinMonster
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/optinmonster
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: iterable-facebook-lead-ads-for-business-admins
+  label: Facebook Lead Ads (for Business admins)
+  partner: facebook-lead-ads
+  partner_name: Facebook Lead Ads (for Business admins)
+  category: Ads & Conversion
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/facebook-lead-ads-beta
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-webflow
+  label: Webflow
+  partner: webflow
+  partner_name: Webflow
+  category: Website Builders
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/webflow
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-feathery
+  label: Feathery
+  partner: feathery
+  partner_name: Feathery
+  category: AI Assistants
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/feathery
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-calendly
+  label: Calendly
+  partner: calendly
+  partner_name: Calendly
+  category: Scheduling & Booking
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/calendly
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-mangoapps
+  label: MangoApps
+  partner_name: MangoApps
+  category: Team Collaboration
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/mangoapps
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: iterable-waiverforever
+  label: WaiverForever
+  partner_name: WaiverForever
+  category: Documents
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/waiverforever
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: iterable-salesforce
+  label: Salesforce
+  partner: salesforce
+  partner_name: Salesforce
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/salesforce
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-flow-app
+  label: Flow App
+  partner_name: Flow App
+  category: Video Conferencing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/flow-app
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: iterable-stripe
+  label: Stripe
+  partner: stripe
+  partner_name: Stripe
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/stripe
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-google-forms-legacy
+  label: Google Forms (Legacy)
+  partner: google-forms
+  partner_name: Google Forms (Legacy)
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/google-forms-legacy
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: iterable-bizzabo
+  label: Bizzabo
+  partner: bizzabo
+  partner_name: Bizzabo
+  category: Event Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/iterable/integrations/bizzabo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
   arazzo: null

@@ -6,7 +6,6 @@ source:
 - https://composio.dev/toolkits/iterable
 checked:
 - https://api.nuget.org/v3
-- https://cdn.winget.microsoft.com/cache
 - https://composio.dev/toolkits/iterable
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
@@ -16,10 +15,6 @@ checked:
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/activations/destinations/available-destinations/iterable
 - https://fivetran.com/docs/connectors/partner-built-program
-- https://formulae.brew.sh/api/cask.json
-- https://formulae.brew.sh/api/formula.json
-- https://github.com/ScoopInstaller/Extras
-- https://github.com/ScoopInstaller/Main
 - https://github.com/meltano/hub
 - https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/
 - https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/
@@ -36,6 +31,17 @@ checked:
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/iterable/integrations
 - shopify/integrations/shopify-integration-edges.yml
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
+- https://api.github.com
+- https://claude-plugins.dev/sitemap.xml
+- https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -981,6 +987,38 @@ edges:
     detected_by: sweep-official-clis.py
     detected: '2026-10-20'
   detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: Agent Skills package
+  evidence: https://github.com/Iterable/iterable-sdk-skill
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: iterable
+    current: true
+    repos:
+    - repo: Iterable/iterable-sdk-skill
+      archived: false
+      lapsed: false
+      pushed: '2026-10-19'
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: iterable
+    matched_by: org-profile-domain:iterable.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
   first_seen: '2026-10-20'
 templates:
 - title: Create new Iterable users from new Jotform submissions

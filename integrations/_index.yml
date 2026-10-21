@@ -93,18 +93,6 @@
   relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
-- slug: iterable-shopify-own
-  label: Shopify (own)
-  partner: shopify
-  partner_name: Shopify (own)
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://apps.shopify.com/iterable
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: iterable-maven-central
   label: Maven Central
   partner: maven-central
@@ -781,5 +769,60 @@
     detected_by: sweep-vc-portfolios.py
     detected: '2026-10-21'
     sector: business-applications
+  status: not-a-workflow
+  arazzo: null
+- slug: iterable-cocoapods-trunk
+  label: CocoaPods trunk
+  partner_name: CocoaPods trunk
+  category: iOS SDK (CocoaPods)
+  type: register
+  channel: package-registry
+  evidence: https://cocoapods.org/pods/IterableAppExtensions
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: CocoaPods trunk (cdn.cocoapods.org Specs; github.com/CocoaPods/Specs)
+    spec_file: null
+    role: cocoapods-publisher
+    registered_name: Ilya Brin
+    matched_domain: iterable.com
+    matched_by: domain
+    pods:
+    - pod: IterableAppExtensions
+      version: 5.0.3
+      homepage: https://iterable.com/
+      deprecated: true
+    - pod: IterableSDK
+      version: 5.0.3
+      homepage: https://iterable.com/
+      deprecated: true
+    signal_note: latest podspec homepage (domain) + authors (name); pods, versions and counts are context
+    detected_by: sweep-mobile-sdk-index.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
+- slug: iterable-shopify-own
+  label: Shopify (own)
+  partner: shopify
+  partner_name: Shopify (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://apps.shopify.com/iterable
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: iterable-google-play-developer-google-play-sdk-index
+  label: Google Play Developer (Google Play SDK Index)
+  partner: google-play
+  partner_name: Google Play Developer (Google Play SDK Index)
+  category: mobile SDK (data-management)
+  type: marketplace
+  marketplace: Google Play SDK Index
+  channel: partner-built
+  evidence: https://play.google.com/sdks/details/com-iterable-iterableapi
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null

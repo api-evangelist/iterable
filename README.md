@@ -1,4 +1,4 @@
-# Iterable (iterable)
+# Iterable
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,181 +66,281 @@
 
 Iterable is an AI customer engagement platform that powers unified cross-channel marketing experiences and empowers marketers to create, optimize, and measure relevant interactions across email, push, SMS, in-app, and web channels. Their developer platform provides REST APIs, export APIs, AsyncAPI webhooks, and native SDKs for web, iOS, Android, and React Native.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/iterable/refs/heads/main/apis.yml)
+**Areas:** Cross-Channel Messaging · Customer Engagement · Email · Marketing Automation · Push Notifications · SMS
 
-## Tags
+## Iterable on APIs.io
 
-- Cross-Channel Messaging
-- Customer Engagement
-- Email
-- Marketing Automation
-- Push Notifications
-- SMS
+Everything profiled for Iterable is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/iterable/](https://apis.io/providers/iterable/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (29)
 
-- **Created:** 2026-03-20
-- **Modified:** 2026-05-19
+- [Iterable Export API](https://apis.io/apis/iterable/export-api/) — The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides…
+- [Iterable Web SDK](https://apis.io/apis/iterable/web-sdk/) — The Iterable Web SDK enables developers to integrate Iterable's marketing automation capabilities directly into JavaScript and Node.js applications. It…
+- [Iterable iOS SDK](https://apis.io/apis/iterable/ios-sdk/) — The Iterable iOS SDK allows developers to integrate Iterable's marketing automation features into native iOS applications built with Swift or Objective-C.…
+- [Iterable Android SDK](https://apis.io/apis/iterable/android-sdk/) — The Iterable Android SDK provides native integration between Android applications and the Iterable marketing automation platform. It supports push…
+- [Iterable React Native SDK](https://apis.io/apis/iterable/react-native-sdk/) — The Iterable React Native SDK enables developers to integrate Iterable's marketing automation capabilities into cross-platform mobile applications built…
+- [Iterable Campaigns API](https://apis.io/apis/iterable/iterable-campaigns-api/) — Create, retrieve, and manage marketing campaigns. Access campaign metrics and trigger campaign sends.
+- [Iterable Catalogs API](https://apis.io/apis/iterable/iterable-catalogs-api/) — Manage product catalogs and catalog items used for personalization and recommendation in campaigns.
+- [Iterable Channels API](https://apis.io/apis/iterable/iterable-channels-api/) — Retrieve and manage messaging channels and message types used for organizing campaigns and templates.
+- [Iterable Commerce API](https://apis.io/apis/iterable/iterable-commerce-api/) — Track purchase events, update cart data, and manage commerce-related user activity for revenue attribution.
+- [Iterable Email API](https://apis.io/apis/iterable/iterable-email-api/) — Send transactional emails and manage email-specific delivery settings.
+- [Iterable Events API](https://apis.io/apis/iterable/iterable-events-api/) — Track custom events, retrieve event data for users, and manage event metadata used for segmentation and campaign triggering.
+- [Iterable Experiments API](https://apis.io/apis/iterable/iterable-experiments-api/) — Retrieve experiment configurations and metrics for A/B tests running across campaigns.
+- [Iterable Lists API](https://apis.io/apis/iterable/iterable-lists-api/) — Create and manage subscriber lists. Subscribe and unsubscribe users from lists. Retrieve list metadata and membership.
+- [Iterable Metadata API](https://apis.io/apis/iterable/iterable-metadata-api/) — Store and retrieve key-value metadata tables for use in personalization and campaign logic.
+- [Iterable Push API](https://apis.io/apis/iterable/iterable-push-api/) — Send push notifications and manage push notification delivery settings and tokens.
+- [Iterable SMS API](https://apis.io/apis/iterable/iterable-sms-api/) — Send SMS messages and manage SMS-specific delivery settings.
+- [Iterable Templates API](https://apis.io/apis/iterable/iterable-templates-api/) — Manage email, push, SMS, and in-app message templates. Retrieve template content and metadata.
+- [Iterable Users API](https://apis.io/apis/iterable/iterable-users-api/) — Manage user profiles, update user fields, bulk update users, get user data by email or userId, and delete users.
+- [Iterable Workflows API](https://apis.io/apis/iterable/iterable-workflows-api/) — Trigger workflow enrollments and manage journey-based automation workflows.
+- [Iterable Embedded Messaging API](https://apis.io/apis/iterable/iterable-embedded-messaging-api/) — The Embedded Messaging API from Iterable — 1 operation(s) for embedded messaging.
+- [Iterable In App API](https://apis.io/apis/iterable/iterable-in-app-api/) — The In-app API from Iterable — 4 operation(s) for in-app.
+- [Iterable In App Web API](https://apis.io/apis/iterable/iterable-in-app-web-api/) — The In-app-web API from Iterable — 1 operation(s) for in-app-web.
+- [Iterable Snippets API](https://apis.io/apis/iterable/iterable-snippets-api/) — The snippets API from Iterable — 2 operation(s) for snippets.
+- [Iterable Subscriptions API](https://apis.io/apis/iterable/iterable-subscriptions-api/) — The subscriptions API from Iterable — 4 operation(s) for subscriptions.
+- [Iterable Verify API](https://apis.io/apis/iterable/iterable-verify-api/) — The Verify API from Iterable — 2 operation(s) for verify.
+- [Iterable Webhooks API](https://apis.io/apis/iterable/iterable-webhooks-api/) — The webhooks API from Iterable — 1 operation(s) for webhooks.
+- [Iterable Message types API](https://apis.io/apis/iterable/iterable-message-types-api/) — The Message types API from Iterable — 2 operation(s) for message types.
+- [Iterable Web Push API](https://apis.io/apis/iterable/iterable-web-push-api/) — The Web Push API from Iterable — 3 operation(s) for web push.
+- [Iterable Whats App API](https://apis.io/apis/iterable/iterable-whats-app-api/) — The Whats App API from Iterable — 2 operation(s) for whats app.
 
-## APIs
+### Published properties
 
-### Iterable REST API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Iterable REST API provides programmatic access to the Iterable cross-channel marketing automation platform. It exposes endpoints for managing users, campaigns, lists, events, commerce tracking, catalogs, channels, templates, experiments, workflows, and message delivery across email, push, SMS, and in-app channels. The API uses standard HTTP methods, JSON request and response bodies, and supports authentication via API keys or JWT-enabled keys.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://api.iterable.com/api/docs](https://api.iterable.com/api/docs)
-- **Base URL:** `https://api.iterable.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Iterable System Webhooks](https://apis.io/asyncapis/iterable/iterable-system-webhooks-asyncapi/)
 
-- Campaigns
-- Cross-Channel Messaging
-- Email
-- Marketing Automation
-- Push Notifications
-- SMS
-- Users
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://api.iterable.com/api/docs)
-- [OpenAPI](openapi/iterable-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/iterable-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [/webhook](https://apis.io/channels/iterable/webhook/)
 
-### Iterable Export API
+#### GraphQL (1)
 
-The Iterable Export API enables developers to extract data from Iterable projects for analytics, reporting, and data warehousing purposes. It provides asynchronous export endpoints that allow bulk retrieval of user data, event data, campaign metrics, and message engagement information. The export endpoints support filtering by date ranges and other criteria, making it possible to build custom reporting pipelines and synchronize Iterable data with external business intelligence tools.
+GraphQL schemas.
 
-- **Human URL:** [https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads](https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads)
-- **Base URL:** `https://api.iterable.com`
+- [Moved to /providers/iterable/](https://apis.io/graphqls/iterable/iterable-graphql/)
 
-#### Tags
+#### MCP servers (1)
 
-- Analytics
-- Data Export
-- Marketing Data
-- Reporting
+Model Context Protocol servers that expose the API to agents.
 
-#### Properties
+- [iterable](https://apis.io/servers/iterable/iterable/)
 
-- [Documentation](https://support.iterable.com/hc/en-us/articles/204780579-Iterable-API-Endpoints-and-Sample-Payloads)
-- [OpenAPI](openapi/iterable-export-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/iterable-export-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-export-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Agentic access (1)
 
-### Iterable Web SDK
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Iterable Web SDK enables developers to integrate Iterable's marketing automation capabilities directly into JavaScript and Node.js applications. It provides functions for tracking user events, managing user profiles, displaying in-app messages, and handling web push notifications.
+- [Iterable Agentic Access](https://apis.io/agentic-access/iterable/iterable-agentic-access/)
 
-- **Human URL:** [https://github.com/Iterable/iterable-web-sdk](https://github.com/Iterable/iterable-web-sdk)
-- **Base URL:** `https://api.example.com`
+#### JSON Schema (17)
 
-#### Tags
+The data models the API reads and writes.
 
-- In-App Messaging
-- JavaScript
-- SDK
-- User Tracking
-- Web
+- [Iterable Campaign](https://apis.io/schemas/iterable/iterable-campaign/)
+- [CampaignCreateRequest](https://apis.io/schemas/iterable/iterable-campaigncreaterequest/)
+- [Channel](https://apis.io/schemas/iterable/iterable-channel/)
+- [Iterable Commerce Item](https://apis.io/schemas/iterable/iterable-commerce-item/)
+- [CommerceItem](https://apis.io/schemas/iterable/iterable-commerceitem/)
+- [EmailTemplate](https://apis.io/schemas/iterable/iterable-emailtemplate/)
+- [EmailTemplateUpdate](https://apis.io/schemas/iterable/iterable-emailtemplateupdate/)
+- [ErrorResponse](https://apis.io/schemas/iterable/iterable-errorresponse/)
+- [Iterable Event](https://apis.io/schemas/iterable/iterable-event/)
+- [ExportedEvent](https://apis.io/schemas/iterable/iterable-exportedevent/)
+- [IterableResponse](https://apis.io/schemas/iterable/iterable-iterableresponse/)
+- [List](https://apis.io/schemas/iterable/iterable-list/)
+- [PurchaseRequest](https://apis.io/schemas/iterable/iterable-purchaserequest/)
+- [TrackEventRequest](https://apis.io/schemas/iterable/iterable-trackeventrequest/)
+- [Iterable User](https://apis.io/schemas/iterable/iterable-user/)
+- [UserResponse](https://apis.io/schemas/iterable/iterable-userresponse/)
+- [UserUpdateRequest](https://apis.io/schemas/iterable/iterable-userupdaterequest/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://github.com/Iterable/iterable-web-sdk)
-- [Postman Collection](collections/iterable-export-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-export-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/iterable-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-### Iterable iOS SDK
+- [Iterable Structure](https://apis.io/json-structure/iterable/iterable-structure/)
 
-The Iterable iOS SDK allows developers to integrate Iterable's marketing automation features into native iOS applications built with Swift or Objective-C. It supports push notifications, in-app messages, deep links, and Mobile Inbox functionality. The SDK can be installed via Swift Package Manager, CocoaPods, or Carthage, and supports iOS 10 and higher. It enables mobile apps to track user events, display targeted in-app content, and participate in Iterable's cross-channel marketing campaigns.
+#### JSON-LD (1)
 
-- **Human URL:** [https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK](https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK)
-- **Base URL:** `https://api.example.com`
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Iterable Context](https://apis.io/jsonld/iterable/iterable-context/)
 
-- In-App Messaging
-- iOS
-- Mobile
-- Push Notifications
-- SDK
-- Swift
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://support.iterable.com/hc/en-us/articles/360035018152-Iterable-s-iOS-SDK)
-- [Postman Collection](collections/iterable-export-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-export-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/iterable-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Iterable Domain Vocabulary](https://apis.io/vocabularies/iterable/iterable-vocabulary/)
 
-### Iterable Android SDK
+#### Collections (39)
 
-The Iterable Android SDK provides native integration between Android applications and the Iterable marketing automation platform. It supports push notifications, in-app messages, deep links, and Mobile Inbox features. The open-source SDK enables Android apps to track user events, manage user profiles, render in-app content, and connect with Iterable's cross-channel campaign orchestration. Developers can use it to deliver personalized marketing experiences within their Android applications.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs](https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs)
-- **Base URL:** `https://api.example.com`
+- [Iterable Export Campaigns API](https://apis.io/collections/iterable/open-iterable-campaigns-api/)
+- [Iterable Export Campaigns Catalogs API](https://apis.io/collections/iterable/open-iterable-catalogs-api/)
+- [Iterable Export Campaigns Channels API](https://apis.io/collections/iterable/open-iterable-channels-api/)
+- [Iterable Export Campaigns Commerce API](https://apis.io/collections/iterable/open-iterable-commerce-api/)
+- [Iterable Export Campaigns Email API](https://apis.io/collections/iterable/open-iterable-email-api/)
+- [Iterable Export Campaigns Events API](https://apis.io/collections/iterable/open-iterable-events-api/)
+- [Iterable Export Campaigns ExperimentMetrics API](https://apis.io/collections/iterable/open-iterable-experimentmetrics-api/)
+- [Iterable Export Campaigns Experiments API](https://apis.io/collections/iterable/open-iterable-experiments-api/)
+- [Iterable Campaigns Export API](https://apis.io/collections/iterable/open-iterable-export-api/)
+- [Iterable Export Campaigns InApp API](https://apis.io/collections/iterable/open-iterable-inapp-api/)
+- [Iterable Export Campaigns Lists API](https://apis.io/collections/iterable/open-iterable-lists-api/)
+- [Iterable Export Campaigns MessageTypes API](https://apis.io/collections/iterable/open-iterable-messagetypes-api/)
+- [Iterable Export Campaigns Metadata API](https://apis.io/collections/iterable/open-iterable-metadata-api/)
+- [Iterable Export Campaigns Push API](https://apis.io/collections/iterable/open-iterable-push-api/)
+- [Iterable REST API](https://apis.io/collections/iterable/open-iterable-rest-api/)
+- [Iterable Export Campaigns SMS API](https://apis.io/collections/iterable/open-iterable-sms-api/)
+- [Iterable Export Campaigns Templates API](https://apis.io/collections/iterable/open-iterable-templates-api/)
+- [Iterable Export Campaigns Users API](https://apis.io/collections/iterable/open-iterable-users-api/)
+- [Iterable Export Campaigns WebPush API](https://apis.io/collections/iterable/open-iterable-webpush-api/)
+- [Iterable Export Campaigns Workflows API](https://apis.io/collections/iterable/open-iterable-workflows-api/)
+- [Iterable Export Campaigns API](https://apis.io/collections/iterable/postman-iterable-campaigns-api/)
+- [Iterable Export Campaigns Catalogs API](https://apis.io/collections/iterable/postman-iterable-catalogs-api/)
+- [Iterable Export Campaigns Channels API](https://apis.io/collections/iterable/postman-iterable-channels-api/)
+- [Iterable Export Campaigns Commerce API](https://apis.io/collections/iterable/postman-iterable-commerce-api/)
+- [Iterable Export Campaigns Email API](https://apis.io/collections/iterable/postman-iterable-email-api/)
+- …and 14 more published on APIs.io
 
-#### Tags
+#### Overlays (44)
 
-- Android
-- In-App Messaging
-- Mobile
-- Push Notifications
-- SDK
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Properties
+- [Iterable Campaigns Api Overlay](https://apis.io/overlays/iterable/iterable-campaigns-api-overlay/)
+- [Iterable Campaigns Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-campaigns-api-phrasing-overlay/)
+- [Iterable Catalogs Api Overlay](https://apis.io/overlays/iterable/iterable-catalogs-api-overlay/)
+- [Iterable Catalogs Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-catalogs-api-phrasing-overlay/)
+- [Iterable Channels Api Overlay](https://apis.io/overlays/iterable/iterable-channels-api-overlay/)
+- [Iterable Channels Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-channels-api-phrasing-overlay/)
+- [Iterable Commerce Api Overlay](https://apis.io/overlays/iterable/iterable-commerce-api-overlay/)
+- [Iterable Commerce Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-commerce-api-phrasing-overlay/)
+- [Iterable Email Api Overlay](https://apis.io/overlays/iterable/iterable-email-api-overlay/)
+- [Iterable Email Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-email-api-phrasing-overlay/)
+- [Iterable Embedded Messaging Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-embedded-messaging-api-phrasing-overlay/)
+- [Iterable Events Api Overlay](https://apis.io/overlays/iterable/iterable-events-api-overlay/)
+- [Iterable Events Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-events-api-phrasing-overlay/)
+- [Iterable Experimentmetrics Api Overlay](https://apis.io/overlays/iterable/iterable-experimentmetrics-api-overlay/)
+- [Iterable Experiments Api Overlay](https://apis.io/overlays/iterable/iterable-experiments-api-overlay/)
+- [Iterable Experiments Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-experiments-api-phrasing-overlay/)
+- [Iterable Export Api Overlay](https://apis.io/overlays/iterable/iterable-export-api-overlay/)
+- [Iterable Export Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-export-api-phrasing-overlay/)
+- [Iterable In App Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-in-app-api-phrasing-overlay/)
+- [Iterable In App Web Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-in-app-web-api-phrasing-overlay/)
+- [Iterable Inapp Api Overlay](https://apis.io/overlays/iterable/iterable-inapp-api-overlay/)
+- [Iterable Lists Api Overlay](https://apis.io/overlays/iterable/iterable-lists-api-overlay/)
+- [Iterable Lists Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-lists-api-phrasing-overlay/)
+- [Iterable Message Types Api Phrasing Overlay](https://apis.io/overlays/iterable/iterable-message-types-api-phrasing-overlay/)
+- [Iterable Messagetypes Api Overlay](https://apis.io/overlays/iterable/iterable-messagetypes-api-overlay/)
+- …and 19 more published on APIs.io
 
-- [Documentation](https://support.iterable.com/hc/en-us/articles/360028925511-Overview-of-Iterable-s-iOS-and-Android-SDKs)
-- [Postman Collection](collections/iterable-export-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-export-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/iterable-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (2)
 
-### Iterable React Native SDK
+Spectral rulesets for the provider's contracts.
 
-The Iterable React Native SDK enables developers to integrate Iterable's marketing automation capabilities into cross-platform mobile applications built with React Native. It wraps Iterable's native iOS and Android SDKs and supports both JavaScript and TypeScript. The SDK provides access to push notifications, in-app messages, Mobile Inbox, user event tracking, and deep linking.
+- [Iterable — asyncapi rules](https://apis.io/rules/iterable/iterable-asyncapi-spectral-rules/)
+- [Iterable — jsonschema rules](https://apis.io/rules/iterable/iterable-jsonschema-spectral-rules/)
 
-- **Human URL:** [https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK](https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK)
-- **Base URL:** `https://api.example.com`
+#### Security (3)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Cross-Platform
-- JavaScript
-- Mobile
-- React Native
-- SDK
+- [Iterable Authentication](https://apis.io/security/iterable/iterable-authentication/)
+- [Iterable Domain Security](https://apis.io/security/iterable/iterable-domain-security/)
+- [Iterable Trust Center](https://apis.io/security/iterable/iterable-trust-center/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://support.iterable.com/hc/en-us/articles/360045714072-Overview-of-Iterable-s-React-Native-SDK)
-- [Postman Collection](collections/iterable-export-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-export-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/iterable-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/iterable-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-## Common Properties
+- [Iterable Plans Pricing](https://apis.io/plans/iterable/iterable-plans-pricing/)
 
-- [LinkedIn](https://www.linkedin.com/company/iterable)
-- [AsyncAPI](asyncapi/iterable-system-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON-LD](json-ld/iterable-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/iterable-user-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/iterable-campaign-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/iterable-event-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/iterable-commerce-item-schema.json) — [JSON Schema](https://json-schema.org/specification)
+#### Rate limits (1)
+
+Published request limits.
+
+- [Iterable Rate Limits](https://apis.io/rate-limits/iterable/iterable-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Iterable Finops](https://apis.io/finops/iterable/iterable-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://iterable.com/)
 - [Documentation](https://api.iterable.com/api/docs)
+- [Getting started](https://support.iterable.com/hc/en-us/articles/41044692130196-Getting-Started-with-Iterable-s-API)
+- [API reference](https://api.iterable.com/api/docs)
 - [Support](https://support.iterable.com/hc/en-us)
+- [Changelog](https://support.iterable.com/hc/en-us/articles/44900665796628-2026-Release-Notes)
 - [Blog](https://iterable.com/blog/)
-- [Login](https://app.iterable.com/login)
-- [Privacy Policy](https://iterable.com/trust/privacy-policy/)
-- [Terms of Service](https://iterable.com/trust/terms-of-service/)
-- [Features](undefined)
+- [Compliance](https://trust.iterable.com/)
+- [Terms of service](https://iterable.com/legal/terms/)
+- [Privacy policy](https://iterable.com/trust/privacy-policy/)
+- [GitHub](https://github.com/Iterable)
+- [Status](https://status.iterable.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 67.5** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 60.1 |
+| Contract governance | 31.8 |
+| Operational transparency | 81.6 |
+| Developer ergonomics | 79.8 |
+| Access clarity | 57.9 |
+
+**Agent readiness 34.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 25.0** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/iterable/](https://apis.io/providers/iterable/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Iterable: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/iterable/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
